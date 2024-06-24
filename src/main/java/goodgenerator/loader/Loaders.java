@@ -17,6 +17,7 @@ import goodgenerator.blocks.regularBlock.Frame;
 import goodgenerator.blocks.regularBlock.TEBlock;
 import goodgenerator.blocks.regularBlock.TurbineCasing;
 import goodgenerator.blocks.tileEntity.ComponentAssemblyLine;
+import goodgenerator.blocks.tileEntity.AntimatterForge;
 import goodgenerator.blocks.tileEntity.CoolantTower;
 import goodgenerator.blocks.tileEntity.EssentiaHatch;
 import goodgenerator.blocks.tileEntity.EssentiaOutputHatch;
@@ -219,6 +220,15 @@ public class Loaders {
         new String[] { GoodGenerator.MOD_ID + ":fuison/1", GoodGenerator.MOD_ID + ":fuison/2",
             GoodGenerator.MOD_ID + ":fuison/3", GoodGenerator.MOD_ID + ":fuison/4",
             GoodGenerator.MOD_ID + ":fuison/5" });
+    public static final Block antimatterContainmentCasing = new Frame(
+        "antimatterContainmentCasing",
+        new String[] { GoodGenerator.MOD_ID + ":antimatterContainmentCasing" });
+    public static final Block magneticFluxCasing = new Casing(
+        "magneticFluxCasing",
+        new String[] { GoodGenerator.MOD_ID + ":magneticFluxCasing" });
+    public static final Block protomatterActivationCoil = new Casing(
+        "protomatterActivationCoil",
+        new String[] { GoodGenerator.MOD_ID + ":protomatterActivationCoil" }); 
     public static final Block essentiaFilterCasing = new Casing(
         "essentiaFilterCasing",
         new String[] { GoodGenerator.MOD_ID + ":essentiaFilterCasing" });
@@ -261,6 +271,7 @@ public class Loaders {
     public static ItemStack[] Generator_Diesel = new ItemStack[2];
 
     public static ItemStack CompAssline;
+    public static ItemStack AMForge;
     // public static Item Isotope = new NuclearMetaItemGenerator();
 
     public static void GTMetaTileRegister() {
@@ -322,6 +333,8 @@ public class Loaders {
             IDOffset + 25,
             "ComponentAssemblyLine",
             "Component Assembly Line").getStackForm(1L);
+        Loaders.AMForge = new AntimatterForge(IDOffset + 250, "AntimatterForge", "Semi-Stable Antimatter Stabilization Sequencer")
+            .getStackForm(1L);
         CrackRecipeAdder.registerPipe(30995, MyMaterial.incoloy903, 15000, 8000, true);
         CrackRecipeAdder.registerWire(32749, MyMaterial.signalium, 12, 131072, 16, true);
         CrackRecipeAdder.registerWire(32737, MyMaterial.lumiium, 8, 524288, 64, true);
@@ -351,6 +364,9 @@ public class Loaders {
         GameRegistry.registerBlock(pressureResistantWalls, MyItemBlocks.class, "pressureResistantWalls");
         GameRegistry.registerBlock(preciseUnitCasing, MyItemBlocks.class, "preciseUnitCasing");
         GameRegistry.registerBlock(compactFusionCoil, MyItemBlocks.class, "compactFusionCoil");
+        GameRegistry.registerBlock(antimatterContainmentCasing, MyItemBlocks.class, "antimatterContainmentCasing");
+        GameRegistry.registerBlock(magneticFluxCasing, MyItemBlocks.class, "magneticFluxCasing");
+        GameRegistry.registerBlock(protomatterActivationCoil, MyItemBlocks.class, "protomatterActivationCoil");
         GameRegistry.registerItem(radiationProtectionPlate, "radiationProtectionPlate", GoodGenerator.MOD_ID);
         GameRegistry.registerItem(wrappedUraniumIngot, "wrappedUraniumIngot", GoodGenerator.MOD_ID);
         GameRegistry.registerItem(highDensityUraniumNugget, "highDensityUraniumNugget", GoodGenerator.MOD_ID);
