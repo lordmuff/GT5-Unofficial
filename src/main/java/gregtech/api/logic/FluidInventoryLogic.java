@@ -25,7 +25,7 @@ import com.gtnewhorizons.modularui.common.widget.Scrollable;
 
 /**
  * Generic Fluid logic for MuTEs.
- * 
+ *
  * @author BlueWeabo
  */
 public class FluidInventoryLogic {
@@ -82,7 +82,7 @@ public class FluidInventoryLogic {
     }
 
     /**
-     * 
+     *
      * @return The Fluid Inventory Logic as an NBTTagList to be saved in another nbt as how one wants.
      */
     @Nonnull
@@ -181,7 +181,7 @@ public class FluidInventoryLogic {
 
     /**
      * Try and drain the first fluid found for that amount. Used by GT_Cover_Pump
-     * 
+     *
      * @param amount Fluid to drain from the tank
      * @return A fluidstack with the possible amount drained
      */

@@ -137,7 +137,7 @@ public interface IHasWorldObjectAndCoords {
 
     /**
      * Sends a Block Event to the Client TileEntity.
-     * 
+     *
      * @param aValue value to sync
      */
     void sendBlockEvent(byte aID, byte aValue);

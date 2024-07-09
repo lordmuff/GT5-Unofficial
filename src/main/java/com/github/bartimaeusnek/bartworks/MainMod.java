@@ -79,17 +79,7 @@ import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.api.util.GT_OreDictUnificator;
 
-@Mod(modid = MainMod.MOD_ID, name = MainMod.NAME, version = GT_Version.VERSION, dependencies = """
-    required-after:IC2;\
-    required-after:gregtech;\
-    after:berriespp;\
-    after:tectech;\
-    after:GalacticraftMars;\
-    after:GalacticraftCore;\
-    after:Forestry;\
-    after:ProjRed|Illumination;\
-    after:RandomThings;\
-    before:miscutils;""")
+@Mod(modid = MainMod.MOD_ID, name = MainMod.NAME, version = GT_Version.VERSION, dependencies = "required-after:IC2;required-after:gregtech5;after:berriespp;after:tectech;after:GalacticraftMars;after:GalacticraftCore;after:Forestry;after:ProjRed|Illumination;after:RandomThings;before:miscutils;")
 public final class MainMod {
 
     public static final String NAME = "BartWorks";

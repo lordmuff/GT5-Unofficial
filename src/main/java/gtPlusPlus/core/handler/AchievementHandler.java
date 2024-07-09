@@ -275,7 +275,7 @@ public class AchievementHandler {
     /**
      * A generic handler that will give an achievement for an item. Useful to only write this once, then call it from
      * all handlers.
-     * 
+     *
      * @param aStack  - The Itemstack to check for achievements.
      * @param aPlayer - The player to unlock for.
      */

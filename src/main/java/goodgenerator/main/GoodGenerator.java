@@ -25,7 +25,7 @@ import gregtech.GT_Version;
 @Mod(
     modid = GoodGenerator.MOD_ID,
     version = GoodGenerator.VERSION,
-    dependencies = "required-after:IC2; " + "required-after:gregtech; "
+    dependencies = "required-after:IC2; " + "required-after:gregtech5; "
         + "required-after:bartworks; "
         + "required-after:tectech; "
         + "required-after:structurelib; "

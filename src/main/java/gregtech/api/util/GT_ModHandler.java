@@ -1007,8 +1007,8 @@ public class GT_ModHandler {
     public static void stopBufferingCraftingRecipes() {
         sBufferCraftingRecipes = false;
 
-        bulkRemoveRecipeByOutput(delayedRemovalByOutput);
-        bulkRemoveByRecipe(delayedRemovalByRecipe);
+        //bulkRemoveRecipeByOutput(delayedRemovalByOutput);
+        //bulkRemoveByRecipe(delayedRemovalByRecipe);
         sBufferRecipeList.forEach(GameRegistry::addRecipe);
 
         delayedRemovalByOutput.clear();

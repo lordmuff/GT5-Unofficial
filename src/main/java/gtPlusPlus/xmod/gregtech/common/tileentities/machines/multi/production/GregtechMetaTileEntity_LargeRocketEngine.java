@@ -320,7 +320,7 @@ public class GregtechMetaTileEntity_LargeRocketEngine
 
     /**
      * Consumes Fuel if required. Free Fuel Ticks are handled here.
-     * 
+     *
      * @param aFuel
      * @return
      */

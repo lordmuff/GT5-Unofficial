@@ -60,7 +60,7 @@ public class GT_Worldgen_GT_Ore_SmallPieces_Space extends GT_Worldgen {
 
     /**
      * Check if *this* orelayer is enabled for pDimensionDef
-     * 
+     *
      * @param pDimensionDef the ChunkProvider in question
      * @return
      */

@@ -2,9 +2,9 @@
   "modListVersion": 2,
   "modList": [
     {
-      "modid": "gregtech",
-      "name": "GregTech",
-      "description": "This Mod adds the awesome Technology of GregTech-Intergalactical to your World!",
+      "modid": "gregtech5",
+      "name": "gregtech5",
+      "description": "This Mod adds the awesome Technology of gregtech5-Intergalactical to your World!",
       "mcversion": "${minecraftVersion}",
       "version": "${modVersion}",
       "logoFile": "/assets/gregtech_addon/textures/LogoGTI_Long.png",
@@ -37,13 +37,13 @@
       "logoFile": "",
       "screenshots": [],
       "dependencies": [
-        "gregtech"
+        "gregtech5"
       ]
     },
     {
       "modid": "bartworks",
       "name": "BartWorks",
-      "description": "A Gregtech Addon.",
+      "description": "A gregtech5 Addon.",
       "version": "${modVersion}",
       "mcversion": "${minecraftVersion}",
       "url": "https://github.com/bartimaeusnek/bartworks",
@@ -51,7 +51,7 @@
       "authorList": [
         "bartimaeusnek"
       ],
-      "credits": "Gregorius Techneticies for making gregtech and allowing me to port his old stuff.\n Austin Appleby and Yonik Seeley for creating and putting the MurmurHash3 into the public domain.\n Spluff and EmeraldsEmerald for the Awesome Textures aswell.",
+      "credits": "Gregorius Techneticies for making gregtech5 and allowing me to port his old stuff.\n Austin Appleby and Yonik Seeley for creating and putting the MurmurHash3 into the public domain.\n Spluff and EmeraldsEmerald for the Awesome Textures aswell.",
       "logoFile": "",
       "screenshots": [],
       "parent": "",
@@ -103,7 +103,7 @@
     {
       "modid": "galacticgreg",
       "name": "Galactic Greg",
-      "description": "Adds Gregtech Oregen to Galacticraft Dimensions",
+      "description": "Adds gregtech5 Oregen to Galacticraft Dimensions",
       "version": "${modVersion}",
       "mcversion": "${minecraftVersion}",
       "url": "http://forum.industrial-craft.net/index.php?page=Thread&threadID=11039",
@@ -119,7 +119,7 @@
     {
       "modid": "GT++",
       "name": "miscutils",
-      "description": "Adds over 100 new Multiblocks, Machines, etc to Gregtech.",
+      "description": "Adds over 100 new Multiblocks, Machines, etc to gregtech5.",
       "credits": "",
       "logoFile": "",
       "version": "${modVersion}",
@@ -143,7 +143,7 @@
         "IC2",
         "ihl",
         "psychedelicraft",
-        "gregtech",
+        "gregtech5",
         "Forestry",
         "MagicBees",
         "CoFHCore",
@@ -221,14 +221,14 @@
       "screenshots": [],
       "requiredMods": [
         "IC2",
-        "gregtech",
+        "gregtech5",
         "tectech",
         "Thaumcraft",
         "ThaumicTinkerer"
       ],
       "dependencies": [
         "IC2",
-        "gregtech",
+        "gregtech5",
         "tectech",
         "Thaumcraft",
         "ThaumicTinkerer",
@@ -254,14 +254,14 @@
       "requiredMods": [
         "Forge",
         "IC2",
-        "gregtech",
+        "gregtech5",
         "bartworks",
         "tectech",
         "structurelib"
       ],
       "dependencies": [
         "IC2",
-        "gregtech",
+        "gregtech5",
         "bartworks",
         "tectech",
         "structurelib",
@@ -272,7 +272,7 @@
     {
       "modid": "kubatech",
       "name": "KubaTech",
-      "description": "Gregtech addon.",
+      "description": "gregtech5 addon.",
       "version": "${modVersion}",
       "mcversion": "${minecraftVersion}",
       "url": "https://github.com/GTNewHorizons/KubaTech/",

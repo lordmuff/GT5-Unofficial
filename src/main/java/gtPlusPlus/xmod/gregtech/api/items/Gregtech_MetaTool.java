@@ -25,7 +25,7 @@ import net.minecraftforge.event.world.BlockEvent;
 
 import buildcraft.api.tools.IToolWrench;
 import cpw.mods.fml.common.Optional;
-import gregtech.api.enchants.Enchantment_Radioactivity;
+import gregapi.enchants.Enchantment_Radioactivity;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.Mods;
 import gregtech.api.interfaces.IDamagableItem;
@@ -620,6 +620,7 @@ public abstract class Gregtech_MetaTool extends GT_MetaGenerated_Tool
                     tLevel == null ? tLevels[i] : tLevel == tLevels[i] ? tLevel + 1 : Math.max(tLevel, tLevels[i]));
             }
         }
+
         for (final Entry<Integer, Integer> tEntry : tMap.entrySet()) {
             if ((tEntry.getKey() == 33) || ((tEntry.getKey() == 20) && (tEntry.getValue() > 2))
                 || (tEntry.getKey() == Enchantment_Radioactivity.INSTANCE.effectId)) {
@@ -657,6 +658,7 @@ public abstract class Gregtech_MetaTool extends GT_MetaGenerated_Tool
                 }
             }
         }
+
         EnchantmentHelper.setEnchantments(tResult, aStack);
         return true;
     }

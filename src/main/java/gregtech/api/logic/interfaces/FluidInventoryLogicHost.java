@@ -24,7 +24,7 @@ public interface FluidInventoryLogicHost extends IFluidHandler {
 
     /**
      * To be used for single blocks or when directly interacting with the controller
-     * 
+     *
      * @param side The side from where fluids are being inputted or extracted from
      * @param type The type of inventory being accessed. For inputting its Input, For outputting its Output.
      * @return The Fluid Logic responsible for said type. Can return null if the side is invalid
@@ -34,7 +34,7 @@ public interface FluidInventoryLogicHost extends IFluidHandler {
 
     /**
      * Only to be used by MultiBlockPart for accessing the Controller Inventory
-     * 
+     *
      * @param type Type of inventory, is it Input or Output
      * @param id   ID of the locked inventory. A null id is all inventories of said controller of said type
      * @return The Fluid Logic responsible for everything that should be done with said inventory

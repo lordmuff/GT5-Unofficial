@@ -36,7 +36,7 @@ public class BW_Worldgen_Ore_Layer_Space extends BW_OreLayer {
 
     /**
      * Code-only Constructor Will work with NEI
-     * 
+     *
      * @param aName       veinname, should start with mix.
      * @param pDefault    enabled?
      * @param pMinY
@@ -104,7 +104,7 @@ public class BW_Worldgen_Ore_Layer_Space extends BW_OreLayer {
 
     /**
      * Script Friendly Constructor, WONT WORK WITH NEI
-     * 
+     *
      * @param aName
      * @param pDefault
      * @param pMinY
@@ -178,7 +178,7 @@ public class BW_Worldgen_Ore_Layer_Space extends BW_OreLayer {
 
     /**
      * Script Friendly Constructor, WONT WORK WITH NEI
-     * 
+     *
      * @param aName
      * @param enabled
      */

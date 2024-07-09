@@ -70,7 +70,7 @@ public class BW_Worldgen_Ore_SmallOre_Space extends BW_OreLayer {
 
     /**
      * Script Friendly Constructor, WONT WORK WITH NEI
-     * 
+     *
      * @param aName
      * @param enabled
      */

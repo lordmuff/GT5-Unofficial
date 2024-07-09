@@ -19,7 +19,7 @@ public interface SyncedMultiTileEntity {
     /**
      * Should always collect all the data that the controller or casing has and should send
      * Called by {@link #sendFullPacket()}
-     * 
+     *
      * @param packet The packet which will be sent
      */
     void getFullPacketData(GT_Packet_MultiTileEntity packet);
@@ -35,7 +35,7 @@ public interface SyncedMultiTileEntity {
      * Collects all the data that should be sent out at a certain period of time defined by
      * {@link #getTimedPacketPeriod()}
      * Called by {@link #sendTimedPacket()}
-     * 
+     *
      * @param packet The packet which will be sent
      */
     void getTimedPacketData(GT_Packet_MultiTileEntity packet);
@@ -56,7 +56,7 @@ public interface SyncedMultiTileEntity {
     /**
      * Collects all the data that is needed to be send every single tick
      * Called by {@link #sendGraphicPacket()}
-     * 
+     *
      * @param packet The packet which will be sent
      */
     void getGraphicPacketData(GT_Packet_MultiTileEntity packet);

@@ -7,7 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 /**
  * This class aims at separating logic run on {@link TaskHost}, rather than using interface layers.
  * It has two main functionalities: Run tick and Save/Load.
- * 
+ *
  * @param <T> Type of the host
  */
 public abstract class TickableTask<T extends TaskHost> {

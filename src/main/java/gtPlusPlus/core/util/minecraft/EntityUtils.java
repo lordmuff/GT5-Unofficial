@@ -134,7 +134,7 @@ public class EntityUtils {
 
     /**
      * Provides the ability to provide custom drops upon the death of EntityLivingBase objects.
-     * 
+     *
      * @param aMobClass  - The Base Class you want to drop this item.
      * @param aStack     - The ItemStack, stack size is not respected.
      * @param aMaxAmount - The maximum size of the ItemStack which drops.

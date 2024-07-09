@@ -46,7 +46,7 @@ import crazypants.enderio.api.tool.ITool;
 import forestry.api.arboriculture.IToolGrafter;
 import gregtech.GT_Mod;
 import gregtech.api.GregTech_API;
-import gregtech.api.enchants.Enchantment_Radioactivity;
+import gregapi.enchants.Enchantment_Radioactivity;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.TC_Aspects.TC_AspectStack;
 import gregtech.api.interfaces.IDamagableItem;
@@ -927,42 +927,44 @@ public abstract class GT_MetaGenerated_Tool extends GT_MetaBase_Item
         }
         Enchantment[] tEnchants = tStats.getEnchantments(aStack);
         int[] tLevels = tStats.getEnchantmentLevels(aStack);
-        for (int i = 0; i < tEnchants.length; i++) if (tLevels[i] > 0) {
-            Integer tLevel = tMap.get(tEnchants[i].effectId);
-            tMap.put(
-                tEnchants[i].effectId,
-                tLevel == null ? tLevels[i] : tLevel == tLevels[i] ? tLevel + 1 : Math.max(tLevel, tLevels[i]));
-        }
-        for (Entry<Integer, Integer> tEntry : tMap.entrySet()) {
-            if (tEntry.getKey() == 33 || (tEntry.getKey() == 20 && tEntry.getValue() > 2)
-                || tEntry.getKey() == Enchantment_Radioactivity.INSTANCE.effectId)
-                tResult.put(tEntry.getKey(), tEntry.getValue());
-            else switch (Enchantment.enchantmentsList[tEntry.getKey()].type) {
-                case weapon:
-                    if (tStats.isWeapon()) tResult.put(tEntry.getKey(), tEntry.getValue());
-                    break;
-                case all:
-                    tResult.put(tEntry.getKey(), tEntry.getValue());
-                    break;
-                case armor:
-                case armor_feet:
-                case armor_head:
-                case armor_legs:
-                case armor_torso:
-                    break;
-                case bow:
-                    if (tStats.isRangedWeapon()) tResult.put(tEntry.getKey(), tEntry.getValue());
-                    break;
-                case breakable:
-                    break;
-                case fishing_rod:
-                    break;
-                case digger:
-                    if (tStats.isMiningTool()) tResult.put(tEntry.getKey(), tEntry.getValue());
-                    break;
+        for (int i = 0; i < tEnchants.length; i++)
+            if (tLevels[i] > 0) {
+                Integer tLevel = tMap.get(tEnchants[i].effectId);
+                tMap.put(
+                    tEnchants[i].effectId,
+                    tLevel == null ? tLevels[i] : tLevel == tLevels[i] ? tLevel + 1 : Math.max(tLevel, tLevels[i]));
+                for (Entry<Integer, Integer> tEntry : tMap.entrySet()) {
+                    if (tEntry.getKey() == 33 || (tEntry.getKey() == 20 && tEntry.getValue() > 2)
+                        || tEntry.getKey() == Enchantment_Radioactivity.INSTANCE.effectId)
+                        tResult.put(tEntry.getKey(), tEntry.getValue());
+                    else switch (Enchantment.enchantmentsList[tEntry.getKey()].type) {
+                        case weapon:
+                            if (tStats.isWeapon()) tResult.put(tEntry.getKey(), tEntry.getValue());
+                            break;
+                        case all:
+                            tResult.put(tEntry.getKey(), tEntry.getValue());
+                            break;
+                        case armor:
+                        case armor_feet:
+                        case armor_head:
+                        case armor_legs:
+                        case armor_torso:
+                            break;
+                        case bow:
+                            if (tStats.isRangedWeapon()) tResult.put(tEntry.getKey(), tEntry.getValue());
+                            break;
+                        case breakable:
+                            break;
+                        case fishing_rod:
+                            break;
+                        case digger:
+                            if (tStats.isMiningTool()) tResult.put(tEntry.getKey(), tEntry.getValue());
+                            break;
+                    }
+                }
+                EnchantmentHelper.setEnchantments(tResult, aStack);
+
             }
-        }
-        EnchantmentHelper.setEnchantments(tResult, aStack);
         return true;
     }
 

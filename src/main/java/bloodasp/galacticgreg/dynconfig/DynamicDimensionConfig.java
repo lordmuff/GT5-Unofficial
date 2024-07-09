@@ -126,7 +126,7 @@ public class DynamicDimensionConfig {
 
     /**
      * Convert numbers to actual loot-table entries
-     * 
+     *
      * @param pACfg
      * @return
      */

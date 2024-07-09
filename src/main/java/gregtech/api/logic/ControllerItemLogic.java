@@ -20,7 +20,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * Logic of the Item logic for the controller. This is controlling all of the inventories.
- * 
+ *
  * @author BlueWeabo
  */
 public class ControllerItemLogic {

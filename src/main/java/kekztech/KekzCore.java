@@ -27,7 +27,7 @@ import gregtech.api.enums.Mods;
     modid = KekzCore.MODID,
     name = KekzCore.NAME,
     version = KekzCore.VERSION,
-    dependencies = "required-after:IC2;" + "required-after:gregtech;"
+    dependencies = "required-after:IC2;" + "required-after:gregtech5;"
         + "required-after:tectech;"
         + "required-after:Thaumcraft;"
         + "required-after:ThaumicTinkerer;"

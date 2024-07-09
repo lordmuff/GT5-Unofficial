@@ -42,7 +42,7 @@ public class RecipeInputRequirements {
     }
 
     /**
-     * 
+     *
      * @param itemInputs we have and want to fill this request
      * @return {@code true} when all item inputs are met
      */
@@ -59,7 +59,7 @@ public class RecipeInputRequirements {
     }
 
     /**
-     * 
+     *
      * @param fluidInputs we have and want to fill this request
      * @return {@code true} when all fluid inputs are met
      */

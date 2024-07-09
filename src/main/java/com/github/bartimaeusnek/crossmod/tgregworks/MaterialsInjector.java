@@ -22,7 +22,7 @@ import vexatos.tgregworks.reference.Config;
     version = MaterialsInjector.VERSION,
     dependencies = """
         required-after:IC2;\
-        required-after:gregtech;\
+        required-after:gregtech5;\
         required-after:bartworks;\
         before:TGregworks;\
         before:miscutils;""")

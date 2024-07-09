@@ -1142,7 +1142,7 @@ public class Material {
 
     /**
      * Ore Components
-     * 
+     *
      * @return
      */
     public final ItemStack getOre(final int stacksize) {

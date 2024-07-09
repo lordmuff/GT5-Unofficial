@@ -11,7 +11,7 @@ import gtPlusPlus.core.util.Utils;
 
 /**
  * A Server Side safe object that can hold {@link IIcon}s.
- * 
+ *
  * @author Alkalus
  *
  */

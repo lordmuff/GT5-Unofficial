@@ -62,8 +62,6 @@ public class GregtechMetaTileEntity_IndustrialFishingPond extends
     GregtechMeta_MultiBlockBase<GregtechMetaTileEntity_IndustrialFishingPond> implements ISurvivalConstructable {
 
     private boolean isUsingControllerCircuit = false;
-    private static final Item circuit = CI.getNumberedCircuit(0)
-        .getItem();
     private int mCasing;
     private static IStructureDefinition<GregtechMetaTileEntity_IndustrialFishingPond> STRUCTURE_DEFINITION = null;
     private static final Class<?> cofhWater;
@@ -192,17 +190,6 @@ public class GregtechMetaTileEntity_IndustrialFishingPond extends
 
     @Override
     public @NotNull CheckRecipeResult checkProcessing() {
-        ItemStack controllerStack = getControllerSlot();
-        if (controllerStack != null) {
-            if (controllerStack.getItem() == circuit) {
-                this.isUsingControllerCircuit = true;
-                this.mMode = controllerStack.getItemDamage();
-            } else {
-                this.isUsingControllerCircuit = false;
-            }
-        } else {
-            this.isUsingControllerCircuit = false;
-        }
         if (!hasGenerateRecipes) {
             generateRecipes();
         }

@@ -34,7 +34,7 @@ import gregtech.api.util.GT_ProcessingArray_Manager;
     version = GGConstants.VERSION,
     name = GGConstants.MODNAME,
     acceptedMinecraftVersions = "[1.7.10]",
-    dependencies = "required-after:IC2;required-before:gregtech")
+    dependencies = "required-after:IC2;required-before:gregtech5")
 public class GigaGramFab {
 
     public GigaGramFab() {

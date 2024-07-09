@@ -1,7 +1,8 @@
 {
   "required": true,
   "minVersion": "0.8.5-GTNH",
-  "refmap": "mixins.gregtech.refmap.json",
+  "package": "gregtech.mixin.mixins.early",
+  "refmap": "mixins.gregtech5.refmap.json",
   "target": "@env(DEFAULT)",
   "compatibilityLevel": "JAVA_8",
   "mixins": [],

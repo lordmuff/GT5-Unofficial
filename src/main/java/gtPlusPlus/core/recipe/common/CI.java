@@ -978,7 +978,7 @@ public class CI {
 
     /**
      * Aluminium + Silver Catalyst
-     * 
+     *
      * @param aAmount - Stacksize
      * @return - A Catalyst stack of given size
      */
@@ -988,7 +988,7 @@ public class CI {
 
     /**
      * Iridium + Ruthenium Catalyst
-     * 
+     *
      * @param aAmount - Stacksize
      * @return - A Catalyst stack of given size
      */
@@ -998,7 +998,7 @@ public class CI {
 
     /**
      * Platinum + Rhodium Catalyst
-     * 
+     *
      * @param aAmount - Stacksize
      * @return - A Catalyst stack of given size
      */

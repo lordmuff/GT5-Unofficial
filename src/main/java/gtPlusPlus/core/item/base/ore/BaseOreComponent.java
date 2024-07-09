@@ -157,7 +157,7 @@ public class BaseOreComponent extends Item {
 
     /**
      * Rendering Related
-     * 
+     *
      * @author Alkalus
      *
      */

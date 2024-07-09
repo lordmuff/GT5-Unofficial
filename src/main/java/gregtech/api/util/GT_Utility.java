@@ -133,7 +133,7 @@ import gregtech.api.GregTech_API;
 import gregtech.api.damagesources.GT_DamageSources;
 import gregtech.api.damagesources.GT_DamageSources.DamageSourceHotItem;
 import gregtech.api.enchants.Enchantment_Hazmat;
-import gregtech.api.enchants.Enchantment_Radioactivity;
+import gregapi.enchants.Enchantment_Radioactivity;
 import gregtech.api.enums.GT_Values;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;

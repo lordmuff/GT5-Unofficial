@@ -152,7 +152,7 @@ public interface IEnergyConnected extends IColoredTileEntity {
                 emitterLogic.removeEnergyUnsafe(usedAmperes * voltage);
                 return;
             }
-    
+
             if (tileEntity instanceof IEnergySink sink) {
                 if (sink.acceptsEnergyFrom((TileEntity) emitter, oppositeSide)) {
                     while (amperage > usedAmperes && sink.getDemandedEnergy() > 0

@@ -391,7 +391,7 @@ public class MathUtils {
 
     /**
      * Inverts the value, making Positives into Negatives and vice versa.
-     * 
+     *
      * @param aPositive - An int value, either positive or negative.
      * @return - Inverted int Value.
      */
@@ -484,7 +484,7 @@ public class MathUtils {
 
     /**
      * Balances a number within a range.
-     * 
+     *
      * @param aInput - The number to balance
      * @param aMin   - The minimum bounds
      * @param aMax   - The maximum bounds

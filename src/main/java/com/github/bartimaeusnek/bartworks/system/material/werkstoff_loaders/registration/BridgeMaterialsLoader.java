@@ -24,7 +24,8 @@ import java.util.ArrayList;
 import com.github.bartimaeusnek.bartworks.system.material.Werkstoff;
 import com.github.bartimaeusnek.bartworks.system.material.werkstoff_loaders.IWerkstoffRunnable;
 
-import gregtech.api.enchants.Enchantment_Radioactivity;
+import gregtech.api.enchants.Enchantment_Hazmat;
+import gregapi.enchants.Enchantment_Radioactivity;
 import gregtech.api.enums.Element;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
@@ -158,11 +159,11 @@ public class BridgeMaterialsLoader implements IWerkstoffRunnable {
                 if (werkstoff.getStats()
                     .isRadioactive()) {
                     werkstoffBridgeMaterial.setEnchantmentForArmors(
-                        Enchantment_Radioactivity.INSTANCE,
+                        Enchantment_Hazmat.INSTANCE,
                         werkstoff.getStats()
                             .getEnchantmentlvl());
                     werkstoffBridgeMaterial.setEnchantmentForTools(
-                        Enchantment_Radioactivity.INSTANCE,
+                        Enchantment_Hazmat.INSTANCE,
                         werkstoff.getStats()
                             .getEnchantmentlvl());
                 }

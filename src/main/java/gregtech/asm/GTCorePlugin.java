@@ -70,7 +70,7 @@ public class GTCorePlugin implements IFMLLoadingPlugin, IEarlyMixinLoader {
 
     @Override
     public String getMixinConfig() {
-        return "mixins.gregtech.early.json";
+        return "mixins.gregtech5.early.json";
     }
 
     @Override

@@ -59,7 +59,7 @@ import gtPlusPlus.xmod.thaumcraft.commands.CommandDumpAspects;
     dependencies = "required-after:Forge;" + " after:TConstruct;"
         + " after:dreamcraft;"
         + " after:IC2;"
-        + " required-after:gregtech;"
+        + " required-after:gregtech5;"
         + " after:Forestry;"
         + " after:MagicBees;"
         + " after:CoFHCore;"

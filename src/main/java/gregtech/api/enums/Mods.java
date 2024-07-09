@@ -86,7 +86,7 @@ public enum Mods {
     GoodGenerator(Names.GOOD_GENERATOR),
     GraviSuite(Names.GRAVI_SUITE),
     GraviSuiteNEO(Names.GRAVI_SUITE_NEO),
-    GregTech(Names.GREG_TECH),
+    GregTech(Names.GREG_TECH5),
     HardcoreEnderExpansion(Names.HARDCORE_ENDER_EXPANSION),
     HodgePodge(Names.HODGE_PODGE),
     HoloInventory(Names.HOLO_INVENTORY),
@@ -267,7 +267,7 @@ public enum Mods {
         public static final String GOOD_GENERATOR = "GoodGenerator";
         public static final String GRAVI_SUITE = "GraviSuite";
         public static final String GRAVI_SUITE_NEO = "gravisuiteneo";
-        public static final String GREG_TECH = "gregtech";
+        public static final String GREG_TECH5 = "gregtech5";
         public static final String HARDCORE_ENDER_EXPANSION = "HardcoreEnderExpansion";
         public static final String HODGE_PODGE = "hodgepodge";
         public static final String HOLO_INVENTORY = "holoinventory";
@@ -291,7 +291,7 @@ public enum Mods {
         public static final String MINECRAFT = "minecraft";
         public static final String MINE_TWEAKER = "MineTweaker3";
         public static final String N_E_I_CUSTOM_DIAGRAMS = "neicustomdiagram";
-        public static final String N_E_I_ORE_PLUGIN = "gtneioreplugin";
+        public static final String N_E_I_ORE_PLUGIN = "gt5neioreplugin";
         public static final String NATURA = "Natura";
         public static final String NATURES_COMPASS = "naturescompass";
         public static final String NEW_HORIZONS_CORE_MOD = "dreamcraft";

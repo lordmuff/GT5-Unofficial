@@ -20,7 +20,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * Controller logic for Fluid inventories
- * 
+ *
  * @author BlueWeabo
  */
 public class ControllerFluidLogic {

@@ -15,7 +15,7 @@ import gregtech.api.logic.PowerLogic;
 public interface PowerLogicHost {
 
     /**
-     * 
+     *
      * @param side Side being access to try and get the power logic from
      * @return Can return NullPowerLogic if the side doesn't allow the return of the logic. That power logic is unusable
      */

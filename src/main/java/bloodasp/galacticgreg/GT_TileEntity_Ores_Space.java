@@ -27,7 +27,7 @@ public class GT_TileEntity_Ores_Space {
 
     /**
      * Check if the block at given position may be replaced by an ore
-     * 
+     *
      * @param pWorld the world in question
      * @param pX     X-Cord
      * @param pY     Y-Cord
@@ -55,7 +55,7 @@ public class GT_TileEntity_Ores_Space {
 
     /**
      * Actually set the OreBlock
-     * 
+     *
      * @param pWorld    the world in question
      * @param pX
      * @param pY

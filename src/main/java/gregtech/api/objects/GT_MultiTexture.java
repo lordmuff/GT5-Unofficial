@@ -9,7 +9,7 @@ import gregtech.api.interfaces.ITexture;
  * <p>
  * I should have done this much earlier...
  * </p>
- * 
+ *
  * @deprecated Replaced by the {@link gregtech.api.render.TextureFactory} API.
  */
 @Deprecated

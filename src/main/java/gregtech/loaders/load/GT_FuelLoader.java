@@ -171,10 +171,12 @@ public class GT_FuelLoader implements Runnable {
             .metadata(FUEL_VALUE, Materials.NetherStar.mFuelPower * 2)
             .metadata(FUEL_TYPE, Materials.NetherStar.mFuelType)
             .addTo(GT_RecipeConstants.Fuel);
+        /*
         GT_Values.RA.stdBuilder()
             .itemInputs(GT_ModHandler.getModItem(EnderIO.ID, "bucketRocket_fuel", 1))
             .metadata(FUEL_VALUE, 250)
             .metadata(FUEL_TYPE, 1)
             .addTo(GT_RecipeConstants.Fuel);
+         */
     }
 }

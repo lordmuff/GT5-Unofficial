@@ -7,7 +7,7 @@ import gregtech.api.objects.GT_CopiedBlockTexture;
 
 /**
  * Made this to get rid of deprecation warnings <i>everywhere</i>.
- * 
+ *
  * @author Alkalus
  *
  */

@@ -16,9 +16,12 @@ import com.github.bartimaeusnek.bartworks.common.configs.ConfigHandler;
 
 import cpw.mods.fml.relauncher.FMLLaunchHandler;
 
-public enum Mixin {
+public enum Mixin {;
 
     // Minecraft
+
+    /*
+
     WorldMixin(new Builder("Block update detection").addMixinClasses("minecraft.WorldMixin")
         .addTargetedMod(VANILLA)
         .setApplyIf(() -> true)
@@ -47,7 +50,9 @@ public enum Mixin {
         .setPhase(Phase.EARLY)
         .setSide(Side.BOTH));
 
-    public static final Logger LOGGER = LogManager.getLogger("GregTech-Mixin");
+    */
+
+    //public static final Logger LOGGER = LogManager.getLogger("GregTech-Mixin");
 
     private final List<String> mixinClasses;
     private final List<TargetedMod> targetedMods;
@@ -92,7 +97,7 @@ public enum Mixin {
                 }
             }
         }
-        LOGGER.info("Not loading the following EARLY mixins: {}", notLoading.toString());
+        //LOGGER.info("Not loading the following EARLY mixins: {}", notLoading.toString());
         return mixins;
     }
 
@@ -109,7 +114,7 @@ public enum Mixin {
                 }
             }
         }
-        LOGGER.info("Not loading the following LATE mixins: {}", notLoading.toString());
+        //LOGGER.info("Not loading the following LATE mixins: {}", notLoading.toString());
         return mixins;
     }
 

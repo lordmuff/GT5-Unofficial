@@ -29,7 +29,7 @@ public interface ITexture {
 
     /**
      * Will initialize the {@link Tessellator} if rendering off-world (Inventory)
-     * 
+     *
      * @param aRenderer The {@link RenderBlocks} Renderer
      * @param aNormalX  The X Normal for current Quad Face
      * @param aNormalY  The Y Normal for current Quad Face
@@ -44,7 +44,7 @@ public interface ITexture {
 
     /**
      * Will run the {@link Tessellator} to draw Quads if rendering off-world (Inventory)
-     * 
+     *
      * @param aRenderer The {@link RenderBlocks} Renderer
      */
     default void draw(RenderBlocks aRenderer) {

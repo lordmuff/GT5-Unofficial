@@ -28,7 +28,7 @@ import gregtech.api.util.GT_Log;
     modid = Tags.MODID,
     version = Tags.VERSION,
     name = Tags.MODNAME,
-    dependencies = "required-after:IC2; " + "required-after:gregtech; "
+    dependencies = "required-after:IC2; " + "required-after:gregtech5; "
         + "required-after:bartworks; "
         + "required-after:GoodGenerator; "
         + "before:miscutils; ")

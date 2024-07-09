@@ -188,7 +188,7 @@ public interface IGregtech_RecipeAdder {
 
     /**
      * Adds a custom Semifluid fuel for the GT++ SemiFluid Generators.
-     * 
+     *
      * @param aFuelItem  - A Fluidstack to be consumed.
      * @param aFuelValue - Fuel value in thousands (1 = 1000)
      * @return - Was the Fuel added?
@@ -197,7 +197,7 @@ public interface IGregtech_RecipeAdder {
 
     /**
      * Adds a custom Semifluid fuel for the GT++ SemiFluid Generators.
-     * 
+     *
      * @param aFuelItem  - A Fluidstack to be consumed.
      * @param aFuelValue - Fuel value in thousands (1 = 1000)
      * @return - Was the Fuel added?

@@ -47,9 +47,6 @@ import cpw.mods.fml.common.event.FMLServerStartedEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import gregtech.api.GregTech_API;
-import gregtech.api.enchants.Enchantment_EnderDamage;
-import gregtech.api.enchants.Enchantment_Hazmat;
-import gregtech.api.enchants.Enchantment_Radioactivity;
 import gregtech.api.enums.GT_Values;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
@@ -120,11 +117,11 @@ import ic2.api.recipe.IRecipeInput;
 import ic2.api.recipe.RecipeOutput;
 
 @Mod(
-    modid = Mods.Names.GREG_TECH,
-    name = "GregTech",
+    modid = Mods.Names.GREG_TECH5,
+    name = "GregTech 5 Unofficial: New Horizons",
     version = "MC1710",
     guiFactory = "gregtech.client.GT_GuiFactory",
-    dependencies = " required-after:IC2;" + " required-after:structurelib;"
+    dependencies = " required-after:IC2;" + " required-after:structurelib;" + " after:gregapi;"
         + " required-after:gtnhlib@[0.2.1,);"
         + " required-after:modularui@[1.1.12,);"
         + " required-after:appliedenergistics2@[rv3-beta-258,);"
@@ -175,11 +172,11 @@ public class GT_Mod implements IGT_Mod {
     @Deprecated
     public static final int REQUIRED_IC2 = 624;
 
-    @Mod.Instance(Mods.Names.GREG_TECH)
+    @Mod.Instance(Mods.Names.GREG_TECH5)
     public static GT_Mod instance;
 
     @SidedProxy(
-        modId = Mods.Names.GREG_TECH,
+        modId = Mods.Names.GREG_TECH5,
         clientSide = "gregtech.common.GT_Client",
         serverSide = "gregtech.common.GT_Server")
     public static GT_Proxy gregtechproxy;
@@ -253,10 +250,6 @@ public class GT_Mod implements IGT_Mod {
         GT_Log.out.println("GT_Mod: Setting Configs");
 
         GT_PreLoad.loadConfig(tMainConfig);
-
-        new Enchantment_Hazmat();
-        new Enchantment_EnderDamage();
-        new Enchantment_Radioactivity();
 
         Materials.init();
 

@@ -30,7 +30,7 @@ import gregtech.api.util.item.ItemHolder;
 
 /**
  * Generic Item logic for MuTEs.
- * 
+ *
  * @author BlueWeabo
  */
 public class ItemInventoryLogic {
@@ -101,7 +101,7 @@ public class ItemInventoryLogic {
     }
 
     /**
-     * 
+     *
      * @return The Item Inventory Logic as an NBTTagCompound to be saved in another nbt as how one wants.
      */
     @Nonnull

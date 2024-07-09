@@ -37,7 +37,7 @@ public class DynamicOreMixWorldConfig {
 
     /**
      * Init a new dynamic config for a given world-generator
-     * 
+     *
      * @param pWorldGenName
      */
     public DynamicOreMixWorldConfig(String pWorldGenName) {
@@ -54,7 +54,7 @@ public class DynamicOreMixWorldConfig {
 
     /**
      * Check if this OreGen is enabled for a given Dimension, represented by pMDD
-     * 
+     *
      * @param pMDD The dimension in question
      * @return true or false if *this* oregen is enabled in the worldgen config
      */
@@ -65,7 +65,7 @@ public class DynamicOreMixWorldConfig {
 
     /**
      * Initializes the dynamic oregen config. This must be called *AFTER* InitModContainers() has done its work
-     * 
+     *
      * @return true or false if the config init was successfull
      */
     public boolean InitDynamicConfig() {
