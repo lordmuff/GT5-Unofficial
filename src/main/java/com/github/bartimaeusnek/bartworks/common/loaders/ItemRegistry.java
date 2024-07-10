@@ -60,7 +60,6 @@ import com.github.bartimaeusnek.bartworks.common.tileentities.tiered.GT_MetaTile
 import com.github.bartimaeusnek.bartworks.common.tileentities.tiered.GT_MetaTileEntity_GiantOutputHatch;
 import com.github.bartimaeusnek.bartworks.common.tileentities.tiered.GT_MetaTileEntity_HumongousInputHatch;
 import com.github.bartimaeusnek.bartworks.system.material.WerkstoffLoader;
-import com.github.bartimaeusnek.crossmod.galacticgreg.GT_TileEntity_VoidMiners;
 import com.github.bartimaeusnek.crossmod.tectech.tileentites.tiered.TT_MetaTileEntity_LowPowerLaserBox;
 import com.github.bartimaeusnek.crossmod.tectech.tileentites.tiered.TT_MetaTileEntity_LowPowerLaserDynamo;
 import com.github.bartimaeusnek.crossmod.tectech.tileentites.tiered.TT_MetaTileEntity_LowPowerLaserHatch;
@@ -383,20 +382,6 @@ public class ItemRegistry {
             "MegaOilCracker",
             "Mega Oil Cracker").getStackForm(1L);
 
-        if (GalactiGreg.isModLoaded()) {
-            ItemRegistry.voidminer[2] = new GT_TileEntity_VoidMiners.VMUV(
-                ConfigHandler.IDOffset + GT_Values.VN.length * 8 + 11,
-                "VoidMiner3",
-                "Void Miner III").getStackForm(1L);
-            ItemRegistry.voidminer[1] = new GT_TileEntity_VoidMiners.VMZPM(
-                ConfigHandler.IDOffset + GT_Values.VN.length * 8 + 12,
-                "VoidMiner2",
-                "Void Miner II").getStackForm(1L);
-            ItemRegistry.voidminer[0] = new GT_TileEntity_VoidMiners.VMLUV(
-                ConfigHandler.IDOffset + GT_Values.VN.length * 8 + 13,
-                "VoidMiner1",
-                "Void Miner I").getStackForm(1L);
-        }
         TecTechPipeEnergyLowPower = new TT_MetaTileEntity_Pipe_Energy_LowPower(
             ConfigHandler.IDOffset + GT_Values.VN.length * 8 + 14,
             "pipe.lowpowerlaser",
