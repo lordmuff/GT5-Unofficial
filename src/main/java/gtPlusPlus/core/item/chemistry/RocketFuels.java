@@ -122,7 +122,7 @@ public class RocketFuels extends ItemPackage {
         // H2O2 + 2NH3 = N2H4 + 2H2O
         CORE.RA.addChemicalPlantRecipe(
             new ItemStack[] { CI.getNumberedCircuit(21) },
-            new FluidStack[] { FluidUtils.getFluidStack("fluid.hydrogenperoxide", 1000),
+            new FluidStack[] { FluidUtils.getFluidStack("hydrogenperoxide", 1000),
                 FluidUtils.getFluidStack("ammonia", 2000), },
             new ItemStack[] {},
             new FluidStack[] { FluidUtils.getFluidStack(Hydrazine, 1000), },

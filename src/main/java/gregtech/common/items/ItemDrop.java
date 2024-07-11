@@ -145,13 +145,6 @@ public class ItemDrop extends Item {
             new FluidStack(FluidRegistry.getFluid("ic2hotcoolant"), 100),
             GT_ModHandler.getModItem(MagicBees.ID, "propolis", 1L, 2),
             30);
-        tDrop = getStackForType(DropType.SNOW_QUEEN);
-        addProcessMV(
-            tDrop,
-            Materials.FierySteel.getFluid(200L),
-            GT_ModHandler.getModItem(NewHorizonsCoreMod.ID, "item.SnowQueenBloodDrop", 1L, 0),
-            1500,
-            48);
         tDrop = getStackForType(DropType.LAPIS);
         addProcessLV(
             tDrop,

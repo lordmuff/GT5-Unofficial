@@ -763,7 +763,7 @@ public class GenericChem extends ItemPackage {
         // 2HLiO2 = Li2O2 + H2O2
         GT_Values.RA.stdBuilder()
             .itemInputs(ItemUtils.getItemStackOfAmountFromOreDict("dustLithiumHydroperoxide", 8))
-            .fluidOutputs(FluidUtils.getFluidStack("fluid.hydrogenperoxide", 1000))
+            .fluidOutputs(FluidUtils.getFluidStack("hydrogenperoxide", 1000))
             .itemOutputs(ItemUtils.getItemStackOfAmountFromOreDict("dustLithiumPeroxide", 4))
             .duration(100 * SECONDS)
             .eut(120)
@@ -777,7 +777,7 @@ public class GenericChem extends ItemPackage {
         CORE.RA.addChemicalPlantRecipe(
             new ItemStack[] { CI.getNumberedCircuit(4),
                 ItemUtils.getItemStackOfAmountFromOreDict("dustLithiumHydroxide", 3), },
-            new FluidStack[] { FluidUtils.getFluidStack("fluid.hydrogenperoxide", 1000), },
+            new FluidStack[] { FluidUtils.getFluidStack("hydrogenperoxide", 1000), },
             new ItemStack[] { ItemUtils.getItemStackOfAmountFromOreDict("dustLithiumHydroperoxide", 4), },
             new FluidStack[] {},
             20 * 30,
@@ -796,7 +796,7 @@ public class GenericChem extends ItemPackage {
                 FluidUtils.getFluidStack("fluid.anthracene", 50), },
             new ItemStack[] {},
             new FluidStack[] { FluidUtils.getFluidStack(Ethylanthraquinone2, 5000),
-                FluidUtils.getFluidStack("fluid.hydrogenperoxide", 5000), },
+                FluidUtils.getFluidStack("hydrogenperoxide", 5000), },
             20 * 30,
             240,
             1);
@@ -807,7 +807,7 @@ public class GenericChem extends ItemPackage {
                 FluidUtils.getFluidStack("fluid.anthracene", 50), },
             new ItemStack[] {},
             new FluidStack[] { FluidUtils.getFluidStack(Ethylanthraquinone2, 5000),
-                FluidUtils.getFluidStack("fluid.hydrogenperoxide", 5000), },
+                FluidUtils.getFluidStack("hydrogenperoxide", 5000), },
             20 * 5,
             240,
             1);

@@ -299,7 +299,7 @@ public class RecipeLoader_ChemicalSkips {
             200 * 20,
             (int) TierEU.RECIPE_UIV,
             4);
-
+/*
         if (GalaxySpace.isModLoaded()) {
             // Seaweed
             ItemStack seaweed = GT_Utility
@@ -316,6 +316,8 @@ public class RecipeLoader_ChemicalSkips {
                 (int) TierEU.RECIPE_UIV,
                 4);
         }
+
+ */
     }
 
     private static void fusionReactorRecipes() {

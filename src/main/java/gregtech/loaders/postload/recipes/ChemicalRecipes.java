@@ -118,6 +118,7 @@ public class ChemicalRecipes implements Runnable {
             .eut(TierEU.RECIPE_HV)
             .addTo(UniversalChemical);
 
+        /*
         GT_Values.RA.stdBuilder()
             .itemInputs(getModItem(GalaxySpace.ID, "item.UnknowCrystal", 4), Materials.Osmiridium.getDust(2))
             .itemOutputs(ItemList.Circuit_Chip_Stemcell.get(64))
@@ -126,6 +127,7 @@ public class ChemicalRecipes implements Runnable {
             .duration(30 * SECONDS)
             .eut(TierEU.RECIPE_LuV)
             .addTo(UniversalChemical);
+         */
 
         GT_Values.RA.stdBuilder()
             .itemInputs(

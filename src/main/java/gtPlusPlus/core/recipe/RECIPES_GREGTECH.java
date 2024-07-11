@@ -1167,9 +1167,9 @@ public class RECIPES_GREGTECH {
                 .itemInputs(
                     GT_Utility.getIntegratedCircuit(17),
                     GT_OreDictUnificator.get(OrePrefixes.plate, Materials.Trinium, 64L),
-                    CI.getSensor(6, 6),
-                    CI.getBolt(7, 64),
-                    GT_OreDictUnificator.get(OrePrefixes.wireFine, Materials.Platinum, 64L),
+                    //CI.getSensor(6, 6),
+                    //CI.getBolt(7, 64),
+                    //GT_OreDictUnificator.get(OrePrefixes.wireFine, Materials.Platinum, 64L),
                     ItemUtils.getItemStackOfAmountFromOreDict(CI.getTieredCircuitOreDictName(7), 12))
                 .itemOutputs(
                     ItemDummyResearch.getResearchStack(ASSEMBLY_LINE_RESEARCH.RESEARCH_8_TURBINE_AUTOMATION, 1))
@@ -1183,8 +1183,8 @@ public class RECIPES_GREGTECH {
                 .itemInputs(
                     GT_Utility.getIntegratedCircuit(17),
                     ItemUtils.getSimpleStack(ModItems.itemCircuitLFTR, 4),
-                    CI.getFieldGenerator(6, 16),
-                    GT_OreDictUnificator.get(OrePrefixes.wireFine, Materials.Palladium, 32L),
+                    //CI.getFieldGenerator(6, 16),
+                    //GT_OreDictUnificator.get(OrePrefixes.wireFine, Materials.Palladium, 32L),
                     ItemUtils.getItemStackOfAmountFromOreDict(CI.getTieredCircuitOreDictName(6), 12))
                 .itemOutputs(ItemDummyResearch.getResearchStack(ASSEMBLY_LINE_RESEARCH.RESEARCH_9_CLOAKING, 1))
                 .fluidInputs(CI.getAlternativeTieredFluid(7, 144 * 32))

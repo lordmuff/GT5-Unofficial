@@ -2,7 +2,6 @@ package gregtech.common.items;
 
 import static gregtech.api.enums.Mods.GregTech;
 import static gregtech.api.enums.Mods.HardcoreEnderExpansion;
-import static gregtech.api.enums.Mods.NewHorizonsCoreMod;
 import static gregtech.api.recipe.RecipeMaps.fluidExtractionRecipes;
 import static gregtech.api.util.GT_RecipeBuilder.SECONDS;
 import static gregtech.api.util.GT_RecipeBuilder.TICKS;
@@ -88,10 +87,6 @@ public class ItemPropolis extends Item {
         addProcessHV(tPropolis, GT_ModHandler.getModItem(HardcoreEnderExpansion.ID, "end_powder", 1, 0));
         tPropolis = getStackForType(PropolisType.Stardust);
         addProcessHV(tPropolis, GT_ModHandler.getModItem(HardcoreEnderExpansion.ID, "stardust", 1, 0));
-        tPropolis = getStackForType(PropolisType.Ectoplasma);
-        addProcessEV(tPropolis, GT_ModHandler.getModItem(NewHorizonsCoreMod.ID, "item.EctoplasmaChip", 1, 0));
-        tPropolis = getStackForType(PropolisType.Arcaneshard);
-        addProcessEV(tPropolis, GT_ModHandler.getModItem(NewHorizonsCoreMod.ID, "item.ArcaneShardChip", 1, 0));
         tPropolis = getStackForType(PropolisType.Dragonessence);
         addProcessIV(tPropolis, GT_ModHandler.getModItem(HardcoreEnderExpansion.ID, "essence", 16, 0));
         tPropolis = getStackForType(PropolisType.Enderman);

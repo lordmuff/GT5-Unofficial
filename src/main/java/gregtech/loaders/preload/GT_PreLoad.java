@@ -135,28 +135,28 @@ public class GT_PreLoad {
     }
 
     public static Configuration getConfiguration(File configDir) {
-        File tFile = new File(new File(configDir, "GregTech"), "GregTech.cfg");
+        File tFile = new File(new File(configDir, "GregTech5u"), "GregTech.cfg");
         Configuration tMainConfig = new Configuration(tFile);
         tMainConfig.load();
-        tFile = new File(new File(configDir, "GregTech"), "IDs.cfg");
+        tFile = new File(new File(configDir, "GregTech5u"), "IDs.cfg");
         GT_Config.sConfigFileIDs = new Configuration(tFile);
         GT_Config.sConfigFileIDs.load();
         GT_Config.sConfigFileIDs.save();
         GregTech_API.sMachineFile = new GT_Config(
-            new Configuration(new File(new File(configDir, "GregTech"), "MachineStats.cfg")));
+            new Configuration(new File(new File(configDir, "GregTech5u"), "MachineStats.cfg")));
         GregTech_API.sWorldgenFile = new GT_Config(
-            new Configuration(new File(new File(configDir, "GregTech"), "WorldGeneration.cfg")));
+            new Configuration(new File(new File(configDir, "GregTech5u"), "WorldGeneration.cfg")));
         GregTech_API.sMaterialProperties = new GT_Config(
-            new Configuration(new File(new File(configDir, "GregTech"), "MaterialProperties.cfg")));
+            new Configuration(new File(new File(configDir, "GregTech5u"), "MaterialProperties.cfg")));
         GregTech_API.sUnification = new GT_Config(
-            new Configuration(new File(new File(configDir, "GregTech"), "Unification.cfg")));
+            new Configuration(new File(new File(configDir, "GregTech5u"), "Unification.cfg")));
         GregTech_API.sSpecialFile = new GT_Config(
-            new Configuration(new File(new File(configDir, "GregTech"), "Other.cfg")));
+            new Configuration(new File(new File(configDir, "GregTech5u"), "Other.cfg")));
         GregTech_API.sOPStuff = new GT_Config(
-            new Configuration(new File(new File(configDir, "GregTech"), "OverpoweredStuff.cfg")));
+            new Configuration(new File(new File(configDir, "GregTech5u"), "OverpoweredStuff.cfg")));
 
         GregTech_API.sClientDataFile = new GT_Config(
-            new Configuration(new File(new File(configDir, "GregTech"), "Client.cfg")));
+            new Configuration(new File(new File(configDir, "GregTech5u"), "Client.cfg")));
         return tMainConfig;
     }
 

@@ -260,6 +260,7 @@ public class RECIPES_General {
             .eut(TierEU.RECIPE_EV)
             .addTo(assemblerRecipes);
 
+        /*
         // Pest Killer
         GT_Values.RA.stdBuilder()
             .itemInputs(
@@ -273,6 +274,8 @@ public class RECIPES_General {
             .duration(1 * MINUTES)
             .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
+
+         */
     }
 
     private static boolean addCompressedObsidian() {

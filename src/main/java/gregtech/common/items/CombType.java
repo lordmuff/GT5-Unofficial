@@ -111,6 +111,7 @@ public enum CombType {
     NEUTRONIUM(85, "neutronium", true, Materials.Neutronium, 2, 0xFFF0F0, 0xFAFAFA, ItemComb.Voltage.ZPM),
 
     // Twilight
+    /*
     NAGA(86, "naga", true, Materials._NULL, 100, 0x0D5A0D, 0x28874B, ItemComb.Voltage.MV),
     LICH(87, "lich", true, Materials._NULL, 90, 0x5C605E, 0xC5C5C5, ItemComb.Voltage.HV),
     HYDRA(88, "hydra", true, Materials._NULL, 80, 0x872836, 0xB8132C, ItemComb.Voltage.HV),
@@ -147,6 +148,7 @@ public enum CombType {
     TCETI(114, "tceti", true, Materials._NULL, 10, 0x46241A, 0x7B412F, ItemComb.Voltage.ZPM),
     BARNARDA(115, "barnarda", true, Materials._NULL, 10, 0x0D5A0D, 0xE6C18D, ItemComb.Voltage.ZPM),
     VEGA(116, "vega", true, Materials._NULL, 10, 0x1A2036, 0xB5C0DE, ItemComb.Voltage.ZPM),
+     */
 
     // Infinity
     COSMICNEUTRONIUM(117, "cosmicneutronium", true, Materials.CosmicNeutronium, 5, 0x484848, 0x323232,

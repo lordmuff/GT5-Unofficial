@@ -248,6 +248,7 @@ public class ItemComb extends Item implements IGT_ItemWithMaterialRenderer {
             new int[] { 20 * 100, 20 * 100, 50 * 100 },
             Voltage.HV,
             196);
+        /*
         addCentrifugeToItemStack(
             CombType.LAPOTRON,
             new ItemStack[] { GT_Bees.drop.getStackForType(DropType.LAPIS),
@@ -256,6 +257,7 @@ public class ItemComb extends Item implements IGT_ItemWithMaterialRenderer {
             new int[] { 20 * 100, 100 * 100, 40 * 100 },
             Voltage.HV,
             240);
+         */
         addCentrifugeToMaterial(
             CombType.PYROTHEUM,
             new Materials[] { Materials.Blaze, Materials.Pyrotheum },
@@ -973,8 +975,8 @@ public class ItemComb extends Item implements IGT_ItemWithMaterialRenderer {
         addProcessGT(CombType.OSMIUM, new Materials[] { Materials.Osmium }, Voltage.IV);
         addProcessGT(CombType.LITHIUM, new Materials[] { Materials.Lithium }, Voltage.MV);
         addProcessGT(CombType.ELECTROTINE, new Materials[] { Materials.Electrotine }, Voltage.MV);
-        addProcessGT(CombType.DRACONIC, new Materials[] { Materials.Draconium }, Voltage.IV);
-        addProcessGT(CombType.AWAKENEDDRACONIUM, new Materials[] { Materials.DraconiumAwakened }, Voltage.ZPM);
+        //addProcessGT(CombType.DRACONIC, new Materials[] { Materials.Draconium }, Voltage.IV);
+        //addProcessGT(CombType.AWAKENEDDRACONIUM, new Materials[] { Materials.DraconiumAwakened }, Voltage.ZPM);
         if (GT_Mod.gregtechproxy.mNerfedCombs) {
             addCentrifugeToItemStack(
                 CombType.SALT,
@@ -1180,6 +1182,7 @@ public class ItemComb extends Item implements IGT_ItemWithMaterialRenderer {
         }
 
         // Twilight
+        /*
         addCentrifugeToItemStack(
             CombType.NAGA,
             new ItemStack[] { GT_ModHandler.getModItem(MagicBees.ID, "propolis", 1L, 4),
@@ -1218,6 +1221,7 @@ public class ItemComb extends Item implements IGT_ItemWithMaterialRenderer {
                 GT_Bees.drop.getStackForType(DropType.SNOW_QUEEN), ItemList.FR_Wax.get(1) },
             new int[] { 5 * 100, 33 * 100, 8 * 100, 30 * 100 },
             Voltage.EV);
+         */
 
         // HEE
         addCentrifugeToItemStack(
@@ -1280,6 +1284,7 @@ public class ItemComb extends Item implements IGT_ItemWithMaterialRenderer {
                 GT_ModHandler.getModItem(MagicBees.ID, "wax", 1L, 0),
                 20 * 100);
         }
+        /*
         addCentrifugeToItemStack(
             CombType.RUNEI,
             new ItemStack[] { GT_ModHandler.getModItem(MagicBees.ID, "wax", 1L, 0),
@@ -1296,6 +1301,7 @@ public class ItemComb extends Item implements IGT_ItemWithMaterialRenderer {
                 GT_ModHandler.getModItem(NewHorizonsCoreMod.ID, "item.RuneOfVoidFragment", 1L, 0) },
             new int[] { 50 * 100, (int) (2.5 * 100) },
             Voltage.IV);
+         */
         addCentrifugeToItemStack(
             CombType.FIREESSENSE,
             new ItemStack[] { GT_ModHandler.getModItem(MagicBees.ID, "wax", 1L, 0),
@@ -1311,6 +1317,7 @@ public class ItemComb extends Item implements IGT_ItemWithMaterialRenderer {
                 new int[] { 100 * 100 },
                 Voltage.LV);
         }
+        /*
         // Space Line
         addCentrifugeToItemStack(
             CombType.SPACE,
@@ -1551,6 +1558,8 @@ public class ItemComb extends Item implements IGT_ItemWithMaterialRenderer {
                 Voltage.UV,
                 100);
         }
+         */
+
         // Infinity Line
         addCentrifugeToMaterial(
             CombType.INFINITYCATALYST,
@@ -1571,7 +1580,7 @@ public class ItemComb extends Item implements IGT_ItemWithMaterialRenderer {
         addFluidExtractorProcess(CombType.OXYGEN, Materials.Oxygen.getGas(500), Voltage.MV);
         // Organic part 2, unknown liquid
         // yes, unknowwater. It's not a typo, it's how it is spelled. Stupid game.
-        addFluidExtractorProcess(CombType.UNKNOWNWATER, FluidRegistry.getFluidStack("unknowwater", 250), Voltage.ZPM);
+        //addFluidExtractorProcess(CombType.UNKNOWNWATER, FluidRegistry.getFluidStack("unknowwater", 250), Voltage.ZPM);
         /*
          * TODO: update this comment
          * The Centrifuge Recipes for Infused Shards and Nether/End-Shard from the Infused Shard Line are below the
