@@ -29,7 +29,7 @@ public class COMPAT_IC2 {
         "ore:plateIron",
         "ore:plateIron",
         "ore:plateIron",
-        "gregtech:gt.metaitem.01:32750",
+        "gregtech5:gt.metaitem.01:32750",
         "ore:plateIron",
         "ore:craftingWireCopper",
         "ore:craftingWireCopper",

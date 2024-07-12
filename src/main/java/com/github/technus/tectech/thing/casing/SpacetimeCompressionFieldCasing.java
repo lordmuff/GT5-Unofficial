@@ -67,15 +67,15 @@ public class SpacetimeCompressionFieldCasing extends GT_Block_Casings_Abstract {
 
     @Override
     public void registerBlockIcons(IIconRegister aIconRegister) {
-        textureTier0 = aIconRegister.registerIcon("gregtech:iconsets/EM_DIM_0");
-        textureTier1 = aIconRegister.registerIcon("gregtech:iconsets/EM_DIM_1");
-        textureTier2 = aIconRegister.registerIcon("gregtech:iconsets/EM_DIM_2");
-        textureTier3 = aIconRegister.registerIcon("gregtech:iconsets/EM_DIM_3");
-        textureTier4 = aIconRegister.registerIcon("gregtech:iconsets/EM_DIM_4");
-        textureTier5 = aIconRegister.registerIcon("gregtech:iconsets/EM_DIM_5");
-        textureTier6 = aIconRegister.registerIcon("gregtech:iconsets/EM_DIM_6");
-        textureTier7 = aIconRegister.registerIcon("gregtech:iconsets/EM_DIM_7");
-        textureTier8 = aIconRegister.registerIcon("gregtech:iconsets/EM_DIM_8");
+        textureTier0 = aIconRegister.registerIcon("gregtech5:iconsets/EM_DIM_0");
+        textureTier1 = aIconRegister.registerIcon("gregtech5:iconsets/EM_DIM_1");
+        textureTier2 = aIconRegister.registerIcon("gregtech5:iconsets/EM_DIM_2");
+        textureTier3 = aIconRegister.registerIcon("gregtech5:iconsets/EM_DIM_3");
+        textureTier4 = aIconRegister.registerIcon("gregtech5:iconsets/EM_DIM_4");
+        textureTier5 = aIconRegister.registerIcon("gregtech5:iconsets/EM_DIM_5");
+        textureTier6 = aIconRegister.registerIcon("gregtech5:iconsets/EM_DIM_6");
+        textureTier7 = aIconRegister.registerIcon("gregtech5:iconsets/EM_DIM_7");
+        textureTier8 = aIconRegister.registerIcon("gregtech5:iconsets/EM_DIM_8");
     }
 
     @Override

@@ -189,10 +189,9 @@ public class CORE {
         public static int pollutionPerSecondMultiIndustrialChisel = 50;
         // pollution single blocks
         public static int basePollutionPerSecondSemiFluidGenerator = 40;
-        public static double[] pollutionReleasedByTierSemiFluidGenerator = new double[] { 0, 2.0, 4.0, 8.0, 12.0, 16,
-            0 };
+        public static double[] pollutionReleasedByTierSemiFluidGenerator = new double[] { 0, 2.0, 4.0, 8.0, 12.0, 16, 32, 64, 128, 256 };
         public static int basePollutionPerSecondBoiler = 35;
-        public static double[] pollutionReleasedByTierBoiler = new double[] { 0, 1.0, 1.43, 1.86 };
+        public static double[] pollutionReleasedByTierBoiler = new double[] { 0, 1.0, 1.43, 1.86, 2.37, 3.68, 4.89, 5.0, 6.77, 8.0 };
         public static int baseMinPollutionPerSecondRocketFuelGenerator = 250;
         public static int baseMaxPollutionPerSecondRocketFuelGenerator = 2000;
         public static double[] pollutionReleasedByTierRocketFuelGenerator = new double[] { 0, 0, 0, 0, 1, 2, 3 };

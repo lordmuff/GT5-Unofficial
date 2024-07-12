@@ -19,10 +19,12 @@ import gtPlusPlus.core.util.reflect.AddGregtechRecipe;
 
 public class CokeAndPyrolyseOven {
 
+    /*
     public static void onLoadComplete() {
         convertPyroToCokeOven();
     }
 
+     */
     public static void postInit() {
         Logger.INFO("Loading Recipes for Industrial Coking Oven.");
         // Wood to Charcoal
@@ -61,6 +63,7 @@ public class CokeAndPyrolyseOven {
 
     }
 
+    /*
     private static void convertPyroToCokeOven() {
         int aCount = 0;
         for (GT_Recipe g : RecipeMaps.pyrolyseRecipes.getAllRecipes()) {
@@ -70,4 +73,5 @@ public class CokeAndPyrolyseOven {
         }
         Logger.INFO("Converted " + aCount + " Pyrolyse recipes into Industrial Coke Oven recipes.");
     }
+     */
 }

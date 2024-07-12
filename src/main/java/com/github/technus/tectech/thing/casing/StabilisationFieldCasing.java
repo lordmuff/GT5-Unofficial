@@ -64,15 +64,15 @@ public class StabilisationFieldCasing extends GT_Block_Casings_Abstract {
 
     @Override
     public void registerBlockIcons(IIconRegister aIconRegister) {
-        textureTier0 = aIconRegister.registerIcon("gregtech:iconsets/STABILITY_CASING_0");
-        textureTier1 = aIconRegister.registerIcon("gregtech:iconsets/STABILITY_CASING_1");
-        textureTier2 = aIconRegister.registerIcon("gregtech:iconsets/STABILITY_CASING_2");
-        textureTier3 = aIconRegister.registerIcon("gregtech:iconsets/STABILITY_CASING_3");
-        textureTier4 = aIconRegister.registerIcon("gregtech:iconsets/STABILITY_CASING_4");
-        textureTier5 = aIconRegister.registerIcon("gregtech:iconsets/STABILITY_CASING_5");
-        textureTier6 = aIconRegister.registerIcon("gregtech:iconsets/STABILITY_CASING_6");
-        textureTier7 = aIconRegister.registerIcon("gregtech:iconsets/STABILITY_CASING_7");
-        textureTier8 = aIconRegister.registerIcon("gregtech:iconsets/STABILITY_CASING_8");
+        textureTier0 = aIconRegister.registerIcon("gregtech5:iconsets/STABILITY_CASING_0");
+        textureTier1 = aIconRegister.registerIcon("gregtech5:iconsets/STABILITY_CASING_1");
+        textureTier2 = aIconRegister.registerIcon("gregtech5:iconsets/STABILITY_CASING_2");
+        textureTier3 = aIconRegister.registerIcon("gregtech5:iconsets/STABILITY_CASING_3");
+        textureTier4 = aIconRegister.registerIcon("gregtech5:iconsets/STABILITY_CASING_4");
+        textureTier5 = aIconRegister.registerIcon("gregtech5:iconsets/STABILITY_CASING_5");
+        textureTier6 = aIconRegister.registerIcon("gregtech5:iconsets/STABILITY_CASING_6");
+        textureTier7 = aIconRegister.registerIcon("gregtech5:iconsets/STABILITY_CASING_7");
+        textureTier8 = aIconRegister.registerIcon("gregtech5:iconsets/STABILITY_CASING_8");
     }
 
     @Override

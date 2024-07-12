@@ -95,37 +95,37 @@ public class GT_Block_CasingsTT extends GT_Block_Casings_Abstract {
     @Override
     public void registerBlockIcons(IIconRegister aIconRegister) {
         // super.registerBlockIcons(aIconRegister);
-        eM0 = aIconRegister.registerIcon("gregtech:iconsets/EM_POWER");
+        eM0 = aIconRegister.registerIcon("gregtech5:iconsets/EM_POWER");
 
-        eM1 = aIconRegister.registerIcon("gregtech:iconsets/EM_PC_NONSIDE");
-        eM1s = aIconRegister.registerIcon("gregtech:iconsets/EM_PC");
-        eM2 = aIconRegister.registerIcon("gregtech:iconsets/EM_PC_VENT_NONSIDE");
-        eM2s = aIconRegister.registerIcon("gregtech:iconsets/EM_PC_VENT");
-        eM3 = aIconRegister.registerIcon("gregtech:iconsets/EM_PC_ADV_NONSIDE");
-        eM3s = aIconRegister.registerIcon("gregtech:iconsets/EM_PC_ADV");
+        eM1 = aIconRegister.registerIcon("gregtech5:iconsets/EM_PC_NONSIDE");
+        eM1s = aIconRegister.registerIcon("gregtech5:iconsets/EM_PC");
+        eM2 = aIconRegister.registerIcon("gregtech5:iconsets/EM_PC_VENT_NONSIDE");
+        eM2s = aIconRegister.registerIcon("gregtech5:iconsets/EM_PC_VENT");
+        eM3 = aIconRegister.registerIcon("gregtech5:iconsets/EM_PC_ADV_NONSIDE");
+        eM3s = aIconRegister.registerIcon("gregtech5:iconsets/EM_PC_ADV");
 
-        eM4 = aIconRegister.registerIcon("gregtech:iconsets/EM_CASING");
-        eM5 = aIconRegister.registerIcon("gregtech:iconsets/EM_FIELD_CASING");
-        eM6 = aIconRegister.registerIcon("gregtech:iconsets/EM_FIELD");
+        eM4 = aIconRegister.registerIcon("gregtech5:iconsets/EM_CASING");
+        eM5 = aIconRegister.registerIcon("gregtech5:iconsets/EM_FIELD_CASING");
+        eM6 = aIconRegister.registerIcon("gregtech5:iconsets/EM_FIELD");
 
-        eM7 = aIconRegister.registerIcon("gregtech:iconsets/EM_COIL_NONSIDE");
-        eM7s = aIconRegister.registerIcon("gregtech:iconsets/EM_COIL");
-        eM8 = aIconRegister.registerIcon("gregtech:iconsets/EM_HOLLOW");
-        eM9 = aIconRegister.registerIcon("gregtech:iconsets/EM_TIMESPACE");
+        eM7 = aIconRegister.registerIcon("gregtech5:iconsets/EM_COIL_NONSIDE");
+        eM7s = aIconRegister.registerIcon("gregtech5:iconsets/EM_COIL");
+        eM8 = aIconRegister.registerIcon("gregtech5:iconsets/EM_HOLLOW");
+        eM9 = aIconRegister.registerIcon("gregtech5:iconsets/EM_TIMESPACE");
 
-        eM10 = aIconRegister.registerIcon("gregtech:iconsets/EM_TELE");
-        eM11 = aIconRegister.registerIcon("gregtech:iconsets/EM_DIM");
+        eM10 = aIconRegister.registerIcon("gregtech5:iconsets/EM_TELE");
+        eM11 = aIconRegister.registerIcon("gregtech5:iconsets/EM_DIM");
 
-        eM12 = aIconRegister.registerIcon("gregtech:iconsets/EM_ULTIMATE_CASING");
-        eM13 = aIconRegister.registerIcon("gregtech:iconsets/EM_ULTIMATE_FIELD_CASING");
-        eM14 = aIconRegister.registerIcon("gregtech:iconsets/EM_ULTIMATE_FIELD");
+        eM12 = aIconRegister.registerIcon("gregtech5:iconsets/EM_ULTIMATE_CASING");
+        eM13 = aIconRegister.registerIcon("gregtech5:iconsets/EM_ULTIMATE_FIELD_CASING");
+        eM14 = aIconRegister.registerIcon("gregtech5:iconsets/EM_ULTIMATE_FIELD");
 
-        debug[0] = aIconRegister.registerIcon("gregtech:iconsets/DEBUG_0");
-        debug[1] = aIconRegister.registerIcon("gregtech:iconsets/DEBUG_1");
-        debug[2] = aIconRegister.registerIcon("gregtech:iconsets/DEBUG_2");
-        debug[3] = aIconRegister.registerIcon("gregtech:iconsets/DEBUG_3");
-        debug[4] = aIconRegister.registerIcon("gregtech:iconsets/DEBUG_4");
-        debug[5] = aIconRegister.registerIcon("gregtech:iconsets/DEBUG_5");
+        debug[0] = aIconRegister.registerIcon("gregtech5:iconsets/DEBUG_0");
+        debug[1] = aIconRegister.registerIcon("gregtech5:iconsets/DEBUG_1");
+        debug[2] = aIconRegister.registerIcon("gregtech5:iconsets/DEBUG_2");
+        debug[3] = aIconRegister.registerIcon("gregtech5:iconsets/DEBUG_3");
+        debug[4] = aIconRegister.registerIcon("gregtech5:iconsets/DEBUG_4");
+        debug[5] = aIconRegister.registerIcon("gregtech5:iconsets/DEBUG_5");
     }
 
     @Override

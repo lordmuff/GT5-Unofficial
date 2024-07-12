@@ -207,7 +207,7 @@ public class BW_Meta_Items {
                         0,
                         2,
                         aIconRegister.registerIcon(
-                            "gregtech:" + (GT_Config.troll ? "troll" : this.getUnlocalizedName() + "/" + i)),
+                            "gregtech5:" + (GT_Config.troll ? "troll" : this.getUnlocalizedName() + "/" + i)),
                         this.mIconList);
                 }
             }

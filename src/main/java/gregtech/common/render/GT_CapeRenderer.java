@@ -19,14 +19,14 @@ import gregtech.api.util.GT_Utility;
 
 public class GT_CapeRenderer extends RenderPlayer {
 
-    private final ResourceLocation[] mCapes = { new ResourceLocation("gregtech:textures/BrainTechCape.png"),
-        new ResourceLocation("gregtech:textures/GregTechCape.png"),
-        new ResourceLocation("gregtech:textures/MrBrainCape.png"),
-        new ResourceLocation("gregtech:textures/GregoriusCape.png"),
-        new ResourceLocation("gregtech:textures/DonorCape.png"), new ResourceLocation("gregtech:textures/DevCape.png"),
-        new ResourceLocation("gregtech:textures/Steam.png"), new ResourceLocation("gregtech:textures/Titanium.png"),
-        new ResourceLocation("gregtech:textures/Neutronium.png"),
-        new ResourceLocation("gregtech:textures/Stargate.png") };
+    private final ResourceLocation[] mCapes = { new ResourceLocation("gregtech5:textures/BrainTechCape.png"),
+        new ResourceLocation("gregtech5:textures/GregTechCape.png"),
+        new ResourceLocation("gregtech5:textures/MrBrainCape.png"),
+        new ResourceLocation("gregtech5:textures/GregoriusCape.png"),
+        new ResourceLocation("gregtech5:textures/DonorCape.png"), new ResourceLocation("gregtech5:textures/DevCape.png"),
+        new ResourceLocation("gregtech5:textures/Steam.png"), new ResourceLocation("gregtech5:textures/Titanium.png"),
+        new ResourceLocation("gregtech5:textures/Neutronium.png"),
+        new ResourceLocation("gregtech5:textures/Stargate.png") };
     private final Collection<String> mCapeList;
 
     public GT_CapeRenderer(Collection<String> aCapeList) {

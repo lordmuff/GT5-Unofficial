@@ -97,30 +97,30 @@ public class GT_Block_CasingsBA0 extends GT_Block_Casings_Abstract {
 
     @Override
     public void registerBlockIcons(IIconRegister aIconRegister) {
-        tM0[0] = aIconRegister.registerIcon("gregtech:iconsets/TM_TESLA_WINDING_PRIMARY_TOP_BOTTOM_0");
-        tM0[1] = aIconRegister.registerIcon("gregtech:iconsets/TM_TESLA_WINDING_PRIMARY_SIDES_0");
-        tM1[0] = aIconRegister.registerIcon("gregtech:iconsets/TM_TESLA_WINDING_PRIMARY_TOP_BOTTOM_1");
-        tM1[1] = aIconRegister.registerIcon("gregtech:iconsets/TM_TESLA_WINDING_PRIMARY_SIDES_1");
-        tM2[0] = aIconRegister.registerIcon("gregtech:iconsets/TM_TESLA_WINDING_PRIMARY_TOP_BOTTOM_2");
-        tM2[1] = aIconRegister.registerIcon("gregtech:iconsets/TM_TESLA_WINDING_PRIMARY_SIDES_2");
-        tM3[0] = aIconRegister.registerIcon("gregtech:iconsets/TM_TESLA_WINDING_PRIMARY_TOP_BOTTOM_3");
-        tM3[1] = aIconRegister.registerIcon("gregtech:iconsets/TM_TESLA_WINDING_PRIMARY_SIDES_3");
-        tM4[0] = aIconRegister.registerIcon("gregtech:iconsets/TM_TESLA_WINDING_PRIMARY_TOP_BOTTOM_4");
-        tM4[1] = aIconRegister.registerIcon("gregtech:iconsets/TM_TESLA_WINDING_PRIMARY_SIDES_4");
-        tM5[0] = aIconRegister.registerIcon("gregtech:iconsets/TM_TESLA_WINDING_PRIMARY_TOP_BOTTOM_5");
-        tM5[1] = aIconRegister.registerIcon("gregtech:iconsets/TM_TESLA_WINDING_PRIMARY_SIDES_5");
-        tM9[0] = aIconRegister.registerIcon("gregtech:iconsets/TM_TESLA_WINDING_PRIMARY_TOP_BOTTOM_6");
-        tM9[1] = aIconRegister.registerIcon("gregtech:iconsets/TM_TESLA_WINDING_PRIMARY_SIDES_6");
+        tM0[0] = aIconRegister.registerIcon("gregtech5:iconsets/TM_TESLA_WINDING_PRIMARY_TOP_BOTTOM_0");
+        tM0[1] = aIconRegister.registerIcon("gregtech5:iconsets/TM_TESLA_WINDING_PRIMARY_SIDES_0");
+        tM1[0] = aIconRegister.registerIcon("gregtech5:iconsets/TM_TESLA_WINDING_PRIMARY_TOP_BOTTOM_1");
+        tM1[1] = aIconRegister.registerIcon("gregtech5:iconsets/TM_TESLA_WINDING_PRIMARY_SIDES_1");
+        tM2[0] = aIconRegister.registerIcon("gregtech5:iconsets/TM_TESLA_WINDING_PRIMARY_TOP_BOTTOM_2");
+        tM2[1] = aIconRegister.registerIcon("gregtech5:iconsets/TM_TESLA_WINDING_PRIMARY_SIDES_2");
+        tM3[0] = aIconRegister.registerIcon("gregtech5:iconsets/TM_TESLA_WINDING_PRIMARY_TOP_BOTTOM_3");
+        tM3[1] = aIconRegister.registerIcon("gregtech5:iconsets/TM_TESLA_WINDING_PRIMARY_SIDES_3");
+        tM4[0] = aIconRegister.registerIcon("gregtech5:iconsets/TM_TESLA_WINDING_PRIMARY_TOP_BOTTOM_4");
+        tM4[1] = aIconRegister.registerIcon("gregtech5:iconsets/TM_TESLA_WINDING_PRIMARY_SIDES_4");
+        tM5[0] = aIconRegister.registerIcon("gregtech5:iconsets/TM_TESLA_WINDING_PRIMARY_TOP_BOTTOM_5");
+        tM5[1] = aIconRegister.registerIcon("gregtech5:iconsets/TM_TESLA_WINDING_PRIMARY_SIDES_5");
+        tM9[0] = aIconRegister.registerIcon("gregtech5:iconsets/TM_TESLA_WINDING_PRIMARY_TOP_BOTTOM_6");
+        tM9[1] = aIconRegister.registerIcon("gregtech5:iconsets/TM_TESLA_WINDING_PRIMARY_SIDES_6");
 
-        tM6[0] = aIconRegister.registerIcon("gregtech:iconsets/TM_TESLA_BASE_TOP_BOTTOM");
-        tM6[1] = aIconRegister.registerIcon("gregtech:iconsets/TM_TESLA_BASE_SIDES");
-        tM7 = aIconRegister.registerIcon("gregtech:iconsets/TM_TESLA_TOROID");
-        tM8[0] = aIconRegister.registerIcon("gregtech:iconsets/TM_TESLA_WINDING_SECONDARY_TOP_BOTTOM");
-        tM8[1] = aIconRegister.registerIcon("gregtech:iconsets/TM_TESLA_WINDING_SECONDARY_SIDES");
+        tM6[0] = aIconRegister.registerIcon("gregtech5:iconsets/TM_TESLA_BASE_TOP_BOTTOM");
+        tM6[1] = aIconRegister.registerIcon("gregtech5:iconsets/TM_TESLA_BASE_SIDES");
+        tM7 = aIconRegister.registerIcon("gregtech5:iconsets/TM_TESLA_TOROID");
+        tM8[0] = aIconRegister.registerIcon("gregtech5:iconsets/TM_TESLA_WINDING_SECONDARY_TOP_BOTTOM");
+        tM8[1] = aIconRegister.registerIcon("gregtech5:iconsets/TM_TESLA_WINDING_SECONDARY_SIDES");
 
-        EOH_INNER = aIconRegister.registerIcon("gregtech:iconsets/EM_INNER_SPACETIME_REINFORCED_EOH_CASING");
-        EOH_OUTER = aIconRegister.registerIcon("gregtech:iconsets/EM_OUTER_SPACETIME_REINFORCED_EOH_CASING");
-        EOH_INFINITE = aIconRegister.registerIcon("gregtech:iconsets/EM_POWER_INFINITE");
+        EOH_INNER = aIconRegister.registerIcon("gregtech5:iconsets/EM_INNER_SPACETIME_REINFORCED_EOH_CASING");
+        EOH_OUTER = aIconRegister.registerIcon("gregtech5:iconsets/EM_OUTER_SPACETIME_REINFORCED_EOH_CASING");
+        EOH_INFINITE = aIconRegister.registerIcon("gregtech5:iconsets/EM_POWER_INFINITE");
     }
 
     @Override

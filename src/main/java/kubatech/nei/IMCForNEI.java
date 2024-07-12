@@ -29,7 +29,7 @@ import cpw.mods.fml.common.event.FMLInterModComms;
 public class IMCForNEI {
 
     public static void IMCSender() {
-        if (EnderIO.isModLoaded()) sendCatalyst("mobsinfo.mobhandler", "gregtech:gt.blockmachines:14201");
+        if (EnderIO.isModLoaded()) sendCatalyst("mobsinfo.mobhandler", "gregtech5:gt.blockmachines:14201");
     }
 
     private static void sendCatalyst(String aName, String aStack, int aPriority) {

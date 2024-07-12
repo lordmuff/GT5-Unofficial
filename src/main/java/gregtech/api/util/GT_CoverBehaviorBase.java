@@ -418,7 +418,7 @@ public abstract class GT_CoverBehaviorBase<T extends ISerializableObject> {
 
     protected GT_TooltipDataCache mTooltipCache = new GT_TooltipDataCache();
     protected GT_GUIColorOverride colorOverride;
-    private static final String guiTexturePath = "gregtech:textures/gui/GuiCover.png";
+    private static final String guiTexturePath = "gregtech5:textures/gui/GuiCover.png";
 
     /**
      * For back compatibility, you need to override this if this cover uses ModularUI.

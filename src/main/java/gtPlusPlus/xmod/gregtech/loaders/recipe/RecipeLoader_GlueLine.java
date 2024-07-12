@@ -303,7 +303,7 @@ public class RecipeLoader_GlueLine {
             GT_OreDictUnificator.get(OrePrefixes.cableGt01, Materials.Naquadah, 2),
             GT_OreDictUnificator.get(OrePrefixes.plate, Materials.RedSteel, 18),
             MISC_MATERIALS.ETHYL_CYANOACRYLATE.getFluidStack(144),
-            ItemUtils.getItemStackFromFQRN("gregtech:gt.metaitem.01:32505", 1),
+            ItemUtils.getItemStackFromFQRN("gregtech5:gt.metaitem.01:32505", 1),
             300,
             7680);
 
@@ -311,7 +311,7 @@ public class RecipeLoader_GlueLine {
             GT_OreDictUnificator.get(OrePrefixes.cableGt01, Materials.NaquadahAlloy, 2),
             GT_OreDictUnificator.get(OrePrefixes.plate, Materials.Europium, 6),
             MISC_MATERIALS.ETHYL_CYANOACRYLATE.getFluidStack(288),
-            ItemUtils.getItemStackFromFQRN("gregtech:gt.metaitem.01:32506", 1),
+            ItemUtils.getItemStackFromFQRN("gregtech5:gt.metaitem.01:32506", 1),
             200,
             30720);
 
@@ -319,7 +319,7 @@ public class RecipeLoader_GlueLine {
             GT_OreDictUnificator.get(OrePrefixes.cableGt01, Materials.ElectrumFlux, 2),
             GT_OreDictUnificator.get(OrePrefixes.plate, Materials.Americium, 18),
             MISC_MATERIALS.ETHYL_CYANOACRYLATE.getFluidStack(576),
-            ItemUtils.getItemStackFromFQRN("gregtech:gt.metaitem.01:32507", 1),
+            ItemUtils.getItemStackFromFQRN("gregtech5:gt.metaitem.01:32507", 1),
             300,
             122880);
 
@@ -327,7 +327,7 @@ public class RecipeLoader_GlueLine {
             GT_OreDictUnificator.get(OrePrefixes.cableGt02, Materials.ElectrumFlux, 2),
             GT_OreDictUnificator.get(OrePrefixes.plate, Materials.Naquadah, 24),
             MISC_MATERIALS.ETHYL_CYANOACRYLATE.getFluidStack(1152),
-            ItemUtils.getItemStackFromFQRN("gregtech:gt.metaitem.01:32561", 1),
+            ItemUtils.getItemStackFromFQRN("gregtech5:gt.metaitem.01:32561", 1),
             100,
             491520);
 
@@ -335,7 +335,7 @@ public class RecipeLoader_GlueLine {
             GT_OreDictUnificator.get(OrePrefixes.cableGt04, Materials.ElectrumFlux, 2),
             GT_OreDictUnificator.get(OrePrefixes.plate, Materials.NaquadahEnriched, 36),
             MISC_MATERIALS.ETHYL_CYANOACRYLATE.getFluidStack(2304),
-            ItemUtils.getItemStackFromFQRN("gregtech:gt.metaitem.01:32562", 1),
+            ItemUtils.getItemStackFromFQRN("gregtech5:gt.metaitem.01:32562", 1),
             200,
             1966080);
 
@@ -343,7 +343,7 @@ public class RecipeLoader_GlueLine {
             GT_OreDictUnificator.get(OrePrefixes.cableGt08, Materials.ElectrumFlux, 2),
             GT_OreDictUnificator.get(OrePrefixes.plate, Materials.NaquadahAlloy, 48),
             MISC_MATERIALS.ETHYL_CYANOACRYLATE.getFluidStack(4608),
-            ItemUtils.getItemStackFromFQRN("gregtech:gt.metaitem.01:32563", 1),
+            ItemUtils.getItemStackFromFQRN("gregtech5:gt.metaitem.01:32563", 1),
             300,
             1966080);
 
@@ -351,7 +351,7 @@ public class RecipeLoader_GlueLine {
             GT_OreDictUnificator.get(OrePrefixes.wireGt16, Materials.SuperconductorUHV, 2),
             GT_OreDictUnificator.get(OrePrefixes.plate, Materials.Neutronium, 56),
             MISC_MATERIALS.ETHYL_CYANOACRYLATE.getFluidStack(9216),
-            ItemUtils.getItemStackFromFQRN("gregtech:gt.metaitem.01:32564", 1),
+            ItemUtils.getItemStackFromFQRN("gregtech5:gt.metaitem.01:32564", 1),
             600,
             1966080);
 
@@ -359,7 +359,7 @@ public class RecipeLoader_GlueLine {
             GT_OreDictUnificator.get(OrePrefixes.wireGt16, Materials.SuperconductorUHV, 2),
             GT_OreDictUnificator.get(OrePrefixes.plate, Materials.DraconiumAwakened, 64),
             MISC_MATERIALS.ETHYL_CYANOACRYLATE.getFluidStack(18432),
-            ItemUtils.getItemStackFromFQRN("gregtech:gt.metaitem.01:32565", 1),
+            ItemUtils.getItemStackFromFQRN("gregtech5:gt.metaitem.01:32565", 1),
             1200,
             1966080);
         if (NewHorizonsCoreMod.isModLoaded() && GalacticraftCore.isModLoaded()) {

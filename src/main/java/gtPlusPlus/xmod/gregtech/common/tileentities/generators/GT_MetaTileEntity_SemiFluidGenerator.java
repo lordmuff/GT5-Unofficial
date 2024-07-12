@@ -40,8 +40,7 @@ public class GT_MetaTileEntity_SemiFluidGenerator extends GT_MetaTileEntity_Basi
 
     @Override
     public int getPollution() {
-        return (int) (CORE.ConfigSwitches.basePollutionPerSecondSemiFluidGenerator
-            * CORE.ConfigSwitches.pollutionReleasedByTierSemiFluidGenerator[this.mTier]);
+        return (int) (CORE.ConfigSwitches.basePollutionPerSecondSemiFluidGenerator * CORE.ConfigSwitches.pollutionReleasedByTierSemiFluidGenerator[this.mTier]);
     }
 
     @Override
@@ -72,7 +71,7 @@ public class GT_MetaTileEntity_SemiFluidGenerator extends GT_MetaTileEntity_Basi
         return ArrayUtils.addAll(
             this.mDescriptionArray,
             "Produces " + (this.getPollution()) + " pollution/sec",
-            "Fuel Efficiency: " + this.getEfficiency() + "%",
+            "Fuel Efficiency: " + (this.getEfficiency()) + "%",
             CORE.GT_Tooltip.get());
     }
 

@@ -260,7 +260,7 @@ public class GT_PreLoad {
                     if (hit.startsWith("ore:")) {
                         hit = hit.substring(4);
                         if (!oreTags.contains(hit)) oreTags.add(hit);
-                    } else if (hit.startsWith("gregtech:gt.metaitem.0")) {
+                    } else if (hit.startsWith("gregtech5:gt.metaitem.0")) {
                         hit = hit.substring(22);
                         int mIt = Integer.parseInt(hit.substring(0, 1));
                         if (mIt > 0) {

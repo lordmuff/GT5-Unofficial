@@ -87,7 +87,7 @@ public class HANDLER_GT {
     }
 
     public static void onLoadComplete(FMLLoadCompleteEvent event) {
-        CokeAndPyrolyseOven.onLoadComplete();
+        //CokeAndPyrolyseOven.onLoadComplete();
         Meta_GT_Proxy.fixIC2FluidNames();
         RecipeLoader_AlgaeFarm.generateRecipes();
         RecipeLoader_TreeFarm.generateRecipes();

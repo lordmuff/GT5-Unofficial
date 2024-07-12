@@ -156,7 +156,7 @@ public class Loaders {
         new String[] { GoodGenerator.MOD_ID + ":MAR_Casing" });
     public static final Block FRF_Casings = new Casing(
         "FRF_Casing",
-        new String[] { "gregtech:iconsets/MACHINE_CASING_MINING_BLACKPLUTONIUM" });
+        new String[] { "gregtech5:iconsets/MACHINE_CASING_MINING_BLACKPLUTONIUM" });
     public static final Block FRF_Coil_1 = new Casing(
         "FRF_Coil_1",
         new String[] { GoodGenerator.MOD_ID + ":FRF_Coils/1" });

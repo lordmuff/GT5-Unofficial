@@ -1072,12 +1072,12 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
             .add(GT_ModHandler.getModItem(GalacticraftCore.ID, "item.sensorGlasses", 1L, 32767));
 
         RecipeSorter.register(
-            "gregtech:shaped",
+            "gregtech5:shaped",
             GT_Shaped_Recipe.class,
             RecipeSorter.Category.SHAPED,
             "after:minecraft:shaped before:minecraft:shapeless");
         RecipeSorter.register(
-            "gregtech:shapeless",
+            "gregtech5:shapeless",
             GT_Shapeless_Recipe.class,
             RecipeSorter.Category.SHAPELESS,
             "after:minecraft:shapeless");
