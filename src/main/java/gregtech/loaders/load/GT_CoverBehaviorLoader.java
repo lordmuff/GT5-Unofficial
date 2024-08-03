@@ -6,6 +6,6 @@ public class GT_CoverBehaviorLoader implements Runnable {
 
     @Override
     public void run() {
-        GT_Log.out.println("GT_Mod: Adding Cover Behaviors");
+        GT_Log.out.println("GT5u_Mod: Adding Cover Behaviors");
     }
 }

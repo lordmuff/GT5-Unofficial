@@ -17,7 +17,7 @@ public class GT_RecyclerBlacklistLoader implements Runnable {
 
     @Override
     public void run() {
-        GT_Log.out.println("GT_Mod: Adding Stuff to the Recycler Blacklist.");
+        GT_Log.out.println("GT5u_Mod: Adding Stuff to the Recycler Blacklist.");
         addToRecyclerBlackList(new ItemStack(Items.arrow, 1, 0));
         addToRecyclerBlackList(new ItemStack(Items.bone, 1, 0));
         addToRecyclerBlackList(ItemList.Dye_Bonemeal.get(1L));

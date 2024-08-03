@@ -14,7 +14,7 @@ public class Enchantment_Hazmat extends Enchantment {
     public static Enchantment_Hazmat INSTANCE;
 
     public Enchantment_Hazmat() {
-        super(GT_Config.addIDConfig(ConfigCategories.IDs.enchantments, "Hazmat", 13), 0, EnumEnchantmentType.armor);
+        super(GT_Config.addIDConfig(ConfigCategories.IDs.enchantments, "Hazmat", 22), 0, EnumEnchantmentType.armor);
         GT_LanguageManager.addStringLocalization(getName(), "Hazmat");
         INSTANCE = this;
     }

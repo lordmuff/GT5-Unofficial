@@ -309,10 +309,10 @@ public class GT_Block_Machines extends GT_Generic_Block implements IDebugableBlo
     @Override
     public void registerBlockIcons(IIconRegister aIconRegister) {
         if (!GregTech_API.sPostloadFinished) return;
-        GT_Log.out.println("GT_Mod: Setting up Icon Register for Blocks");
+        GT_Log.out.println("GT5u_Mod: Setting up Icon Register for Blocks");
         GregTech_API.setBlockIconRegister(aIconRegister);
 
-        GT_Log.out.println("GT_Mod: Registering MetaTileEntity specific Textures");
+        GT_Log.out.println("GT5u_Mod: Registering MetaTileEntity specific Textures");
         try {
             for (IMetaTileEntity tMetaTileEntity : GregTech_API.METATILEENTITIES) {
                 if (tMetaTileEntity != null) {
@@ -322,7 +322,7 @@ public class GT_Block_Machines extends GT_Generic_Block implements IDebugableBlo
         } catch (Exception e) {
             e.printStackTrace(GT_Log.err);
         }
-        GT_Log.out.println("GT_Mod: Registering Crop specific Textures");
+        GT_Log.out.println("GT5u_Mod: Registering Crop specific Textures");
         try {
             for (GT_BaseCrop tCrop : GT_BaseCrop.sCropList) {
                 tCrop.registerSprites(aIconRegister);
@@ -330,8 +330,8 @@ public class GT_Block_Machines extends GT_Generic_Block implements IDebugableBlo
         } catch (Exception e) {
             e.printStackTrace(GT_Log.err);
         }
-        GT_Log.out.println("GT_Mod: Starting Block Icon Load Phase");
-        GT_FML_LOGGER.info("GT_Mod: Starting Block Icon Load Phase");
+        GT_Log.out.println("GT5u_Mod: Starting Block Icon Load Phase");
+        GT_FML_LOGGER.info("GT5u_Mod: Starting Block Icon Load Phase");
         try {
             for (Runnable tRunnable : GregTech_API.sGTBlockIconload) {
                 tRunnable.run();
@@ -339,8 +339,8 @@ public class GT_Block_Machines extends GT_Generic_Block implements IDebugableBlo
         } catch (Exception e) {
             e.printStackTrace(GT_Log.err);
         }
-        GT_Log.out.println("GT_Mod: Finished Block Icon Load Phase");
-        GT_FML_LOGGER.info("GT_Mod: Finished Block Icon Load Phase");
+        GT_Log.out.println("GT5u_Mod: Finished Block Icon Load Phase");
+        GT_FML_LOGGER.info("GT5u_Mod: Finished Block Icon Load Phase");
     }
 
     @Override

@@ -305,7 +305,7 @@ public class GT_Recipe implements Comparable<GT_Recipe> {
      * Re-unificates all the items present in recipes.
      */
     public static void reInit() {
-        GT_Log.out.println("GT_Mod: Re-Unificating Recipes.");
+        GT_Log.out.println("GT5u_Mod: Re-Unificating Recipes.");
         for (RecipeMap<?> map : RecipeMap.ALL_RECIPE_MAPS.values()) {
             map.getBackend()
                 .reInit();

@@ -848,8 +848,8 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
     }
 
     public void onPreLoad() {
-        GT_Log.out.println("GT_Mod: Preload-Phase started!");
-        GT_Log.ore.println("GT_Mod: Preload-Phase started!");
+        GT_Log.out.println("GT5u_Mod: Preload-Phase started!");
+        GT_Log.ore.println("GT5u_Mod: Preload-Phase started!");
 
         GregTech_API.sPreloadStarted = true;
         this.mIgnoreTcon = GregTech_API.sOPStuff.get(ConfigCategories.general, "ignoreTConstruct", true);
@@ -863,7 +863,7 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
                 break;
             }
         }
-        GT_Log.out.println("GT_Mod: Getting required Items of other Mods.");
+        GT_Log.out.println("GT5u_Mod: Getting required Items of other Mods.");
 
         ItemList.RC_ShuntingWire.set(GT_ModHandler.getModItem(Railcraft.ID, "machine.delta", 1L, 0));
         ItemList.RC_ShuntingWireFrame.set(GT_ModHandler.getModItem(Railcraft.ID, "frame", 1L, 0));
@@ -1087,8 +1087,8 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
     }
 
     public void onLoad() {
-        GT_Log.out.println("GT_Mod: Beginning Load-Phase.");
-        GT_Log.ore.println("GT_Mod: Beginning Load-Phase.");
+        GT_Log.out.println("GT5u_Mod: Beginning Load-Phase.");
+        GT_Log.ore.println("GT5u_Mod: Beginning Load-Phase.");
         if (MagicalCrops.isModLoaded()) {
             GT_OreDictUnificator.registerOre(
                 "cropChilipepper",
@@ -1273,8 +1273,8 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
         | GT_ModHandler.RecipeBits.NOT_REMOVABLE;
 
     public void onPostLoad() {
-        GT_Log.out.println("GT_Mod: Beginning PostLoad-Phase.");
-        GT_Log.ore.println("GT_Mod: Beginning PostLoad-Phase.");
+        GT_Log.out.println("GT5u_Mod: Beginning PostLoad-Phase.");
+        GT_Log.ore.println("GT5u_Mod: Beginning PostLoad-Phase.");
         if (GT_Log.pal != null) {
             final Thread playerActivityLogger = new Thread(new GT_PlayerActivityLogger());
             playerActivityLogger.setDaemon(true);
@@ -1297,7 +1297,7 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
                 break;
             }
         }
-        GT_Log.out.println("GT_Mod: Adding Configs specific for MetaTileEntities");
+        GT_Log.out.println("GT5u_Mod: Adding Configs specific for MetaTileEntities");
         try {
             for (int i = 1; i < GregTech_API.METATILEENTITIES.length; i++) {
                 for (; i < GregTech_API.METATILEENTITIES.length; i++) {
@@ -1309,7 +1309,7 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
         } catch (Throwable e) {
             e.printStackTrace(GT_Log.err);
         }
-        GT_Log.out.println("GT_Mod: Adding Tool Usage Crafting Recipes for OreDict Items.");
+        GT_Log.out.println("GT5u_Mod: Adding Tool Usage Crafting Recipes for OreDict Items.");
         for (Materials aMaterial : Materials.values()) {
             if ((aMaterial.mUnificatable) && (aMaterial.mMaterialInto == aMaterial)) {
                 GT_ModHandler.addCraftingRecipe(
@@ -1380,8 +1380,8 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
     }
 
     public void onServerStarting() {
-        GT_Log.out.println("GT_Mod: ServerStarting-Phase started!");
-        GT_Log.ore.println("GT_Mod: ServerStarting-Phase started!");
+        GT_Log.out.println("GT5u_Mod: ServerStarting-Phase started!");
+        GT_Log.ore.println("GT5u_Mod: ServerStarting-Phase started!");
 
         this.mUniverse = null;
         this.isFirstServerWorldTick = true;
@@ -1410,7 +1410,7 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
         GT_MetaTileEntity_DroneCentre.getCentreMap()
             .clear();
         GT_Log.out.println(
-            "GT_Mod: Cleaning up all OreDict Crafting Recipes, which have an empty List in them, since they are never meeting any Condition.");
+            "GT5u_Mod: Cleaning up all OreDict Crafting Recipes, which have an empty List in them, since they are never meeting any Condition.");
         List<IRecipe> tList = CraftingManager.getInstance()
             .getRecipeList();
         for (int i = 0; i < tList.size(); i++) {

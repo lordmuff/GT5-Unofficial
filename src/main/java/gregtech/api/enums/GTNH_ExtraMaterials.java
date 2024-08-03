@@ -510,7 +510,7 @@ public class GTNH_ExtraMaterials implements IMaterialHandler {
         255,
         0,
         "AquaRegia",
-        "Aqua Regia",
+        "AquaRegia",
         0,
         0,
         -1,

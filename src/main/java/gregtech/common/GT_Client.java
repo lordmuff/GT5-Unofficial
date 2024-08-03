@@ -689,7 +689,7 @@ public class GT_Client extends GT_Proxy implements Runnable {
 
     @Override
     public void run() {
-        GT_Log.out.println("GT_Mod: Downloading Cape List.");
+        GT_Log.out.println("GT5u_Mod: Downloading Cape List.");
         try (final Scanner tScanner = new Scanner(new URL(GT_CAPE_LIST_URL).openStream())) {
             while (tScanner.hasNextLine()) {
                 this.mCapeList.add(

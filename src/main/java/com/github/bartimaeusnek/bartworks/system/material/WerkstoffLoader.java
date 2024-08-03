@@ -848,7 +848,7 @@ public class WerkstoffLoader {
         new Pair<>(Materials.Stone, 2));
     public static final Werkstoff AquaRegia = new Werkstoff(
         new short[] { 0xff, 0xb1, 0x32 },
-        "Aqua Regia",
+        "AquaRegia",
         new Werkstoff.Stats(),
         Werkstoff.Types.MIXTURE,
         new Werkstoff.GenerationFeatures().disable()

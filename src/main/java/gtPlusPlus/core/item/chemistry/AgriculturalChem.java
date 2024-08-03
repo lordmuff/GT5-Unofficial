@@ -176,12 +176,12 @@ public class AgriculturalChem extends ItemPackage {
         /*
          * If It exists, don't add a new one.
          */
-        if (OreDictionary.doesOreNameExist("dustSodiumHydroxide_GT5U")
+        if (OreDictionary.doesOreNameExist("dustSodiumHydroxide")
             || OreDictionary.doesOreNameExist("dustSodiumHydroxide")) {
             List<ItemStack> aTest = OreDictionary.getOres("dustSodiumHydroxide", false);
             ItemStack aTestStack;
             if (aTest.isEmpty()) {
-                aTest = OreDictionary.getOres("dustSodiumHydroxide_GT5U", false);
+                aTest = OreDictionary.getOres("dustSodiumHydroxide", false);
                 if (aTest.isEmpty()) {
                     aTestStack = ItemUtils.simpleMetaStack(mAgrichemItem1, 19, 1);
                 } else {
@@ -230,11 +230,11 @@ public class AgriculturalChem extends ItemPackage {
         ItemUtils.addItemToOreDictionary(mCrushedPine, "crushedPineMaterial");
 
         // Handle GT NaOH dusts
-        List<ItemStack> NaOHSmall = OreDictionary.getOres("dustSmallSodiumHydroxide_GT5U", false);
+        List<ItemStack> NaOHSmall = OreDictionary.getOres("dustSmallSodiumHydroxide", false);
         if (!NaOHSmall.isEmpty()) {
             ItemUtils.addItemToOreDictionary(NaOHSmall.get(0), "dustSmallSodiumHydroxide");
         }
-        List<ItemStack> NaOHTiny = OreDictionary.getOres("dustTinySodiumHydroxide_GT5U", false);
+        List<ItemStack> NaOHTiny = OreDictionary.getOres("dustTinySodiumHydroxide", false);
         if (!NaOHTiny.isEmpty()) {
             ItemUtils.addItemToOreDictionary(NaOHTiny.get(0), "dustTinySodiumHydroxide");
         }

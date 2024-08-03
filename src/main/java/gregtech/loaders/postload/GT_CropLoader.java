@@ -15,7 +15,7 @@ public class GT_CropLoader implements Runnable {
 
     @Override
     public void run() {
-        GT_Log.out.println("GT_Mod: Register Crops to IC2.");
+        GT_Log.out.println("GT5u_Mod: Register Crops to IC2.");
         try {
             /*
              * Tags: Vines = Tendrilly Edible = Food
@@ -1048,7 +1048,7 @@ public class GT_CropLoader implements Runnable {
                 ItemList.Crop_Drop_Mica.get(1L),
                 null);
         } catch (Throwable e) {
-            GT_Log.err.println("GT_Mod: Failed to register Crops to IC2.");
+            GT_Log.err.println("GT5u_Mod: Failed to register Crops to IC2.");
             e.printStackTrace(GT_Log.err);
         }
     }

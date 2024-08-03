@@ -7127,7 +7127,7 @@ public class GT_Loader_MetaTileEntities_Recipes implements Runnable {
     public void run() {
         registerShapelessCraftingRecipes();
         registerShapedCraftingRecipes();
-        GT_Log.out.println("GT_Mod: Recipes for MetaTileEntities.");
+        GT_Log.out.println("GT5u_Mod: Recipes for MetaTileEntities.");
         registerMachineTypes();
         GT_PCBFactoryMaterialLoader.load();
         run4();

@@ -1178,7 +1178,7 @@ public class GT_Worldgenloader implements Runnable {
             32,
             false,
             false,
-            false,
+            true,
             Materials.Naquadah,
             Materials.Naquadah,
             Materials.Naquadah,

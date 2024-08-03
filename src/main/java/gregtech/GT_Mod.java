@@ -14,6 +14,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import gregtech.api.enchants.Enchantment_Hazmat;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -247,13 +248,15 @@ public class GT_Mod implements IGT_Mod {
 
         gregtechproxy.onPreLoad();
 
-        GT_Log.out.println("GT_Mod: Setting Configs");
+        GT_Log.out.println("GT5u_Mod: Setting Configs");
 
         GT_PreLoad.loadConfig(tMainConfig);
 
+        new Enchantment_Hazmat();
+
         Materials.init();
 
-        GT_Log.out.println("GT_Mod: Saving Main Config");
+        GT_Log.out.println("GT5u_Mod: Saving Main Config");
         tMainConfig.save();
 
         GT_PreLoad.initLocalization(
@@ -284,8 +287,8 @@ public class GT_Mod implements IGT_Mod {
 
         GT_PreLoad.sortToTheEnd();
         GregTech_API.sPreloadFinished = true;
-        GT_Log.out.println("GT_Mod: Preload-Phase finished!");
-        GT_Log.ore.println("GT_Mod: Preload-Phase finished!");
+        GT_Log.out.println("GT5u_Mod: Preload-Phase finished!");
+        GT_Log.ore.println("GT5u_Mod: Preload-Phase finished!");
 
         GT_UIInfos.init();
 
@@ -352,8 +355,8 @@ public class GT_Mod implements IGT_Mod {
             HoloInventory.init();
         }
         GregTech_API.sLoadFinished = true;
-        GT_Log.out.println("GT_Mod: Load-Phase finished!");
-        GT_Log.ore.println("GT_Mod: Load-Phase finished!");
+        GT_Log.out.println("GT5u_Mod: Load-Phase finished!");
+        GT_Log.ore.println("GT5u_Mod: Load-Phase finished!");
 
         for (Runnable tRunnable : GregTech_API.sAfterGTLoad) {
             try {
@@ -449,7 +452,7 @@ public class GT_Mod implements IGT_Mod {
         Map<IRecipeInput, RecipeOutput> aThermalCentrifugeRecipeList = GT_ModHandler.getThermalCentrifugeRecipeList();
 
         GT_Log.out.println(
-            "GT_Mod: Activating OreDictionary Handler, this can take some time, as it scans the whole OreDictionary");
+            "GT5u_Mod: Activating OreDictionary Handler, this can take some time, as it scans the whole OreDictionary");
         GT_FML_LOGGER.info(
             "If your Log stops here, you were too impatient. Wait a bit more next time, before killing Minecraft with the Task Manager.");
 
@@ -513,17 +516,17 @@ public class GT_Mod implements IGT_Mod {
 
         @SuppressWarnings("UnstableApiUsage") // Stable enough for this project
         Stopwatch stopwatch = Stopwatch.createStarted();
-        GT_Log.out.println("GT_Mod: Adding buffered Recipes.");
+        GT_Log.out.println("GT5u_Mod: Adding buffered Recipes.");
         GT_ModHandler.stopBufferingCraftingRecipes();
         // noinspection UnstableApiUsage// Stable enough for this project
         GT_FML_LOGGER.info("Executed delayed Crafting Recipes (" + stopwatch.stop() + "). Have a Cake.");
 
-        GT_Log.out.println("GT_Mod: Saving Lang File.");
+        GT_Log.out.println("GT5u_Mod: Saving Lang File.");
         new GT_MachineTooltipsLoader().run();
         GT_LanguageManager.sEnglishFile.save();
         GregTech_API.sPostloadFinished = true;
-        GT_Log.out.println("GT_Mod: PostLoad-Phase finished!");
-        GT_Log.ore.println("GT_Mod: PostLoad-Phase finished!");
+        GT_Log.out.println("GT5u_Mod: PostLoad-Phase finished!");
+        GT_Log.ore.println("GT5u_Mod: PostLoad-Phase finished!");
         for (Runnable tRunnable : GregTech_API.sAfterGTPostload) {
             try {
                 tRunnable.run();
@@ -547,7 +550,7 @@ public class GT_Mod implements IGT_Mod {
         achievements = new GT_Achievements();
 
         GT_Recipe.GTppRecipeHelper = true;
-        GT_Log.out.println("GT_Mod: Loading finished, de-allocating temporary Init Variables.");
+        GT_Log.out.println("GT5u_Mod: Loading finished, de-allocating temporary Init Variables.");
         GregTech_API.sBeforeGTPreload = null;
         GregTech_API.sAfterGTPreload = null;
         GregTech_API.sBeforeGTLoad = null;
@@ -608,9 +611,9 @@ public class GT_Mod implements IGT_Mod {
             true,
             true,
             true);
-        GT_Log.out.println("GT_Mod: Unificating outputs of all known Recipe Types.");
+        GT_Log.out.println("GT5u_Mod: Unificating outputs of all known Recipe Types.");
         ArrayList<ItemStack> tStacks = new ArrayList<>(10000);
-        GT_Log.out.println("GT_Mod: IC2 Machines");
+        GT_Log.out.println("GT5u_Mod: IC2 Machines");
 
         ic2.api.recipe.Recipes.cannerBottle.getRecipes()
             .values()
@@ -663,7 +666,7 @@ public class GT_Mod implements IGT_Mod {
             .map(t -> t.items)
             .forEach(tStacks::addAll);
 
-        GT_Log.out.println("GT_Mod: Dungeon Loot");
+        GT_Log.out.println("GT5u_Mod: Dungeon Loot");
         for (WeightedRandomChestContent tContent : ChestGenHooks.getInfo("dungeonChest")
             .getItems(new XSTR())) {
             tStacks.add(tContent.theItemId);
@@ -704,7 +707,7 @@ public class GT_Mod implements IGT_Mod {
             .getItems(new XSTR())) {
             tStacks.add(tContent.theItemId);
         }
-        GT_Log.out.println("GT_Mod: Smelting");
+        GT_Log.out.println("GT5u_Mod: Smelting");
 
         // Deal with legacy Minecraft raw types
         tStacks.addAll(
@@ -713,7 +716,7 @@ public class GT_Mod implements IGT_Mod {
                 .values());
 
         if (gregtechproxy.mCraftingUnification) {
-            GT_Log.out.println("GT_Mod: Crafting Recipes");
+            GT_Log.out.println("GT5u_Mod: Crafting Recipes");
             for (IRecipe tRecipe : CraftingManager.getInstance()
                 .getRecipeList()) {
                 if ((tRecipe instanceof IRecipe)) {
@@ -730,8 +733,8 @@ public class GT_Mod implements IGT_Mod {
             }
         }
         GregTech_API.mServerStarted = true;
-        GT_Log.out.println("GT_Mod: ServerStarting-Phase finished!");
-        GT_Log.ore.println("GT_Mod: ServerStarting-Phase finished!");
+        GT_Log.out.println("GT5u_Mod: ServerStarting-Phase finished!");
+        GT_Log.ore.println("GT5u_Mod: ServerStarting-Phase finished!");
 
         for (Runnable tRunnable : GregTech_API.sAfterGTServerstart) {
             try {

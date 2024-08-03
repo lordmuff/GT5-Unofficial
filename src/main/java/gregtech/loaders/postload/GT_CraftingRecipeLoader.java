@@ -41,7 +41,7 @@ public class GT_CraftingRecipeLoader implements Runnable {
 
     @Override
     public void run() {
-        GT_Log.out.println("GT_Mod: Adding nerfed Vanilla Recipes.");
+        GT_Log.out.println("GT5u_Mod: Adding nerfed Vanilla Recipes.");
         GT_ModHandler.addCraftingRecipe(
             new ItemStack(Items.bucket, 1),
             bits_no_remove_buffered | GT_ModHandler.RecipeBits.DELETE_ALL_OTHER_SHAPED_RECIPES,
@@ -173,7 +173,7 @@ public class GT_CraftingRecipeLoader implements Runnable {
             bits_no_remove_buffered,
             new Object[] { OrePrefixes.stone });
 
-        GT_Log.out.println("GT_Mod: Adding Vanilla Convenience Recipes.");
+        GT_Log.out.println("GT5u_Mod: Adding Vanilla Convenience Recipes.");
 
         GT_ModHandler.addCraftingRecipe(
             new ItemStack(Blocks.stonebrick, 1, 3),
@@ -284,7 +284,7 @@ public class GT_CraftingRecipeLoader implements Runnable {
             new Object[] { " T ", "TQT", "SSS", 'Q', OreDictNames.craftingQuartz, 'S', OrePrefixes.stoneSmooth, 'T',
                 OreDictNames.craftingRedstoneTorch });
 
-        GT_Log.out.println("GT_Mod: Adding Tool Recipes.");
+        GT_Log.out.println("GT5u_Mod: Adding Tool Recipes.");
         GT_ModHandler.addCraftingRecipe(
             new ItemStack(Items.minecart, 1),
             bits_no_remove_buffered | GT_ModHandler.RecipeBits.DELETE_ALL_OTHER_SHAPED_RECIPES,
@@ -339,7 +339,7 @@ public class GT_CraftingRecipeLoader implements Runnable {
                 | GT_ModHandler.RecipeBits.DELETE_ALL_OTHER_SHAPED_RECIPES,
             new Object[] { "R R", "RhR", 'R', OrePrefixes.ring.get(Materials.Steel) });
 
-        GT_Log.out.println("GT_Mod: Adding Wool and Color releated Recipes.");
+        GT_Log.out.println("GT5u_Mod: Adding Wool and Color releated Recipes.");
         GT_ModHandler.addShapelessCraftingRecipe(
             new ItemStack(Blocks.wool, 1, 1),
             bits_no_remove_buffered,
@@ -406,7 +406,7 @@ public class GT_CraftingRecipeLoader implements Runnable {
             bits_no_remove_buffered,
             new Object[] { "GGG", "GDG", "GGG", 'G', new ItemStack(Blocks.glass, 1), 'D', Dyes.dyeWhite });
 
-        GT_Log.out.println("GT_Mod: Putting a Potato on a Stick.");
+        GT_Log.out.println("GT5u_Mod: Putting a Potato on a Stick.");
         GT_ModHandler.addShapelessCraftingRecipe(
             ItemList.Food_Packaged_PotatoChips.get(1L),
             bits_no_remove_buffered,
@@ -718,7 +718,7 @@ public class GT_CraftingRecipeLoader implements Runnable {
                 GT_OreDictUnificator.get(OrePrefixes.ingot, Materials.Copper, 1L),
                 GT_OreDictUnificator.get(OrePrefixes.ingot, Materials.Tin, 1L)),
             GT_OreDictUnificator.get(OrePrefixes.ingot, Materials.Bronze, 1L))) {
-            GT_Log.out.println("GT_Mod: Changed Forestrys Bronze Recipe");
+            GT_Log.out.println("GT5u_Mod: Changed Forestrys Bronze Recipe");
         }
         tStack = GT_OreDictUnificator.get(OrePrefixes.dust, Materials.Ash, 1L);
 
@@ -751,7 +751,7 @@ public class GT_CraftingRecipeLoader implements Runnable {
             new Object[] { "SSS", "SAS", "SSS", 'A', OrePrefixes.dust.get(Materials.Apatite), 'S',
                 OrePrefixes.dust.get(Materials.Ash) });
 
-        GT_Log.out.println("GT_Mod: Adding Mixed Metal Ingot Recipes.");
+        GT_Log.out.println("GT5u_Mod: Adding Mixed Metal Ingot Recipes.");
         GT_ModHandler.removeRecipeByOutputDelayed(ItemList.IC2_Mixed_Metal_Ingot.get(1L));
 
         GT_ModHandler.addCraftingRecipe(
@@ -1218,7 +1218,7 @@ public class GT_CraftingRecipeLoader implements Runnable {
             new Object[] { "X", "Y", "Z", 'X', OrePrefixes.plate.get(Materials.DraconiumAwakened), 'Y',
                 OrePrefixes.plate.get(Materials.Neutronium), 'Z', OrePrefixes.plate.get(Materials.BlackPlutonium) });
 
-        GT_Log.out.println("GT_Mod: Beginning to add regular Crafting Recipes.");
+        GT_Log.out.println("GT5u_Mod: Beginning to add regular Crafting Recipes.");
         GT_ModHandler.addCraftingRecipe(
             GT_ModHandler.getIC2Item("scaffold", 4L),
             bits_no_remove_buffered,
@@ -1838,7 +1838,7 @@ public class GT_CraftingRecipeLoader implements Runnable {
 
         GT_ModHandler.removeFurnaceSmelting(new ItemStack(Blocks.hopper));
 
-        GT_Log.out.println("GT_Mod: Applying harder Recipes for several Blocks."); // TODO: Not Buffered
+        GT_Log.out.println("GT5u_Mod: Applying harder Recipes for several Blocks."); // TODO: Not Buffered
 
         GT_ModHandler.removeRecipeByOutputDelayed(GT_ModHandler.getIC2Item("reactorReflectorThick", 1L, 1));
         GT_ModHandler.addCraftingRecipe(
@@ -1948,7 +1948,7 @@ public class GT_CraftingRecipeLoader implements Runnable {
             new Object[] { " C ", "SSS", " C ", 'S', GT_OreDictUnificator.get(OrePrefixes.dust, Materials.Paper, 1),
                 'C', new ItemStack(Blocks.stone_slab) });
 
-        GT_Log.out.println("GT_Mod: Applying Recipes for Tools");
+        GT_Log.out.println("GT5u_Mod: Applying Recipes for Tools");
         GT_ModHandler.removeRecipeByOutputDelayed(GT_ModHandler.getIC2Item("nanoSaber", 1L));
         GT_ModHandler.addCraftingRecipe(
             GT_ModHandler.getIC2Item("nanoSaber", 1L),

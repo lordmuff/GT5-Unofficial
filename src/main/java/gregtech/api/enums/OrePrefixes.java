@@ -1,16 +1,16 @@
 package gregtech.api.enums;
 
+import static gregapi.data.CS.GAPI;
 import static gregtech.api.enums.GT_Values.B;
 import static gregtech.api.enums.GT_Values.D2;
 import static gregtech.api.enums.GT_Values.M;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
+import gregapi.code.ArrayListNoNulls;
+import gregapi.code.HashSetNoNulls;
+import gregapi.oredict.OreDictPrefix;
+import gregapi.oredict.event.IOreDictListenerEvent;
 import net.minecraft.item.ItemStack;
 
 import com.google.common.collect.ImmutableList;
@@ -1362,4 +1362,5 @@ public enum OrePrefixes {
         // Use Standard Localization
         return mLocalizedMaterialPre + "%material" + mLocalizedMaterialPost;
     }
+
 }

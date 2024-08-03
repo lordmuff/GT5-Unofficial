@@ -195,7 +195,7 @@ public class RecipeLoader_Nuclear {
     private static void chemicalReactorRecipes() {
 
         ItemStack aGtHydrofluoricAcid = ItemUtils
-            .getItemStackOfAmountFromOreDictNoBroken("cellHydrofluoricAcid_GT5U", 2);
+            .getItemStackOfAmountFromOreDictNoBroken("cellHydrofluoricAcid", 2);
 
         GT_Values.RA.addChemicalRecipe(
             ItemUtils.getItemStackOfAmountFromOreDict("dustLithiumCarbonate", 6), // Input
@@ -282,11 +282,11 @@ public class RecipeLoader_Nuclear {
             FLUORIDES.SODIUM_FLUORIDE.getDust(2),
             60 * 20);
 
-        if (FluidUtils.doesFluidExist("hydrofluoricacid_gt5u")) {
+        if (FluidUtils.doesFluidExist("hydrofluoricacid")) {
             GT_Values.RA.addChemicalRecipe(
                 CI.getNumberedBioCircuit(15),
                 ItemUtils.getItemStackOfAmountFromOreDict("dustSodiumHydroxide", 3),
-                FluidUtils.getFluidStack("hydrofluoricacid_gt5u", 1000),
+                FluidUtils.getFluidStack("hydrofluoricacid", 1000),
                 FluidUtils.getWater(1000),
                 FLUORIDES.SODIUM_FLUORIDE.getDust(2),
                 60 * 20);
@@ -386,7 +386,7 @@ public class RecipeLoader_Nuclear {
         CORE.RA.addDehydratorRecipe(
             new ItemStack[] { CI.getNumberedAdvancedCircuit(10),
                 ItemUtils.getItemStackOfAmountFromOreDict("dustCookedZrCl4", 1) },
-            FluidUtils.getFluidStack("hydrofluoricacid_gt5u", 800),
+            FluidUtils.getFluidStack("hydrofluoricacid", 800),
             aHydrogenChloride,
             new ItemStack[] { FLUORIDES.ZIRCONIUM_TETRAFLUORIDE.getDust(1) },
             new int[] { 10000 },

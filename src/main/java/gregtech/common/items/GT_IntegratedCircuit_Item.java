@@ -220,8 +220,8 @@ public class GT_IntegratedCircuit_Item extends GT_Generic_Item implements INetwo
                 .registerIcon(GregTech.getResourcePath(GT_Config.troll ? "troll" : getUnlocalizedName() + "/" + i));
         }
         if (GregTech_API.sPostloadFinished) {
-            GT_Log.out.println("GT_Mod: Starting Item Icon Load Phase");
-            GT_FML_LOGGER.info("GT_Mod: Starting Item Icon Load Phase");
+            GT_Log.out.println("GT5u_Mod: Starting Item Icon Load Phase");
+            GT_FML_LOGGER.info("GT5u_Mod: Starting Item Icon Load Phase");
             GregTech_API.sItemIcons = aIconRegister;
             try {
                 for (Runnable tRunnable : GregTech_API.sGTItemIconload) {
@@ -230,8 +230,8 @@ public class GT_IntegratedCircuit_Item extends GT_Generic_Item implements INetwo
             } catch (Throwable e) {
                 e.printStackTrace(GT_Log.err);
             }
-            GT_Log.out.println("GT_Mod: Finished Item Icon Load Phase");
-            GT_FML_LOGGER.info("GT_Mod: Finished Item Icon Load Phase");
+            GT_Log.out.println("GT5u_Mod: Finished Item Icon Load Phase");
+            GT_FML_LOGGER.info("GT5u_Mod: Finished Item Icon Load Phase");
         }
     }
 

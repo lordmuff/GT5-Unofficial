@@ -4022,7 +4022,7 @@ public class GT_Loader_MetaTileEntities implements Runnable { // TODO CHECK CIRC
 
     @Override
     public void run() {
-        GT_Log.out.println("GT_Mod: Registering MetaTileEntities.");
+        GT_Log.out.println("GT5u_Mod: Registering MetaTileEntities.");
         registerMachineHull();
         registerTransformer();
         registerDynamoHatch();

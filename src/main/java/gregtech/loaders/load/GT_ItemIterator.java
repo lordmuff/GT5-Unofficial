@@ -35,7 +35,7 @@ public class GT_ItemIterator implements Runnable {
 
     @Override
     public void run() {
-        GT_Log.out.println("GT_Mod: Scanning for certain kinds of compatible Machineblocks.");
+        GT_Log.out.println("GT5u_Mod: Scanning for certain kinds of compatible Machineblocks.");
         ItemStack tStack2 = GT_OreDictUnificator.get(OrePrefixes.ingot, Materials.Bronze, 1L);
         ItemStack tStack = GT_ModHandler
             .getRecipeOutput(tStack2, tStack2, tStack2, tStack2, null, tStack2, tStack2, tStack2, tStack2);
@@ -114,7 +114,7 @@ public class GT_ItemIterator implements Runnable {
                 .eut(2)
                 .addTo(maceratorRecipes);
         }
-        GT_Log.out.println("GT_Mod: Registering various Tools to be usable on GregTech Machines");
+        GT_Log.out.println("GT5u_Mod: Registering various Tools to be usable on GregTech Machines");
         GregTech_API.registerScrewdriver(
             GT_ModHandler
                 .getRecipeOutput(null, new ItemStack(Items.iron_ingot, 1), null, new ItemStack(Items.stick, 1)));
@@ -123,7 +123,7 @@ public class GT_ItemIterator implements Runnable {
                 .getRecipeOutput(new ItemStack(Items.iron_ingot, 1), null, null, null, new ItemStack(Items.stick, 1)));
 
         GT_Log.out.println(
-            "GT_Mod: Adding Food Recipes to the Automatic Canning Machine. (also during the following Item Iteration)");
+            "GT5u_Mod: Adding Food Recipes to the Automatic Canning Machine. (also during the following Item Iteration)");
         GT_Values.RA.stdBuilder()
             .itemInputs(new ItemStack(Items.rotten_flesh, 2, WILDCARD), ItemList.IC2_Food_Can_Empty.get(1L))
             .itemOutputs(ItemList.IC2_Food_Can_Spoiled.get(1L))
@@ -155,7 +155,7 @@ public class GT_ItemIterator implements Runnable {
             .eut(1)
             .addTo(cannerRecipes);
 
-        GT_Log.out.println("GT_Mod: Scanning ItemList.");
+        GT_Log.out.println("GT5u_Mod: Scanning ItemList.");
 
         try {
             /* (tName.equals("tile.sedimentaryStone")) || **/
@@ -175,14 +175,14 @@ public class GT_ItemIterator implements Runnable {
                 if ((tItem instanceof IToolCrowbar)) {
                     if ((tItem.isDamageable()) || (GT_ModHandler.isElectricItem(new ItemStack(tItem, 1, 0)))) {
                         if (GregTech_API.registerCrowbar(new ItemStack(tItem, 1, WILDCARD))) {
-                            GT_Log.out.println("GT_Mod: Registered valid RC Crowbar: " + tName);
+                            GT_Log.out.println("GT5u_Mod: Registered valid RC Crowbar: " + tName);
                         }
                     }
                 }
                 if ((tItem instanceof IToolWrench)) {
                     if ((tItem.isDamageable()) || (GT_ModHandler.isElectricItem(new ItemStack(tItem, 1, 0)))) {
                         if (GregTech_API.registerWrench(new ItemStack(tItem, 1, WILDCARD))) {
-                            GT_Log.out.println("GT_Mod: Registered valid BC Wrench: " + tName);
+                            GT_Log.out.println("GT5u_Mod: Registered valid BC Wrench: " + tName);
                         }
                     }
                 }

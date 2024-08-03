@@ -86,11 +86,11 @@ public class ItemAgrichemBase extends Item {
         if (mHasCheckedForSodiumHydroxide) {
             return mShowSodiumHydroxide;
         } else {
-            if (OreDictUtils.containsValidEntries("dustSodiumHydroxide_GT5U")
+            if (OreDictUtils.containsValidEntries("dustSodiumHydroxide")
                 || OreDictUtils.containsValidEntries("dustSodiumHydroxide")) {
                 List<ItemStack> aTest = OreDictionary.getOres("dustSodiumHydroxide", false);
                 if (aTest.isEmpty()) {
-                    aTest = OreDictionary.getOres("dustSodiumHydroxide_GT5U", false);
+                    aTest = OreDictionary.getOres("dustSodiumHydroxide", false);
                     if (!aTest.isEmpty()) {
                         mShowSodiumHydroxide = false;
                     }

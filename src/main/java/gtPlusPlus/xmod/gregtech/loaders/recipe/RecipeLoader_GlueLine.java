@@ -73,7 +73,7 @@ public class RecipeLoader_GlueLine {
             new ItemStack[] { CI.getNumberedCircuit(19), ItemUtils.getSimpleStack(AgriculturalChem.mSodiumCarbonate, 6),
                 MISC_MATERIALS.SODIUM_CYANIDE.getDust(3) },
             new FluidStack[] { MISC_MATERIALS.CHLOROACETIC_ACID.getFluidStack(1000),
-                FluidUtils.getFluidStack("hydrochloricacid_gt5u", 2000) },
+                FluidUtils.getFluidStack("hydrochloricacid", 2000) },
             new ItemStack[] { MISC_MATERIALS.CYANOACETIC_ACID.getDust(9), Materials.Salt.getDust(6) },
             new FluidStack[] { Materials.CarbonDioxide.getGas(1000), GT_ModHandler.getWater(1000) },
             20 * 20,

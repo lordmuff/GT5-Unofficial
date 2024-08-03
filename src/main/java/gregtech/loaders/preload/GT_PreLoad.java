@@ -64,7 +64,7 @@ public class GT_PreLoad {
     public static void sortToTheEnd() {
         if (GT_Mod.gregtechproxy.mSortToTheEnd) {
             try {
-                GT_FML_LOGGER.info("GT_Mod: Sorting GregTech to the end of the Mod List for further processing.");
+                GT_FML_LOGGER.info("GT5u_Mod: Sorting GregTech to the end of the Mod List for further processing.");
                 LoadController tLoadController = (LoadController) GT_Utility
                     .getFieldContent(Loader.instance(), "modController", true, true);
                 assert tLoadController != null;
@@ -93,7 +93,7 @@ public class GT_PreLoad {
     }
 
     public static void initLocalization(File languageDir) {
-        GT_FML_LOGGER.info("GT_Mod: Generating Lang-File");
+        GT_FML_LOGGER.info("GT5u_Mod: Generating Lang-File");
 
         if (FMLCommonHandler.instance()
             .getEffectiveSide()
@@ -370,7 +370,7 @@ public class GT_PreLoad {
     }
 
     public static void adjustScrap() {
-        GT_FML_LOGGER.info("GT_Mod: Removing all original Scrapbox Drops.");
+        GT_FML_LOGGER.info("GT5u_Mod: Removing all original Scrapbox Drops.");
         try {
             Objects.requireNonNull(GT_Utility.getField("ic2.core.item.ItemScrapbox$Drop", "topChance", true, true))
                 .set(null, 0);
@@ -385,7 +385,7 @@ public class GT_PreLoad {
                 e.printStackTrace(GT_Log.err);
             }
         }
-        GT_Log.out.println("GT_Mod: Adding Scrap with a Weight of 200.0F to the Scrapbox Drops.");
+        GT_Log.out.println("GT5u_Mod: Adding Scrap with a Weight of 200.0F to the Scrapbox Drops.");
         GT_ModHandler.addScrapboxDrop(200.0F, GT_ModHandler.getIC2Item("scrap", 1L));
     }
 

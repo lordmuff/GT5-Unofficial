@@ -26,7 +26,7 @@ public class GT_Loader_OreDictionary implements Runnable {
 
     @Override
     public void run() {
-        GT_Log.out.println("GT_Mod: Register OreDict Entries of Non-GT-Items.");
+        GT_Log.out.println("GT5u_Mod: Register OreDict Entries of Non-GT-Items.");
         GT_OreDictUnificator.set(OrePrefixes.cell, Materials.Empty, ItemList.Cell_Empty.get(1L));
         GT_OreDictUnificator.set(OrePrefixes.cell, Materials.Lava, ItemList.Cell_Lava.get(1L));
         GT_OreDictUnificator.set(OrePrefixes.cell, Materials.Lava, GT_ModHandler.getIC2Item("lavaCell", 1L));

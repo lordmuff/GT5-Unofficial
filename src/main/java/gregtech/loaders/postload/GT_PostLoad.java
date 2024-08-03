@@ -66,13 +66,13 @@ public class GT_PostLoad {
         GT_Mod.GT_FML_LOGGER
             .info("Congratulations, you have been waiting long enough (" + stopwatch.stop() + "). Have a Cake.");
         GT_Log.out.println(
-            "GT_Mod: List of Lists of Tool Recipes: "
+            "GT5u_Mod: List of Lists of Tool Recipes: "
                 + GT_ModHandler.sSingleNonBlockDamagableRecipeList_list.toString());
         GT_Log.out.println(
-            "GT_Mod: Vanilla Recipe List -> Outputs null or stackSize <=0: "
+            "GT5u_Mod: Vanilla Recipe List -> Outputs null or stackSize <=0: "
                 + GT_ModHandler.sVanillaRecipeList_warntOutput.toString());
         GT_Log.out.println(
-            "GT_Mod: Single Non Block Damageable Recipe List -> Outputs null or stackSize <=0: "
+            "GT5u_Mod: Single Non Block Damageable Recipe List -> Outputs null or stackSize <=0: "
                 + GT_ModHandler.sSingleNonBlockDamagableRecipeList_warntOutput.toString());
     }
 
@@ -132,7 +132,7 @@ public class GT_PostLoad {
     }
 
     public static void addFakeRecipes() {
-        GT_Log.out.println("GT_Mod: Adding Fake Recipes for NEI");
+        GT_Log.out.println("GT5u_Mod: Adding Fake Recipes for NEI");
 
         if (Forestry.isModLoaded()) {
             GT_Forestry_Compat.populateFakeNeiRecipes();
@@ -354,7 +354,7 @@ public class GT_PostLoad {
             return;
         }
 
-        GT_Log.out.println("GT_Mod: Nerfing Vanilla Tool Durability");
+        GT_Log.out.println("GT5u_Mod: Nerfing Vanilla Tool Durability");
         Items.wooden_sword.setMaxDamage(12);
         Items.wooden_pickaxe.setMaxDamage(12);
         Items.wooden_shovel.setMaxDamage(12);

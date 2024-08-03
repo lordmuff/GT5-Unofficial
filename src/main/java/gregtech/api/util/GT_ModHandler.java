@@ -1839,7 +1839,7 @@ public class GT_ModHandler {
                 }
             }
             GT_Log.out.println(
-                "GT_Mod: Created a List of Tool Recipes containing " + sSingleNonBlockDamagableRecipeList.size()
+                "GT5u_Mod: Created a List of Tool Recipes containing " + sSingleNonBlockDamagableRecipeList.size()
                     + " Recipes for recycling."
                     + (sSingleNonBlockDamagableRecipeList.size() > 1024
                         ? " Scanning all these Recipes is the reason for the startup Lag you receive right now."

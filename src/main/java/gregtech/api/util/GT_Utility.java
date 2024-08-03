@@ -2192,7 +2192,7 @@ public class GT_Utility {
         tNBT.setTag("pages", tNBTList);
         rStack.setTagCompound(tNBT);
         GT_Log.out.println(
-            "GT_Mod: Added Book to Book List  -  Mapping: '" + aMapping
+            "GT5u_Mod: Added Book to Book List  -  Mapping: '" + aMapping
                 + "'  -  Name: '"
                 + aTitle
                 + "'  -  Author: '"

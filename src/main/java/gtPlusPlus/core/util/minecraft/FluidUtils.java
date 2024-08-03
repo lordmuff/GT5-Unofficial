@@ -69,7 +69,7 @@ public class FluidUtils {
 
     public static FluidStack getHydrofluoricAcidGT(int amount) {
         if (sGregtechHydrofluoricAcid == null) {
-            FluidStack aGTHF = FluidUtils.getFluidStack("hydrofluoricacid_gt5u", 1);
+            FluidStack aGTHF = FluidUtils.getFluidStack("hydrofluoricacid", 1);
             sGregtechHydrofluoricAcid = aGTHF != null ? aGTHF.getFluid() : getHydrofluoricAcid(1).getFluid();
         }
         return FluidUtils.getFluidStack(sGregtechHydrofluoricAcid, amount);

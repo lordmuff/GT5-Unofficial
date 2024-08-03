@@ -235,7 +235,7 @@ public class BaseOreComponent extends Item {
         CRUSHED("crushed", "Crushed ", " Ore", true),
         CRUSHEDCENTRIFUGED("crushedCentrifuged", "Centrifuged Crushed ", " Ore", true),
         CRUSHEDPURIFIED("crushedPurified", "Purified Crushed ", " Ore", true),
-        RAWORE("oreRaw", "Raw ", " Ore", true),
+        RAWORE("raw", "Raw ", " Ore", true),
         MILLED("milled", "Milled ", " Ore", true);
 
         private final String COMPONENT_NAME;
