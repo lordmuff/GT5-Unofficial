@@ -650,6 +650,40 @@ public class GT_Values {
     public static final String AuthorQuerns = "Author: " + EnumChatFormatting.RED + "Querns";
     public static final String AuthorSilverMoon = "Author: " + EnumChatFormatting.AQUA + "SilverMoon";
     public static final String AuthorTheEpicGamer274 = "Author: " + "TheEpicGamer274";
+    public static final String AuthorFourIsTheNumber = "Author: " + EnumChatFormatting.LIGHT_PURPLE
+        + EnumChatFormatting.ITALIC
+        + "Four"
+        + EnumChatFormatting.WHITE
+        + EnumChatFormatting.ITALIC
+        + "Is"
+        + EnumChatFormatting.LIGHT_PURPLE
+        + EnumChatFormatting.ITALIC
+        + "The"
+        + EnumChatFormatting.WHITE
+        + EnumChatFormatting.ITALIC
+        + "Number";
+    public static final String authorBaps = "Author: " + EnumChatFormatting.GOLD
+        + "Ba"
+        + EnumChatFormatting.LIGHT_PURPLE
+        + "ps";
+
+    public static final String AuthorEvgenWarGold = "" + EnumChatFormatting.RED
+        + EnumChatFormatting.BOLD
+        + "Evgen"
+        + EnumChatFormatting.BLUE
+        + EnumChatFormatting.BOLD
+        + "War"
+        + EnumChatFormatting.GOLD
+        + EnumChatFormatting.BOLD
+        + "Gold";
+    public static final String AuthorVolence = "Author: " + EnumChatFormatting.AQUA + "Volence";
+
+    public static final String AuthorNotAPenguin = "Author: " + EnumChatFormatting.WHITE
+        + EnumChatFormatting.BOLD
+        + "Not"
+        + EnumChatFormatting.AQUA
+        + EnumChatFormatting.BOLD
+        + "APenguin";
 
     // 7.5F comes from GT_Tool_Turbine_Large#getBaseDamage() given huge turbines are the most efficient now.
     public static double getMaxPlasmaTurbineEfficiencyFromMaterial(Materials material) {
