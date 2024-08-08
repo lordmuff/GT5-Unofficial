@@ -371,7 +371,6 @@ public class RecipeLoader_ChemicalSkips {
 
         }
 
- */
     }
 
     private static void fusionReactorRecipes() {

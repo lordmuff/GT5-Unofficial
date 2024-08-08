@@ -1,6 +1,7 @@
 package gregtech.common.tileentities.render;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -11,7 +12,7 @@ import cpw.mods.fml.relauncher.Side;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityAdvanced;
 import micdoodle8.mods.galacticraft.core.util.Annotations;
 
-public class TileLaser extends TileEntityAdvanced {
+public class TileLaser extends TileEntity {
 
     @Annotations.NetworkedField(targetSide = Side.CLIENT)
     public boolean shouldRender = false;
@@ -107,18 +108,4 @@ public class TileLaser extends TileEntityAdvanced {
         return 65536;
     }
 
-    @Override
-    public double getPacketRange() {
-        return 128;
-    }
-
-    @Override
-    public int getPacketCooldown() {
-        return 20;
-    }
-
-    @Override
-    public boolean isNetworkedTile() {
-        return true;
-    }
 }
