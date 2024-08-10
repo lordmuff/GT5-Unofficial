@@ -542,13 +542,13 @@ public class GT_PreLoad {
             .getBoolean(true);
         GT_Mod.gregtechproxy.mSortToTheEnd = tMainConfig.get(GT_Mod.aTextGeneral, "EnsureToBeLoadedLast", true)
             .getBoolean(true);
-        GT_Mod.gregtechproxy.mDisableIC2Cables = tMainConfig.get(GT_Mod.aTextGeneral, "DisableIC2Cables", true)
+        GT_Mod.gregtechproxy.mDisableIC2Cables = tMainConfig.get(GT_Mod.aTextGeneral, "DisableIC2Cables", false)
             .getBoolean(true);
         GT_Mod.gregtechproxy.mAchievements = tMainConfig.get(GT_Mod.aTextGeneral, "EnableAchievements", true)
             .getBoolean(true);
-        GT_Mod.gregtechproxy.mNerfedCombs = tMainConfig.get(GT_Mod.aTextGeneral, "NerfCombs", true)
+        GT_Mod.gregtechproxy.mNerfedCombs = tMainConfig.get(GT_Mod.aTextGeneral, "NerfCombs", false)
             .getBoolean(true);
-        GT_Mod.gregtechproxy.mNerfedCrops = tMainConfig.get(GT_Mod.aTextGeneral, "NerfCrops", true)
+        GT_Mod.gregtechproxy.mNerfedCrops = tMainConfig.get(GT_Mod.aTextGeneral, "NerfCrops", false)
             .getBoolean(true);
         GT_Mod.gregtechproxy.mHideUnusedOres = tMainConfig.get(GT_Mod.aTextGeneral, "HideUnusedOres", true)
             .getBoolean(true);

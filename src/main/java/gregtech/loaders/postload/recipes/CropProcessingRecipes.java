@@ -157,9 +157,9 @@ public class CropProcessingRecipes implements Runnable {
         } else {
             if (aMainOutput) {
                 GT_Values.RA.stdBuilder()
-                    .itemInputs(GT_Utility.copyAmount(9, tCrop))
-                    .itemOutputs(GT_OreDictUnificator.get(OrePrefixes.dust, aMaterial, 1))
-                    .duration(15 * SECONDS)
+                    .itemInputs(GT_Utility.copyAmount(12, tCrop))
+                    .itemOutputs(GT_OreDictUnificator.get(OrePrefixes.crushed, aMaterial, 3))
+                    .duration(14 * SECONDS)
                     .eut(2)
                     .addTo(extractorRecipes);
             }
