@@ -82,10 +82,7 @@ public class GT_MetaTileEntity_NaquadahReactor extends GT_MetaTileEntity_BasicGe
     }
 
     @Override
-    public int getCapacity() {
-        return getRecipeMap() != null ? getRecipeMap().getBackend()
-            .getProperties().minFluidInputs > 0 ? 8000 * (mTier + 1) : 0 : 0;
-    }
+    public int getCapacity() { return 0; }
 
     @Override
     public int getEfficiency() {
