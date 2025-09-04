@@ -51,7 +51,7 @@ import static gregtech.api.enums.OrePrefixes.plateDouble;
 import static gregtech.api.enums.OrePrefixes.plateQuadruple;
 import static gregtech.api.enums.OrePrefixes.plateQuintuple;
 import static gregtech.api.enums.OrePrefixes.plateTriple;
-import static gregtech.api.enums.OrePrefixes.rawOre;
+import static gregtech.api.enums.OrePrefixes.oreRaw;
 import static gregtech.api.enums.OrePrefixes.ring;
 import static gregtech.api.enums.OrePrefixes.rotor;
 import static gregtech.api.enums.OrePrefixes.screw;
@@ -1945,7 +1945,7 @@ public class WerkstoffLoader {
             WerkstoffLoader.items.put(crushedCentrifuged, new BWMetaGeneratedItems(crushedCentrifuged));
             WerkstoffLoader.items.put(dustPure, new BWMetaGeneratedItems(dustPure));
             WerkstoffLoader.items.put(dustImpure, new BWMetaGeneratedItems(dustImpure));
-            WerkstoffLoader.items.put(rawOre, new BWMetaGeneratedItems(rawOre));
+            WerkstoffLoader.items.put(oreRaw, new BWMetaGeneratedItems(oreRaw));
         }
         if ((WerkstoffLoader.toGenerateGlobal & 0b10000) != 0) {
             WerkstoffLoader.items.put(cell, new BWMetaGeneratedItems(cell));

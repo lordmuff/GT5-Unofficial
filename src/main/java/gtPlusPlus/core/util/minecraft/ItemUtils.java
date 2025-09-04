@@ -300,10 +300,6 @@ public class ItemUtils {
         return itemNames;
     }
 
-    public static ItemStack getGregtechCircuit(final int Meta) {
-        return ItemUtils.getItemStackWithMeta(true, "gregtech5:gt.integrated_circuit", "Gregtech Circuit", Meta, 0);
-    }
-
     private static final Map<Item, String> mModidCache = new HashMap<>();
 
     private static String getModId(final Item item) {

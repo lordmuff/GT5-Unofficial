@@ -1140,7 +1140,7 @@ public class Material {
     }
 
     public final ItemStack getRawOre(final int stacksize) {
-        return getComponentByPrefix(OrePrefixes.rawOre, stacksize);
+        return getComponentByPrefix(OrePrefixes.oreRaw, stacksize);
     }
 
     public final boolean hasSolidForm() {

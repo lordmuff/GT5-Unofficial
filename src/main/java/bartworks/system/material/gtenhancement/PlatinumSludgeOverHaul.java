@@ -71,7 +71,7 @@ import static gregtech.api.enums.OrePrefixes.dustSmall;
 import static gregtech.api.enums.OrePrefixes.dustTiny;
 import static gregtech.api.enums.OrePrefixes.ingot;
 import static gregtech.api.enums.OrePrefixes.nugget;
-import static gregtech.api.enums.OrePrefixes.rawOre;
+import static gregtech.api.enums.OrePrefixes.oreRaw;
 import static gregtech.api.recipe.RecipeMaps.*;
 import static gregtech.api.util.GTRecipeBuilder.HALF_INGOTS;
 import static gregtech.api.util.GTRecipeBuilder.INGOTS;
@@ -1132,7 +1132,7 @@ public class PlatinumSludgeOverHaul {
 
         if (stack.getItem() instanceof GTGenericItem) {
             if (!BWUtil.checkStackAndPrefix(stack)) return false;
-            if (GTOreDictUnificator.getAssociation(stack).mPrefix != rawOre) {
+            if (GTOreDictUnificator.getAssociation(stack).mPrefix != oreRaw) {
                 return !Arrays.asList(PlatinumSludgeOverHaul.OPBLACKLIST)
                     .contains(GTOreDictUnificator.getAssociation(stack).mPrefix)
                     || Arrays.asList(PlatinumSludgeOverHaul.BLACKLIST)

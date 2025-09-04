@@ -5,7 +5,6 @@ import static gregtech.api.enums.Mods.GTPlusPlusEverglades;
 import net.minecraft.block.Block;
 import net.minecraftforge.common.DimensionManager;
 
-import bwcrossmod.galacticgreg.VoidMinerUtility;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -68,7 +67,6 @@ public class GTPPEverglades {
         GameRegistry.registerWorldGenerator(new WorldGenEvergladesBase(), Short.MAX_VALUE);
         getEvergladesBiome().load();
         Everglades_Dimension.load();
-        addToVoidMinerDrops();
     }
 
     public static synchronized void GenerateOreMaterials() {
@@ -136,20 +134,6 @@ public class GTPPEverglades {
             WorldGenEvergladesBase.debugWorldGen = true;
         }
         DarkWorldContentLoader.run();
-    }
-
-    public void addToVoidMinerDrops() {
-        for (WorldGenEvergladesOreLayer t : WorldGenEvergladesOres.validOreveins.values()) {
-            addVMDrop(t.mPrimaryMeta, 0, t.mWeight);
-            addVMDrop(t.mSecondaryMeta, 0, t.mWeight);
-            addVMDrop(t.mBetweenMeta, 0, t.mWeight / 8f);
-            addVMDrop(t.mSporadicMeta, 0, t.mWeight / 8f);
-        }
-    }
-
-    public void addVMDrop(Block block, int meta, float weight) {
-        VoidMinerUtility
-            .addBlockToDimensionList(gtPlusPlus.core.config.Configuration.worldgen.EVERGLADES_ID, block, meta, weight);
     }
 
     @EventHandler

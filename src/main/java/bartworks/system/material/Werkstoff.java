@@ -729,7 +729,7 @@ public class Werkstoff implements IColorModulationContainer, ISubTagContainer {
             Werkstoff.GenerationFeatures.prefixLogic.put(OrePrefixes.crushed, 0b1000);
             Werkstoff.GenerationFeatures.prefixLogic.put(OrePrefixes.crushedPurified, 0b1000);
             Werkstoff.GenerationFeatures.prefixLogic.put(OrePrefixes.crushedCentrifuged, 0b1000);
-            Werkstoff.GenerationFeatures.prefixLogic.put(OrePrefixes.rawOre, 0b1000);
+            Werkstoff.GenerationFeatures.prefixLogic.put(OrePrefixes.oreRaw, 0b1000);
 
             Werkstoff.GenerationFeatures.prefixLogic.put(OrePrefixes.cell, 0b10000);
             if (Mods.Forestry.isModLoaded()) {

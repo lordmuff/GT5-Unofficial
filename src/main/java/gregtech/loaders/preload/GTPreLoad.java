@@ -207,7 +207,7 @@ public class GTPreLoad {
             final String[] prefixes1 = { "dustTiny", "dustSmall", "dust", "dustImpure", "dustPure", "crushed",
                 "crushedPurified", "crushedCentrifuged", "gem", "nugget", null, "ingot", "ingotHot", null, null, null,
                 null, "plate", "plateDouble", "plateTriple", "plateQuadruple", "plateQuintuple", "plateDense", "stick",
-                "lens", "round", "bolt", "screw", "ring", "foil", "cell", "cellPlasma", "cellMolten", "rawOre",
+                "lens", "round", "bolt", "screw", "ring", "foil", "cell", "cellPlasma", "cellMolten", "oreRaw",
                 "plateSuperdense" };
             final String[] prefixes2 = { "toolHeadSword", "toolHeadPickaxe", "toolHeadShovel", "toolHeadAxe",
                 "toolHeadHoe", "toolHeadHammer", "toolHeadFile", "toolHeadSaw", "toolHeadDrill", "toolHeadChainsaw",
@@ -215,7 +215,7 @@ public class GTPreLoad {
                 "toolHeadBuzzSaw", "turbineBlade", null, "itemCasing", "wireFine", "gearGtSmall", "rotor", "stickLong",
                 "springSmall", "spring", "arrowGtWood", "arrowGtPlastic", "gemChipped", "gemFlawed", "gemFlawless",
                 "gemExquisite", "gearGt" };
-            final String[] prefixes3 = { "rawOre", "nanite", "plateSuperdense" };
+            final String[] prefixes3 = { "oreRaw", "nanite", "plateSuperdense" };
             for (String text : scripts) {
                 Matcher m = p.matcher(text);
                 while (m.find()) {
@@ -270,7 +270,7 @@ public class GTPreLoad {
             "toolHeadUniversalSpade", "toolHeadSense", "toolHeadPlow", "toolHeadArrow", "toolHeadBuzzSaw",
             "turbineBlade", "wireFine", "gearGtSmall", "rotor", "stickLong", "springSmall", "spring", "arrowGtWood",
             "arrowGtPlastic", "gemChipped", "gemFlawed", "gemFlawless", "gemExquisite", "gearGt", "nanite",
-            "cellMolten", "rawOre", "plateSuperdense" };
+            "cellMolten", "oreRaw", "plateSuperdense" };
 
         final ArrayList<String> mMTTags = new ArrayList<>();
         // noinspection ForLoopReplaceableByForEach

@@ -187,7 +187,6 @@ public final class MainMod {
 
         runOnServerStarted();
         StaticRecipeChangeLoaders.unificationRecipeEnforcer();
-        VoidMinerUtility.generateDropMaps();
     }
 
     private static boolean recipesAdded;

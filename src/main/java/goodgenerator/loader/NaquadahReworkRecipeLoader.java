@@ -619,7 +619,7 @@ public class NaquadahReworkRecipeLoader {
             int[] oreDict = OreDictionary.getOreIDs(input);
             for (int oreDictID : oreDict) {
                 String oreDictName = OreDictionary.getOreName(oreDictID);
-                if (!((oreDictName.startsWith("ore") || oreDictName.startsWith("rawOre")
+                if (!((oreDictName.startsWith("ore") || oreDictName.startsWith("oreRaw")
                     || oreDictName.startsWith("crushed")) && oreDictName.contains("Naq"))) {
                     continue;
                 }

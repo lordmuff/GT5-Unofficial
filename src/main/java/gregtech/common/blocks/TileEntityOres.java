@@ -326,7 +326,7 @@ public class TileEntityOres extends TileEntity implements IAllSidedTexturedTileE
             } else {
                 switch (GTMod.proxy.oreDropSystem) {
                     case Item -> {
-                        rList.add(GTOreDictUnificator.get(OrePrefixes.rawOre, aOreMaterial, (tIsRich ? 2 : 1)));
+                        rList.add(GTOreDictUnificator.get(OrePrefixes.oreRaw, aOreMaterial, (tIsRich ? 2 : 1)));
                     }
                     // TODO: Test
                     case FortuneItem -> {
@@ -342,11 +342,11 @@ public class TileEntityOres extends TileEntity implements IAllSidedTexturedTileE
 
                             int amount = (tIsRich ? 2 : 1) * (addedDrops + 1);
                             for (int i = 0; i < amount; i++) {
-                                rList.add(GTOreDictUnificator.get(OrePrefixes.rawOre, aOreMaterial, 1));
+                                rList.add(GTOreDictUnificator.get(OrePrefixes.oreRaw, aOreMaterial, 1));
                             }
                         } else {
                             for (int i = 0; i < (tIsRich ? 2 : 1); i++) {
-                                rList.add(GTOreDictUnificator.get(OrePrefixes.rawOre, aOreMaterial, 1));
+                                rList.add(GTOreDictUnificator.get(OrePrefixes.oreRaw, aOreMaterial, 1));
                             }
                         }
                     }

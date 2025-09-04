@@ -165,7 +165,6 @@ import bartworks.common.tileentities.tiered.MTEEnergyDistributor;
 import bartworks.common.tileentities.tiered.MTEGiantOutputHatch;
 import bartworks.common.tileentities.tiered.MTEHumongousInputHatch;
 import bartworks.system.material.WerkstoffLoader;
-import bwcrossmod.galacticgreg.MTEVoidMiners;
 import cpw.mods.fml.common.registry.GameRegistry;
 import fox.spiteful.avaritia.blocks.LudicrousBlocks;
 import gregtech.api.GregTechAPI;
@@ -513,11 +512,5 @@ public class ItemRegistry {
         ItemRegistry.megaMachines[4] = new MTEMegaOilCracker(MegaOilCracker.ID, "MegaOilCracker", "Mega Oil Cracker")
             .getStackForm(1L);
 
-        ItemRegistry.voidminer[2] = new MTEVoidMiners.VMUV(VoidMinerIII.ID, "VoidMiner3", "Void Miner III")
-            .getStackForm(1L);
-        ItemRegistry.voidminer[1] = new MTEVoidMiners.VMZPM(VoidMinerII.ID, "VoidMiner2", "Void Miner II")
-            .getStackForm(1L);
-        ItemRegistry.voidminer[0] = new MTEVoidMiners.VMLUV(VoidMinerI.ID, "VoidMiner1", "Void Miner I")
-            .getStackForm(1L);
     }
 }
