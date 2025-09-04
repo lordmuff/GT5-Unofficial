@@ -70,7 +70,7 @@ public class NEIGTConfig implements IConfigureNEI {
             GTMod.GT,
             "NEIPlugins",
             "register-crafting-handler",
-            "gregtech@" + handler.getRecipeName() + "@" + handler.getOverlayIdentifier());
+            "gregtech5@" + handler.getRecipeName() + "@" + handler.getOverlayIdentifier());
         GuiCraftingRecipe.craftinghandlers.add(handler);
         GuiUsageRecipe.usagehandlers.add(handler);
     }
@@ -161,7 +161,7 @@ public class NEIGTConfig implements IConfigureNEI {
             });
 
         event.registerHandlerInfo(
-            new HandlerInfo.Builder(CAL_IMPRINT_HANDLER.getOverlayIdentifier(), "GregTech", Mods.ModIDs.GREG_TECH)
+            new HandlerInfo.Builder(CAL_IMPRINT_HANDLER.getOverlayIdentifier(), "GregTech", Mods.ModIDs.GT5uNH)
                 .setMaxRecipesPerPage(100)
                 .setDisplayStack(
                     BWMetaItems.getCircuitParts()

@@ -11,7 +11,7 @@ public enum TargetedMod implements ITargetMod {
     ANGELICA("com.gtnewhorizons.angelica.loading.AngelicaTweaker", "angelica"),
     BIOMESOPLENTY(null, "BiomesOPlenty"),
     GALACTICRAFT_CORE("micdoodle8.mods.galacticraft.core.asm.GCLoadingPlugin", "GalacticraftCore"),
-    GT6("gregtech.asm.GT_ASM", "gregapi"),
+    GT6("gregtech5.asm.GT_ASM", "gregapi"),
     IC2("ic2.core.coremod.IC2core", "IC2"),
     OPTIFINE("optifine.OptiFineForgeTweaker", "Optifine"),
     RAILCRAFT(null, "Railcraft"),

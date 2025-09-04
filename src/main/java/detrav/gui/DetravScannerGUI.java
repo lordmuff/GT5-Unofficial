@@ -27,7 +27,7 @@ public class DetravScannerGUI extends GuiScreen {
     private int prevW;
     private int prevH;
 
-    private static final ResourceLocation back = new ResourceLocation("gregtech:textures/gui/propick.png");
+    private static final ResourceLocation back = new ResourceLocation("gregtech5:textures/gui/propick.png");
 
     public DetravScannerGUI() {
 

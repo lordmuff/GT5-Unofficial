@@ -936,7 +936,7 @@ public class RecipeLoader {
                 GTUtility.getIntegratedCircuit(16),
                 GTOreDictUnificator.get(OrePrefixes.dust, Materials.Saltpeter, 2))
             .fluidInputs(
-                FluidRegistry.getFluidStack("fluid.hydrogenperoxide", 1_000),
+                FluidRegistry.getFluidStack("hydrogenperoxide", 1_000),
                 Materials.NitrogenDioxide.getGas(1_000))
             .fluidOutputs(FluidRegistry.getFluidStack("combustionpromotor", 2_000))
             .duration(10 * SECONDS)
@@ -945,7 +945,7 @@ public class RecipeLoader {
         GTValues.RA.stdBuilder()
             .itemInputs(GTUtility.getIntegratedCircuit(16), WerkstoffLoader.SodiumNitrate.get(OrePrefixes.dust, 2))
             .fluidInputs(
-                FluidRegistry.getFluidStack("fluid.hydrogenperoxide", 1_000),
+                FluidRegistry.getFluidStack("hydrogenperoxide", 1_000),
                 Materials.NitrogenDioxide.getGas(1_000))
             .fluidOutputs(FluidRegistry.getFluidStack("combustionpromotor", 2_000))
             .duration(10 * SECONDS)

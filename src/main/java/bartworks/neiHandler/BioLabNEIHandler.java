@@ -33,7 +33,7 @@ public class BioLabNEIHandler extends GTNEIDefaultHandler {
                 GTMod.GT,
                 "NEIPlugins",
                 "register-crafting-handler",
-                "gregtech@" + this.getRecipeName() + "@" + this.getOverlayIdentifier());
+                "gregtech5@" + this.getRecipeName() + "@" + this.getOverlayIdentifier());
             GuiCraftingRecipe.craftinghandlers.add(this);
             GuiUsageRecipe.usagehandlers.add(this);
         }

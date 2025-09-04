@@ -41,7 +41,7 @@ public final class GTCommand extends GTBaseCommand {
 
     @Override
     public String getCommandName() {
-        return "gregtech";
+        return "gregtech5";
     }
 
     @Override

@@ -16,7 +16,7 @@ import gregtech.mixin.Mixin;
 import gtPlusPlus.core.config.ASMConfiguration;
 
 @IFMLLoadingPlugin.MCVersion("1.7.10")
-@IFMLLoadingPlugin.TransformerExclusions({ "gregtech.asm" })
+@IFMLLoadingPlugin.TransformerExclusions({ "gregtech5.asm" })
 @IFMLLoadingPlugin.Name("GregTech 5 Unofficial core plugin")
 public class GTCorePlugin implements IFMLLoadingPlugin, IEarlyMixinLoader {
 

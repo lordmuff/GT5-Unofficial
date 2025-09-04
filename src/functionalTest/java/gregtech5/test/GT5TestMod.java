@@ -56,7 +56,7 @@ public class GT5TestMod {
             }
         }
         final LauncherDiscoveryRequest discovery = LauncherDiscoveryRequestBuilder.request()
-            .selectors(DiscoverySelectors.selectPackage("gregtech.test"))
+            .selectors(DiscoverySelectors.selectPackage("gregtech5.test"))
             .build();
         final SummaryGeneratingListener summaryGenerator = new SummaryGeneratingListener();
         final TestExecutionSummary summary;

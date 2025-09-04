@@ -130,11 +130,11 @@ import ic2.api.recipe.IRecipeInput;
 import ic2.api.recipe.RecipeOutput;
 
 @Mod(
-    modid = "gregtech",
-    name = "GregTech",
+    modid = "gregtech5",
+    name = "GregTech 5 Unofficial: New Horizons",
     version = "MC1710",
-    guiFactory = "gregtech.client.GTGuiFactory",
-    dependencies = " required-after:IC2;" + " required-after:structurelib;"
+    guiFactory = "gregtech5.client.GTGuiFactory",
+    dependencies = " required-after:IC2;" + " required-after:structurelib;" + " after:gregapi;"
         + " required-after:gtnhlib@[0.6.35,);"
         + " required-after:modularui@[1.1.12,);"
         + " required-after:appliedenergistics2@[rv3-beta-258,);"
@@ -180,7 +180,7 @@ public class GTMod {
             // Client
             ConfigurationManager.registerConfig(Client.class);
 
-            // GregTech.cfg
+            // GregTech5.cfg
             ConfigurationManager.registerConfig(Gregtech.class);
 
             // MachineStats.cfg
@@ -202,10 +202,10 @@ public class GTMod {
 
     public static final int NBT_VERSION = calculateTotalGTVersion(VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
 
-    @Mod.Instance("gregtech")
+    @Mod.Instance("gregtech5")
     public static GTMod GT;
 
-    @SidedProxy(modId = "gregtech", clientSide = "gregtech.common.GTClient", serverSide = "gregtech.common.GTProxy")
+    @SidedProxy(modId = "gregtech5", clientSide = "gregtech5.common.GTClient", serverSide = "gregtech5.common.GTProxy")
     public static GTProxy proxy;
     /** Field renamed, reference {@link gregtech.GTMod#proxy} instead */
     @SuppressWarnings("DeprecatedIsStillUsed")
@@ -214,7 +214,7 @@ public class GTMod {
     public static final boolean DEBUG = Boolean.getBoolean("gt.debug");
 
     public static GTAchievements achievements;
-    public static final Logger GT_FML_LOGGER = LogManager.getLogger("GregTech GTNH");
+    public static final Logger GT_FML_LOGGER = LogManager.getLogger("GregTech5 GTNH");
 
     public GTMod() {
         GTValues.DW = new GTDummyWorld();
@@ -274,7 +274,7 @@ public class GTMod {
             event.getModConfigurationDirectory()
                 .getParentFile());
 
-        PowerGogglesConfigHandler.init(new File(event.getModConfigurationDirectory() + "/GregTech/Goggles.cfg"));
+        PowerGogglesConfigHandler.init(new File(event.getModConfigurationDirectory() + "/GregTech5/Goggles.cfg"));
 
         proxy.onPreInitialization(event);
 

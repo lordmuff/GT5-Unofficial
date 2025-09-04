@@ -94,6 +94,7 @@ public enum Mods implements IMod {
     ForgeRelocation(ModIDs.FORGE_RELOCATION),
     Forgelin(ModIDs.FORGELIN),
     GregTech(ModIDs.GREG_TECH),
+    GregTech5(ModIDs.GT5uNH),
     BartWorks(ModIDs.BART_WORKS),
     DetravScannerMod(ModIDs.DETRAV_SCANNER_MOD),
     GalactiGreg(ModIDs.GALACTI_GREG),
@@ -423,7 +424,8 @@ public enum Mods implements IMod {
         public static final String FORGE_MICROBLOCKS = "ForgeMicroblock";
         public static final String FORGE_RELOCATION = "ForgeRelocation";
         public static final String FORGELIN = "forgelin";
-        public static final String GREG_TECH = "gregtech",
+        public static final String GREG_TECH = "gregtech5";
+        public static final String GT5uNH = "gregtech5",
             BART_WORKS = "bartworks",
             DETRAV_SCANNER_MOD = "detravscannermod",
             GALACTI_GREG = "galacticgreg",

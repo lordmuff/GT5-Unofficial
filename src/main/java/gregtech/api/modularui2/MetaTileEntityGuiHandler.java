@@ -22,7 +22,7 @@ public final class MetaTileEntityGuiHandler extends AbstractUIFactory<PosGuiData
     public static final int MAX_INTERACTION_DISTANCE = 64;
 
     private MetaTileEntityGuiHandler() {
-        super("gregtech:mte");
+        super("gregtech5:mte");
     }
 
     public static void open(EntityPlayer player, IMetaTileEntity mte) {

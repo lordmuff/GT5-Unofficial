@@ -17,7 +17,7 @@ public abstract class GTAlleleEffect extends Allele implements IAlleleBeeEffect 
     protected int tickThrottle; // If set, this amount of ticks have to pass before an effect ticks
 
     public GTAlleleEffect(String id, boolean isDominant, int tickThrottle) {
-        super("gregtech." + id, "gregtech." + id, isDominant);
+        super("gregtech5." + id, "gregtech5." + id, isDominant);
         AlleleManager.alleleRegistry.registerAllele(this, EnumBeeChromosome.EFFECT);
         combinable = false;
         this.tickThrottle = tickThrottle;

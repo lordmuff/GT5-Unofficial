@@ -5,7 +5,7 @@ import com.gtnewhorizon.gtnhlib.config.Config;
 import gregtech.api.enums.Mods;
 
 @Config(
-    modid = Mods.ModIDs.GREG_TECH,
+    modid = Mods.ModIDs.GT5uNH,
     category = "op_stuff",
     configSubDirectory = "GregTech",
     filename = "OverpoweredStuff")

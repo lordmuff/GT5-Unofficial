@@ -159,7 +159,7 @@ public enum GTPP_BeeDefinition implements IBeeDefinition {
             case GTPP_Bees.EXTRABEES -> "extrabees.effect." + name;
             case GTPP_Bees.GENDUSTRY -> "gendustry.effect." + name;
             case GTPP_Bees.MAGICBEES -> "magicbees.effect" + name;
-            case GTPP_Bees.GREGTECH -> "gregtech.effect" + name;
+            case GTPP_Bees.GREGTECH -> "gregtech5.effect" + name;
             default -> "forestry.effect" + name;
         };
         return (IAlleleBeeEffect) AlleleManager.alleleRegistry.getAllele(s);
@@ -170,7 +170,7 @@ public enum GTPP_BeeDefinition implements IBeeDefinition {
             case GTPP_Bees.EXTRABEES -> "extrabees.flower." + name;
             case GTPP_Bees.GENDUSTRY -> "gendustry.flower." + name;
             case GTPP_Bees.MAGICBEES -> "magicbees.flower" + name;
-            case GTPP_Bees.GREGTECH -> "gregtech.flower" + name;
+            case GTPP_Bees.GREGTECH -> "gregtech5.flower" + name;
             default -> "forestry.flowers" + name;
         };
         return (IAlleleFlowers) AlleleManager.alleleRegistry.getAllele(s);
@@ -181,7 +181,7 @@ public enum GTPP_BeeDefinition implements IBeeDefinition {
             case GTPP_Bees.EXTRABEES -> "extrabees.species." + name;
             case GTPP_Bees.GENDUSTRY -> "gendustry.bee." + name;
             case GTPP_Bees.MAGICBEES -> "magicbees.species" + name;
-            case GTPP_Bees.GREGTECH -> "gregtech.species" + name;
+            case GTPP_Bees.GREGTECH -> "gregtech5.species" + name;
             default -> "forestry.species" + name;
         };
         return (IAlleleBeeSpecies) AlleleManager.alleleRegistry.getAllele(s);

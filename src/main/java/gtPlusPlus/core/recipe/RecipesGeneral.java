@@ -179,6 +179,7 @@ public class RecipesGeneral {
             .eut(TierEU.RECIPE_EV)
             .addTo(assemblerRecipes);
 
+        /*
         // Pest Killer
         GTValues.RA.stdBuilder()
             .itemInputs(
@@ -192,6 +193,7 @@ public class RecipesGeneral {
             .duration(1 * MINUTES)
             .eut(TierEU.RECIPE_LV / 2)
             .addTo(assemblerRecipes);
+        */
 
         addCompressedCactusCharcoal();
         addCompressedCactusCoke();

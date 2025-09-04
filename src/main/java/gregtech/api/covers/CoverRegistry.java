@@ -42,7 +42,7 @@ public final class CoverRegistry {
         null);
 
     private static GUIColorOverride colorOverride;
-    private static final String guiTexturePath = "gregtech:textures/gui/GuiCover.png";
+    private static final String guiTexturePath = "gregtech5:textures/gui/GuiCover.png";
     private static final String NBT_ID = "id";
 
     static {

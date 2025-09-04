@@ -86,61 +86,61 @@ public class GTThaumcraftCompat implements IThaumcraftCompat {
             "strontio",
             0xEEC2B3,
             new Aspect[] { Aspect.MIND, Aspect.ENTROPY },
-            new ResourceLocation("gregtech:textures/aspects/" + TCAspects.STRONTIO.name() + ".png"),
+            new ResourceLocation("gregtech5:textures/aspects/" + TCAspects.STRONTIO.name() + ".png"),
             1);
         TCAspects.NEBRISUM.mAspect = new Aspect(
             "nebrisum",
             0xEEEE7E,
             new Aspect[] { Aspect.MINE, Aspect.GREED },
-            new ResourceLocation("gregtech:textures/aspects/" + TCAspects.NEBRISUM.name() + ".png"),
+            new ResourceLocation("gregtech5:textures/aspects/" + TCAspects.NEBRISUM.name() + ".png"),
             1);
         TCAspects.ELECTRUM.mAspect = new Aspect(
             "electrum",
             0xC0EEEE,
             new Aspect[] { Aspect.ENERGY, Aspect.MECHANISM },
-            new ResourceLocation("gregtech:textures/aspects/" + TCAspects.ELECTRUM.name() + ".png"),
+            new ResourceLocation("gregtech5:textures/aspects/" + TCAspects.ELECTRUM.name() + ".png"),
             1);
         TCAspects.MAGNETO.mAspect = new Aspect(
             "magneto",
             0xC0C0C0,
             new Aspect[] { Aspect.METAL, Aspect.TRAVEL },
-            new ResourceLocation("gregtech:textures/aspects/" + TCAspects.MAGNETO.name() + ".png"),
+            new ResourceLocation("gregtech5:textures/aspects/" + TCAspects.MAGNETO.name() + ".png"),
             1);
         TCAspects.RADIO.mAspect = new Aspect(
             "radio",
             0xC0FFC0,
             new Aspect[] { Aspect.LIGHT, Aspect.ENERGY },
-            new ResourceLocation("gregtech:textures/aspects/" + TCAspects.RADIO.name() + ".png"),
+            new ResourceLocation("gregtech5:textures/aspects/" + TCAspects.RADIO.name() + ".png"),
             1);
         TCAspects.AEQUALITAS.mAspect = new LocalizedCustomAspectName(
             "custom1",
             0xEEF0EA,
             new Aspect[] { Aspect.MIND, Aspect.ORDER },
-            new ResourceLocation("gregtech:textures/aspects/" + TCAspects.AEQUALITAS.name() + ".png"),
+            new ResourceLocation("gregtech5:textures/aspects/" + TCAspects.AEQUALITAS.name() + ".png"),
             1);
         TCAspects.VESANIA.mAspect = new LocalizedCustomAspectName(
             "custom2",
             0x1B122C,
             new Aspect[] { Aspect.MIND, Aspect.TAINT },
-            new ResourceLocation("gregtech:textures/aspects/" + TCAspects.VESANIA.name() + ".png"),
+            new ResourceLocation("gregtech5:textures/aspects/" + TCAspects.VESANIA.name() + ".png"),
             1);
         TCAspects.PRIMORDIUM.mAspect = new LocalizedCustomAspectName(
             "custom3",
             0xF7F7DB,
             new Aspect[] { Aspect.VOID, Aspect.MOTION },
-            new ResourceLocation("gregtech:textures/aspects/" + TCAspects.PRIMORDIUM.name() + ".png"),
+            new ResourceLocation("gregtech5:textures/aspects/" + TCAspects.PRIMORDIUM.name() + ".png"),
             1);
         TCAspects.ASTRUM.mAspect = new LocalizedCustomAspectName(
             "custom4",
             0x2D2C2B,
             new Aspect[] { Aspect.LIGHT, Aspect.getAspect("custom3") },
-            new ResourceLocation("gregtech:textures/aspects/" + TCAspects.ASTRUM.name() + ".png"),
+            new ResourceLocation("gregtech5:textures/aspects/" + TCAspects.ASTRUM.name() + ".png"),
             1);
         TCAspects.GLORIA.mAspect = new LocalizedCustomAspectName(
             "custom5",
             0xFFE980,
             new Aspect[] { Aspect.MAN, Aspect.TRAVEL },
-            new ResourceLocation("gregtech:textures/aspects/" + TCAspects.GLORIA.name() + ".png"),
+            new ResourceLocation("gregtech5:textures/aspects/" + TCAspects.GLORIA.name() + ".png"),
             1);
 
         GTLanguageManager.addStringLocalization("tc.aspect.strontio", "Stupidness, Incompetence");

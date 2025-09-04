@@ -10,7 +10,7 @@ public final class GTGuiThemes {
 
     public static void init() {}
 
-    public static final GTGuiTheme STANDARD = GTGuiTheme.builder("gregtech:standard")
+    public static final GTGuiTheme STANDARD = GTGuiTheme.builder("gregtech5:standard")
         .panel(GTTextureIds.BACKGROUND_STANDARD)
         .itemSlot(GTTextureIds.SLOT_ITEM_STANDARD)
         .fluidSlot(GTTextureIds.SLOT_FLUID_STANDARD)
@@ -47,13 +47,13 @@ public final class GTGuiThemes {
         .themedTexture(GTWidgetThemes.PICTURE_CANISTER, GTPPTextureIds.PICTURE_CANISTER_DARK)
         .themedTexture(GTWidgetThemes.PICTURE_LOGO, GTTextureIds.PICTURE_GT_LOGO_STANDARD)
         .build();
-    public static final GTGuiTheme COVER = GTGuiTheme.builder("gregtech:cover")
+    public static final GTGuiTheme COVER = GTGuiTheme.builder("gregtech5:cover")
         .parent(STANDARD)
         .textColor(0x555555)
         .customTextColor(GTWidgetThemes.TEXT_TITLE, 0x222222)
         .textField(Dyes.dyeWhite.toInt())
         .build();
-    public static final GTGuiTheme BRONZE = GTGuiTheme.builder("gregtech:bronze")
+    public static final GTGuiTheme BRONZE = GTGuiTheme.builder("gregtech5:bronze")
         .parent(STANDARD)
         .panel(GTTextureIds.BACKGROUND_BRONZE)
         .itemSlot(GTTextureIds.SLOT_ITEM_BRONZE)
@@ -85,7 +85,7 @@ public final class GTGuiThemes {
         .themedTexture(GTWidgetThemes.PICTURE_CANISTER, GTTextureIds.OVERLAY_SLOT_CANISTER_BRONZE)
         .themedTexture(GTWidgetThemes.PICTURE_LOGO, GTTextureIds.PICTURE_GT_LOGO_BRONZE)
         .build();
-    public static final GTGuiTheme STEEL = GTGuiTheme.builder("gregtech:steel")
+    public static final GTGuiTheme STEEL = GTGuiTheme.builder("gregtech5:steel")
         .parent(STANDARD)
         .panel(GTTextureIds.BACKGROUND_STEEL)
         .itemSlot(GTTextureIds.SLOT_ITEM_STEEL)
@@ -119,7 +119,7 @@ public final class GTGuiThemes {
         .themedTexture(GTWidgetThemes.PICTURE_CANISTER, GTTextureIds.OVERLAY_SLOT_CANISTER_STEEL)
         .themedTexture(GTWidgetThemes.PICTURE_LOGO, GTTextureIds.PICTURE_GT_LOGO_STEEL)
         .build();
-    public static final GTGuiTheme PRIMITIVE = GTGuiTheme.builder("gregtech:primitive")
+    public static final GTGuiTheme PRIMITIVE = GTGuiTheme.builder("gregtech5:primitive")
         .parent(STANDARD)
         .panel(GTTextureIds.BACKGROUND_PRIMITIVE)
         .itemSlot(GTTextureIds.SLOT_ITEM_PRIMITIVE)

@@ -888,7 +888,7 @@ public class RecipeLoader2 {
         GTValues.RA.stdBuilder()
             .itemInputs(GGMaterial.ferrocene.get(OrePrefixes.dust, 4), Materials.SodiumHydroxide.getDust(8))
             .fluidInputs(
-                FluidRegistry.getFluidStack("fluid.kerosene", 40_000),
+                FluidRegistry.getFluidStack("kerosene", 40_000),
                 Materials.Naphtha.getFluid(3_000),
                 GGMaterial.diethylamine.getFluidOrGas(1_000))
             .fluidOutputs(GGMaterial.ironedKerosene.getFluidOrGas(44_000))

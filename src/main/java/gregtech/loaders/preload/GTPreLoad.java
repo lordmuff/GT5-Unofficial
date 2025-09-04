@@ -1,9 +1,9 @@
 package gregtech.loaders.preload;
 
 import static gregtech.GTMod.GT_FML_LOGGER;
-import static gregtech.api.enums.Mods.CraftTweaker;
+import static gregtech.api.enums.Mods.GregTech5;
 import static gregtech.api.enums.Mods.GalacticraftCore;
-import static gregtech.api.enums.Mods.GregTech;
+import static gregtech.api.enums.Mods.CraftTweaker;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -52,7 +52,7 @@ public class GTPreLoad {
 
     public static void sortToTheEnd() {
         try {
-            GT_FML_LOGGER.info("GTMod: Sorting GregTech to the end of the Mod List for further processing.");
+            GT_FML_LOGGER.info("GTMod: Sorting GregTech5 to the end of the Mod List for further processing.");
             LoadController tLoadController = (LoadController) GTUtility
                 .getFieldContent(Loader.instance(), "modController", true, true);
             assert tLoadController != null;
@@ -63,7 +63,7 @@ public class GTPreLoad {
             for (short i = 0; i < tModList_sS; i = (short) (i + 1)) {
                 ModContainer tMod = tModList.get(i);
                 if (tMod.getModId()
-                    .equalsIgnoreCase(GregTech.ID)) {
+                    .equalsIgnoreCase(GregTech5.ID)) {
                     tGregTech = tMod;
                 } else {
                     tNewModsList.add(tMod);
@@ -91,9 +91,9 @@ public class GTPreLoad {
                 .getLanguageCode();
             GT_FML_LOGGER.info("User lang is " + userLang);
             if (userLang.equals("en_US")) {
-                GT_FML_LOGGER.info("Loading GregTech.lang");
+                GT_FML_LOGGER.info("Loading GregTech5.lang");
                 GTLanguageManager.isEN_US = true;
-                GTLanguageManager.sEnglishFile = new Configuration(new File(languageDir, "GregTech.lang"));
+                GTLanguageManager.sEnglishFile = new Configuration(new File(languageDir, "GregTech5.lang"));
             } else {
                 String l10nFileName = "GregTech_" + userLang + ".lang";
                 File l10nFile = new File(languageDir, l10nFileName);
@@ -101,14 +101,14 @@ public class GTPreLoad {
                     GT_FML_LOGGER.info("Loading l10n file: " + l10nFileName);
                     GTLanguageManager.sEnglishFile = new Configuration(l10nFile);
                 } else {
-                    GT_FML_LOGGER.info("Cannot find l10n file " + l10nFileName + ", fallback to GregTech.lang");
+                    GT_FML_LOGGER.info("Cannot find l10n file " + l10nFileName + ", fallback to GregTech5.lang");
                     GTLanguageManager.isEN_US = true;
-                    GTLanguageManager.sEnglishFile = new Configuration(new File(languageDir, "GregTech.lang"));
+                    GTLanguageManager.sEnglishFile = new Configuration(new File(languageDir, "GregTech5.lang"));
                 }
             }
         } else {
             GTLanguageManager.isEN_US = true;
-            GTLanguageManager.sEnglishFile = new Configuration(new File(languageDir, "GregTech.lang"));
+            GTLanguageManager.sEnglishFile = new Configuration(new File(languageDir, "GregTech5.lang"));
         }
         GTLanguageManager.sEnglishFile.load();
 
@@ -122,24 +122,24 @@ public class GTPreLoad {
     }
 
     public static void getConfiguration(File configDir) {
-        File tFile = new File(new File(configDir, "GregTech"), "IDs.cfg");
+        File tFile = new File(new File(configDir, "GregTech5"), "IDs.cfg");
         GTConfig.sConfigFileIDs = new Configuration(tFile);
         GTConfig.sConfigFileIDs.load();
         GTConfig.sConfigFileIDs.save();
 
-        tFile = new File(new File(configDir, "GregTech"), "Cleanroom.cfg");
+        tFile = new File(new File(configDir, "GregTech5"), "Cleanroom.cfg");
         GTConfig.cleanroomFile = new Configuration(tFile);
         GTConfig.cleanroomFile.load();
         GTConfig.cleanroomFile.save();
 
-        tFile = new File(new File(configDir, "GregTech"), "UndergroundFluids.cfg");
+        tFile = new File(new File(configDir, "GregTech5"), "UndergroundFluids.cfg");
         GTConfig.undergroundFluidsFile = new Configuration(tFile);
         GTConfig.undergroundFluidsFile.load();
         GTConfig.undergroundFluidsFile.save();
     }
 
     public static void createLogFiles(File parentFile) {
-        GTLog.mLogFile = new File(parentFile, "logs/GregTech.log");
+        GTLog.mLogFile = new File(parentFile, "logs/GregTech5.log");
         if (!GTLog.mLogFile.exists()) {
             try {
                 GTLog.mLogFile.createNewFile();
@@ -223,7 +223,7 @@ public class GTPreLoad {
                     if (hit.startsWith("ore:")) {
                         hit = hit.substring(4);
                         if (!oreTags.contains(hit)) oreTags.add(hit);
-                    } else if (hit.startsWith("gregtech:gt.metaitem.0")) {
+                    } else if (hit.startsWith("gregtech5:gt.metaitem.0")) {
                         hit = hit.substring(22);
                         int mIt = Integer.parseInt(hit.substring(0, 1));
                         if (mIt > 0) {

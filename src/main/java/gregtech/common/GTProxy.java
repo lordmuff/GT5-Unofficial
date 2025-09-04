@@ -980,8 +980,8 @@ public class GTProxy implements IFuelHandler {
         GTModHandler.sNonReplaceableItems.add(GTModHandler.getModItem(Forestry.ID, "waxCast", 1L, 32767));
         GTModHandler.sNonReplaceableItems.add(GTModHandler.getModItem(GalacticraftCore.ID, "item.sensorGlasses", 1L, 32767));
 
-        RecipeSorter.register("gregtech:shaped", GTShapedRecipe.class, RecipeSorter.Category.SHAPED, "after:minecraft:shaped before:minecraft:shapeless");
-        RecipeSorter.register("gregtech:shapeless", GTShapelessRecipe.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+        RecipeSorter.register("gregtech5:shaped", GTShapedRecipe.class, RecipeSorter.Category.SHAPED, "after:minecraft:shaped before:minecraft:shapeless");
+        RecipeSorter.register("gregtech5:shapeless", GTShapelessRecipe.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
 
         // Register chunk manager with Forge
         GTChunkManager.init();

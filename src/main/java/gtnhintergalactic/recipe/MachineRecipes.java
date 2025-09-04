@@ -360,8 +360,8 @@ public class MachineRecipes implements Runnable {
             4000000,
             4,
             new Object[] { ItemList.SpaceElevatorBaseCasing.get(1),
-                new ItemStack(GameRegistry.findItem("gregtech", "gt.blockmachines"), 4, 10782),
-                new ItemStack(GameRegistry.findItem("gregtech", "gt.blockmachines"), 4, 1187),
+                new ItemStack(GameRegistry.findItem("gregtech5", "gt.blockmachines"), 4, 10782),
+                new ItemStack(GameRegistry.findItem("gregtech5", "gt.blockmachines"), 4, 1187),
                 GTOreDictUnificator.get(OrePrefixes.gearGt, Materials.CosmicNeutronium, 8),
                 GTOreDictUnificator.get(OrePrefixes.gearGtSmall, Materials.CosmicNeutronium, 16),
                 ItemList.Robot_Arm_UHV.get(8), ItemList.Conveyor_Module_UHV.get(16), highComputationStationT3_32,
@@ -382,8 +382,8 @@ public class MachineRecipes implements Runnable {
             64000000,
             4,
             new Object[] { ItemList.SpaceElevatorBaseCasing.get(1),
-                new ItemStack(GameRegistry.findItem("gregtech", "gt.blockmachines"), 4, 10784),
-                new ItemStack(GameRegistry.findItem("gregtech", "gt.blockmachines"), 4, 12091),
+                new ItemStack(GameRegistry.findItem("gregtech5", "gt.blockmachines"), 4, 10784),
+                new ItemStack(GameRegistry.findItem("gregtech5", "gt.blockmachines"), 4, 12091),
                 GTOreDictUnificator.get(OrePrefixes.gearGt, MaterialsUEVplus.TranscendentMetal, 8),
                 GTOreDictUnificator.get(OrePrefixes.gearGtSmall, MaterialsUEVplus.ProtoHalkonite, 16),
                 ItemList.Robot_Arm_UIV.get(8), ItemList.Conveyor_Module_UIV.get(16), highComputationStationT4_32,
@@ -402,8 +402,8 @@ public class MachineRecipes implements Runnable {
             256000000,
             4,
             new Object[] { ItemList.SpaceElevatorBaseCasing.get(1),
-                new ItemStack(GameRegistry.findItem("gregtech", "gt.blockmachines"), 4, 10786),
-                new ItemStack(GameRegistry.findItem("gregtech", "gt.blockmachines"), 4, 12093),
+                new ItemStack(GameRegistry.findItem("gregtech5", "gt.blockmachines"), 4, 10786),
+                new ItemStack(GameRegistry.findItem("gregtech5", "gt.blockmachines"), 4, 12093),
                 GTOreDictUnificator
                     .get(OrePrefixes.gearGt, MaterialsUEVplus.MagnetohydrodynamicallyConstrainedStarMatter, 8),
                 GTOreDictUnificator.get(OrePrefixes.gearGt, MaterialsUEVplus.MagMatter, 8),
@@ -424,7 +424,7 @@ public class MachineRecipes implements Runnable {
 
         // Research Module
         TTRecipeAdder.addResearchableAssemblylineRecipe(
-            new ItemStack(GameRegistry.findItem("gregtech", "gt.blockmachines"), 1, 11012),
+            new ItemStack(GameRegistry.findItem("gregtech5", "gt.blockmachines"), 1, 11012),
             512000,
             512,
             16000000,
