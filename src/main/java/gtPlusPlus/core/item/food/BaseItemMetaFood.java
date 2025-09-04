@@ -3,6 +3,8 @@ package gtPlusPlus.core.item.food;
 import static gregtech.api.enums.Mods.GTPlusPlus;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,19 +19,18 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.enums.Materials;
 import gregtech.api.objects.ItemData;
 import gregtech.api.objects.MaterialStack;
-import gregtech.api.util.GT_OreDictUnificator;
-import gtPlusPlus.api.objects.data.AutoMap;
+import gregtech.api.util.GTOreDictUnificator;
 import gtPlusPlus.core.creative.AddToCreativeTab;
 import gtPlusPlus.core.item.ModItems;
 import gtPlusPlus.core.util.math.MathUtils;
-import gtPlusPlus.core.util.minecraft.EntityUtils;
-import gtPlusPlus.core.util.minecraft.ItemUtils;
 
 public class BaseItemMetaFood extends ItemFood {
 
@@ -47,7 +48,7 @@ public class BaseItemMetaFood extends ItemFood {
     public static void registerMetaFoods() {
         registerNewMetaFood(
             0,
-            "I wouldn't eat this unless I was starving",
+            StatCollector.translateToLocal("GTPP.tooltip.meta_food.unless_starving"),
             2,
             0,
             64,
@@ -55,7 +56,7 @@ public class BaseItemMetaFood extends ItemFood {
             getOreDictNamesAsArrayList("listAllmeatraw"));
         registerNewMetaFood(
             1,
-            "Doesn't look any better cooked",
+            StatCollector.translateToLocal("GTPP.tooltip.meta_food.better_cooked"),
             4,
             1,
             64,
@@ -90,12 +91,12 @@ public class BaseItemMetaFood extends ItemFood {
         registerNewMetaFood(7, "", 4, 1, 64, getOreDictNamesAsArrayList("listAllmeatcooked"));
         registerNewMetaFood(
             8,
-            "Warm to the touch",
+            StatCollector.translateToLocal("GTPP.tooltip.meta_food.warm_touch"),
             EnumRarity.uncommon,
             4,
             1,
             64,
-            new AutoMap<>(),
+            new ArrayList<>(),
             new setOnFire(),
             getOreDictNamesAsArrayList("listAllmeatcooked"));
     }
@@ -105,7 +106,7 @@ public class BaseItemMetaFood extends ItemFood {
     private static final HashMap<Integer, EnumRarity> mRarityMap = new HashMap<>();
     private static final HashMap<Integer, Integer> mHealAmountMap = new HashMap<>();
     private static final HashMap<Integer, Float> mSaturationAmountMap = new HashMap<>();
-    private static final HashMap<Integer, AutoMap<PotionEffectPackage>> mPotionEffectsMap = new HashMap<>();
+    private static final HashMap<Integer, ArrayList<PotionEffectPackage>> mPotionEffectsMap = new HashMap<>();
     private static final HashMap<Integer, Boolean> mHasSpecialBehaviourMap = new HashMap<>();
     private static final HashMap<Integer, SpecialFoodBehaviour> mSpecialBehaviourMap = new HashMap<>();
     private static final HashMap<Integer, ArrayList<String>> mOreDictNames = new HashMap<>();
@@ -119,7 +120,7 @@ public class BaseItemMetaFood extends ItemFood {
             aHealAmount,
             aSaturationModifier,
             aMaxStacksize,
-            new AutoMap<>(),
+            new ArrayList<>(),
             null,
             new ArrayList<>());
     }
@@ -133,27 +134,13 @@ public class BaseItemMetaFood extends ItemFood {
             aHealAmount,
             aSaturationModifier,
             aMaxStacksize,
-            new AutoMap<>(),
+            new ArrayList<>(),
             null,
             aOreDictNames);
     }
 
     public static void registerNewMetaFood(final int aMetaID, String aTooltip, final int aHealAmount,
-        final float aSaturationModifier, final int aMaxStacksize, final AutoMap<PotionEffectPackage> aPotionEffects) {
-        registerNewMetaFood(
-            aMetaID,
-            aTooltip,
-            EnumRarity.common,
-            aHealAmount,
-            aSaturationModifier,
-            aMaxStacksize,
-            new AutoMap<>(),
-            null,
-            new ArrayList<>());
-    }
-
-    public static void registerNewMetaFood(final int aMetaID, String aTooltip, final int aHealAmount,
-        final float aSaturationModifier, final int aMaxStacksize, final AutoMap<PotionEffectPackage> aPotionEffects,
+        final float aSaturationModifier, final int aMaxStacksize, final ArrayList<PotionEffectPackage> aPotionEffects,
         final ArrayList<String> aOreDictNames) {
         registerNewMetaFood(
             aMetaID,
@@ -169,7 +156,7 @@ public class BaseItemMetaFood extends ItemFood {
 
     public static void registerNewMetaFood(final int aMetaID, String aTooltip, EnumRarity aRarity,
         final int aHealAmount, final float aSaturationModifier, final int aMaxStacksize,
-        final AutoMap<PotionEffectPackage> aPotionEffects, final SpecialFoodBehaviour aSpecialBehaviour) {
+        final ArrayList<PotionEffectPackage> aPotionEffects, final SpecialFoodBehaviour aSpecialBehaviour) {
         registerNewMetaFood(
             aMetaID,
             aTooltip,
@@ -184,7 +171,7 @@ public class BaseItemMetaFood extends ItemFood {
 
     public static void registerNewMetaFood(final int aMetaID, String aTooltip, EnumRarity aRarity,
         final int aHealAmount, final float aSaturationModifier, final int aMaxStacksize,
-        final AutoMap<PotionEffectPackage> aPotionEffects, final SpecialFoodBehaviour aSpecialBehaviour,
+        final ArrayList<PotionEffectPackage> aPotionEffects, final SpecialFoodBehaviour aSpecialBehaviour,
         final ArrayList<String> aOreDictNames) {
         mTotalMetaItems++;
         mMaxStackSizeMap.put(aMetaID, aMaxStacksize);
@@ -199,11 +186,11 @@ public class BaseItemMetaFood extends ItemFood {
         }
         mOreDictNames.put(aMetaID, aOreDictNames);
         if (aOreDictNames.contains("listAllmeatraw")) {
-            GT_OreDictUnificator.addItemData(
+            GTOreDictUnificator.addItemData(
                 new ItemStack(ModItems.itemMetaFood, 1, aMetaID),
                 new ItemData(Materials.MeatRaw, 3628800L, new MaterialStack(Materials.Bone, 403200L)));
         } else if (aOreDictNames.contains("listAllmeatcooked")) {
-            GT_OreDictUnificator.addItemData(
+            GTOreDictUnificator.addItemData(
                 new ItemStack(ModItems.itemMetaFood, 1, aMetaID),
                 new ItemData(Materials.MeatCooked, 3628800L, new MaterialStack(Materials.Bone, 403200L)));
         }
@@ -213,9 +200,9 @@ public class BaseItemMetaFood extends ItemFood {
         for (int aMetaID = 0; aMetaID < mTotalMetaItems; aMetaID++) {
             ArrayList<String> aOreDictNames = mOreDictNames.get(aMetaID);
             if (aOreDictNames != null && !aOreDictNames.isEmpty()) {
-                ItemStack aFoodStack = ItemUtils.simpleMetaStack(ModItems.itemMetaFood, aMetaID, 1);
+                ItemStack aFoodStack = new ItemStack(ModItems.itemMetaFood, 1, aMetaID);
                 for (String aOreName : aOreDictNames) {
-                    ItemUtils.addItemToOreDictionary(aFoodStack, aOreName);
+                    OreDictionary.registerOre(aOreName, aFoodStack);
                 }
             }
         }
@@ -257,8 +244,8 @@ public class BaseItemMetaFood extends ItemFood {
     @Override
     protected void onFoodEaten(final ItemStack aStack, final World aWorld, final EntityPlayer aPlayer) {
         // super.onFoodEaten(stack, world, player);
-        AutoMap<PotionEffectPackage> aPotionEffects = mPotionEffectsMap.get(getMetaKey(aStack));
-        if (!aWorld.isRemote && aPotionEffects != null && aPotionEffects.size() > 0) {
+        ArrayList<PotionEffectPackage> aPotionEffects = mPotionEffectsMap.get(getMetaKey(aStack));
+        if (!aWorld.isRemote && aPotionEffects != null && !aPotionEffects.isEmpty()) {
             for (PotionEffectPackage aFoodEffect : aPotionEffects) {
                 if (MathUtils.randInt(0, 100) <= aFoodEffect.getChance() || aFoodEffect.getChance() == 100) {
                     PotionEffect aEffect = aFoodEffect.getEffect();
@@ -318,7 +305,7 @@ public class BaseItemMetaFood extends ItemFood {
     public void addInformation(ItemStack aStack, EntityPlayer p_77624_2_, List aList, boolean p_77624_4_) {
         try {
             String aTooltip = mTooltipMap.get(getMetaKey(aStack));
-            if (aTooltip != null && aTooltip.length() > 0) {
+            if (aTooltip != null && !aTooltip.isEmpty()) {
                 aList.add(aTooltip);
             }
         } catch (Throwable t) {
@@ -340,13 +327,8 @@ public class BaseItemMetaFood extends ItemFood {
     @Override
     public void getSubItems(Item aItem, CreativeTabs p_150895_2_, List aList) {
         for (int i = 0; i < mIconMap.size(); i++) {
-            aList.add(ItemUtils.simpleMetaStack(aItem, i, 1));
+            aList.add(new ItemStack(aItem, 1, i));
         }
-    }
-
-    @Override
-    public boolean getIsRepairable(ItemStack p_82789_1_, ItemStack p_82789_2_) {
-        return false;
     }
 
     @Override
@@ -362,11 +344,6 @@ public class BaseItemMetaFood extends ItemFood {
     @Override
     public boolean showDurabilityBar(ItemStack stack) {
         return false;
-    }
-
-    @Override
-    public int getItemEnchantability() {
-        return 0;
     }
 
     @Override
@@ -426,22 +403,18 @@ public class BaseItemMetaFood extends ItemFood {
         }
     }
 
-    private static AutoMap<PotionEffectPackage> getPotionEffectPackage(PotionEffectPackage... aEffects) {
-        AutoMap<PotionEffectPackage> aPackage = new AutoMap<>();
+    private static ArrayList<PotionEffectPackage> getPotionEffectPackage(PotionEffectPackage... aEffects) {
+        ArrayList<PotionEffectPackage> aPackage = new ArrayList<>();
         if (aEffects != null && aEffects.length > 0) {
-            for (PotionEffectPackage aEffect : aEffects) {
-                aPackage.put(aEffect);
-            }
+            Collections.addAll(aPackage, aEffects);
         }
         return aPackage;
     }
 
     private static ArrayList<String> getOreDictNamesAsArrayList(String... aOreDictNames) {
         ArrayList<String> aPackage = new ArrayList<>();
-        if (aOreDictNames != null && aOreDictNames.length > 0) {
-            for (String aEffect : aOreDictNames) {
-                aPackage.add(aEffect);
-            }
+        if (aOreDictNames != null) {
+            aPackage.addAll(Arrays.asList(aOreDictNames));
         }
         return aPackage;
     }
@@ -515,7 +488,9 @@ public class BaseItemMetaFood extends ItemFood {
 
         @Override
         public void behaviour(EntityPlayer aPlayer) {
-            EntityUtils.setEntityOnFire(aPlayer, 5);
+            if (!aPlayer.isImmuneToFire()) {
+                aPlayer.setFire(5);
+            }
         }
     }
 }

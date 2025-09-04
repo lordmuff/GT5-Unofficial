@@ -1,17 +1,20 @@
 package gregtech.api.recipe.maps;
 
-import static gregtech.api.util.GT_Utility.formatNumbers;
+import static gregtech.api.util.GTRecipeConstants.EU_MULTIPLIER;
+import static gregtech.api.util.GTUtility.formatNumbers;
 
 import java.util.List;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+
+import net.minecraft.util.StatCollector;
 
 import com.gtnewhorizons.modularui.api.math.Pos2d;
 
 import gregtech.api.recipe.BasicUIPropertiesBuilder;
 import gregtech.api.recipe.NEIRecipePropertiesBuilder;
 import gregtech.api.recipe.RecipeMapFrontend;
-import gregtech.api.util.GT_Utility;
+import gregtech.api.util.GTUtility;
 import gregtech.api.util.MethodsReturnNonnullByDefault;
 import gregtech.common.gui.modularui.UIHelper;
 import gregtech.nei.RecipeDisplayInfo;
@@ -44,13 +47,17 @@ public class TranscendentPlasmaMixerFrontend extends RecipeMapFrontend {
     protected void drawEnergyInfo(RecipeDisplayInfo recipeInfo) {
         // These look odd because recipeInfo.recipe.mEUt is actually the EU per litre of fluid processed, not
         // the EU/t.
+        long multiplier = recipeInfo.recipe.getMetadataOrDefault(EU_MULTIPLIER, 10);
         recipeInfo.drawText(
-            GT_Utility.trans("152", "Total: ")
-                + formatNumbers(1000L * recipeInfo.recipe.mDuration / 100L * recipeInfo.recipe.mEUt)
-                + " EU");
+            StatCollector.translateToLocalFormatted(
+                "GT5U.nei.display.total",
+                formatNumbers(multiplier * recipeInfo.recipe.mDuration * recipeInfo.recipe.mEUt)));
         // 1000 / (20 ticks * 5 seconds) = 10L/t. 10L/t * x EU/L = 10 * x EU/t.
-        long averageUsage = 10L * recipeInfo.recipe.mEUt;
+        long averageUsage = multiplier * recipeInfo.recipe.mEUt;
         recipeInfo.drawText(
-            "Average: " + formatNumbers(averageUsage) + " EU/t" + GT_Utility.getTierNameWithParentheses(averageUsage));
+            StatCollector.translateToLocalFormatted(
+                "GT5U.nei.display.average",
+                formatNumbers(averageUsage),
+                GTUtility.getTierNameWithParentheses(averageUsage)));
     }
 }

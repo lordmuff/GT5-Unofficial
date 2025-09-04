@@ -1,44 +1,39 @@
 package gtPlusPlus.core.item.general.books;
 
-import static gregtech.api.enums.Mods.GTPlusPlus;
-import static gtPlusPlus.core.handler.BookHandler.mBookMap;
-import static gtPlusPlus.core.util.Utils.addBookTitleLocalization;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiScreenBook;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemWritableBook;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.enums.Mods;
 import gtPlusPlus.core.creative.AddToCreativeTab;
 import gtPlusPlus.core.handler.BookHandler;
 import gtPlusPlus.core.util.Utils;
 import gtPlusPlus.core.util.minecraft.NBTUtils;
-import gtPlusPlus.core.util.reflect.ReflectionUtils;
 
 public class ItemBaseBook extends ItemWritableBook {
 
     public ItemBaseBook() {
         this.setCreativeTab(AddToCreativeTab.tabMisc);
         this.setMaxStackSize(1);
-        this.setTextureName(GTPlusPlus.ID + ":" + "itemBook");
+        this.setTextureName(Mods.GTPlusPlus.ID + ":" + "itemBook");
         this.setUnlocalizedName("itembookgt");
         GameRegistry.registerItem(this, "bookGT");
     }
 
     @Override
-    public void getSubItems(Item item, CreativeTabs tab, List list) {
+    public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
         for (int i = 0; i < BookHandler.mBookMap.size(); i++) {
             ItemStack bookstack = new ItemStack(item, 1, i);
 
@@ -56,28 +51,36 @@ public class ItemBaseBook extends ItemWritableBook {
     public String getItemStackDisplayName(final ItemStack tItem) {
         if (NBTUtils.hasKey(tItem, "title")) {
             return NBTUtils.getString(tItem, "title");
-        } else if (tItem.getItemDamage() > -1 && tItem.getItemDamage() <= mBookMap.size()) {
-            return EnumChatFormatting.ITALIC + ""
-                + addBookTitleLocalization(mBookMap.get(tItem.getItemDamage()).mTitle);
+        } else if (tItem.getItemDamage() > -1 && tItem.getItemDamage() < BookHandler.mBookMap.size()) {
+            return EnumChatFormatting.ITALIC
+                + Utils.addBookTitleLocalization(BookHandler.mBookMap.get(tItem.getItemDamage()).mTitle);
         }
         // NBTUtils.tryIterateNBTData(tItem);
         return "GT++ Storybook";
     }
 
     @Override
-    public void addInformation(ItemStack tItem, EntityPlayer player, List list, boolean bool) {
-        // TODO Auto-generated method stub
+    public void addInformation(ItemStack tItem, EntityPlayer player, List<String> list, boolean bool) {
+        BookHandler.BookTemplate bookTemplate = BookHandler.mBookMap.get(tItem.getItemDamage());
+        if (bookTemplate == null) return;
         if (NBTUtils.hasKey(tItem, "author")) {
-            list.add(EnumChatFormatting.GRAY + "Author: " + NBTUtils.getString(tItem, "author"));
-        } else if (mBookMap.get(tItem.getItemDamage()).mAuthor != null) {
-            list.add(EnumChatFormatting.WHITE + "Author: " + mBookMap.get(tItem.getItemDamage()).mAuthor);
+            list.add(
+                EnumChatFormatting.GRAY + StatCollector
+                    .translateToLocalFormatted("gtpp.tooltip.book.author", NBTUtils.getString(tItem, "author")));
+        } else if (bookTemplate.mAuthor != null) {
+            list.add(
+                EnumChatFormatting.WHITE
+                    + StatCollector.translateToLocalFormatted("gtpp.tooltip.book.author", bookTemplate.mAuthor));
         }
         if (NBTUtils.hasKey(tItem, "title")) {
-            list.add(EnumChatFormatting.GRAY + "Pages: " + NBTUtils.getString(tItem, "pages"));
-        } else if (mBookMap.get(tItem.getItemDamage()).mPages != null) {
-            list.add(EnumChatFormatting.WHITE + "Pages: " + mBookMap.get(tItem.getItemDamage()).mPages.length);
+            list.add(
+                EnumChatFormatting.GRAY + StatCollector
+                    .translateToLocalFormatted("gtpp.tooltip.book.pages.s", NBTUtils.getString(tItem, "pages")));
+        } else if (bookTemplate.mPages != null) {
+            list.add(
+                EnumChatFormatting.WHITE
+                    + StatCollector.translateToLocalFormatted("gtpp.tooltip.book.pages.d", bookTemplate.mPages.length));
         }
-        // super.addInformation(p_77624_1_, p_77624_2_, p_77624_3_, p_77624_4_);
     }
 
     @Override
@@ -90,32 +93,23 @@ public class ItemBaseBook extends ItemWritableBook {
         return false;
     }
 
-    @Override
     @SideOnly(Side.CLIENT)
+    @Override
     public ItemStack onItemRightClick(ItemStack item, World world, EntityPlayer player) {
-        // player.displayGUIBook(item);
-        int i = item.getItemDamage();
-        ItemStack bookstack = Utils.getWrittenBook(
-            null,
-            mBookMap.get(i).mMeta,
-            mBookMap.get(i).mMapping,
-            mBookMap.get(i).mTitle,
-            mBookMap.get(i).mAuthor,
-            mBookMap.get(i).mPages);
-
         if (player.worldObj.isRemote) {
-            try {
-                Class<?> clazz = ReflectionUtils.getClass("net.minecraft.client.gui.GuiScreenBook");
-                Constructor<?> ctor = clazz.getConstructor(EntityPlayer.class, ItemStack.class, boolean.class);
-                Object object = ctor.newInstance(new Object[] { player, bookstack, false });
+            BookHandler.BookTemplate bookTemplate = BookHandler.mBookMap.get(item.getItemDamage());
+            if (bookTemplate == null) return item;
+            ItemStack bookstack = Utils.getWrittenBook(
+                null,
+                bookTemplate.mMeta,
+                bookTemplate.mMapping,
+                bookTemplate.mTitle,
+                bookTemplate.mAuthor,
+                bookTemplate.mPages);
+            if (bookstack != null) {
                 Minecraft.getMinecraft()
-                    .displayGuiScreen((GuiScreen) object);
-            } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-                | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                    .displayGuiScreen(new GuiScreenBook(player, bookstack, false));
             }
-            // Minecraft.getMinecraft().displayGuiScreen(new GuiScreenBook(player, bookstack, false));
         }
         return item;
     }

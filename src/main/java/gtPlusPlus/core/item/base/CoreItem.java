@@ -16,9 +16,9 @@ import net.minecraft.world.World;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.util.GT_LanguageManager;
+import gregtech.api.enums.GTValues;
+import gregtech.api.util.GTLanguageManager;
 import gtPlusPlus.api.objects.Logger;
-import gtPlusPlus.core.util.minecraft.ItemUtils;
 
 public class CoreItem extends Item {
 
@@ -112,7 +112,7 @@ public class CoreItem extends Item {
 
     public CoreItem(final String unlocalizedName, final CreativeTabs creativeTab, final int stackSize,
         final int maxDmg) {
-        this(unlocalizedName, creativeTab, stackSize, maxDmg, new String[] {}); // Calls 4
+        this(unlocalizedName, creativeTab, stackSize, maxDmg, GTValues.emptyStringArray); // Calls 4
     }
 
     // 4 //Not Rare + basic tooltip
@@ -215,7 +215,7 @@ public class CoreItem extends Item {
     @Override
     public void addInformation(final ItemStack stack, final EntityPlayer aPlayer, final List list, final boolean bool) {
         for (int i = 0;; i++) {
-            String tooltip = GT_LanguageManager
+            String tooltip = GTLanguageManager
                 .getTranslation("gtplusplus." + this.getUnlocalizedName() + ".tooltip" + "." + i);
             if (!("gtplusplus." + this.getUnlocalizedName() + ".tooltip" + "." + i).equals(tooltip)) {
                 list.add(tooltip);
@@ -269,12 +269,12 @@ public class CoreItem extends Item {
     }
 
     public ItemStack getStack() {
-        return ItemUtils.getSimpleStack(this);
+        return new ItemStack(this);
     }
 
     public void setItemDescription(String[] description) {
         for (int i = 0; i < description.length; i++) {
-            GT_LanguageManager.addStringLocalization(
+            GTLanguageManager.addStringLocalization(
                 "gtplusplus." + this.getUnlocalizedName() + ".tooltip" + "." + i,
                 description[i]);
         }

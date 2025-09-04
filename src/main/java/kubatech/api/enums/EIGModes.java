@@ -2,7 +2,9 @@ package kubatech.api.enums;
 
 import java.util.HashMap;
 
-import gregtech.api.util.GT_Multiblock_Tooltip_Builder;
+import org.jetbrains.annotations.NotNull;
+
+import gregtech.api.util.MultiblockTooltipBuilder;
 import kubatech.api.eig.EIGMode;
 import kubatech.tileentity.gregtech.multiblock.eigmodes.EIGIC2Mode;
 import kubatech.tileentity.gregtech.multiblock.eigmodes.EIGNormalMode;
@@ -17,7 +19,7 @@ public class EIGModes {
     // this is basically a fake enum, plz don't instantiate
     private EIGModes() {}
 
-    private static EIGMode addMode(EIGMode mode) {
+    private static @NotNull EIGMode addMode(@NotNull EIGMode mode) {
         modes.put(mode.getName(), mode);
         return mode;
     }
@@ -26,7 +28,7 @@ public class EIGModes {
         return modes.get(name);
     }
 
-    public static EIGMode getNextMode(EIGMode from) {
+    public static @NotNull EIGMode getNextMode(@NotNull EIGMode from) {
         int id = (from.getUIIndex() + 1) % modes.size();
         for (EIGMode mode : modes.values()) {
             if (mode.getUIIndex() == id) return mode;
@@ -34,7 +36,7 @@ public class EIGModes {
         return Normal;
     }
 
-    public static void addTooltipInfo(GT_Multiblock_Tooltip_Builder tt) {
+    public static void addTooltipInfo(MultiblockTooltipBuilder tt) {
         // maybe make this use the mods list instead
         EIGModes.Normal.addTooltipInfo(tt);
         EIGModes.IC2.addTooltipInfo(tt);

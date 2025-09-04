@@ -14,17 +14,16 @@ import net.minecraft.world.IBlockAccess;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.enums.Dyes;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TextureSet;
-import gregtech.api.util.GT_LanguageManager;
-import gregtech.api.util.GT_OreDictUnificator;
+import gregtech.api.util.GTLanguageManager;
+import gregtech.api.util.GTOreDictUnificator;
+import gregtech.api.util.StringUtils;
 import gtPlusPlus.api.objects.Logger;
+import gtPlusPlus.core.config.Configuration;
 import gtPlusPlus.core.item.base.itemblock.ItemBlockGtBlock;
-import gtPlusPlus.core.lib.CORE;
 import gtPlusPlus.core.material.Material;
-import gtPlusPlus.core.util.Utils;
-import gtPlusPlus.core.util.math.MathUtils;
-import gtPlusPlus.core.util.minecraft.ItemUtils;
 
 public class BlockBaseModular extends BasicBlock {
 
@@ -58,7 +57,7 @@ public class BlockBaseModular extends BasicBlock {
         registerComponent();
         sBlockCache.put(material.getUnlocalizedName() + "." + blockType.name(), this);
         thisBlockMaterialTranslatedName = material.getTranslatedName();
-        GT_LanguageManager.addStringLocalization("gtplusplus." + getUnlocalizedName() + ".name", getProperName());
+        GTLanguageManager.addStringLocalization("gtplusplus." + getUnlocalizedName() + ".name", getProperName());
     }
 
     protected BlockBaseModular(final String unlocalizedName, final String blockMaterialString,
@@ -67,7 +66,7 @@ public class BlockBaseModular extends BasicBlock {
         super(blockType, unlocalizedName, vanillaMaterial, miningLevel);
         this.setHarvestLevel(blockType.getHarvestTool(), miningLevel);
         this.setBlockTextureName(GTPlusPlus.ID + ":" + blockType.getTexture());
-        this.blockColour = colour;
+        this.blockColour = colour == 0 ? Dyes._NULL.toInt() : colour;
         this.thisBlock = blockType;
         this.thisBlockMaterial = blockMaterialString;
         this.thisBlockType = blockType.name()
@@ -77,16 +76,13 @@ public class BlockBaseModular extends BasicBlock {
         GameRegistry.registerBlock(
             this,
             ItemBlockGtBlock.class,
-            Utils.sanitizeString(blockType.getTexture() + unlocalizedName));
+            StringUtils.sanitizeString(blockType.getTexture() + unlocalizedName));
         if (fx == 0) {
-            GT_OreDictUnificator
-                .registerOre("block" + unifyMaterialName(thisBlockMaterial), ItemUtils.getSimpleStack(this));
+            GTOreDictUnificator.registerOre("block" + unifyMaterialName(thisBlockMaterial), new ItemStack(this));
         } else if (fx == 1) {
-            GT_OreDictUnificator
-                .registerOre("frameGt" + unifyMaterialName(thisBlockMaterial), ItemUtils.getSimpleStack(this));
+            GTOreDictUnificator.registerOre("frameGt" + unifyMaterialName(thisBlockMaterial), new ItemStack(this));
         } else if (fx == 2) {
-            GT_OreDictUnificator
-                .registerOre("frameGt" + unifyMaterialName(thisBlockMaterial), ItemUtils.getSimpleStack(this));
+            GTOreDictUnificator.registerOre("frameGt" + unifyMaterialName(thisBlockMaterial), new ItemStack(this));
         }
     }
 
@@ -113,7 +109,7 @@ public class BlockBaseModular extends BasicBlock {
             : (fx == 1 ? OrePrefixes.frameGt.name() : OrePrefixes.ore.name()));
         ItemStack x = aMap.get(aKey);
         if (x == null) {
-            aMap.put(aKey, ItemUtils.getSimpleStack(this));
+            aMap.put(aKey, new ItemStack(this));
             Logger.MATERIALS("Registering a material component. Item: [" + aName + "] Map: [" + aKey + "]");
             Material.mComponentMap.put(aName, aMap);
         } else {
@@ -172,7 +168,7 @@ public class BlockBaseModular extends BasicBlock {
 
     @Override
     public String getLocalizedName() {
-        return GT_LanguageManager.getTranslation("gtplusplus." + getUnlocalizedName() + ".name")
+        return GTLanguageManager.getTranslation("gtplusplus." + getUnlocalizedName() + ".name")
             .replace("%s", "%temp")
             .replace("%material", this.thisBlockMaterialTranslatedName)
             .replace("%temp", "%s");
@@ -197,7 +193,7 @@ public class BlockBaseModular extends BasicBlock {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(final IIconRegister iIcon) {
-        if (!CORE.ConfigSwitches.useGregtechTextures || this.blockMaterial == null
+        if (!Configuration.visual.useGregtechTextures || this.blockMaterial == null
             || this.thisBlock == BlockTypes.ORE) {
             this.blockIcon = iIcon.registerIcon(GTPlusPlus.ID + ":" + this.thisBlock.getTexture());
         }
@@ -216,29 +212,16 @@ public class BlockBaseModular extends BasicBlock {
 
     @Override
     public int colorMultiplier(final IBlockAccess par1IBlockAccess, final int par2, final int par3, final int par4) {
-
-        if (this.blockColour == 0) {
-            return MathUtils.generateSingularRandomHexValue();
-        }
-
         return this.blockColour;
     }
 
     @Override
     public int getRenderColor(final int aMeta) {
-        if (this.blockColour == 0) {
-            return MathUtils.generateSingularRandomHexValue();
-        }
-
         return this.blockColour;
     }
 
     @Override
     public int getBlockColor() {
-        if (this.blockColour == 0) {
-            return MathUtils.generateSingularRandomHexValue();
-        }
-
         return this.blockColour;
     }
 }

@@ -83,8 +83,8 @@ public final class SubTag implements ICondition<ISubTagContainer> {
      */
     public static final SubTag NO_WORKING = getNewSubTag("NO_WORKING");
     /**
-     * This Material cannot be used for regular Metal working techniques. Already
-     * listed are: Rubber, Plastic, Paper, Wood, Stone
+     * This Material cannot be used for regular Metal working techniques. Already listed are: Rubber, Plastic, Paper,
+     * Wood, Stone
      */
     public static final SubTag NO_SMASHING = getNewSubTag("NO_SMASHING");
     /**
@@ -100,9 +100,17 @@ public final class SubTag implements ICondition<ISubTagContainer> {
      */
     public static final SubTag NO_RECYCLING = getNewSubTag("NO_RECYCLING");
     /**
+     * This Material won't auto generate recycling recipes.
+     */
+    public static final SubTag NO_RECYCLING_RECIPES = getNewSubTag("NO_RECYCLING_RECIPES");
+    /**
      * This Material cannot be used in any Furnace alike Structure. Already listed are: Paper, Wood, Gunpowder, Stone
      */
     public static final SubTag NO_SMELTING = getNewSubTag("NO_SMELTING");
+    /**
+     * This Material cannot have its Ore and associated prefixes processed, and must be handled manually.
+     */
+    public static final SubTag NO_ORE_PROCESSING = getNewSubTag("NO_ORE_PROCESSING");
     /**
      * This Material can be molten into a Fluid
      */
@@ -236,6 +244,15 @@ public final class SubTag implements ICondition<ISubTagContainer> {
      * Projectile Tag for Arrows
      */
     public static final SubTag PROJECTILE_ARROW = getNewSubTag("PROJECTILE_ARROW");
+    /**
+     * If this material cannot be made superdense using the HIP unit
+     */
+    public static final SubTag BLACK_HOLE = getNewSubTag("BLACK_HOLE");
+
+    /**
+     * If this material should generate Multi-plates (triple, quadruple, quintuple)
+     */
+    public static final SubTag MULTI_PLATE = getNewSubTag("MULTI_PLATE");
 
     public final Collection<ISubTagContainer> mRelevantTaggedItems = new HashSet<>(1);
 

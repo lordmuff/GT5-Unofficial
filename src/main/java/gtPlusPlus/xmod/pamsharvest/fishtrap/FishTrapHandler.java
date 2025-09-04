@@ -3,11 +3,11 @@ package gtPlusPlus.xmod.pamsharvest.fishtrap;
 import static gregtech.api.recipe.RecipeMaps.centrifugeRecipes;
 import static gregtech.api.recipe.RecipeMaps.fluidExtractionRecipes;
 import static gregtech.api.recipe.RecipeMaps.maceratorRecipes;
-import static gregtech.api.util.GT_RecipeBuilder.SECONDS;
-import static gregtech.api.util.GT_RecipeBuilder.TICKS;
+import static gregtech.api.util.GTRecipeBuilder.SECONDS;
+import static gregtech.api.util.GTRecipeBuilder.TICKS;
 
-import gregtech.api.enums.GT_Values;
-import gtPlusPlus.core.util.minecraft.FluidUtils;
+import gregtech.api.enums.GTValues;
+import gregtech.api.enums.Materials;
 import gtPlusPlus.core.util.minecraft.ItemUtils;
 
 public class FishTrapHandler {
@@ -23,7 +23,7 @@ public class FishTrapHandler {
         for (String fish : harvestcraftFish) {
             final String itemName = prefix + fish + suffix;
             if (ItemUtils.getItemStackOfAmountFromOreDictNoBroken(itemName, 1) != null) {
-                GT_Values.RA.stdBuilder()
+                GTValues.RA.stdBuilder()
                     .itemInputs(ItemUtils.getItemStackOfAmountFromOreDict(itemName, 1))
                     .itemOutputs(
                         ItemUtils.getItemStackOfAmountFromOreDict("dustMeatRaw", 1),
@@ -32,22 +32,22 @@ public class FishTrapHandler {
                     .duration(20 * SECONDS)
                     .eut(2)
                     .addTo(maceratorRecipes);
-                GT_Values.RA.stdBuilder()
+                GTValues.RA.stdBuilder()
                     .itemInputs(ItemUtils.getItemStackOfAmountFromOreDict(itemName, 1))
-                    .fluidOutputs(FluidUtils.getFluidStack("methane", 48))
+                    .fluidOutputs(Materials.Methane.getGas(48))
                     .duration(19 * SECONDS + 4 * TICKS)
                     .eut(5)
                     .addTo(centrifugeRecipes);
-                GT_Values.RA.stdBuilder()
+                GTValues.RA.stdBuilder()
                     .itemInputs(ItemUtils.getItemStackOfAmountFromOreDict(itemName, 1))
-                    .fluidOutputs(FluidUtils.getFluidStack("fishoil", 50))
+                    .fluidOutputs(Materials.FishOil.getFluid(50))
                     .duration(16 * TICKS)
                     .eut(4)
                     .addTo(fluidExtractionRecipes);
             }
         }
         if (ItemUtils.getItemStackOfAmountFromOreDictNoBroken(greenheartFish, 1) != null) {
-            GT_Values.RA.stdBuilder()
+            GTValues.RA.stdBuilder()
                 .itemInputs(ItemUtils.getItemStackOfAmountFromOreDict(greenheartFish, 1))
                 .itemOutputs(
                     ItemUtils.getItemStackOfAmountFromOreDict("dustMeatRaw", 1),
@@ -56,15 +56,15 @@ public class FishTrapHandler {
                 .duration(20 * SECONDS)
                 .eut(2)
                 .addTo(maceratorRecipes);
-            GT_Values.RA.stdBuilder()
+            GTValues.RA.stdBuilder()
                 .itemInputs(ItemUtils.getItemStackOfAmountFromOreDict(greenheartFish, 1))
-                .fluidOutputs(FluidUtils.getFluidStack("methane", 48))
+                .fluidOutputs(Materials.Methane.getGas(48))
                 .duration(19 * SECONDS + 4 * TICKS)
                 .eut(5)
                 .addTo(centrifugeRecipes);
-            GT_Values.RA.stdBuilder()
+            GTValues.RA.stdBuilder()
                 .itemInputs(ItemUtils.getItemStackOfAmountFromOreDict(greenheartFish, 1))
-                .fluidOutputs(FluidUtils.getFluidStack("fishoil", 50))
+                .fluidOutputs(Materials.FishOil.getFluid(50))
                 .duration(16 * TICKS)
                 .eut(4)
                 .addTo(fluidExtractionRecipes);

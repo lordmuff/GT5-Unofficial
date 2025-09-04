@@ -5,13 +5,13 @@ import static gtPlusPlus.api.recipe.GTPPRecipeMaps.cokeOvenRecipes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import gregtech.api.enums.GT_Values;
-import gregtech.api.util.GT_Recipe;
-import gregtech.api.util.GT_Utility;
+import gregtech.api.enums.GTValues;
+import gregtech.api.util.GTRecipe;
+import gregtech.api.util.GTUtility;
 
 public final class AddGregtechRecipe {
 
-    public static boolean importPyroRecipe(GT_Recipe aRecipe) {
+    public static boolean importPyroRecipe(GTRecipe aRecipe) {
 
         int aModifiedTime = (int) (aRecipe.mDuration * 0.8);
 
@@ -24,12 +24,12 @@ public final class AddGregtechRecipe {
             || aRecipe.mFluidOutputs.length > 1
             || aRecipe.mOutputs.length > 9) {
             return false;
-        } else if (aRecipe.mInputs.length <= 0) {
+        } else if (aRecipe.mInputs.length == 0) {
             return false;
         }
 
         int aCircuitNumber = -1;
-        Item aCircuit = GT_Utility.getIntegratedCircuit(1)
+        Item aCircuit = GTUtility.getIntegratedCircuit(1)
             .getItem();
         boolean hasCircuit = false;
 
@@ -54,12 +54,12 @@ public final class AddGregtechRecipe {
         }
         ItemStack[] inputs;
         if (aInputItem == null) {
-            inputs = new ItemStack[] { GT_Utility.getIntegratedCircuit(aCircuitNumber) };
+            inputs = new ItemStack[] { GTUtility.getIntegratedCircuit(aCircuitNumber) };
         } else {
-            inputs = new ItemStack[] { GT_Utility.getIntegratedCircuit(aCircuitNumber), aInputItem };
+            inputs = new ItemStack[] { GTUtility.getIntegratedCircuit(aCircuitNumber), aInputItem };
         }
 
-        GT_Values.RA.stdBuilder()
+        GTValues.RA.stdBuilder()
             .itemInputs(inputs)
             .itemOutputs(aRecipe.mOutputs)
             .fluidInputs(aRecipe.mFluidInputs)

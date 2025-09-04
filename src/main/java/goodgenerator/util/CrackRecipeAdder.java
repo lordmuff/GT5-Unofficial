@@ -7,27 +7,29 @@ import static gregtech.api.recipe.RecipeMaps.distilleryRecipes;
 import static gregtech.api.recipe.RecipeMaps.extruderRecipes;
 import static gregtech.api.recipe.RecipeMaps.fluidSolidifierRecipes;
 import static gregtech.api.recipe.RecipeMaps.wiremillRecipes;
-import static gregtech.api.util.GT_RecipeBuilder.SECONDS;
-import static gregtech.api.util.GT_RecipeBuilder.TICKS;
-import static gregtech.api.util.GT_RecipeConstants.COIL_HEAT;
+import static gregtech.api.util.GTRecipeBuilder.HALF_INGOTS;
+import static gregtech.api.util.GTRecipeBuilder.INGOTS;
+import static gregtech.api.util.GTRecipeBuilder.SECONDS;
+import static gregtech.api.util.GTRecipeBuilder.TICKS;
+import static gregtech.api.util.GTRecipeConstants.ADDITIVE_AMOUNT;
+import static gregtech.api.util.GTRecipeConstants.BlastFurnaceWithGas;
+import static gregtech.api.util.GTRecipeConstants.COIL_HEAT;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-import com.github.bartimaeusnek.bartworks.system.material.Werkstoff;
-
-import gregtech.api.enums.GT_Values;
+import bartworks.system.material.Werkstoff;
+import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TierEU;
-import gregtech.api.metatileentity.implementations.GT_MetaPipeEntity_Cable;
-import gregtech.api.metatileentity.implementations.GT_MetaPipeEntity_Fluid;
-import gregtech.api.util.GT_OreDictUnificator;
-import gregtech.api.util.GT_RecipeBuilder;
-import gregtech.api.util.GT_Utility;
+import gregtech.api.metatileentity.implementations.MTECable;
+import gregtech.api.metatileentity.implementations.MTEFluidPipe;
+import gregtech.api.util.GTOreDictUnificator;
+import gregtech.api.util.GTRecipeBuilder;
+import gregtech.api.util.GTUtility;
 
 public class CrackRecipeAdder {
 
@@ -44,24 +46,24 @@ public class CrackRecipeAdder {
             .getName()
             .replaceAll(" ", "");
 
-        GT_Values.RA.stdBuilder()
-            .itemInputs(GT_Utility.getIntegratedCircuit(1))
+        GTValues.RA.stdBuilder()
+            .itemInputs(GTUtility.getIntegratedCircuit(1))
             .fluidInputs(inputFluid, cracker)
             .fluidOutputs(FluidRegistry.getFluidStack("lightlycracked" + name, 1000))
             .duration(Math.max((long) (Duration * 0.8), 1L) * TICKS)
             .eut(EUt)
             .addTo(crackingRecipes);
 
-        GT_Values.RA.stdBuilder()
-            .itemInputs(GT_Utility.getIntegratedCircuit(2))
+        GTValues.RA.stdBuilder()
+            .itemInputs(GTUtility.getIntegratedCircuit(2))
             .fluidInputs(inputFluid, cracker)
             .fluidOutputs(FluidRegistry.getFluidStack("moderatelycracked" + name, 1000))
-            .duration(Math.max((long) (Duration), 1L) * TICKS)
+            .duration(Math.max(Duration, 1L) * TICKS)
             .eut(EUt)
             .addTo(crackingRecipes);
 
-        GT_Values.RA.stdBuilder()
-            .itemInputs(GT_Utility.getIntegratedCircuit(3))
+        GTValues.RA.stdBuilder()
+            .itemInputs(GTUtility.getIntegratedCircuit(3))
             .fluidInputs(inputFluid, cracker)
             .fluidOutputs(FluidRegistry.getFluidStack("heavilycracked" + name, 1000))
             .duration(Math.max((long) (Duration * 1.2), 1L) * TICKS)
@@ -112,17 +114,17 @@ public class CrackRecipeAdder {
         ItemStack input = material.get(OrePrefixes.dust, 1);
         ItemStack output = level > 1750 ? material.get(OrePrefixes.ingotHot, 1) : material.get(OrePrefixes.ingot, 1);
         if (gas) {
-            GT_Values.RA.stdBuilder()
-                .itemInputs(input, GT_Utility.getIntegratedCircuit(11))
-                .fluidInputs(Materials.Helium.getGas(1000))
+            GTValues.RA.stdBuilder()
+                .itemInputs(input, GTUtility.getIntegratedCircuit(11))
                 .itemOutputs(output)
                 .duration(duration * TICKS)
                 .eut(EUt)
                 .metadata(COIL_HEAT, level)
-                .addTo(blastFurnaceRecipes);
+                .metadata(ADDITIVE_AMOUNT, 1000)
+                .addTo(BlastFurnaceWithGas);
         } else {
-            GT_Values.RA.stdBuilder()
-                .itemInputs(input, GT_Utility.getIntegratedCircuit(1))
+            GTValues.RA.stdBuilder()
+                .itemInputs(input, GTUtility.getIntegratedCircuit(1))
                 .itemOutputs(output)
                 .duration(duration * TICKS)
                 .eut(EUt)
@@ -134,9 +136,9 @@ public class CrackRecipeAdder {
     public static void addUniversalDistillationRecipewithCircuit(FluidStack aInput, ItemStack[] aCircuit,
         FluidStack[] aOutputs, ItemStack aOutput2, int aDuration, long aEUt) {
         for (int i = 0; i < Math.min(aOutputs.length, 11); i++) {
-            GT_RecipeBuilder buildDistillation = GT_Values.RA.stdBuilder()
-                .itemInputs(GT_Utility.getIntegratedCircuit(i + 1));
-            if (aOutput2 != GT_Values.NI) {
+            GTRecipeBuilder buildDistillation = GTValues.RA.stdBuilder()
+                .itemInputs(GTUtility.getIntegratedCircuit(i + 1));
+            if (aOutput2 != GTValues.NI) {
                 buildDistillation.itemOutputs(aOutput2);
             }
             buildDistillation.fluidInputs(aInput)
@@ -145,9 +147,9 @@ public class CrackRecipeAdder {
                 .eut(aEUt / 4)
                 .addTo(distilleryRecipes);
         }
-        GT_RecipeBuilder buildDT = GT_Values.RA.stdBuilder()
+        GTRecipeBuilder buildDT = GTValues.RA.stdBuilder()
             .itemInputs(aCircuit);
-        if (aOutput2 != GT_Values.NI) {
+        if (aOutput2 != GTValues.NI) {
             buildDT.itemOutputs(aOutput2);
         }
         buildDT.fluidInputs(aInput)
@@ -160,9 +162,9 @@ public class CrackRecipeAdder {
     public static void addUniversalDistillationRecipe(FluidStack aInput, FluidStack[] aOutputs, ItemStack aOutput2,
         int aDuration, long aEUt) {
         for (int i = 0; i < Math.min(aOutputs.length, 11); i++) {
-            GT_RecipeBuilder buildDistillation = GT_Values.RA.stdBuilder()
-                .itemInputs(GT_Utility.getIntegratedCircuit(i + 1));
-            if (aOutput2 != GT_Values.NI) {
+            GTRecipeBuilder buildDistillation = GTValues.RA.stdBuilder()
+                .itemInputs(GTUtility.getIntegratedCircuit(i + 1));
+            if (aOutput2 != GTValues.NI) {
                 buildDistillation.itemOutputs(aOutput2);
             }
             buildDistillation.fluidInputs(aInput)
@@ -171,8 +173,8 @@ public class CrackRecipeAdder {
                 .eut(aEUt / 4)
                 .addTo(distilleryRecipes);
         }
-        GT_RecipeBuilder buildDT = GT_Values.RA.stdBuilder();
-        if (aOutput2 != GT_Values.NI) {
+        GTRecipeBuilder buildDT = GTValues.RA.stdBuilder();
+        if (aOutput2 != GTValues.NI) {
             buildDT.itemOutputs(aOutput2);
         }
         buildDT.fluidInputs(aInput)
@@ -191,9 +193,9 @@ public class CrackRecipeAdder {
         String unName = material.getDefaultName()
             .replace(" ", "_");
         String Name = material.getDefaultName();
-        GT_OreDictUnificator.registerOre(
+        GTOreDictUnificator.registerOre(
             OrePrefixes.pipeTiny.get(material.getBridgeMaterial()),
-            new GT_MetaPipeEntity_Fluid(
+            new MTEFluidPipe(
                 ID,
                 "GT_Pipe_" + unName + "_Tiny",
                 "Tiny " + Name + " Fluid Pipe",
@@ -202,9 +204,9 @@ public class CrackRecipeAdder {
                 flow / 6,
                 temp,
                 gas).getStackForm(1L));
-        GT_OreDictUnificator.registerOre(
+        GTOreDictUnificator.registerOre(
             OrePrefixes.pipeSmall.get(material.getBridgeMaterial()),
-            new GT_MetaPipeEntity_Fluid(
+            new MTEFluidPipe(
                 ID + 1,
                 "GT_Pipe_" + unName + "_Small",
                 "Small " + Name + " Fluid Pipe",
@@ -213,9 +215,9 @@ public class CrackRecipeAdder {
                 flow / 3,
                 temp,
                 gas).getStackForm(1L));
-        GT_OreDictUnificator.registerOre(
+        GTOreDictUnificator.registerOre(
             OrePrefixes.pipeMedium.get(material.getBridgeMaterial()),
-            new GT_MetaPipeEntity_Fluid(
+            new MTEFluidPipe(
                 ID + 2,
                 "GT_Pipe_" + unName,
                 Name + " Fluid Pipe",
@@ -224,9 +226,9 @@ public class CrackRecipeAdder {
                 flow,
                 temp,
                 gas).getStackForm(1L));
-        GT_OreDictUnificator.registerOre(
+        GTOreDictUnificator.registerOre(
             OrePrefixes.pipeLarge.get(material.getBridgeMaterial()),
-            new GT_MetaPipeEntity_Fluid(
+            new MTEFluidPipe(
                 ID + 3,
                 "GT_Pipe_" + unName + "_Large",
                 "Large " + Name + " Fluid Pipe",
@@ -235,9 +237,9 @@ public class CrackRecipeAdder {
                 flow * 2,
                 temp,
                 gas).getStackForm(1L));
-        GT_OreDictUnificator.registerOre(
+        GTOreDictUnificator.registerOre(
             OrePrefixes.pipeHuge.get(material.getBridgeMaterial()),
-            new GT_MetaPipeEntity_Fluid(
+            new MTEFluidPipe(
                 ID + 4,
                 "GT_Pipe_" + unName + "_Huge",
                 "Huge " + Name + " Fluid Pipe",
@@ -246,7 +248,7 @@ public class CrackRecipeAdder {
                 flow * 4,
                 temp,
                 gas).getStackForm(1L));
-        GT_Values.RA.stdBuilder()
+        GTValues.RA.stdBuilder()
             .itemInputs(material.get(OrePrefixes.ingot, 1), ItemList.Shape_Extruder_Pipe_Tiny.get(0))
             .itemOutputs(material.get(OrePrefixes.pipeTiny, 2))
             .duration(
@@ -254,7 +256,7 @@ public class CrackRecipeAdder {
                     .getMass() * TICKS)
             .eut(TierEU.RECIPE_MV)
             .addTo(extruderRecipes);
-        GT_Values.RA.stdBuilder()
+        GTValues.RA.stdBuilder()
             .itemInputs(material.get(OrePrefixes.ingot, 1), ItemList.Shape_Extruder_Pipe_Small.get(0))
             .itemOutputs(material.get(OrePrefixes.pipeSmall, 1))
             .duration(
@@ -263,7 +265,7 @@ public class CrackRecipeAdder {
                     * TICKS)
             .eut(TierEU.RECIPE_MV)
             .addTo(extruderRecipes);
-        GT_Values.RA.stdBuilder()
+        GTValues.RA.stdBuilder()
             .itemInputs(material.get(OrePrefixes.ingot, 3), ItemList.Shape_Extruder_Pipe_Medium.get(0))
             .itemOutputs(material.get(OrePrefixes.pipeMedium, 1))
             .duration(
@@ -272,7 +274,7 @@ public class CrackRecipeAdder {
                     * TICKS)
             .eut(TierEU.RECIPE_MV)
             .addTo(extruderRecipes);
-        GT_Values.RA.stdBuilder()
+        GTValues.RA.stdBuilder()
             .itemInputs(material.get(OrePrefixes.ingot, 6), ItemList.Shape_Extruder_Pipe_Large.get(0))
             .itemOutputs(material.get(OrePrefixes.pipeLarge, 1))
             .duration(
@@ -281,7 +283,7 @@ public class CrackRecipeAdder {
                     * TICKS)
             .eut(TierEU.RECIPE_MV)
             .addTo(extruderRecipes);
-        GT_Values.RA.stdBuilder()
+        GTValues.RA.stdBuilder()
             .itemInputs(material.get(OrePrefixes.ingot, 12), ItemList.Shape_Extruder_Pipe_Huge.get(0))
             .itemOutputs(material.get(OrePrefixes.pipeHuge, 1))
             .duration(
@@ -290,18 +292,18 @@ public class CrackRecipeAdder {
                     * TICKS)
             .eut(TierEU.RECIPE_MV)
             .addTo(extruderRecipes);
-        GT_Values.RA.stdBuilder()
+        GTValues.RA.stdBuilder()
             .itemInputs(ItemList.Shape_Mold_Pipe_Tiny.get(0))
-            .fluidInputs(material.getMolten(72))
+            .fluidInputs(material.getMolten(1 * HALF_INGOTS))
             .itemOutputs(material.get(OrePrefixes.pipeTiny, 1))
             .duration(
                 material.getStats()
                     .getMass() * TICKS)
             .eut(TierEU.RECIPE_LV)
             .addTo(fluidSolidifierRecipes);
-        GT_Values.RA.stdBuilder()
+        GTValues.RA.stdBuilder()
             .itemInputs(ItemList.Shape_Mold_Pipe_Small.get(0))
-            .fluidInputs(material.getMolten(144))
+            .fluidInputs(material.getMolten(1 * INGOTS))
             .itemOutputs(material.get(OrePrefixes.pipeSmall, 1))
             .duration(
                 material.getStats()
@@ -309,9 +311,9 @@ public class CrackRecipeAdder {
                     * TICKS)
             .eut(TierEU.RECIPE_LV)
             .addTo(fluidSolidifierRecipes);
-        GT_Values.RA.stdBuilder()
+        GTValues.RA.stdBuilder()
             .itemInputs(ItemList.Shape_Mold_Pipe_Medium.get(0))
-            .fluidInputs(material.getMolten(432))
+            .fluidInputs(material.getMolten(3 * INGOTS))
             .itemOutputs(material.get(OrePrefixes.pipeMedium, 1))
             .duration(
                 material.getStats()
@@ -319,9 +321,9 @@ public class CrackRecipeAdder {
                     * TICKS)
             .eut(TierEU.RECIPE_LV)
             .addTo(fluidSolidifierRecipes);
-        GT_Values.RA.stdBuilder()
+        GTValues.RA.stdBuilder()
             .itemInputs(ItemList.Shape_Mold_Pipe_Large.get(0))
-            .fluidInputs(material.getMolten(864))
+            .fluidInputs(material.getMolten(6 * INGOTS))
             .itemOutputs(material.get(OrePrefixes.pipeLarge, 1))
             .duration(
                 material.getStats()
@@ -329,7 +331,7 @@ public class CrackRecipeAdder {
                     * TICKS)
             .eut(TierEU.RECIPE_LV)
             .addTo(fluidSolidifierRecipes);
-        GT_Values.RA.stdBuilder()
+        GTValues.RA.stdBuilder()
             .itemInputs(ItemList.Shape_Mold_Pipe_Huge.get(0))
             .fluidInputs(material.getMolten(1728))
             .itemOutputs(material.get(OrePrefixes.pipeHuge, 1))
@@ -351,10 +353,10 @@ public class CrackRecipeAdder {
         String aTextWire2 = " Wire";
         String aTextCable2 = " Cable";
         int aLossInsulated = aLoss / 4;
-        GT_OreDictUnificator.registerOre(
+        GTOreDictUnificator.registerOre(
             OrePrefixes.wireGt01,
             material.getBridgeMaterial(),
-            new GT_MetaPipeEntity_Cable(
+            new MTECable(
                 ID + 0,
                 aTextWire1 + unName + ".01",
                 "1x " + Name + aTextWire2,
@@ -365,10 +367,10 @@ public class CrackRecipeAdder {
                 aVoltage,
                 false,
                 true).getStackForm(1L));
-        GT_OreDictUnificator.registerOre(
+        GTOreDictUnificator.registerOre(
             OrePrefixes.wireGt02,
             material.getBridgeMaterial(),
-            new GT_MetaPipeEntity_Cable(
+            new MTECable(
                 ID + 1,
                 aTextWire1 + unName + ".02",
                 "2x " + Name + aTextWire2,
@@ -379,10 +381,10 @@ public class CrackRecipeAdder {
                 aVoltage,
                 false,
                 true).getStackForm(1L));
-        GT_OreDictUnificator.registerOre(
+        GTOreDictUnificator.registerOre(
             OrePrefixes.wireGt04,
             material.getBridgeMaterial(),
-            new GT_MetaPipeEntity_Cable(
+            new MTECable(
                 ID + 2,
                 aTextWire1 + unName + ".04",
                 "4x " + Name + aTextWire2,
@@ -393,10 +395,10 @@ public class CrackRecipeAdder {
                 aVoltage,
                 false,
                 true).getStackForm(1L));
-        GT_OreDictUnificator.registerOre(
+        GTOreDictUnificator.registerOre(
             OrePrefixes.wireGt08,
             material.getBridgeMaterial(),
-            new GT_MetaPipeEntity_Cable(
+            new MTECable(
                 ID + 3,
                 aTextWire1 + unName + ".08",
                 "8x " + Name + aTextWire2,
@@ -407,10 +409,10 @@ public class CrackRecipeAdder {
                 aVoltage,
                 false,
                 true).getStackForm(1L));
-        GT_OreDictUnificator.registerOre(
+        GTOreDictUnificator.registerOre(
             OrePrefixes.wireGt12,
             material.getBridgeMaterial(),
-            new GT_MetaPipeEntity_Cable(
+            new MTECable(
                 ID + 4,
                 aTextWire1 + unName + ".12",
                 "12x " + Name + aTextWire2,
@@ -421,10 +423,10 @@ public class CrackRecipeAdder {
                 aVoltage,
                 false,
                 true).getStackForm(1L));
-        GT_OreDictUnificator.registerOre(
+        GTOreDictUnificator.registerOre(
             OrePrefixes.wireGt16,
             material.getBridgeMaterial(),
-            new GT_MetaPipeEntity_Cable(
+            new MTECable(
                 ID + 5,
                 aTextWire1 + unName + ".16",
                 "16x " + Name + aTextWire2,
@@ -436,10 +438,10 @@ public class CrackRecipeAdder {
                 false,
                 true).getStackForm(1L));
         if (cover) {
-            GT_OreDictUnificator.registerOre(
+            GTOreDictUnificator.registerOre(
                 OrePrefixes.cableGt01,
                 material.getBridgeMaterial(),
-                new GT_MetaPipeEntity_Cable(
+                new MTECable(
                     ID + 6,
                     aTextCable1 + unName + ".01",
                     "1x " + Name + aTextCable2,
@@ -450,10 +452,10 @@ public class CrackRecipeAdder {
                     aVoltage,
                     true,
                     false).getStackForm(1L));
-            GT_OreDictUnificator.registerOre(
+            GTOreDictUnificator.registerOre(
                 OrePrefixes.cableGt02,
                 material.getBridgeMaterial(),
-                new GT_MetaPipeEntity_Cable(
+                new MTECable(
                     ID + 7,
                     aTextCable1 + unName + ".02",
                     "2x " + Name + aTextCable2,
@@ -464,10 +466,10 @@ public class CrackRecipeAdder {
                     aVoltage,
                     true,
                     false).getStackForm(1L));
-            GT_OreDictUnificator.registerOre(
+            GTOreDictUnificator.registerOre(
                 OrePrefixes.cableGt04,
                 material.getBridgeMaterial(),
-                new GT_MetaPipeEntity_Cable(
+                new MTECable(
                     ID + 8,
                     aTextCable1 + unName + ".04",
                     "4x " + Name + aTextCable2,
@@ -478,10 +480,10 @@ public class CrackRecipeAdder {
                     aVoltage,
                     true,
                     false).getStackForm(1L));
-            GT_OreDictUnificator.registerOre(
+            GTOreDictUnificator.registerOre(
                 OrePrefixes.cableGt08,
                 material.getBridgeMaterial(),
-                new GT_MetaPipeEntity_Cable(
+                new MTECable(
                     ID + 9,
                     aTextCable1 + unName + ".08",
                     "8x " + Name + aTextCable2,
@@ -492,10 +494,10 @@ public class CrackRecipeAdder {
                     aVoltage,
                     true,
                     false).getStackForm(1L));
-            GT_OreDictUnificator.registerOre(
+            GTOreDictUnificator.registerOre(
                 OrePrefixes.cableGt12,
                 material.getBridgeMaterial(),
-                new GT_MetaPipeEntity_Cable(
+                new MTECable(
                     ID + 10,
                     aTextCable1 + unName + ".12",
                     "12x " + Name + aTextCable2,
@@ -506,10 +508,10 @@ public class CrackRecipeAdder {
                     aVoltage,
                     true,
                     false).getStackForm(1L));
-            GT_OreDictUnificator.registerOre(
+            GTOreDictUnificator.registerOre(
                 OrePrefixes.cableGt16,
                 material.getBridgeMaterial(),
-                new GT_MetaPipeEntity_Cable(
+                new MTECable(
                     ID + 11,
                     aTextCable1 + unName + ".16",
                     "16x " + Name + aTextCable2,
@@ -521,104 +523,71 @@ public class CrackRecipeAdder {
                     true,
                     false).getStackForm(1L));
         }
-        GT_Values.RA.stdBuilder()
-            .itemInputs(material.get(OrePrefixes.ingot, 1), GT_Utility.getIntegratedCircuit(1))
+        GTValues.RA.stdBuilder()
+            .itemInputs(material.get(OrePrefixes.ingot, 1), GTUtility.getIntegratedCircuit(1))
             .itemOutputs(material.get(OrePrefixes.wireGt01, 2))
             .duration(5 * SECONDS)
             .eut(4)
             .addTo(wiremillRecipes);
-        GT_Values.RA.stdBuilder()
-            .itemInputs(material.get(OrePrefixes.ingot, 1), GT_Utility.getIntegratedCircuit(2))
+        GTValues.RA.stdBuilder()
+            .itemInputs(material.get(OrePrefixes.ingot, 1), GTUtility.getIntegratedCircuit(2))
             .itemOutputs(material.get(OrePrefixes.wireGt02, 1))
             .duration(7 * SECONDS + 10 * TICKS)
             .eut(4)
             .addTo(wiremillRecipes);
-        GT_Values.RA.stdBuilder()
-            .itemInputs(material.get(OrePrefixes.ingot, 2), GT_Utility.getIntegratedCircuit(4))
+        GTValues.RA.stdBuilder()
+            .itemInputs(material.get(OrePrefixes.ingot, 2), GTUtility.getIntegratedCircuit(4))
             .itemOutputs(material.get(OrePrefixes.wireGt04, 1))
             .duration(10 * SECONDS)
             .eut(4)
             .addTo(wiremillRecipes);
-        GT_Values.RA.stdBuilder()
-            .itemInputs(material.get(OrePrefixes.ingot, 4), GT_Utility.getIntegratedCircuit(8))
+        GTValues.RA.stdBuilder()
+            .itemInputs(material.get(OrePrefixes.ingot, 4), GTUtility.getIntegratedCircuit(8))
             .itemOutputs(material.get(OrePrefixes.wireGt08, 1))
             .duration(12 * SECONDS + 10 * TICKS)
             .eut(4)
             .addTo(wiremillRecipes);
-        GT_Values.RA.stdBuilder()
-            .itemInputs(material.get(OrePrefixes.ingot, 6), GT_Utility.getIntegratedCircuit(12))
+        GTValues.RA.stdBuilder()
+            .itemInputs(material.get(OrePrefixes.ingot, 6), GTUtility.getIntegratedCircuit(12))
             .itemOutputs(material.get(OrePrefixes.wireGt12, 1))
             .duration(15 * SECONDS)
             .eut(4)
             .addTo(wiremillRecipes);
-        GT_Values.RA.stdBuilder()
-            .itemInputs(material.get(OrePrefixes.ingot, 8), GT_Utility.getIntegratedCircuit(16))
+        GTValues.RA.stdBuilder()
+            .itemInputs(material.get(OrePrefixes.ingot, 8), GTUtility.getIntegratedCircuit(16))
             .itemOutputs(material.get(OrePrefixes.wireGt16, 1))
             .duration(17 * SECONDS + 10 * TICKS)
             .eut(4)
             .addTo(wiremillRecipes);
-        GT_Values.RA.stdBuilder()
-            .itemInputs(material.get(OrePrefixes.stick, 1), GT_Utility.getIntegratedCircuit(1))
+        GTValues.RA.stdBuilder()
+            .itemInputs(material.get(OrePrefixes.stick, 1), GTUtility.getIntegratedCircuit(1))
             .itemOutputs(material.get(OrePrefixes.wireGt01, 1))
             .duration(2 * SECONDS + 10 * TICKS)
             .eut(4)
             .addTo(wiremillRecipes);
-        GT_Values.RA.stdBuilder()
-            .itemInputs(material.get(OrePrefixes.stick, 2), GT_Utility.getIntegratedCircuit(2))
+        GTValues.RA.stdBuilder()
+            .itemInputs(material.get(OrePrefixes.stick, 2), GTUtility.getIntegratedCircuit(2))
             .itemOutputs(material.get(OrePrefixes.wireGt02, 1))
             .duration(5 * SECONDS)
             .eut(4)
             .addTo(wiremillRecipes);
-        GT_Values.RA.stdBuilder()
-            .itemInputs(material.get(OrePrefixes.stick, 4), GT_Utility.getIntegratedCircuit(4))
+        GTValues.RA.stdBuilder()
+            .itemInputs(material.get(OrePrefixes.stick, 4), GTUtility.getIntegratedCircuit(4))
             .itemOutputs(material.get(OrePrefixes.wireGt04, 1))
             .duration(7 * SECONDS + 10 * TICKS)
             .eut(4)
             .addTo(wiremillRecipes);
-        GT_Values.RA.stdBuilder()
-            .itemInputs(material.get(OrePrefixes.stick, 8), GT_Utility.getIntegratedCircuit(8))
+        GTValues.RA.stdBuilder()
+            .itemInputs(material.get(OrePrefixes.stick, 8), GTUtility.getIntegratedCircuit(8))
             .itemOutputs(material.get(OrePrefixes.wireGt08, 1))
             .duration(10 * SECONDS)
             .eut(4)
             .addTo(wiremillRecipes);
-        GT_Values.RA.stdBuilder()
-            .itemInputs(material.get(OrePrefixes.stick, 12), GT_Utility.getIntegratedCircuit(12))
+        GTValues.RA.stdBuilder()
+            .itemInputs(material.get(OrePrefixes.stick, 12), GTUtility.getIntegratedCircuit(12))
             .itemOutputs(material.get(OrePrefixes.wireGt12, 1))
             .duration(12 * SECONDS + 10 * TICKS)
             .eut(4)
             .addTo(wiremillRecipes);
-        GT_Values.RA.stdBuilder()
-            .itemInputs(material.get(OrePrefixes.stick, 16), GT_Utility.getIntegratedCircuit(16))
-            .itemOutputs(material.get(OrePrefixes.wireGt16, 1))
-            .duration(15 * SECONDS)
-            .eut(4)
-            .addTo(wiremillRecipes);
-        GT_Values.RA.stdBuilder()
-            .itemInputs(material.get(OrePrefixes.ingot, 1), GT_Utility.getIntegratedCircuit(3))
-            .itemOutputs(material.get(OrePrefixes.wireFine, 8))
-            .duration(5 * SECONDS)
-            .eut(4)
-            .addTo(wiremillRecipes);
-        GT_Values.RA.stdBuilder()
-            .itemInputs(material.get(OrePrefixes.stick, 1), GT_Utility.getIntegratedCircuit(3))
-            .itemOutputs(material.get(OrePrefixes.wireFine, 4))
-            .duration(2 * SECONDS + 10 * TICKS)
-            .eut(4)
-            .addTo(wiremillRecipes);
-        GT_Values.RA.stdBuilder()
-            .itemInputs(material.get(OrePrefixes.wireGt01, 1), GT_Utility.getIntegratedCircuit(1))
-            .itemOutputs(material.get(OrePrefixes.wireFine, 4))
-            .duration(10 * SECONDS)
-            .eut(8)
-            .addTo(wiremillRecipes);
-        GT_Values.RA.stdBuilder()
-            .itemInputs(material.get(OrePrefixes.ingot, 1), ItemList.Shape_Extruder_Wire.get(0))
-            .itemOutputs(material.get(OrePrefixes.wireGt01, 2))
-            .duration(
-                material.getStats()
-                    .getMass() * 8
-                    * TICKS)
-            .eut(TierEU.RECIPE_HV)
-            .addTo(extruderRecipes);
     }
 }

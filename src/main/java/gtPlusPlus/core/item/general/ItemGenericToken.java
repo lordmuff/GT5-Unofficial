@@ -16,7 +16,7 @@ import net.minecraft.util.IIcon;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.util.GT_LanguageManager;
+import gregtech.api.util.GTLanguageManager;
 import gtPlusPlus.core.creative.AddToCreativeTab;
 import gtPlusPlus.core.item.base.CoreItem;
 
@@ -74,12 +74,12 @@ public class ItemGenericToken extends CoreItem {
         sizes[0][4] = mCustomNameColours.size();
         // sizes[0][5] = mIcons.size();
         mLocalNames.put(id, aLocalName);
-        GT_LanguageManager
+        GTLanguageManager
             .addStringLocalization("gtplusplus." + this.getUnlocalizedName() + "." + id + ".name", aLocalName);
         mMaxStackSizes.put(id, aMaxStack);
         mDescriptionArrays.put(id, aDescript);
         for (int i = 0; i < aDescript.length; i++) {
-            GT_LanguageManager.addStringLocalization(
+            GTLanguageManager.addStringLocalization(
                 "gtplusplus." + this.getUnlocalizedName() + "." + id + ".tooltip." + i,
                 aDescript[i]);
         }
@@ -91,11 +91,10 @@ public class ItemGenericToken extends CoreItem {
         sizes[1][3] = mRarities.size();
         sizes[1][4] = mCustomNameColours.size();
         // sizes[1][5] = mIcons.size();
-        boolean b = sizes[0][0] > sizes[1][0] && sizes[0][1] > sizes[1][1]
+        return sizes[0][0] > sizes[1][0] && sizes[0][1] > sizes[1][1]
             && sizes[0][2] > sizes[1][2]
             && sizes[0][3] > sizes[1][3]
             && sizes[0][4] > sizes[1][4];
-        return b;
     }
 
     // Handle Sub items
@@ -113,7 +112,7 @@ public class ItemGenericToken extends CoreItem {
     public void addInformation(ItemStack stack, EntityPlayer aPlayer, List list, boolean bool) {
         super.addInformation(stack, aPlayer, list, bool);
         for (int i = 0;; i++) {
-            String tooltip = GT_LanguageManager.getTranslation(
+            String tooltip = GTLanguageManager.getTranslation(
                 "gtplusplus." + this
                     .getUnlocalizedNameInefficiently(stack) + "." + stack.getItemDamage() + ".tooltip." + i);
             if (!("gtplusplus." + this
@@ -126,7 +125,7 @@ public class ItemGenericToken extends CoreItem {
 
     @Override
     public String getItemStackDisplayName(final ItemStack tItem) {
-        String ret = GT_LanguageManager.getTranslation(
+        String ret = GTLanguageManager.getTranslation(
             "gtplusplus." + this.getUnlocalizedNameInefficiently(tItem) + "." + tItem.getItemDamage() + ".name");
         EnumChatFormatting format = mCustomNameColours.get(tItem.getItemDamage());
         if (format != null) {
@@ -143,11 +142,6 @@ public class ItemGenericToken extends CoreItem {
     @Override
     public boolean hasEffect(ItemStack par1ItemStack, final int pass) {
         return false;
-    }
-
-    @Override
-    public int getMetadata(int p_77647_1_) {
-        return 0;
     }
 
     @Override

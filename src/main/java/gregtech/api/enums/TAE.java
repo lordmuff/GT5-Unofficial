@@ -1,16 +1,12 @@
 package gregtech.api.enums;
 
-import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.HashSet;
-
 import gregtech.api.interfaces.ITexture;
+import gregtech.api.render.TextureFactory;
 import gtPlusPlus.api.objects.Logger;
-import gtPlusPlus.api.objects.data.AutoMap;
 import gtPlusPlus.core.block.ModBlocks;
-import gtPlusPlus.core.lib.CORE;
-import gtPlusPlus.core.util.reflect.ReflectionUtils;
-import gtPlusPlus.xmod.gregtech.api.objects.GTPP_CopiedBlockTexture;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 
 public class TAE {
 
@@ -19,8 +15,8 @@ public class TAE {
     public static int gtPPLastUsedIndex = 64;
     public static int secondaryIndex = 0;
 
-    public static HashMap<Integer, GTPP_CopiedBlockTexture> mTAE = new HashMap<>();
-    private static final HashSet<Integer> mFreeSlots = new HashSet<>(64);
+    private static final Int2ObjectOpenHashMap<ITexture> mTAE = new Int2ObjectOpenHashMap<>();
+    private static final IntOpenHashSet mFreeSlots = new IntOpenHashSet(64);
 
     static {
         for (int i = 64; i < 128; i++) {
@@ -31,83 +27,51 @@ public class TAE {
 
     /**
      *
-     * @param aPage                   - The Texture page (0-3)
-     * @param aID                     - The ID on the specified page (0-15)
-     * @param GTPP_CopiedBlockTexture - The Texture to register
+     * @param aPage   - The Texture page (0-3)
+     * @param aID     - The ID on the specified page (0-15)
+     * @param texture - The Texture to register
      * @return - Did it register correctly?
      */
-    public static boolean registerTexture(int aPage, int aID, GTPP_CopiedBlockTexture GTPP_CopiedBlockTexture) {
+    public static boolean registerTexture(int aPage, int aID, ITexture texture) {
         int aRealID = aID + (aPage * 16);
-        return registerTexture(64 + aRealID, GTPP_CopiedBlockTexture);
+        return registerTexture(64 + aRealID, texture);
     }
 
-    public static boolean registerTexture(int aID, GTPP_CopiedBlockTexture GTPP_CopiedBlockTexture) {
+    public static boolean registerTexture(int aID, ITexture texture) {
         if (mFreeSlots.contains(aID)) {
             mFreeSlots.remove(aID);
-            mTAE.put(aID, GTPP_CopiedBlockTexture);
+            mTAE.put(aID, texture);
             return true;
-        } else {
-            CORE.crash("Tried to register texture with ID " + aID + " to TAE, but it is already in use.");
-            return false; // Dead Code
         }
+
+        Logger.ERROR("Tried to register texture with ID " + aID + " to TAE, but it is already in use.");
+        throw new IllegalStateException();
     }
 
     public static void finalizeTAE() {
-        String aFreeSpaces = "";
-        String aPageAndSlotFree = "";
-        AutoMap<Integer> aTemp = new AutoMap<>(mFreeSlots);
+        StringBuilder aFreeSpaces = new StringBuilder();
+        StringBuilder aPageAndSlotFree = new StringBuilder();
+        int[] aTemp = mFreeSlots.toArray(new int[0]);
         for (int i = 0; i < mFreeSlots.size(); i++) {
-            int j = aTemp.get(i);
-            aFreeSpaces += j;
-            aPageAndSlotFree += getPageFromIndex(j);
+            int j = aTemp[i];
+            aFreeSpaces.append(j);
+            aPageAndSlotFree.append(getPageFromIndex(j));
             if (i != (mFreeSlots.size() - 1)) {
-                aFreeSpaces += ", ";
-                aPageAndSlotFree += ", ";
+                aFreeSpaces.append(", ");
+                aPageAndSlotFree.append(", ");
             }
         }
         Logger.INFO("Free Indexes within TAE: " + aFreeSpaces);
         Logger.INFO("Free Page slots within TAE: " + aPageAndSlotFree);
         Logger.INFO("Filling them with ERROR textures.");
-        for (int aFreeSlot : aTemp.values()) {
-            registerTexture(aFreeSlot, new GTPP_CopiedBlockTexture(ModBlocks.blockCasingsTieredGTPP, 1, 15));
+        for (int aFreeSlot : aTemp) {
+            registerTexture(aFreeSlot, TextureFactory.of(ModBlocks.blockCasingsTieredGTPP, 15));
         }
         Logger.INFO("Finalising TAE.");
-        for (int aKeyTae : mTAE.keySet()) {
-            Textures.BlockIcons.setCasingTextureForId(aKeyTae, mTAE.get(aKeyTae));
+        for (Int2ObjectMap.Entry<ITexture> entry : mTAE.int2ObjectEntrySet()) {
+            Textures.BlockIcons.setCasingTextureForId(entry.getIntKey(), entry.getValue());
         }
         Logger.INFO("Finalised TAE.");
-    }
-
-    private static boolean registerTextures(GTPP_CopiedBlockTexture GTPP_CopiedBlockTexture) {
-        try {
-            // Handle page 2.
-            Logger.INFO("[TAE} Registering Texture, Last used casing ID is " + gtPPLastUsedIndex + ".");
-            if (gtPPLastUsedIndex >= 128) {
-                Field x = ReflectionUtils.getField(Textures.BlockIcons.class, "casingTexturePages");
-                if (x != null) {
-                    ITexture[][] h = (ITexture[][]) x.get(null);
-                    if (h != null) {
-                        h[64][secondaryIndex++] = GTPP_CopiedBlockTexture;
-                        x.set(null, h);
-                        Logger
-                            .INFO("[TAE} Registered Texture with ID " + (secondaryIndex - 1) + " in secondary index.");
-                        return true;
-                    }
-                }
-            }
-
-            // set to page 1.
-            else {
-                Textures.BlockIcons.setCasingTextureForId(gtPPLastUsedIndex, GTPP_CopiedBlockTexture);
-                Logger.INFO("[TAE} Registered Texture with ID " + (gtPPLastUsedIndex) + " in main index.");
-                gtPPLastUsedIndex++;
-                return true;
-            }
-        } catch (Throwable t) {
-            t.printStackTrace();
-        }
-        Logger.INFO("[TAE} Failed to register texture, Last used casing ID is " + gtPPLastUsedIndex + ".");
-        return false;
     }
 
     public static ITexture getTexture(int index) {
@@ -118,7 +82,6 @@ public class TAE {
     }
 
     public static int GTPP_INDEX(int ID) {
-
         if (ID >= 64) {
             if (gtPPLastUsedIndex >= 128) {
                 return (128 + ID);
@@ -135,11 +98,9 @@ public class TAE {
     }
 
     public static String getPageFromIndex(int aIndex) {
-        int aPage = 0;
-        int aSlot = 0;
         int aAdjustedIndex = aIndex > 64 ? (aIndex - 64) : aIndex;
-        aPage = aAdjustedIndex / 16;
-        aSlot = aAdjustedIndex - (16 * aPage);
+        int aPage = aAdjustedIndex / 16;
+        int aSlot = aAdjustedIndex - (16 * aPage);
         return "[" + aIndex + " | " + aPage + ", " + aSlot + "]";
     }
 }

@@ -18,7 +18,7 @@ public class SlotCraftingNoCollect extends SlotCrafting {
     /** The craft matrix inventory linked to this result slot. */
     private final IInventory craftMatrix;
     /** The player that is using the GUI where this slot resides. */
-    private EntityPlayer thePlayer;
+    private final EntityPlayer thePlayer;
     /**
      * The number of items that have been crafted so far. Gets passed to ItemStack.onCrafting before being reset.
      */
@@ -29,14 +29,6 @@ public class SlotCraftingNoCollect extends SlotCrafting {
         super(player, inventory, inventory2, x, y, z);
         this.thePlayer = player;
         this.craftMatrix = inventory;
-    }
-
-    /**
-     * Check if the stack is a valid item for this slot. Always true beside for the armor slots.
-     */
-    @Override
-    public boolean isItemValid(ItemStack p_75214_1_) {
-        return false;
     }
 
     /**

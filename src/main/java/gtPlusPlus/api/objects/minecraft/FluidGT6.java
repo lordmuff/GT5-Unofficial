@@ -4,19 +4,21 @@ import static gregtech.api.enums.Mods.GTPlusPlus;
 
 import net.minecraftforge.fluids.Fluid;
 
-import gregtech.api.GregTech_API;
+import org.jetbrains.annotations.NotNull;
+
+import gregtech.api.GregTechAPI;
 
 public class FluidGT6 extends Fluid implements Runnable {
 
     private final short[] mRGBa;
     public final String mTextureName;
 
-    public FluidGT6(final String aName, final String aTextureName, final short[] aRGBa) {
+    public FluidGT6(final @NotNull String aName, final String aTextureName, final short[] aRGBa) {
         super(aName);
         this.mRGBa = aRGBa;
         this.mTextureName = aTextureName;
-        if (GregTech_API.sGTBlockIconload != null) {
-            GregTech_API.sGTBlockIconload.add(this);
+        if (GregTechAPI.sGTBlockIconload != null) {
+            GregTechAPI.sGTBlockIconload.add(this);
         }
     }
 
@@ -28,6 +30,6 @@ public class FluidGT6 extends Fluid implements Runnable {
 
     @Override
     public void run() {
-        this.setIcons(GregTech_API.sBlockIcons.registerIcon(GTPlusPlus.ID + ":" + "fluids/fluid." + this.mTextureName));
+        this.setIcons(GregTechAPI.sBlockIcons.registerIcon(GTPlusPlus.ID + ":" + "fluids/fluid." + this.mTextureName));
     }
 }

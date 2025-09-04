@@ -3,6 +3,7 @@ package gregtech.api.interfaces;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.IItemRenderer;
 
 public interface IItemContainer {
 
@@ -28,6 +29,10 @@ public interface IItemContainer {
 
     IItemContainer set(ItemStack aStack);
 
+    default IItemContainer hidden() {
+        return this;
+    }
+
     IItemContainer registerOre(Object... aOreNames);
 
     IItemContainer registerWildcardAsOre(Object... aOreNames);
@@ -37,4 +42,8 @@ public interface IItemContainer {
     ItemStack getWithName(long aAmount, String aDisplayName, Object... aReplacements);
 
     boolean hasBeenSet();
+
+    default IItemContainer setRender(IItemRenderer aRender) {
+        return this;
+    };
 }

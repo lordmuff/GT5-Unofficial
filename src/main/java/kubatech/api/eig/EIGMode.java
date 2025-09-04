@@ -10,8 +10,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
-import gregtech.api.util.GT_Multiblock_Tooltip_Builder;
-import kubatech.tileentity.gregtech.multiblock.GT_MetaTileEntity_ExtremeIndustrialGreenhouse;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import gregtech.api.util.MultiblockTooltipBuilder;
+import kubatech.tileentity.gregtech.multiblock.MTEExtremeIndustrialGreenhouse;
 
 public abstract class EIGMode {
 
@@ -37,16 +40,16 @@ public abstract class EIGMode {
 
     public abstract double getFertilizerBoost();
 
-    public abstract GT_Multiblock_Tooltip_Builder addTooltipInfo(GT_Multiblock_Tooltip_Builder builder);
+    public abstract MultiblockTooltipBuilder addTooltipInfo(MultiblockTooltipBuilder builder);
 
     /**
      * Used to resolve factory type to an identifier.
      */
-    private final HashMap<String, IEIGBucketFactory> factories;
+    private final @NotNull HashMap<String, IEIGBucketFactory> factories;
     /**
      * A way to have other mods submit custom buckets that can be prioritized over our default buckets
      */
-    private final LinkedList<IEIGBucketFactory> orderedFactories;
+    private final @NotNull LinkedList<IEIGBucketFactory> orderedFactories;
 
     public EIGMode() {
         this.factories = new HashMap<>();
@@ -59,7 +62,7 @@ public abstract class EIGMode {
      *
      * @param factory The bucket factory to add.
      */
-    public void addLowPriorityFactory(IEIGBucketFactory factory) {
+    public void addLowPriorityFactory(@NotNull IEIGBucketFactory factory) {
         String factoryId = factory.getNBTIdentifier();
         dealWithDuplicateFactoryId(factoryId);
         // add factory as lowest priority
@@ -73,7 +76,7 @@ public abstract class EIGMode {
      *
      * @param factory The bucket factory to add.
      */
-    public void addHighPriorityFactory(IEIGBucketFactory factory) {
+    public void addHighPriorityFactory(@NotNull IEIGBucketFactory factory) {
         String factoryId = factory.getNBTIdentifier();
         dealWithDuplicateFactoryId(factoryId);
         // add factory as lowest priority
@@ -98,14 +101,14 @@ public abstract class EIGMode {
     /**
      * Attempts to create a new bucket from a given item. Returns if the item cannot be inserted into the EIG.
      *
-     * @see IEIGBucketFactory#tryCreateBucket(GT_MetaTileEntity_ExtremeIndustrialGreenhouse, ItemStack)
-     * @param greenhouse The {@link GT_MetaTileEntity_ExtremeIndustrialGreenhouse} that will contain the seed.
+     * @see IEIGBucketFactory#tryCreateBucket(MTEExtremeIndustrialGreenhouse, ItemStack)
+     * @param greenhouse The {@link MTEExtremeIndustrialGreenhouse} that will contain the seed.
      * @param input      The {@link ItemStack} for the input item.
      * @param maxConsume The maximum amount of items to consume.
      * @param simulate   Whether to actually consume the seed.
      * @return Null if no bucket could be created from the item.
      */
-    public EIGBucket tryCreateNewBucket(GT_MetaTileEntity_ExtremeIndustrialGreenhouse greenhouse, ItemStack input,
+    public @Nullable EIGBucket tryCreateNewBucket(MTEExtremeIndustrialGreenhouse greenhouse, @Nullable ItemStack input,
         int maxConsume, boolean simulate) {
         // Validate inputs
         if (input == null) return null;
@@ -128,7 +131,7 @@ public abstract class EIGMode {
      * @see IEIGBucketFactory#restore(NBTTagCompound)
      * @param bucketNBTList The
      */
-    public void restoreBuckets(NBTTagList bucketNBTList, List<EIGBucket> loadTo) {
+    public void restoreBuckets(@NotNull NBTTagList bucketNBTList, @NotNull List<EIGBucket> loadTo) {
         for (int i = 0; i < bucketNBTList.tagCount(); i++) {
             // validate nbt
             NBTTagCompound bucketNBT = bucketNBTList.getCompoundTagAt(i);

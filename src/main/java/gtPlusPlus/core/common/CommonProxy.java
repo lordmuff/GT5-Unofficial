@@ -5,11 +5,15 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.client.IItemRenderer;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+
+import org.apache.commons.lang3.tuple.Pair;
 
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
+import cpw.mods.fml.common.IFuelHandler;
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -18,50 +22,48 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import cpw.mods.fml.common.registry.GameRegistry;
+import galaxyspace.core.entity.mob.EntityEvolvedColdBlaze;
+import gregtech.api.enums.Materials;
 import gregtech.api.enums.Mods;
+import gregtech.api.enums.OrePrefixes;
+import gregtech.api.util.GTOreDictUnificator;
+import gregtech.api.util.GTUtility;
 import gtPlusPlus.api.objects.Logger;
-import gtPlusPlus.api.objects.data.AutoMap;
-import gtPlusPlus.api.objects.data.Pair;
 import gtPlusPlus.core.block.ModBlocks;
+import gtPlusPlus.core.config.ASMConfiguration;
 import gtPlusPlus.core.creative.AddToCreativeTab;
 import gtPlusPlus.core.entity.InternalEntityRegistry;
+import gtPlusPlus.core.fluids.GTPPFluids;
 import gtPlusPlus.core.handler.BookHandler;
-import gtPlusPlus.core.handler.BurnableFuelHandler;
-import gtPlusPlus.core.handler.COMPAT_HANDLER;
-import gtPlusPlus.core.handler.COMPAT_IntermodStaging;
+import gtPlusPlus.core.handler.CompatHandler;
+import gtPlusPlus.core.handler.CompatIntermodStaging;
 import gtPlusPlus.core.handler.GuiHandler;
 import gtPlusPlus.core.handler.events.EnderDragonDeathHandler;
 import gtPlusPlus.core.handler.events.EntityDeathHandler;
-import gtPlusPlus.core.handler.events.GeneralTooltipEventHandler;
+import gtPlusPlus.core.handler.events.MolecularTransformerTooltipNotice;
 import gtPlusPlus.core.handler.events.PlayerSleepEventHandler;
 import gtPlusPlus.core.item.ModItems;
 import gtPlusPlus.core.item.bauble.BaseBauble;
-import gtPlusPlus.core.lib.CORE;
+import gtPlusPlus.core.lib.GTPPCore;
 import gtPlusPlus.core.recipe.common.CI;
 import gtPlusPlus.core.tileentities.ModTileEntities;
-import gtPlusPlus.core.util.Utils;
 import gtPlusPlus.core.util.minecraft.EntityUtils;
-import gtPlusPlus.core.util.minecraft.ItemUtils;
-import gtPlusPlus.core.util.reflect.ReflectionUtils;
-import gtPlusPlus.preloader.CORE_Preloader;
-import gtPlusPlus.xmod.gregtech.api.util.SpecialBehaviourTooltipHandler;
+import gtPlusPlus.xmod.gregtech.common.modularui2.GTPPGuiTextures;
 import gtPlusPlus.xmod.ic2.CustomInternalName;
 
-public class CommonProxy {
+public class CommonProxy implements IFuelHandler {
 
     public CommonProxy() {
         // Should Register Gregtech Materials I've Made
-        Utils.registerEvent(this);
+        MinecraftForge.EVENT_BUS.register(this);
     }
 
     public void preInit(final FMLPreInitializationEvent e) {
         Logger.INFO("Doing some house cleaning.");
-        if (!CORE_Preloader.DEBUG_MODE) {
-            Logger.WARNING("Development mode not enabled.");
-        } else if (CORE_Preloader.DEBUG_MODE) {
+        if (ASMConfiguration.debug.debugMode) {
             Logger.INFO("Development mode enabled.");
         } else {
-            Logger.WARNING("Development mode not set.");
+            Logger.WARNING("Development mode not enabled.");
         }
 
         AddToCreativeTab.initialiseTabs();
@@ -69,8 +71,10 @@ public class CommonProxy {
 
         ModItems.init();
         ModBlocks.init();
+        GTPPFluids.init();
+
         CI.preInit();
-        COMPAT_IntermodStaging.preInit(e);
+        CompatIntermodStaging.preInit(e);
         BookHandler.run();
         // Registration of entities and renderers
         Logger.INFO("[Proxy] Calling Entity registration.");
@@ -80,63 +84,51 @@ public class CommonProxy {
 
         Logger.INFO("[Proxy] Calling Render registration.");
         registerRenderThings();
+
+        GTPPGuiTextures.init();
     }
 
     public void init(final FMLInitializationEvent e) {
         CI.init();
 
-        Utils.registerEvent(new GeneralTooltipEventHandler());
-        // Handles Tooltips for items giving custom multiblock behaviour
-        Utils.registerEvent(new SpecialBehaviourTooltipHandler());
+        if (e.getSide()
+            .isClient() && Mods.AdvancedSolarPanel.isModLoaded()) {
+            MinecraftForge.EVENT_BUS.register(new MolecularTransformerTooltipNotice());
+        }
         // Handles Sleep Benefits
         PlayerSleepEventHandler.init();
-        // Handles Magic Feather
-        Utils.registerEvent(ModItems.itemMagicFeather);
 
-        Utils.registerEvent(new EnderDragonDeathHandler());
-        Utils.registerEvent(new EntityDeathHandler());
+        MinecraftForge.EVENT_BUS.register(new EnderDragonDeathHandler());
+        MinecraftForge.EVENT_BUS.register(new EntityDeathHandler());
 
         // Compat Handling
-        COMPAT_HANDLER.registerMyModsOreDictEntries();
-        COMPAT_HANDLER.intermodOreDictionarySupport();
-        COMPAT_IntermodStaging.init(e);
+        CompatHandler.registerMyModsOreDictEntries();
+        CompatHandler.intermodOreDictionarySupport();
+        CompatIntermodStaging.init(e);
     }
 
     public void postInit(final FMLPostInitializationEvent e) {
-
-        // Make Burnables burnable
-        if (!CORE.burnables.isEmpty()) {
-            BurnableFuelHandler fuelHandler = new BurnableFuelHandler();
-            GameRegistry.registerFuelHandler(fuelHandler);
-            Logger.INFO(
-                "[Fuel Handler] Registering " + fuelHandler.getClass()
-                    .getName());
-        }
-
+        GameRegistry.registerFuelHandler(this);
         // Compat Handling
-        Logger.INFO("Removing recipes from other mods.");
-        COMPAT_HANDLER.RemoveRecipesFromOtherMods();
         Logger.INFO("Initialising Handler, Then Adding Recipes");
-        COMPAT_HANDLER.InitialiseHandlerThenAddRecipes();
+        CompatHandler.InitialiseHandlerThenAddRecipes();
         Logger.INFO("Loading Intermod staging.");
-        COMPAT_IntermodStaging.postInit(e);
-        Logger.INFO("Loading queued recipes.");
-        COMPAT_HANDLER.runQueuedRecipes();
-        Logger.INFO("Registering custom mob drops.");
-        registerCustomMobDrops();
-
+        CompatIntermodStaging.postInit(e);
         // Moved last, to prevent recipes being generated post initialisation.
         Logger.INFO("Loading Gregtech API recipes.");
-        COMPAT_HANDLER.startLoadingGregAPIBasedRecipes();
+        CompatHandler.startLoadingGregAPIBasedRecipes();
+        Logger.INFO("Loading queued recipes.");
+        CompatHandler.runQueuedRecipes();
+        Logger.INFO("Registering custom mob drops.");
+        registerCustomMobDrops();
     }
 
     public void serverStarting(final FMLServerStartingEvent e) {
-        COMPAT_HANDLER.InitialiseLateHandlerThenAddRecipes();
+        CompatHandler.InitialiseLateHandlerThenAddRecipes();
     }
 
     public void onLoadComplete(FMLLoadCompleteEvent event) {
-        COMPAT_IntermodStaging.onLoadComplete(event);
-        COMPAT_HANDLER.onLoadComplete(event);
+        CompatIntermodStaging.onLoadComplete(event);
     }
 
     public void registerNetworkStuff() {
@@ -160,45 +152,28 @@ public class CommonProxy {
     public void registerCustomMobDrops() {
 
         // Blazes
-        if (ItemUtils.doesOreDictHaveEntryFor("dustPyrotheum")) {
-            EntityUtils.registerDropsForMob(
-                EntityBlaze.class,
-                ItemUtils.getItemStackOfAmountFromOreDict("dustPyrotheum", 1),
-                1,
-                10);
-            EntityUtils.registerDropsForMob(
-                EntityBlaze.class,
-                ItemUtils.getItemStackOfAmountFromOreDict("dustPyrotheum", 1),
-                1,
-                10);
+        if (Mods.COFHCore.isModLoaded()) {
+            EntityUtils.registerDropsForMob(EntityBlaze.class, Materials.Pyrotheum.getDust(1), 1, 10);
+            EntityUtils.registerDropsForMob(EntityBlaze.class, Materials.Pyrotheum.getDust(1), 1, 10);
         }
 
         // GalaxySpace Support
-        if (ReflectionUtils.doesClassExist("galaxyspace.core.entity.mob.EntityEvolvedColdBlaze")) {
-            Class<?> aColdBlaze = ReflectionUtils.getClass("galaxyspace.core.entity.mob.EntityEvolvedColdBlaze");
-            ItemStack aSmallBlizz, aTinyBlizz, aSmallCryo, aTinyCryo;
-            aSmallBlizz = ItemUtils.getItemStackOfAmountFromOreDict("dustSmallBlizz", 1);
-            aTinyBlizz = ItemUtils.getItemStackOfAmountFromOreDict("dustTinyBlizz", 1);
-            aSmallCryo = ItemUtils.getItemStackOfAmountFromOreDict("dustSmallCryotheum", 1);
-            aTinyCryo = ItemUtils.getItemStackOfAmountFromOreDict("dustTinyCryotheum", 1);
-            EntityUtils
-                .registerDropsForMob(aColdBlaze, ItemUtils.getItemStackOfAmountFromOreDict("stickBlizz", 1), 2, 500);
-            if (aSmallBlizz != null) {
-                EntityUtils.registerDropsForMob(aColdBlaze, aSmallBlizz, 2, 750);
+        if (Mods.GalaxySpace.isModLoaded()) {
+            ItemStack aBlizz = Materials.Blizz.getDust(1);
+            ItemStack aCryo = Materials.Cryotheum.getDust(1);
+            EntityUtils.registerDropsForMob(
+                EntityEvolvedColdBlaze.class,
+                GTOreDictUnificator.get(OrePrefixes.stick, Materials.Blizz, 1),
+                1,
+                2500);
+            if (aBlizz != null) {
+                EntityUtils.registerDropsForMob(EntityEvolvedColdBlaze.class, aBlizz, 1, 5000);
             }
-            if (aTinyBlizz != null) {
-                EntityUtils.registerDropsForMob(aColdBlaze, aTinyBlizz, 4, 1500);
-            }
-            if (aSmallCryo != null) {
-                EntityUtils.registerDropsForMob(aColdBlaze, aSmallCryo, 1, 50);
-            }
-            if (aTinyCryo != null) {
-                EntityUtils.registerDropsForMob(aColdBlaze, aTinyCryo, 2, 100);
+            if (aCryo != null) {
+                EntityUtils.registerDropsForMob(EntityEvolvedColdBlaze.class, aCryo, 1, 200);
             }
         }
     }
-
-    protected final AutoMap<Pair<Item, IItemRenderer>> mItemRenderMappings = new AutoMap<>();
 
     public World getClientWorld() {
         return null;
@@ -211,38 +186,48 @@ public class CommonProxy {
         return ctx.getServerHandler().playerEntity;
     }
 
-    @SuppressWarnings("unused") // used by the event bus
-    @SubscribeEvent
-    public void onPlayerAttacked(LivingAttackEvent event) {
-        if (Mods.Baubles.isModLoaded()) {
-            BaubleAttackHandler.run(event);
+    @Override
+    public int getBurnTime(ItemStack aStack) {
+        for (Pair<Integer, ItemStack> temp : GTPPCore.burnables) {
+            int aStackID = Item.getIdFromItem(aStack.getItem());
+            int burnID = Item.getIdFromItem(
+                temp.getValue()
+                    .getItem());
+            if (aStackID == burnID) {
+                int burn = temp.getKey();
+                ItemStack fuel = temp.getValue();
+                ItemStack testItem = GTUtility.copyAmount(aStack.stackSize, fuel);
+
+                if (aStack.isItemEqual(testItem)) {
+                    return burn;
+                }
+            }
         }
+        return 0;
     }
 
-    // Prevent class loading errors if Baubles are missing
-    private static final class BaubleAttackHandler {
-
-        public static void run(LivingAttackEvent event) {
-            if (!(event.entityLiving instanceof EntityPlayer player)) {
-                return;
-            }
-            InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(player);
-            if (baubles == null) {
-                return;
-            }
-            final ItemStack bauble1 = baubles.getStackInSlot(1);
-            if (bauble1 != null && bauble1.getItem() instanceof BaseBauble gtBauble
-                && gtBauble.getDamageNegations()
-                    .contains(event.source.damageType)) {
-                event.setCanceled(true);
-                return;
-            }
-            final ItemStack bauble2 = baubles.getStackInSlot(2);
-            if (bauble2 != null && bauble2.getItem() instanceof BaseBauble gtBauble
-                && gtBauble.getDamageNegations()
-                    .contains(event.source.damageType)) {
-                event.setCanceled(true);
-            }
+    @Optional.Method(modid = Mods.ModIDs.BAUBLES)
+    @SubscribeEvent
+    public void onPlayerAttacked(LivingAttackEvent event) {
+        if (!(event.entityLiving instanceof EntityPlayer player)) {
+            return;
+        }
+        InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(player);
+        if (baubles == null) {
+            return;
+        }
+        final ItemStack bauble1 = baubles.getStackInSlot(1);
+        if (bauble1 != null && bauble1.getItem() instanceof BaseBauble gtBauble
+            && gtBauble.getDamageNegations()
+                .contains(event.source.damageType)) {
+            event.setCanceled(true);
+            return;
+        }
+        final ItemStack bauble2 = baubles.getStackInSlot(2);
+        if (bauble2 != null && bauble2.getItem() instanceof BaseBauble gtBauble
+            && gtBauble.getDamageNegations()
+                .contains(event.source.damageType)) {
+            event.setCanceled(true);
         }
     }
 }

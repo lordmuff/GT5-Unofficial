@@ -9,7 +9,6 @@ import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
@@ -32,9 +31,6 @@ public abstract class EntityToxinball extends EntityFireball {
         super(world);
         this.setSize(1.0F, 1.0F);
     }
-
-    @Override
-    protected void entityInit() {}
 
     /**
      * Checks if the entity is in range to render by using the past in distance and comparing it to its average edge
@@ -170,9 +166,7 @@ public abstract class EntityToxinball extends EntityFireball {
             this.rotationYaw = (float) (Math.atan2(this.motionZ, this.motionX) * 180.0D / Math.PI) + 90.0F;
 
             for (this.rotationPitch = (float) (Math.atan2(f1, this.motionY) * 180.0D / Math.PI)
-                - 90.0F; this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
-                ;
-            }
+                - 90.0F; this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {}
 
             while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
                 this.prevRotationPitch += 360.0F;
@@ -218,14 +212,6 @@ public abstract class EntityToxinball extends EntityFireball {
     }
 
     /**
-     * Return the motion factor for this projectile. The factor is multiplied by the original motion.
-     */
-    @Override
-    protected float getMotionFactor() {
-        return 0.95F;
-    }
-
-    /**
      * Called when this EntityFireball hits a block or entity.
      */
     @Override
@@ -241,7 +227,7 @@ public abstract class EntityToxinball extends EntityFireball {
         aTag.setShort("zTile", (short) this.entityZ);
         aTag.setByte("inTile", (byte) Block.getIdFromBlock(this.block));
         aTag.setByte("inGround", (byte) (this.inGround ? 1 : 0));
-        aTag.setTag("direction", this.newDoubleNBTList(new double[] { this.motionX, this.motionY, this.motionZ }));
+        aTag.setTag("direction", this.newDoubleNBTList(this.motionX, this.motionY, this.motionZ));
     }
 
     /**
@@ -265,65 +251,10 @@ public abstract class EntityToxinball extends EntityFireball {
         }
     }
 
-    /**
-     * Returns true if other Entities should be prevented from moving through this Entity.
-     */
-    @Override
-    public boolean canBeCollidedWith() {
-        return true;
-    }
-
-    @Override
-    public float getCollisionBorderSize() {
-        return 1.0F;
-    }
-
-    /**
-     * Called when the entity is attacked.
-     */
-    @Override
-    public boolean attackEntityFrom(DamageSource damage, float p_70097_2_) {
-        if (this.isEntityInvulnerable()) {
-            return false;
-        } else {
-            this.setBeenAttacked();
-
-            if (damage.getEntity() != null) {
-                Vec3 vec3 = damage.getEntity()
-                    .getLookVec();
-
-                if (vec3 != null) {
-                    this.motionX = vec3.xCoord;
-                    this.motionY = vec3.yCoord;
-                    this.motionZ = vec3.zCoord;
-                    this.accelerationX = this.motionX * 0.1D;
-                    this.accelerationY = this.motionY * 0.1D;
-                    this.accelerationZ = this.motionZ * 0.1D;
-                }
-
-                if (damage.getEntity() instanceof EntityLivingBase) {
-                    this.shootingEntity = (EntityLivingBase) damage.getEntity();
-                }
-
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
-
     @Override
     @SideOnly(Side.CLIENT)
     public float getShadowSize() {
         return 0.0F;
-    }
-
-    /**
-     * Gets how bright this entity is.
-     */
-    @Override
-    public float getBrightness(float p_70013_1_) {
-        return 1.0F;
     }
 
     @Override

@@ -1,7 +1,7 @@
 package gtPlusPlus.core.item.general;
 
 import static gregtech.api.enums.Mods.GTPlusPlus;
-import static gregtech.api.enums.Mods.Names;
+import static gregtech.api.enums.Mods.ModIDs;
 
 import java.util.List;
 
@@ -19,17 +19,17 @@ import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.registry.GameRegistry;
-import gregtech.api.util.GT_Utility;
+import gregtech.api.enums.Mods;
+import gregtech.api.util.GTUtility;
 import gtPlusPlus.core.creative.AddToCreativeTab;
 import gtPlusPlus.core.util.math.MathUtils;
-import gtPlusPlus.core.util.minecraft.ItemUtils;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
 import ic2.api.item.IElectricItemManager;
 
 @Optional.InterfaceList(
-    value = { @Optional.Interface(iface = "baubles.api.IBauble", modid = Names.BAUBLES),
-        @Optional.Interface(iface = "baubles.api.BaubleType", modid = Names.BAUBLES) })
+    value = { @Optional.Interface(iface = "baubles.api.IBauble", modid = ModIDs.BAUBLES),
+        @Optional.Interface(iface = "baubles.api.BaubleType", modid = Mods.ModIDs.BAUBLES) })
 public class ItemCloakingDevice extends Item implements IElectricItem, IElectricItemManager, IBauble {
 
     private final String unlocalizedName = "personalCloakingDevice";
@@ -43,7 +43,7 @@ public class ItemCloakingDevice extends Item implements IElectricItem, IElectric
         this.setUnlocalizedName(this.unlocalizedName);
         this.setMaxStackSize(1);
         this.setTextureName(GTPlusPlus.ID + ":" + "personalCloakingDevice");
-        this.thisStack = ItemUtils.getSimpleStack(this);
+        this.thisStack = new ItemStack(this);
         this.charge(this.thisStack, charge, 3, true, false);
         if (charge == (10000 * 20 * 500)) {
             this.setDamage(this.thisStack, 13);
@@ -135,17 +135,17 @@ public class ItemCloakingDevice extends Item implements IElectricItem, IElectric
         list.add(
             StatCollector.translateToLocalFormatted(
                 "item.personalCloakingDevice.tooltip.3",
-                GT_Utility.formatNumbers(this.getTier(this.thisStack)),
-                GT_Utility.formatNumbers(this.getTransferLimit(this.thisStack))));
+                GTUtility.formatNumbers(this.getTier(this.thisStack)),
+                GTUtility.formatNumbers(this.getTransferLimit(this.thisStack))));
         list.add(
             StatCollector.translateToLocalFormatted(
                 "item.personalCloakingDevice.tooltip.4",
-                GT_Utility.formatNumbers(this.getCharge(stack)),
+                GTUtility.formatNumbers(this.getCharge(stack)),
                 MathUtils.findPercentage(this.getCharge(stack), this.getMaxCharge(stack))));
         list.add(
             StatCollector.translateToLocalFormatted(
                 "item.personalCloakingDevice.tooltip.5",
-                GT_Utility.formatNumbers(this.secondsLeft(stack))));
+                GTUtility.formatNumbers(this.secondsLeft(stack))));
         super.addInformation(stack, aPlayer, list, bool);
     }
 

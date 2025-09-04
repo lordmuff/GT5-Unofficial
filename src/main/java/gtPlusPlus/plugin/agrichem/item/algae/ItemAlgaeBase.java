@@ -14,11 +14,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import gtPlusPlus.api.objects.data.AutoMap;
-import gtPlusPlus.core.util.minecraft.ItemUtils;
+import gregtech.api.util.GTLog;
 import gtPlusPlus.plugin.agrichem.AlgaeDefinition;
 import gtPlusPlus.plugin.agrichem.IAlgalItem;
 import gtPlusPlus.plugin.agrichem.logic.AlgaeGeneticData;
@@ -26,7 +26,6 @@ import gtPlusPlus.plugin.agrichem.logic.AlgaeGeneticData;
 public class ItemAlgaeBase extends Item implements IAlgalItem {
 
     protected IIcon base;
-    protected IIcon overlay;
 
     public ItemAlgaeBase() {
         this.setHasSubtypes(true);
@@ -62,11 +61,18 @@ public class ItemAlgaeBase extends Item implements IAlgalItem {
         return EnumChatFormatting.UNDERLINE + super.getItemStackDisplayName(aStack);
     }
 
+    private String boolLoc(Boolean bool) {
+        return StatCollector.translateToLocal(bool ? "GT5U.generic.true" : "GT5U.generic.false");
+    }
+
     @Override
     public void addInformation(ItemStack aStack, EntityPlayer p_77624_2_, List aList, boolean p_77624_4_) {
         int aDam = aStack.getItemDamage();
         try {
-            aList.add(AlgaeDefinition.getByIndex(aDam).mSimpleName);
+            aList.add(
+                StatCollector.translateToLocal(
+                    "GTPP.algae." + AlgaeDefinition.getByIndex(aDam).mSimpleName.replace(" ", "_")
+                        .toLowerCase() + ".name"));
             if (!aStack.hasTagCompound() || aStack.getTagCompound()
                 .hasNoTags()) {
                 aStack = initNBT(aStack);
@@ -81,17 +87,18 @@ public class ItemAlgaeBase extends Item implements IAlgalItem {
                 byte mLifespan = aNBT.getByte("mLifespan");
                 int mGeneration = aNBT.getInteger("mGeneration");
 
-                aList.add("Requires Light: " + mRequiresLight);
-                aList.add("Salt Water: " + mSaltWater);
-                aList.add("Fresh Water: " + mFreshWater);
-                aList.add("Temp Tolerance: " + mTempTolerance);
-                aList.add("Growth: " + mFertility);
-                aList.add("Production: " + mProductionSpeed);
-                aList.add("Lifespan in days: " + mLifespan);
-                aList.add("Generation: " + mGeneration);
+                aList.add(
+                    StatCollector.translateToLocalFormatted("GTPP.tooltip.requires_light", boolLoc(mRequiresLight)));
+                aList.add(StatCollector.translateToLocalFormatted("GTPP.tooltip.salt_water", boolLoc(mSaltWater)));
+                aList.add(StatCollector.translateToLocalFormatted("GTPP.tooltip.fresh_water", boolLoc(mFreshWater)));
+                aList.add(StatCollector.translateToLocalFormatted("GTPP.tooltip.temp_tolerance", mTempTolerance));
+                aList.add(StatCollector.translateToLocalFormatted("GTPP.tooltip.growth", mFertility));
+                aList.add(StatCollector.translateToLocalFormatted("GTPP.tooltip.production", mProductionSpeed));
+                aList.add(StatCollector.translateToLocalFormatted("GTPP.tooltip.lifespan", mLifespan));
+                aList.add(StatCollector.translateToLocalFormatted("GTPP.tooltip.generation", mGeneration));
             }
-        } catch (Throwable t) {
-            t.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace(GTLog.err);
         }
         super.addInformation(aStack, p_77624_2_, aList, p_77624_4_);
     }
@@ -109,13 +116,8 @@ public class ItemAlgaeBase extends Item implements IAlgalItem {
     @Override
     public void getSubItems(Item aItem, CreativeTabs p_150895_2_, List aList) {
         for (int i = 0; i < AlgaeDefinition.values().length; i++) {
-            aList.add(ItemUtils.simpleMetaStack(aItem, i, 1));
+            aList.add(new ItemStack(aItem, 1, i));
         }
-    }
-
-    @Override
-    public boolean getIsRepairable(ItemStack p_82789_1_, ItemStack p_82789_2_) {
-        return false;
     }
 
     @Override
@@ -134,11 +136,6 @@ public class ItemAlgaeBase extends Item implements IAlgalItem {
     }
 
     @Override
-    public int getItemEnchantability() {
-        return 0;
-    }
-
-    @Override
     public int getItemEnchantability(ItemStack stack) {
         return 0;
     }
@@ -150,16 +147,12 @@ public class ItemAlgaeBase extends Item implements IAlgalItem {
 
     @Override
     public IIcon getIconFromDamageForRenderPass(final int damage, final int pass) {
-        if (pass == 0) {
-            return this.base;
-        }
-        return this.overlay;
+        return this.base;
     }
 
     @Override
     public void registerIcons(final IIconRegister i) {
-        this.base = i.registerIcon(GTPlusPlus.ID + ":" + "bioscience/BasicAlgae");
-        this.overlay = i.registerIcon(GTPlusPlus.ID + ":" + "bioscience/BasicAlgae_Overlay");
+        this.base = i.registerIcon(GTPlusPlus.ID + ":bioscience/BasicAlgae");
     }
 
     public static ItemStack initNBT(ItemStack aFreshAlgae) {
@@ -171,8 +164,6 @@ public class ItemAlgaeBase extends Item implements IAlgalItem {
                 AlgaeGeneticData y = aItem.getSpeciesData(aFreshAlgae);
                 aNewTag = y.writeToNBT();
                 aFreshAlgae.setTagCompound(aNewTag);
-            } else {
-                aNewTag = aFreshAlgae.getTagCompound();
             }
         }
         return aFreshAlgae;
@@ -188,11 +179,9 @@ public class ItemAlgaeBase extends Item implements IAlgalItem {
         NBTTagCompound aTag;
         if (!aStack.hasTagCompound() || aStack.getTagCompound()
             .hasNoTags()) {
-            aTag = new NBTTagCompound();
             AlgaeGeneticData aGenes;
             if (aStack.getItemDamage() < 3 || aStack.getItemDamage() > 5) {
                 aGenes = new AlgaeGeneticData();
-                aTag = aGenes.writeToNBT();
             } else {
                 byte aTemp, aLifespan;
                 float aFert, aSpeed;
@@ -200,8 +189,8 @@ public class ItemAlgaeBase extends Item implements IAlgalItem {
                 int aDam = aStack.getItemDamage();
                 aTemp = (byte) (aDam == 3 ? 0 : aDam == 4 ? 2 : 1);
                 aLifespan = (byte) (aDam == 3 ? 1 : aDam == 4 ? 3f : 2f);
-                aFert = (float) (aDam == 3 ? 2f : aDam == 4 ? 1f : 1.75f);
-                aSpeed = (float) (aDam == 3 ? 1f : aDam == 4 ? 1.5f : 2f);
+                aFert = aDam == 3 ? 2f : aDam == 4 ? 1f : 1.75f;
+                aSpeed = aDam == 3 ? 1f : aDam == 4 ? 1.5f : 2f;
 
                 aGenes = new AlgaeGeneticData(
                     true,
@@ -212,10 +201,9 @@ public class ItemAlgaeBase extends Item implements IAlgalItem {
                     aFert,
                     aSpeed,
                     aLifespan,
-                    0,
-                    new AutoMap<>());
-                aTag = aGenes.writeToNBT();
+                    0);
             }
+            aTag = aGenes.writeToNBT();
         } else {
             aTag = aStack.getTagCompound();
         }

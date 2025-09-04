@@ -1,5 +1,7 @@
 package gtPlusPlus.core.tileentities.general;
 
+import java.util.ArrayList;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -9,12 +11,9 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
-import gregtech.api.util.GT_Utility;
-import gtPlusPlus.api.objects.data.AutoMap;
+import gregtech.api.util.GTUtility;
 import gtPlusPlus.core.inventories.InventoryCircuitProgrammer;
-import gtPlusPlus.core.recipe.common.CI;
 import gtPlusPlus.core.slots.SlotIntegratedCircuit;
-import gtPlusPlus.core.util.minecraft.PlayerUtils;
 
 public class TileEntityCircuitProgrammer extends TileEntity implements ISidedInventory {
 
@@ -47,9 +46,7 @@ public class TileEntityCircuitProgrammer extends TileEntity implements ISidedInv
     public final boolean hasCircuitToConfigure() {
         for (ItemStack i : this.getInventory()
             .getInventory()) {
-            if (i == null) {
-                continue;
-            } else {
+            if (i != null) {
                 return true;
             }
         }
@@ -65,15 +62,12 @@ public class TileEntityCircuitProgrammer extends TileEntity implements ISidedInv
             .getInventory()
             .clone();
         // Check if there is output in slot.
-        Boolean hasOutput = false;
-        if (aInputs[25] != null) {
-            hasOutput = true;
-        }
-        AutoMap<Integer> aValidSlots = new AutoMap<>();
+        boolean hasOutput = aInputs[25] != null;
+        ArrayList<Integer> aValidSlots = new ArrayList<>();
         int aSlotCount = 0;
         for (ItemStack i : aInputs) {
             if (i != null) {
-                aValidSlots.put(aSlotCount);
+                aValidSlots.add(aSlotCount);
             }
             aSlotCount++;
         }
@@ -82,8 +76,7 @@ public class TileEntityCircuitProgrammer extends TileEntity implements ISidedInv
             ItemStack g = this.getStackInSlot(e);
             int aSize = 0;
             ItemStack aInputStack = null;
-            int aTypeInSlot = SlotIntegratedCircuit.isRegularProgrammableCircuit(g);
-            if (aTypeInSlot >= 0 && g != null) {
+            if (SlotIntegratedCircuit.isRegularProgrammableCircuit(g) && g != null) {
                 // No Existing Output
                 if (!hasOutput) {
                     aSize = g.stackSize;
@@ -92,9 +85,7 @@ public class TileEntityCircuitProgrammer extends TileEntity implements ISidedInv
                 // Existing Output
                 else {
                     ItemStack f = this.getStackInSlot(25);
-                    int aTypeInCheckedSlot = SlotIntegratedCircuit.isRegularProgrammableCircuit(f);
-                    // Check that the Circuit in the Output slot is not null and the same type as the circuit input.
-                    if (aTypeInCheckedSlot >= 0 && (aTypeInSlot == aTypeInCheckedSlot) && f != null) {
+                    if (SlotIntegratedCircuit.isRegularProgrammableCircuit(f) && f != null) {
                         if (g.getItem() == f.getItem() && f.getItemDamage() == e) {
                             aSize = f.stackSize + g.stackSize;
                             if (aSize > 64) {
@@ -106,27 +97,13 @@ public class TileEntityCircuitProgrammer extends TileEntity implements ISidedInv
                     }
                 }
                 if (doAdd) {
-                    // Check Circuit Type
-                    ItemStack aOutput;
-                    if (aTypeInSlot == 0) {
-                        aOutput = GT_Utility.getIntegratedCircuit(e);
-                    } else if (aTypeInSlot == 1) {
-                        aOutput = CI.getNumberedBioCircuit(e);
-                    } else if (aTypeInSlot == 2) {
-                        aOutput = CI.getNumberedAdvancedCircuit(e);
-                    } else {
-                        aOutput = null;
-                    }
-
-                    if (aOutput != null) {
-                        aOutput.stackSize = aSize;
-                        this.setInventorySlotContents(e, aInputStack);
-                        this.setInventorySlotContents(25, aOutput);
-                        return true;
-                    }
+                    ItemStack aOutput = GTUtility.getIntegratedCircuit(e);
+                    aOutput.stackSize = aSize;
+                    this.setInventorySlotContents(e, aInputStack);
+                    this.setInventorySlotContents(25, aOutput);
+                    return true;
                 }
             }
-            continue;
         }
         return false;
     }
@@ -143,7 +120,7 @@ public class TileEntityCircuitProgrammer extends TileEntity implements ISidedInv
                 }
                 this.tickCount++;
             }
-        } catch (final Throwable t) {}
+        } catch (final Throwable ignored) {}
     }
 
     public boolean anyPlayerInRange() {
@@ -282,7 +259,7 @@ public class TileEntityCircuitProgrammer extends TileEntity implements ISidedInv
 
     @Override
     public boolean hasCustomInventoryName() {
-        return (this.customName != null) && !this.customName.equals("");
+        return (this.customName != null) && !this.customName.isEmpty();
     }
 
     @Override
@@ -305,7 +282,7 @@ public class TileEntityCircuitProgrammer extends TileEntity implements ISidedInv
             } else {
                 aCurrentMode++;
             }
-            PlayerUtils.messagePlayer(player, "Now configuring units for type " + aCurrentMode + ".");
+            GTUtility.sendChatToPlayer(player, "Now configuring units for type " + aCurrentMode + ".");
             return true;
         } catch (Throwable t) {
             return false;

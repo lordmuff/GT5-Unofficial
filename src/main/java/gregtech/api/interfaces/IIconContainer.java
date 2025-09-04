@@ -1,6 +1,6 @@
 package gregtech.api.interfaces;
 
-import static gregtech.api.enums.GT_Values.UNCOLORED_RGBA;
+import static gregtech.api.enums.GTValues.UNCOLORED_RGBA;
 
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
@@ -28,6 +28,16 @@ public interface IIconContainer {
     @SideOnly(Side.CLIENT)
     default int getIconPasses() {
         return 1;
+    }
+
+    @SideOnly(Side.CLIENT)
+    default int getRenderIconPass() {
+        return 0;
+    }
+
+    @SideOnly(Side.CLIENT)
+    default boolean canRenderInPass(int pass) {
+        return pass == getRenderIconPass();
     }
 
     /**

@@ -1,21 +1,25 @@
 package gtPlusPlus.api.objects.minecraft;
 
+import java.util.ArrayList;
+
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-import gregtech.api.interfaces.IRecipeMutableAccess;
+import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import gregtech.api.enums.GTValues;
+import gregtech.mixin.interfaces.accessors.IRecipeMutableAccess;
 import gtPlusPlus.api.objects.Logger;
-import gtPlusPlus.api.objects.data.AutoMap;
-import gtPlusPlus.api.objects.data.Pair;
-import gtPlusPlus.core.util.minecraft.ItemUtils;
 
 public class ShapedRecipe implements IRecipeMutableAccess {
 
     private static final String CHARS = "abcdefghijklmnop";
-    public ShapedOreRecipe mRecipe;
+    public @Nullable ShapedOreRecipe mRecipe;
 
-    ItemStack[] mBlackList = null;
+    ItemStack @Nullable [] mBlackList = null;
 
     public ShapedRecipe(Object aInput1, Object aInput2, Object aInput3, Object aInput4, Object aInput5, Object aInput6,
         Object aInput7, Object aInput8, Object aInput9, ItemStack aOutput) {
@@ -23,15 +27,12 @@ public class ShapedRecipe implements IRecipeMutableAccess {
         this(new Object[] { aInput1, aInput2, aInput3, aInput4, aInput5, aInput6, aInput7, aInput8, aInput9 }, aOutput);
     }
 
-    public ShapedRecipe(Object[] aInputs, ItemStack aOutput) {
-        String aGridWhole = "";
-        String aGrid[] = new String[3];
+    public ShapedRecipe(Object @NotNull [] aInputs, @Nullable ItemStack aOutput) {
+        StringBuilder aGridWhole = new StringBuilder();
+        String[] aGrid = new String[3];
         char[] aChar = new char[9];
         String[] aLoggingInfo = new String[9];
-
-        if (mBlackList == null) {
-            mBlackList = new ItemStack[] {};
-        }
+        mBlackList = GTValues.emptyItemStackArray;
 
         // Just to be safe
         try {
@@ -44,7 +45,7 @@ public class ShapedRecipe implements IRecipeMutableAccess {
                     Logger.RECIPE("Input slot " + xSlot++ + " contains " + mInfo);
                 } else if (u instanceof ItemStack || u instanceof Item) {
                     if (u instanceof Item) {
-                        u = ItemUtils.getSimpleStack((Item) u);
+                        u = new ItemStack((Item) u);
                     }
                     mInfo = ((ItemStack) u).getDisplayName();
                     Logger.RECIPE("Input slot " + xSlot++ + " contains " + mInfo);
@@ -67,7 +68,7 @@ public class ShapedRecipe implements IRecipeMutableAccess {
                 Object[] mVarags2 = null;
                 Logger.RECIPE("Generating Shaped Crafting Recipe for " + aOutput.getDisplayName());
 
-                if (aInputs.length < 9 || aInputs.length > 9) {
+                if (aInputs.length != 9) {
                     Logger.RECIPE(
                         "[Fix] Recipe for " + aOutput.getDisplayName()
                             + " has incorrect number of inputs. Size: "
@@ -76,7 +77,7 @@ public class ShapedRecipe implements IRecipeMutableAccess {
                 }
 
                 // Build a Pair for each slot
-                AutoMap<Pair<Character, Object>> aRecipePairs = new AutoMap<>();
+                ArrayList<Pair<Character, Object>> aRecipePairs = new ArrayList<>();
                 int aCharSlot = 0;
                 int aMemSlot = 0;
                 int aInfoSlot = 0;
@@ -87,11 +88,11 @@ public class ShapedRecipe implements IRecipeMutableAccess {
                             mInfo = (String) stack;
                         } else if (stack instanceof ItemStack || stack instanceof Item) {
                             if (stack instanceof Item) {
-                                stack = ItemUtils.getSimpleStack((Item) stack);
+                                stack = new ItemStack((Item) stack);
                             }
                             mInfo = ((ItemStack) stack).getDisplayName();
                         }
-                        aRecipePairs.put(new Pair<>(CHARS.charAt(aCharSlot), stack));
+                        aRecipePairs.add(Pair.of(CHARS.charAt(aCharSlot), stack));
                         Logger.RECIPE(
                             "Storing '" + CHARS.charAt(aCharSlot)
                                 + "' with an object of type "
@@ -103,7 +104,7 @@ public class ShapedRecipe implements IRecipeMutableAccess {
                         aCharSlot++;
                         aLoggingInfo[aInfoSlot++] = mInfo;
                     } else {
-                        aRecipePairs.put(new Pair<>(' ', (ItemStack) null));
+                        aRecipePairs.add(Pair.of(' ', null));
                         Logger.RECIPE("Storing ' ' with an object of type null");
                         aChar[aMemSlot++] = ' ';
                         aLoggingInfo[aInfoSlot++] = "Empty";
@@ -117,8 +118,8 @@ public class ShapedRecipe implements IRecipeMutableAccess {
 
                     for (Pair<Character, Object> h : aRecipePairs) {
                         if (h.getKey() != null) {
-                            aGridWhole += String.valueOf(h.getKey());
-                            Logger.RECIPE("Adding '" + String.valueOf(h.getKey()) + "' to aGridWhole.");
+                            aGridWhole.append(h.getKey());
+                            Logger.RECIPE("Adding '" + h.getKey() + "' to aGridWhole.");
                         }
                     }
 
@@ -151,11 +152,11 @@ public class ShapedRecipe implements IRecipeMutableAccess {
                                 mInfo = (String) stack;
                             } else if (stack instanceof ItemStack || stack instanceof Item) {
                                 if (stack instanceof Item) {
-                                    stack = ItemUtils.getSimpleStack((Item) stack);
+                                    stack = new ItemStack((Item) stack);
                                 }
                                 mInfo = ((ItemStack) stack).getDisplayName();
                             }
-                            aRecipePairs.put(new Pair<>(CHARS.charAt(aCharSlot), stack));
+                            aRecipePairs.add(Pair.of(CHARS.charAt(aCharSlot), stack));
                             Logger.RECIPE(
                                 "Registering Pair of '" + CHARS.charAt(aCharSlot)
                                     + "' and a "
@@ -191,12 +192,12 @@ public class ShapedRecipe implements IRecipeMutableAccess {
 
                         if (o instanceof ItemStack || o instanceof Item) {
                             if (o instanceof Item) {
-                                o = ItemUtils.getSimpleStack((Item) o);
+                                o = new ItemStack((Item) o);
                             }
                             o = ((ItemStack) o).copy();
                         }
 
-                        mVarags2[counter2] = (char) c;
+                        mVarags2[counter2] = c;
                         mVarags2[counter2 + 1] = o;
                         counter2 += 2;
                     }
@@ -211,7 +212,7 @@ public class ShapedRecipe implements IRecipeMutableAccess {
                     Logger.RECIPE("+ = + = + = +");
                     for (int r = 0; r < 9; r++) {
                         if (aChar[r] != ' ') {
-                            Logger.RECIPE("" + aChar[r] + " : " + aLoggingInfo[r]);
+                            Logger.RECIPE(aChar[r] + " : " + aLoggingInfo[r]);
                         }
                     }
 

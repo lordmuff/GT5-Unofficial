@@ -5,14 +5,17 @@ import net.minecraft.world.World;
 
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 
-@SuppressWarnings("deprecation")
 public interface IGT_NetworkHandler {
 
-    void sendToPlayer(GT_Packet aPacket, EntityPlayerMP aPlayer);
+    void sendToPlayer(GTPacket aPacket, EntityPlayerMP aPlayer);
 
-    void sendToAllAround(GT_Packet aPacket, TargetPoint aPosition);
+    void sendToAllAround(GTPacket aPacket, TargetPoint aPosition);
 
-    void sendToServer(GT_Packet aPacket);
+    void sendToAll(GTPacket aPacket);
 
-    void sendPacketToAllPlayersInRange(World aWorld, GT_Packet aPacket, int aX, int aZ);
+    void sendToServer(GTPacket aPacket);
+
+    void sendPacketToAllPlayersInRange(World aWorld, GTPacket aPacket, int aX, int aZ);
+
+    void sendToWorld(World world, GTPacket packet);
 }

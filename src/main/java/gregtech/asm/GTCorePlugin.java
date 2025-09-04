@@ -1,50 +1,45 @@
 package gregtech.asm;
 
-import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import net.minecraftforge.common.config.Configuration;
-
-import com.github.bartimaeusnek.bartworks.common.configs.ConfigHandler;
+import com.gtnewhorizon.gtnhlib.config.ConfigException;
+import com.gtnewhorizon.gtnhlib.config.ConfigurationManager;
 import com.gtnewhorizon.gtnhmixins.IEarlyMixinLoader;
+import com.gtnewhorizon.gtnhmixins.builders.IMixins;
 
-import cpw.mods.fml.relauncher.FMLInjectionData;
+import bartworks.common.configs.Configuration;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
+import gregtech.common.pollution.PollutionConfig;
 import gregtech.mixin.Mixin;
-import gtPlusPlus.preloader.CORE_Preloader;
-import gtPlusPlus.preloader.asm.AsmConfig;
-import gtPlusPlus.preloader.asm.Preloader_DummyContainer;
-import gtPlusPlus.preloader.asm.transformers.Preloader_Transformer_Handler;
+import gtPlusPlus.core.config.ASMConfiguration;
 
-@IFMLLoadingPlugin.SortingIndex(Integer.MAX_VALUE) // Load as late as possible (after fastcraft/OptiFine).
 @IFMLLoadingPlugin.MCVersion("1.7.10")
-@IFMLLoadingPlugin.TransformerExclusions({ "com.github.bartimaeusnek.bartworks.ASM", "gtPlusPlus.preloader",
-    "gregtech.asm" })
+@IFMLLoadingPlugin.TransformerExclusions({ "gregtech.asm" })
 @IFMLLoadingPlugin.Name("GregTech 5 Unofficial core plugin")
-@SuppressWarnings("unused") // loaded by FML
 public class GTCorePlugin implements IFMLLoadingPlugin, IEarlyMixinLoader {
 
-    public static final String BWCORE_PLUGIN_NAME = "BartWorks ASM Core Plugin";
-    public static File minecraftDir;
-
-    public GTCorePlugin() {
-        // Injection Code taken from CodeChickenLib
-        if (minecraftDir != null) return; // get called twice, once for IFMLCallHook
-        minecraftDir = (File) FMLInjectionData.data()[6];
-        // do all the configuration already now...
-        new ConfigHandler(new Configuration(new File(new File(minecraftDir, "config"), "bartworks.cfg")));
+    static {
+        try {
+            ConfigurationManager.registerConfig(ASMConfiguration.class);
+            ConfigurationManager.registerConfig(Configuration.class);
+            ConfigurationManager.registerConfig(PollutionConfig.class);
+        } catch (ConfigException e) {
+            throw new RuntimeException(e);
+        }
     }
+
+    private static boolean DEV_ENVIRONMENT;
 
     @Override
     public String[] getASMTransformerClass() {
-        return new String[] { Preloader_Transformer_Handler.class.getName() };
+        return null;
     }
 
     @Override
     public String getModContainerClass() {
-        return Preloader_DummyContainer.class.getName();
+        return null;
     }
 
     @Override
@@ -54,13 +49,7 @@ public class GTCorePlugin implements IFMLLoadingPlugin, IEarlyMixinLoader {
 
     @Override
     public void injectData(Map<String, Object> data) {
-        // GT++
-        CORE_Preloader.DEV_ENVIRONMENT = !(boolean) data.get("runtimeDeobfuscationEnabled");
-        File mcDir = (File) data.get("mcLocation");
-        if (mcDir != null && mcDir.exists()) {
-            CORE_Preloader.setMinecraftDirectory(mcDir);
-        }
-        CORE_Preloader.DEBUG_MODE = AsmConfig.debugMode;
+        DEV_ENVIRONMENT = !(boolean) data.get("runtimeDeobfuscationEnabled");
     }
 
     @Override
@@ -75,6 +64,11 @@ public class GTCorePlugin implements IFMLLoadingPlugin, IEarlyMixinLoader {
 
     @Override
     public List<String> getMixins(Set<String> loadedCoreMods) {
-        return Mixin.getEarlyMixins(loadedCoreMods);
+        return IMixins.getEarlyMixins(Mixin.class, loadedCoreMods);
     }
+
+    public static boolean isDevEnv() {
+        return DEV_ENVIRONMENT;
+    }
+
 }

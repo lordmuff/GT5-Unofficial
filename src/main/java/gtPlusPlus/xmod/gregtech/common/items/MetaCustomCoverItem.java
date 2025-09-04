@@ -1,5 +1,6 @@
 package gtPlusPlus.xmod.gregtech.common.items;
 
+import static codechicken.nei.api.API.hideItem;
 import static gregtech.api.enums.Mods.GTPlusPlus;
 
 import java.util.List;
@@ -11,22 +12,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-import org.apache.commons.lang3.StringUtils;
-
 import cpw.mods.fml.common.registry.GameRegistry;
-import gregtech.api.GregTech_API;
+import gregtech.api.covers.CoverRegistry;
 import gregtech.api.interfaces.IIconContainer;
-import gregtech.api.interfaces.ITexture;
-import gregtech.api.objects.GT_MultiTexture;
-import gregtech.api.objects.GT_RenderedTexture;
+import gregtech.api.render.TextureFactory;
+import gregtech.api.util.StringUtils;
 import gtPlusPlus.api.objects.Logger;
 import gtPlusPlus.core.creative.AddToCreativeTab;
 import gtPlusPlus.core.util.Utils;
-import gtPlusPlus.core.util.minecraft.ItemUtils;
 import gtPlusPlus.core.util.sys.KeyboardUtils;
-import gtPlusPlus.xmod.gregtech.common.covers.GTPP_Cover_ToggleVisual;
+import gtPlusPlus.xmod.gregtech.common.covers.CoverToggleVisual;
 
 public class MetaCustomCoverItem extends Item {
 
@@ -41,7 +39,7 @@ public class MetaCustomCoverItem extends Item {
         super();
         icons = new IIcon[aTextureCount];
         mModID = aModId;
-        mTextureSetName = Utils.sanitizeString(aTextureSetName);
+        mTextureSetName = StringUtils.sanitizeString(aTextureSetName);
         mTextures = aTextures;
         mRGB = aRGB;
         this.setTextureName(GTPlusPlus.ID + ":" + "itemPlate");
@@ -66,24 +64,14 @@ public class MetaCustomCoverItem extends Item {
     }
 
     private void registerCover() {
-        // CommonProxy.registerItemRendererGlobal(this, new CustomItemBlockRenderer());
         for (int i = 0; i < icons.length; i++) {
-            ItemStack thisStack = ItemUtils.simpleMetaStack(this, i, 1);
+            ItemStack thisStack = new ItemStack(this, 1, i);
             if (i > 0 && hide()) {
-                ItemUtils.hideItemFromNEI(thisStack);
+                hideItem(thisStack);
             }
-            GregTech_API.registerCover(
-                thisStack,
-                new GT_MultiTexture(new ITexture[] { new GT_RenderedTexture(mTextures[i]) }),
-                new GTPP_Cover_ToggleVisual());
+            CoverRegistry.registerCover(thisStack, TextureFactory.of(mTextures[i]), CoverToggleVisual::new);
         }
     }
-
-    /*
-     * @Override public void registerIcons(IIconRegister reg) { for (int i = 0; i < icons.length; i++) { this.icons[i] =
-     * mTextures[i].getIcon(); } }
-     * @Override public IIcon getIconFromDamage(int meta) { return this.icons[meta]; }
-     */
 
     @Override
     public void getSubItems(Item item, CreativeTabs tab, List list) {
@@ -112,7 +100,7 @@ public class MetaCustomCoverItem extends Item {
         return true;
     }
 
-    public static final long getCoverDamage(final ItemStack aStack) {
+    public static long getCoverDamage(final ItemStack aStack) {
         NBTTagCompound aNBT = aStack.getTagCompound();
         if (aNBT != null) {
             aNBT = aNBT.getCompoundTag("CustomCoverMeta");
@@ -125,7 +113,7 @@ public class MetaCustomCoverItem extends Item {
         return 0L;
     }
 
-    public static final boolean setCoverDamage(final ItemStack aStack, final long aDamage) {
+    public static boolean setCoverDamage(final ItemStack aStack, final long aDamage) {
         NBTTagCompound aNBT = aStack.getTagCompound();
         if (aNBT != null) {
             aNBT = aNBT.getCompoundTag("CustomCoverMeta");
@@ -137,7 +125,7 @@ public class MetaCustomCoverItem extends Item {
         return false;
     }
 
-    public static final boolean getCoverConnections(final ItemStack aStack) {
+    public static boolean getCoverConnections(final ItemStack aStack) {
         NBTTagCompound aNBT = aStack.getTagCompound();
         if (aNBT != null) {
             aNBT = aNBT.getCompoundTag("CustomCoverMeta");
@@ -150,7 +138,7 @@ public class MetaCustomCoverItem extends Item {
         return false;
     }
 
-    public static final boolean setCoverConnections(final ItemStack aStack, final boolean aConnections) {
+    public static boolean setCoverConnections(final ItemStack aStack, final boolean aConnections) {
         NBTTagCompound aNBT = aStack.getTagCompound();
         if (aNBT != null) {
             aNBT = aNBT.getCompoundTag("CustomCoverMeta");
@@ -169,28 +157,25 @@ public class MetaCustomCoverItem extends Item {
         }
         double currentDamage = getCoverDamage(stack);
         double meta = stack.getItemDamage() == 0 ? 50 : 2500;
-        double durabilitypercent = currentDamage / meta;
-        return durabilitypercent;
+        return currentDamage / meta;
     }
 
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
         if (KeyboardUtils.isShiftKeyDown()) {
             boolean con = getCoverConnections(stack);
-            if (con) {
-                setCoverConnections(stack, false);
-            } else {
-                setCoverConnections(stack, true);
-            }
+            setCoverConnections(stack, !con);
         }
         return stack;
     }
 
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-        boolean cons = getCoverConnections(stack);
-        list.add(EnumChatFormatting.GRAY + "Allows Connections: " + cons);
-        list.add(EnumChatFormatting.GRAY + "Shift Rmb to change state before applying");
+        list.add(
+            EnumChatFormatting.GRAY + (getCoverConnections(stack)
+                ? StatCollector.translateToLocal("gtpp.tooltip.cover_item.connection.allow")
+                : StatCollector.translateToLocal("gtpp.tooltip.cover_item.connection.deny")));
+        list.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gtpp.tooltip.cover_item.change_state"));
         super.addInformation(stack, player, list, bool);
     }
 

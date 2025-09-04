@@ -13,8 +13,8 @@ import gregtech.api.recipe.NEIRecipePropertiesBuilder;
 import gregtech.api.recipe.RecipeMapFrontend;
 import gregtech.api.util.MethodsReturnNonnullByDefault;
 import gregtech.common.gui.modularui.UIHelper;
-import gregtech.nei.GT_NEI_DefaultHandler;
-import gtPlusPlus.core.util.minecraft.ItemUtils;
+import gregtech.nei.GTNEIDefaultHandler;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.production.chemplant.MTEChemicalPlant;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
@@ -47,8 +47,8 @@ public class ChemicalPlantFrontend extends RecipeMapFrontend {
 
     @Override
     protected List<String> handleNEIItemInputTooltip(List<String> currentTip,
-        GT_NEI_DefaultHandler.FixedPositionedStack pStack) {
-        if (ItemUtils.isCatalyst(pStack.item)) {
+        GTNEIDefaultHandler.FixedPositionedStack pStack) {
+        if (MTEChemicalPlant.isCatalyst(pStack.item)) {
             currentTip.add(GRAY + "Does not always get consumed in the process");
             currentTip.add(GRAY + "Higher tier pipe casings allow this item to last longer");
         } else {
@@ -58,8 +58,8 @@ public class ChemicalPlantFrontend extends RecipeMapFrontend {
     }
 
     @Override
-    protected void drawNEIOverlayForInput(GT_NEI_DefaultHandler.FixedPositionedStack stack) {
-        if (ItemUtils.isCatalyst(stack.item)) {
+    protected void drawNEIOverlayForInput(GTNEIDefaultHandler.FixedPositionedStack stack) {
+        if (MTEChemicalPlant.isCatalyst(stack.item)) {
             drawNEIOverlayText("NC*", stack);
         } else {
             super.drawNEIOverlayForInput(stack);

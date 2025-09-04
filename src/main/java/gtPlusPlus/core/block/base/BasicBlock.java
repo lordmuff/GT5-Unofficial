@@ -9,14 +9,14 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import gregtech.api.util.StringUtils;
 import gtPlusPlus.core.creative.AddToCreativeTab;
-import gtPlusPlus.core.util.Utils;
 
 public class BasicBlock extends BlockContainer {
 
     public BasicBlock(BlockTypes type, final String unlocalizedName, final Material material, final int harvestLevel) {
         super(material);
-        this.setBlockName(Utils.sanitizeString(unlocalizedName));
+        this.setBlockName(StringUtils.sanitizeString(unlocalizedName));
 
         if (type != BlockTypes.ORE && !unlocalizedName.toLowerCase()
             .contains("ore")) {
@@ -31,7 +31,7 @@ public class BasicBlock extends BlockContainer {
         this.setStepSound(soundTypeMetal);
     }
 
-    public static enum BlockTypes {
+    public enum BlockTypes {
 
         STANDARD("blockBlock", "pickaxe", soundTypeMetal),
         FRAME("blockFrameGt", "wrench", soundTypeMetal),

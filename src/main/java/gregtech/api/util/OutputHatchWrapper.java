@@ -8,17 +8,17 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.interfaces.fluid.IFluidStore;
-import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_Hatch_Output;
+import gregtech.api.metatileentity.implementations.MTEHatchOutput;
 
 /**
  * Wrapper for output hatch to allow multiblocks to apply specific filter.
  */
 public class OutputHatchWrapper implements IFluidStore {
 
-    private final GT_MetaTileEntity_Hatch_Output outputHatch;
+    private final MTEHatchOutput outputHatch;
     private final Predicate<FluidStack> filter;
 
-    public OutputHatchWrapper(GT_MetaTileEntity_Hatch_Output outputHatch, Predicate<FluidStack> filter) {
+    public OutputHatchWrapper(MTEHatchOutput outputHatch, Predicate<FluidStack> filter) {
         this.outputHatch = outputHatch;
         this.filter = filter;
     }
@@ -55,11 +55,19 @@ public class OutputHatchWrapper implements IFluidStore {
 
     @Override
     public boolean isEmptyAndAcceptsAnyFluid() {
-        return outputHatch.isEmptyAndAcceptsAnyFluid();
+        // https://github.com/GTNewHorizons/GT-New-Horizons-Modpack/issues/19177
+        // always false because this hatch is filtered, and not always accepts any fluids
+        // if not, when calculating parallels, it will be mistakenly used for other fluids,
+        // but voiding them when they are actually put into this hatch.
+        return false;
     }
 
     @Override
     public boolean canStoreFluid(@NotNull FluidStack fluidStack) {
         return outputHatch.canStoreFluid(fluidStack) && filter.test(fluidStack);
+    }
+
+    public MTEHatchOutput unwrap() {
+        return outputHatch;
     }
 }

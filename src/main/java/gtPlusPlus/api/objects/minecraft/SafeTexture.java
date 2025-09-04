@@ -4,10 +4,12 @@ import java.util.HashMap;
 
 import net.minecraft.util.IIcon;
 
+import org.jetbrains.annotations.NotNull;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.GregTech_API;
-import gtPlusPlus.core.util.Utils;
+import gregtech.api.GregTechAPI;
+import gregtech.api.util.StringUtils;
 
 /**
  * A Server Side safe object that can hold {@link IIcon}s.
@@ -29,14 +31,14 @@ public class SafeTexture implements Runnable {
 
     private final String mTextureName;
 
-    private static String getKey(String aTexPath) {
-        String aNameKey = Utils.sanitizeString(aTexPath);
+    private static @NotNull String getKey(@NotNull String aTexPath) {
+        String aNameKey = StringUtils.sanitizeString(aTexPath);
         aNameKey = aNameKey.replace('/', ' ');
         aNameKey = aNameKey.toLowerCase();
         return aNameKey;
     }
 
-    public static SafeTexture register(String aTexturePath) {
+    public static @NotNull SafeTexture register(@NotNull String aTexturePath) {
         String aNameKey = getKey(aTexturePath);
         SafeTexture g = mTextureObjectCache.get(aNameKey);
         if (g == null) {
@@ -47,10 +49,10 @@ public class SafeTexture implements Runnable {
         return g;
     }
 
-    private SafeTexture(String aTexturePath) {
+    private SafeTexture(@NotNull String aTexturePath) {
         mTextureName = aTexturePath;
         mHash = getKey(aTexturePath).hashCode();
-        GregTech_API.sGTBlockIconload.add(this);
+        GregTechAPI.sGTBlockIconload.add(this);
     }
 
     @SideOnly(Side.CLIENT)
@@ -60,6 +62,6 @@ public class SafeTexture implements Runnable {
 
     @Override
     public void run() {
-        mHashToIconCache.put(getKey(mTextureName).hashCode(), GregTech_API.sBlockIcons.registerIcon(mTextureName));
+        mHashToIconCache.put(getKey(mTextureName).hashCode(), GregTechAPI.sBlockIcons.registerIcon(mTextureName));
     }
 }

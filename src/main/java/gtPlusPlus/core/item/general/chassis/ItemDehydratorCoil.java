@@ -12,7 +12,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import gregtech.api.enums.GT_Values;
+import gregtech.api.enums.GTValues;
 import gtPlusPlus.core.creative.AddToCreativeTab;
 
 public class ItemDehydratorCoil extends Item {
@@ -30,10 +30,10 @@ public class ItemDehydratorCoil extends Item {
 
     @Override
     public void registerIcons(IIconRegister reg) {
-        this.icons[0] = reg.registerIcon(GTPlusPlus.ID + ":" + "dehydrator/itemDehydratorCoil_0");
-        this.icons[1] = reg.registerIcon(GTPlusPlus.ID + ":" + "dehydrator/itemDehydratorCoil_1");
-        this.icons[2] = reg.registerIcon(GTPlusPlus.ID + ":" + "dehydrator/itemDehydratorCoil_2");
-        this.icons[3] = reg.registerIcon(GTPlusPlus.ID + ":" + "dehydrator/itemDehydratorCoil_3");
+        this.icons[0] = reg.registerIcon(GTPlusPlus.ID + ":itemDehydratorCoil_0");
+        this.icons[1] = reg.registerIcon(GTPlusPlus.ID + ":itemDehydratorCoil_1");
+        this.icons[2] = reg.registerIcon(GTPlusPlus.ID + ":itemDehydratorCoil_2");
+        this.icons[3] = reg.registerIcon(GTPlusPlus.ID + ":itemDehydratorCoil_3");
     }
 
     @Override
@@ -56,15 +56,6 @@ public class ItemDehydratorCoil extends Item {
     @Override
     public String getItemStackDisplayName(final ItemStack tItem) {
         return StatCollector
-            .translateToLocalFormatted("item.itemDehydratorCoil.name", GT_Values.VN[tItem.getItemDamage() + 4]);
+            .translateToLocalFormatted("item.itemDehydratorCoil.name", GTValues.VN[tItem.getItemDamage() + 4]);
     }
-
-    /*
-     * @Override public int getColorFromItemStack(final ItemStack stack, int HEX_OxFFFFFF) { int meta =
-     * stack.getItemDamage(); if (meta == 0){ HEX_OxFFFFFF = Utils.rgbtoHexValue(10,110,30); } else if (meta == 1){
-     * HEX_OxFFFFFF = Utils.rgbtoHexValue(150,180,35); } else if (meta == 2){ HEX_OxFFFFFF =
-     * Utils.rgbtoHexValue(200,85,40); } else if (meta == 3){ HEX_OxFFFFFF = Utils.rgbtoHexValue(255,150,50); } return
-     * HEX_OxFFFFFF; }
-     */
-
 }

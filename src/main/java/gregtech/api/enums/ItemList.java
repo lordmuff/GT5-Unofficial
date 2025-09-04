@@ -1,21 +1,23 @@
 package gregtech.api.enums;
 
-import static gregtech.api.enums.GT_Values.NI;
-import static gregtech.api.enums.GT_Values.W;
+import static gregtech.api.enums.GTValues.NI;
+import static gregtech.api.util.GTRecipeBuilder.WILDCARD;
 
 import java.util.Locale;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.fluids.Fluid;
 
 import gregtech.api.interfaces.IItemContainer;
-import gregtech.api.util.GT_LanguageManager;
-import gregtech.api.util.GT_Log;
-import gregtech.api.util.GT_ModHandler;
-import gregtech.api.util.GT_OreDictUnificator;
-import gregtech.api.util.GT_Utility;
+import gregtech.api.util.GTLanguageManager;
+import gregtech.api.util.GTLog;
+import gregtech.api.util.GTModHandler;
+import gregtech.api.util.GTOreDictUnificator;
+import gregtech.api.util.GTUtility;
+import gregtech.common.render.items.MetaGeneratedItemRenderer;
 
 /**
  * Class containing all non-OreDict Items of GregTech.
@@ -87,6 +89,13 @@ public enum ItemList implements IItemContainer {
     IC2_Compressed_Coal_Ball,
     IC2_Compressed_Coal_Chunk,
     IC2_Fuel_Rod_Empty,
+    IC2_Uranium_238,
+    IC2_Uranium_235,
+    IC2_Uranium_235_Small,
+    IC2_Plutonium,
+    IC2_Plutonium_Small,
+    IC2_Uranium_Fuel,
+    IC2_MOX_Fuel,
     IC2_Food_Can_Empty,
     IC2_Food_Can_Filled,
     IC2_Food_Can_Spoiled,
@@ -100,8 +109,11 @@ public enum ItemList implements IItemContainer {
     IC2_AdvBattery,
     IC2_EnergyCrystal,
     IC2_LapotronCrystal,
+    Tool_Vajra,
+    Vajra_Core,
+    Magnetron,
+    Item_Power_Goggles,
     Shape_Empty,
-
     Shape_Mold_Bottle,
     Shape_Mold_Plate,
     Shape_Mold_Ingot,
@@ -193,7 +205,6 @@ public enum ItemList implements IItemContainer {
     White_Dwarf_Shape_Extruder_Small_Gear,
     White_Dwarf_Shape_Extruder_ToolHeadDrill,
 
-    Crate_Empty,
     Credit_Copper,
     Credit_Iron,
     Credit_Silver,
@@ -226,11 +237,11 @@ public enum ItemList implements IItemContainer {
     Large_Fluid_Cell_Osmium,
     Large_Fluid_Cell_Neutronium,
     ThermosCan_Empty,
-    ThermosCan_Dark_Coffee,
-    ThermosCan_Dark_Cafe_au_lait,
     ThermosCan_Coffee,
-    ThermosCan_Cafe_au_lait,
-    ThermosCan_Lait_au_cafe,
+    ThermosCan_Sweet_Coffee,
+    ThermosCan_Latte,
+    ThermosCan_Sweet_Latte,
+    ThermosCan_Sweet_Jesus_Latte,
     ThermosCan_Dark_Chocolate_Milk,
     ThermosCan_Chocolate_Milk,
     ThermosCan_Tea,
@@ -379,8 +390,6 @@ public enum ItemList implements IItemContainer {
     Circuit_Data,
     Circuit_Elite,
     Circuit_Master,
-    @Deprecated
-    Circuit_Ultimate,
     Circuit_Biowarecomputer,
     Circuit_Biowaresupercomputer,
 
@@ -445,6 +454,12 @@ public enum ItemList implements IItemContainer {
     FluidRegulator_LuV,
     FluidRegulator_ZPM,
     FluidRegulator_UV,
+    FluidRegulator_UHV,
+    FluidRegulator_UEV,
+    FluidRegulator_UIV,
+    FluidRegulator_UMV,
+    FluidRegulator_UXV,
+    FluidRegulator_MAX,
 
     Conveyor_Module_LV,
     Conveyor_Module_MV,
@@ -568,6 +583,7 @@ public enum ItemList implements IItemContainer {
     Upgrade_Muffler,
     Upgrade_SteamEngine,
     Upgrade_Lock,
+    Item_Redstone_Sniffer,
     Cover_FluidLimiter,
     Cover_Controller,
     Cover_ActivityDetector,
@@ -592,6 +608,9 @@ public enum ItemList implements IItemContainer {
     Cover_SolarPanel_UHV,
     Cover_SolarPanel_UEV,
     Cover_SolarPanel_UIV,
+    Cover_Chest_Basic,
+    Cover_Chest_Good,
+    Cover_Chest_Advanced,
     Ingot_IridiumAlloy,
     Plank_Oak,
     Plank_Spruce,
@@ -623,6 +642,7 @@ public enum ItemList implements IItemContainer {
     Plank_Plum,
     Plank_Maple,
     Plank_Citrus,
+    Plank_Cherry_EFR,
     Dye_Indigo,
     Dye_SquidInk,
     Dye_Bonemeal,
@@ -655,7 +675,6 @@ public enum ItemList implements IItemContainer {
     Tool_Scanner,
     Tool_DataOrb,
     Tool_DataStick,
-    Tool_Sonictron,
     Tool_Sword_Bronze,
     Tool_Pickaxe_Bronze,
     Tool_Shovel_Bronze,
@@ -917,7 +936,7 @@ public enum ItemList implements IItemContainer {
     Automation_ChestBuffer_LuV,
     Automation_ChestBuffer_ZPM,
     Automation_ChestBuffer_UV,
-    Automation_ChestBuffer_MAX,
+    Automation_ChestBuffer_UHV,
 
     Automation_SuperBuffer_ULV,
     Automation_SuperBuffer_LV,
@@ -972,7 +991,7 @@ public enum ItemList implements IItemContainer {
     Hatch_Dynamo_LuV,
     Hatch_Dynamo_ZPM,
     Hatch_Dynamo_UV,
-    Hatch_Dynamo_MAX,
+    Hatch_Dynamo_UHV,
 
     Hatch_Energy_ULV,
     Hatch_Energy_LV,
@@ -983,7 +1002,7 @@ public enum ItemList implements IItemContainer {
     Hatch_Energy_LuV,
     Hatch_Energy_ZPM,
     Hatch_Energy_UV,
-    Hatch_Energy_MAX,
+    Hatch_Energy_UHV,
 
     Wireless_Hatch_Energy_ULV,
     Wireless_Hatch_Energy_LV,
@@ -1017,6 +1036,21 @@ public enum ItemList implements IItemContainer {
     Wireless_Dynamo_Energy_UXV,
     Wireless_Dynamo_Energy_MAX,
 
+    Cover_Wireless_Energy_LV,
+    Cover_Wireless_Energy_MV,
+    Cover_Wireless_Energy_HV,
+    Cover_Wireless_Energy_EV,
+    Cover_Wireless_Energy_IV,
+    Cover_Wireless_Energy_LuV,
+    Cover_Wireless_Energy_ZPM,
+    Cover_Wireless_Energy_UV,
+    Cover_Wireless_Energy_UHV,
+    Cover_Wireless_Energy_UEV,
+    Cover_Wireless_Energy_UIV,
+    Cover_Wireless_Energy_UMV,
+    Cover_Wireless_Energy_UXV,
+    Cover_Wireless_Energy_MAX,
+
     Hatch_Input_ULV,
     Hatch_Input_LV,
     Hatch_Input_MV,
@@ -1026,7 +1060,7 @@ public enum ItemList implements IItemContainer {
     Hatch_Input_LuV,
     Hatch_Input_ZPM,
     Hatch_Input_UV,
-    Hatch_Input_MAX,
+    Hatch_Input_UHV,
 
     Hatch_Input_Multi_2x2_EV,
     Hatch_Input_Multi_2x2_IV,
@@ -1060,7 +1094,7 @@ public enum ItemList implements IItemContainer {
     Hatch_Output_LuV,
     Hatch_Output_ZPM,
     Hatch_Output_UV,
-    Hatch_Output_MAX,
+    Hatch_Output_UHV,
 
     Hatch_Output_Bus_ULV,
     Hatch_Output_Bus_LV,
@@ -1072,6 +1106,9 @@ public enum ItemList implements IItemContainer {
     Hatch_Output_Bus_ZPM,
     Hatch_Output_Bus_UV,
     Hatch_Output_Bus_MAX,
+
+    Hatch_Void,
+    Hatch_Void_Bus,
 
     Hatch_Muffler_LV,
     Hatch_Muffler_MV,
@@ -1088,6 +1125,9 @@ public enum ItemList implements IItemContainer {
     Hatch_DataAccess_LuV,
     Hatch_DataAccess_UV,
 
+    Hatch_HeatSensor,
+    Hatch_BlackHoleUtility,
+
     Battery_Buffer_1by1_ULV,
     Battery_Buffer_1by1_LV,
     Battery_Buffer_1by1_MV,
@@ -1097,7 +1137,7 @@ public enum ItemList implements IItemContainer {
     Battery_Buffer_1by1_LuV,
     Battery_Buffer_1by1_ZPM,
     Battery_Buffer_1by1_UV,
-    Battery_Buffer_1by1_MAX,
+    Battery_Buffer_1by1_UHV,
 
     Battery_Buffer_2by2_ULV,
     Battery_Buffer_2by2_LV,
@@ -1108,7 +1148,7 @@ public enum ItemList implements IItemContainer {
     Battery_Buffer_2by2_LuV,
     Battery_Buffer_2by2_ZPM,
     Battery_Buffer_2by2_UV,
-    Battery_Buffer_2by2_MAX,
+    Battery_Buffer_2by2_UHV,
 
     Battery_Buffer_3by3_ULV,
     Battery_Buffer_3by3_LV,
@@ -1119,7 +1159,7 @@ public enum ItemList implements IItemContainer {
     Battery_Buffer_3by3_LuV,
     Battery_Buffer_3by3_ZPM,
     Battery_Buffer_3by3_UV,
-    Battery_Buffer_3by3_MAX,
+    Battery_Buffer_3by3_UHV,
 
     Battery_Buffer_4by4_ULV,
     Battery_Buffer_4by4_LV,
@@ -1130,7 +1170,7 @@ public enum ItemList implements IItemContainer {
     Battery_Buffer_4by4_LuV,
     Battery_Buffer_4by4_ZPM,
     Battery_Buffer_4by4_UV,
-    Battery_Buffer_4by4_MAX,
+    Battery_Buffer_4by4_UHV,
 
     Locker_ULV,
     Locker_LV,
@@ -1470,12 +1510,45 @@ public enum ItemList implements IItemContainer {
     Electromagnet_Samarium,
     Electromagnet_Tengam,
 
+    Hatch_Antimatter,
+
     Machine_Multi_Canner,
+    Machine_Multi_Solidifier,
+
+    Casing_Fluid_Solidifier,
+    Radiator_Fluid_Solidifier,
+
+    Casing_Reinforced_Wood,
+
+    Machine_Multi_IndustrialCompressor,
+    Machine_Multi_HIPCompressor,
+    Machine_Multi_NeutroniumCompressor,
+    Machine_Multi_BlackHoleCompressor,
+    Compressor_Casing,
+    Compressor_Pipe_Casing,
+    Heating_Duct_Casing,
+    Coolant_Duct_Casing,
+    Neutronium_Casing,
+    Neutronium_Active_Casing,
+    Neutronium_Stable_Casing,
+    Background_Radiation_Casing,
+    Extreme_Density_Casing,
+    Hawking_Glass,
+    Black_Hole_Opener,
+    Black_Hole_Closer,
+    Black_Hole_Stabilizer,
+
+    Machine_Multi_IndustrialBrewery,
+
     Machine_Multi_IndustrialLaserEngraver,
     Laser_Plate,
     Casing_Laser,
 
+    Machine_Multi_IndustrialExtractor,
+
     Machine_Multi_Lathe,
+    Machine_Multi_Autoclave,
+    Casing_Autoclave,
 
     Machine_LV_Miner,
     Machine_MV_Miner,
@@ -1525,13 +1598,6 @@ public enum ItemList implements IItemContainer {
     Reactor_Coolant_NaK_6,
     neutroniumHeatCapacitor,
 
-    GlowstoneCell,
-    SunnariumCell,
-
-    ThoriumCell_1,
-    ThoriumCell_2,
-    ThoriumCell_4,
-
     Reactor_Coolant_Sp_1,
     Reactor_Coolant_Sp_2,
     Reactor_Coolant_Sp_3,
@@ -1545,9 +1611,9 @@ public enum ItemList implements IItemContainer {
     Casing_Fusion,
     Casing_Fusion2,
 
+    Generator_Plasma_EV,
     Generator_Plasma_IV,
     Generator_Plasma_LuV,
-    Generator_Plasma_ZPMV,
 
     MagicEnergyConverter_LV,
     MagicEnergyConverter_MV,
@@ -1558,11 +1624,6 @@ public enum ItemList implements IItemContainer {
     MagicEnergyAbsorber_HV,
     MagicEnergyAbsorber_EV,
 
-    Depleted_Thorium_1,
-    Depleted_Thorium_2,
-    Depleted_Thorium_4,
-
-    Processing_Array,
     Distillation_Tower,
     Energy_LapotronicOrb2,
     Ore_Processor,
@@ -1624,7 +1685,6 @@ public enum ItemList implements IItemContainer {
     LargeSteamTurbine,
     LargeGasTurbine,
     LargeHPSteamTurbine,
-    LargeAdvancedGasTurbine,
     LargePlasmaTurbine,
 
     Ingot_Heavy1,
@@ -1634,11 +1694,6 @@ public enum ItemList implements IItemContainer {
     Pump_LV,
     Pump_MV,
     Pump_HV,
-    Pump_EV,
-    Pump_IV,
-    Pump_LuV,
-    Pump_ZPM,
-    Pump_UV,
 
     Teleporter,
     Cover_NeedsMaintainance,
@@ -1648,7 +1703,6 @@ public enum ItemList implements IItemContainer {
     Casing_Turbine3,
     Casing_EngineIntake,
     Casing_ExtremeEngineIntake,
-    Casing_TurbineGasAdvanced,
 
     Casing_Coil_Cupronickel,
     Casing_Coil_Kanthal,
@@ -1703,6 +1757,10 @@ public enum ItemList implements IItemContainer {
     Cover_PlayerDetector,
     Machine_Multi_HeatExchanger,
 
+    MagLevPython_MV,
+    MagLevPython_HV,
+    MagLevPython_EV,
+
     Block_BronzePlate,
     Block_SteelPlate,
     Block_TitaniumPlate,
@@ -1734,6 +1792,7 @@ public enum ItemList implements IItemContainer {
     OreDrill4,
     PyrolyseOven,
     OilCracker,
+    SolarFactory,
     NanoForge,
     Crop_Drop_UUMBerry,
     Crop_Drop_UUABerry,
@@ -1749,7 +1808,7 @@ public enum ItemList implements IItemContainer {
     Battery_Charger_4by4_LuV,
     Battery_Charger_4by4_ZPM,
     Battery_Charger_4by4_UV,
-    Battery_Charger_4by4_MAX,
+    Battery_Charger_4by4_UHV,
 
     MicroTransmitter_HV,
     MicroTransmitter_EV,
@@ -1772,12 +1831,6 @@ public enum ItemList implements IItemContainer {
     Crop_Drop_Osmium,
     Crop_Drop_Naquadah,
     Crop_Drop_Mica,
-    Uraniumcell_1,
-    Uraniumcell_2,
-    Uraniumcell_4,
-    Moxcell_1,
-    Moxcell_2,
-    Moxcell_4,
 
     Block_Powderbarrel,
     GelledToluene,
@@ -1798,18 +1851,73 @@ public enum ItemList implements IItemContainer {
     SFMixture,
     MSFMixture,
 
-    Depleted_Naquadah_1,
-    Depleted_Naquadah_2,
-    Depleted_Naquadah_4,
-    NaquadahCell_1,
-    NaquadahCell_2,
-    NaquadahCell_4,
-    Depleted_MNq_1,
-    Depleted_MNq_2,
-    Depleted_MNq_4,
-    MNqCell_1,
-    MNqCell_2,
-    MNqCell_4,
+    RodLithium,
+    RodGlowstone,
+    RodThorium,
+    RodThorium2,
+    RodThorium4,
+    RodUranium,
+    RodUranium2,
+    RodUranium4,
+    RodMOX,
+    RodMOX2,
+    RodMOX4,
+    RodHighDensityUranium,
+    RodHighDensityUranium2,
+    RodHighDensityUranium4,
+    RodHighDensityPlutonium,
+    RodHighDensityPlutonium2,
+    RodHighDensityPlutonium4,
+    RodExcitedUranium,
+    RodExcitedUranium2,
+    RodExcitedUranium4,
+    RodExcitedPlutonium,
+    RodExcitedPlutonium2,
+    RodExcitedPlutonium4,
+    RodNaquadah,
+    RodNaquadah2,
+    RodNaquadah4,
+    RodNaquadah32, // the core
+    RodNaquadria,
+    RodNaquadria2,
+    RodNaquadria4,
+    RodTiberium,
+    RodTiberium2,
+    RodTiberium4,
+
+    DepletedRodLithium, // tritium
+    DepletedRodGlowstone, // sunnarium
+    DepletedRodThorium,
+    DepletedRodThorium2,
+    DepletedRodThorium4,
+    DepletedRodUranium,
+    DepletedRodUranium2,
+    DepletedRodUranium4,
+    DepletedRodMOX,
+    DepletedRodMOX2,
+    DepletedRodMOX4,
+    DepletedRodHighDensityUranium,
+    DepletedRodHighDensityUranium2,
+    DepletedRodHighDensityUranium4,
+    DepletedRodHighDensityPlutonium,
+    DepletedRodHighDensityPlutonium2,
+    DepletedRodHighDensityPlutonium4,
+    DepletedRodExcitedUranium,
+    DepletedRodExcitedUranium2,
+    DepletedRodExcitedUranium4,
+    DepletedRodExcitedPlutonium,
+    DepletedRodExcitedPlutonium2,
+    DepletedRodExcitedPlutonium4,
+    DepletedRodNaquadah,
+    DepletedRodNaquadah2,
+    DepletedRodNaquadah4,
+    DepletedRodNaquadah32, // the core
+    DepletedRodNaquadria,
+    DepletedRodNaquadria2,
+    DepletedRodNaquadria4,
+    DepletedRodTiberium,
+    DepletedRodTiberium2,
+    DepletedRodTiberium4,
 
     Hatch_AutoMaintenance,
     Machine_Multi_Cleanroom,
@@ -1984,6 +2092,15 @@ public enum ItemList implements IItemContainer {
     Machine_HV_LightningRod,
     Machine_EV_LightningRod,
 
+    Machine_LV_SolarPanel,
+    Machine_MV_SolarPanel,
+    Machine_HV_SolarPanel,
+    Machine_EV_SolarPanel,
+    Machine_IV_SolarPanel,
+    Machine_LuV_SolarPanel,
+    Machine_ZPM_SolarPanel,
+    Machine_UV_SolarPanel,
+
     ULV_Coil,
     LV_Coil,
     MV_Coil,
@@ -2040,6 +2157,8 @@ public enum ItemList implements IItemContainer {
     TierdDrone1,
     TierdDrone2,
     Hatch_DroneDownLink,
+    ElectronicsLump,
+    WormholeGenerator,
     Hatch_pHSensor,
     Hatch_LensHousing,
     Hatch_LensIndicator,
@@ -2069,12 +2188,563 @@ public enum ItemList implements IItemContainer {
     Quark_Creation_Catalyst_Bottom,
     Quark_Creation_Catalyst_Top,
     Quark_Creation_Catalyst_Unaligned,
-    Casing_Shielded_Accelerator,
     GlassOmniPurposeInfinityFused,
     GlassQuarkContainment,
     BlockQuarkPipe,
     BlockQuarkReleaseChamber,
-    BlockQuarkContainmentCasing;
+    BlockQuarkContainmentCasing,
+    LargeFluidExtractor,
+    CasingThaumium,
+    CasingVoid,
+    CasingIchorium,
+    EntropicProcessor,
+    DecayWarehouse,
+    AcceleratorLV,
+    AcceleratorMV,
+    AcceleratorHV,
+    AcceleratorEV,
+    AcceleratorIV,
+    AcceleratorLuV,
+    AcceleratorZPM,
+    AcceleratorUV,
+    Hatch_Dynamo_UEV,
+    Hatch_Dynamo_UIV,
+    Hatch_Dynamo_UMV,
+    Hatch_Dynamo_UXV,
+    Hatch_Energy_UEV,
+    Hatch_Energy_UIV,
+    Hatch_Energy_UMV,
+    Hatch_Energy_UXV,
+    Hatch_Input_UEV,
+    Hatch_Input_UIV,
+    Hatch_Input_UMV,
+    Hatch_Input_UXV,
+    Hatch_Input_MAX,
+    Hatch_Output_UEV,
+    Hatch_Output_UIV,
+    Hatch_Output_UMV,
+    Hatch_Output_UXV,
+    Hatch_Output_MAX,
+    Battery_TurboCharger_4by4_ULV,
+    Battery_TurboCharger_4by4_LV,
+    Battery_TurboCharger_4by4_MV,
+    Battery_TurboCharger_4by4_HV,
+    Battery_TurboCharger_4by4_EV,
+    Battery_TurboCharger_4by4_IV,
+    Battery_TurboCharger_4by4_LuV,
+    Battery_TurboCharger_4by4_ZPM,
+    Battery_TurboCharger_4by4_UV,
+    Battery_TurboCharger_4by4_UHV,
+    Battery_Charger_4by4_UEV,
+    Battery_Charger_4by4_UIV,
+    Battery_Charger_4by4_UMV,
+    Battery_Charger_4by4_UXV,
+    Battery_Buffer_1by1_UEV,
+    Battery_Buffer_1by1_UIV,
+    Battery_Buffer_1by1_UMV,
+    Battery_Buffer_1by1_UXV,
+    Battery_Buffer_1by1_MAXV,
+    Battery_Buffer_2by2_UEV,
+    Battery_Buffer_2by2_UIV,
+    Battery_Buffer_2by2_UMV,
+    Battery_Buffer_2by2_UXV,
+    Battery_Buffer_2by2_MAXV,
+    Battery_Buffer_3by3_UEV,
+    Battery_Buffer_3by3_UIV,
+    Battery_Buffer_3by3_UMV,
+    Battery_Buffer_3by3_UXV,
+    Battery_Buffer_3by3_MAXV,
+    Battery_Buffer_4by4_UEV,
+    Battery_Buffer_4by4_UIV,
+    Battery_Buffer_4by4_UMV,
+    Battery_Buffer_4by4_UXV,
+    Battery_Buffer_4by4_MAXV,
+    Hull_UEV,
+    Hull_UIV,
+    Hull_UMV,
+    Hull_UXV,
+    Hull_MAXV,
+    Casing_UEV,
+    Casing_UIV,
+    Casing_UMV,
+    Casing_UXV,
+    Casing_MAXV,
+    //
+    Transformer_UEV_UHV,
+    Transformer_UIV_UEV,
+    Transformer_UMV_UIV,
+    Transformer_UXV_UMV,
+    Transformer_MAX_UXV,
+    WetTransformer_LV_ULV,
+    WetTransformer_MV_LV,
+    WetTransformer_HV_MV,
+    WetTransformer_EV_HV,
+    WetTransformer_IV_EV,
+    WetTransformer_LuV_IV,
+    WetTransformer_ZPM_LuV,
+    WetTransformer_UV_ZPM,
+    WetTransformer_UHV_UV,
+    WetTransformer_UEV_UHV,
+    WetTransformer_UIV_UEV,
+    WetTransformer_UMV_UIV,
+    WetTransformer_UXV_UMV,
+    WetTransformer_MAX_UXV,
+    Transformer_HA_UEV_UHV,
+    Transformer_HA_UIV_UEV,
+    Transformer_HA_UMV_UIV,
+    Transformer_HA_UXV_UMV,
+    Transformer_HA_MAX_UXV,
+    BatteryHull_EV,
+    BatteryHull_IV,
+    BatteryHull_LuV,
+    BatteryHull_ZPM,
+    BatteryHull_UV,
+    BatteryHull_UHV,
+    BatteryHull_UEV,
+    BatteryHull_UIV,
+    BatteryHull_UMV,
+    BatteryHull_UxV,
+    BatteryHull_EV_Full,
+    BatteryHull_IV_Full,
+    BatteryHull_LuV_Full,
+    BatteryHull_ZPM_Full,
+    BatteryHull_UV_Full,
+    BatteryHull_UHV_Full,
+    BatteryHull_UEV_Full,
+    BatteryHull_UIV_Full,
+    BatteryHull_UMV_Full,
+    BatteryHull_UxV_Full,
+
+    Generator_Plasma_ZPMV,
+    Generator_Plasma_UV,
+    Generator_Plasma_UHV,
+    Generator_Plasma_UEV,
+    Generator_Plasma_UIV,
+    Generator_Plasma_UMV,
+    AlloySmelterLuV,
+    AlloySmelterZPM,
+    AlloySmelterUV,
+    AlloySmelterUHV,
+    AlloySmelterUEV,
+    AlloySmelterUIV,
+    AlloySmelterUMV,
+    AmplifabricatorLuV,
+    AmplifabricatorZPM,
+    AmplifabricatorUV,
+    AmplifabricatorUHV,
+    AmplifabricatorUEV,
+    AmplifabricatorUIV,
+    AmplifabricatorUMV,
+    ArcFurnaceLuV,
+    ArcFurnaceZPM,
+    ArcFurnaceUV,
+    ArcFurnaceUHV,
+    ArcFurnaceUEV,
+    ArcFurnaceUIV,
+    ArcFurnaceUMV,
+    AssemblingMachineLuV,
+    AssemblingMachineZPM,
+    AssemblingMachineUV,
+    AssemblingMachineUHV,
+    AssemblingMachineUEV,
+    AssemblingMachineUIV,
+    AssemblingMachineUMV,
+    AutoclaveLuV,
+    AutoclaveZPM,
+    AutoclaveUV,
+    AutoclaveUHV,
+    AutoclaveUEV,
+    AutoclaveUIV,
+    AutoclaveUMV,
+    BendingMachineLuV,
+    BendingMachineZPM,
+    BendingMachineUV,
+    BendingMachineUHV,
+    BendingMachineUEV,
+    BendingMachineUIV,
+    BendingMachineUMV,
+    BreweryLuV,
+    BreweryZPM,
+    BreweryUV,
+    BreweryUHV,
+    BreweryUEV,
+    BreweryUIV,
+    BreweryUMV,
+    CanningMachineLuV,
+    CanningMachineZPM,
+    CanningMachineUV,
+    CanningMachineUHV,
+    CanningMachineUEV,
+    CanningMachineUIV,
+    CanningMachineUMV,
+    CentrifugeLuV,
+    CentrifugeZPM,
+    CentrifugeUV,
+    CentrifugeUHV,
+    CentrifugeUEV,
+    CentrifugeUIV,
+    CentrifugeUMV,
+    ChemicalBathLuV,
+    ChemicalBathZPM,
+    ChemicalBathUV,
+    ChemicalBathUHV,
+    ChemicalBathUEV,
+    ChemicalBathUIV,
+    ChemicalBathUMV,
+    ChemicalReactorLuV,
+    ChemicalReactorZPM,
+    ChemicalReactorUV,
+    ChemicalReactorUHV,
+    ChemicalReactorUEV,
+    ChemicalReactorUIV,
+    ChemicalReactorUMV,
+    CircuitAssemblerUHV,
+    CircuitAssemblerUEV,
+    CircuitAssemblerUIV,
+    CircuitAssemblerUMV,
+    CircuitAssemblerUXV,
+    CircuitAssemblerMAX,
+    CompressorLuV,
+    CompressorZPM,
+    CompressorUV,
+    CompressorUHV,
+    CompressorUEV,
+    CompressorUIV,
+    CompressorUMV,
+    CuttingMachineLuV,
+    CuttingMachineZPM,
+    CuttingMachineUV,
+    CuttingMachineUHV,
+    CuttingMachineUEV,
+    CuttingMachineUIV,
+    CuttingMachineUMV,
+    DistilleryLuV,
+    DistilleryZPM,
+    DistilleryUV,
+    DistilleryUHV,
+    DistilleryUEV,
+    DistilleryUIV,
+    DistilleryUMV,
+    ElectricFurnaceLuV,
+    ElectricFurnaceZPM,
+    ElectricFurnaceUV,
+    ElectricFurnaceUHV,
+    ElectricFurnaceUEV,
+    ElectricFurnaceUIV,
+    ElectricFurnaceUMV,
+    ElectricOvenLuV,
+    ElectricOvenZPM,
+    ElectricOvenUV,
+    ElectricOvenUHV,
+    ElectricOvenUEV,
+    ElectricOvenUIV,
+    ElectricOvenUMV,
+    ElectrolyzerLuV,
+    ElectrolyzerZPM,
+    ElectrolyzerUV,
+    ElectrolyzerUHV,
+    ElectrolyzerUEV,
+    ElectrolyzerUIV,
+    ElectrolyzerUMV,
+    ElectromagneticSeparatorLuV,
+    ElectromagneticSeparatorZPM,
+    ElectromagneticSeparatorUV,
+    ElectromagneticSeparatorUHV,
+    ElectromagneticSeparatorUEV,
+    ElectromagneticSeparatorUIV,
+    ElectromagneticSeparatorUMV,
+    ExtractorLuV,
+    ExtractorZPM,
+    ExtractorUV,
+    ExtractorUHV,
+    ExtractorUEV,
+    ExtractorUIV,
+    ExtractorUMV,
+    ExtruderLuV,
+    ExtruderZPM,
+    ExtruderUV,
+    ExtruderUHV,
+    ExtruderUEV,
+    ExtruderUIV,
+    ExtruderUMV,
+    FermenterLuV,
+    FermenterZPM,
+    FermenterUV,
+    FermenterUHV,
+    FermenterUEV,
+    FermenterUIV,
+    FermenterUMV,
+    FluidCannerLuV,
+    FluidCannerZPM,
+    FluidCannerUV,
+    FluidCannerUHV,
+    FluidCannerUEV,
+    FluidCannerUIV,
+    FluidCannerUMV,
+    FluidExtractorLuV,
+    FluidExtractorZPM,
+    FluidExtractorUV,
+    FluidExtractorUHV,
+    FluidExtractorUEV,
+    FluidExtractorUIV,
+    FluidExtractorUMV,
+    FluidHeaterLuV,
+    FluidHeaterZPM,
+    FluidHeaterUV,
+    FluidHeaterUHV,
+    FluidHeaterUEV,
+    FluidHeaterUIV,
+    FluidHeaterUMV,
+    FluidSolidifierLuV,
+    FluidSolidifierZPM,
+    FluidSolidifierUV,
+    FluidSolidifierUHV,
+    FluidSolidifierUEV,
+    FluidSolidifierUIV,
+    FluidSolidifierUMV,
+    FormingPressLuV,
+    FormingPressZPM,
+    FormingPressUV,
+    FormingPressUHV,
+    FormingPressUEV,
+    FormingPressUIV,
+    FormingPressUMV,
+    ForgeHammerLuV,
+    ForgeHammerZPM,
+    ForgeHammerUV,
+    ForgeHammerUHV,
+    ForgeHammerUEV,
+    ForgeHammerUIV,
+    ForgeHammerUMV,
+    LatheLuV,
+    LatheZPM,
+    LatheUV,
+    LatheUHV,
+    LatheUEV,
+    LatheUIV,
+    LatheUMV,
+    PrecisionLaserEngraverLuV,
+    PrecisionLaserEngraverZPM,
+    PrecisionLaserEngraverUV,
+    PrecisionLaserEngraverUHV,
+    PrecisionLaserEngraverUEV,
+    PrecisionLaserEngraverUIV,
+    PrecisionLaserEngraverUMV,
+    MaceratorLuV,
+    MaceratorZPM,
+    MaceratorUV,
+    MaceratorUHV,
+    MaceratorUEV,
+    MaceratorUIV,
+    MaceratorUMV,
+    MassFabricatorLuV,
+    MassFabricatorZPM,
+    MassFabricatorUV,
+    MassFabricatorUHV,
+    MassFabricatorUEV,
+    MassFabricatorUIV,
+    MassFabricatorUMV,
+    MicrowaveLuV,
+    MicrowaveZPM,
+    MicrowaveUV,
+    MicrowaveUHV,
+    MicrowaveUEV,
+    MicrowaveUIV,
+    MicrowaveUMV,
+    MixerLuV,
+    MixerZPM,
+    MixerUV,
+    MixerUHV,
+    MixerUEV,
+    MixerUIV,
+    MixerUMV,
+    OreWashingPlantLuV,
+    OreWashingPlantZPM,
+    OreWashingPlantUV,
+    OreWashingPlantUHV,
+    OreWashingPlantUEV,
+    OreWashingPlantUIV,
+    OreWashingPlantUMV,
+    PlasmaArcFurnaceLuV,
+    PlasmaArcFurnaceZPM,
+    PlasmaArcFurnaceUV,
+    PlasmaArcFurnaceUHV,
+    PlasmaArcFurnaceUEV,
+    PlasmaArcFurnaceUIV,
+    PlasmaArcFurnaceUMV,
+    PolarizerLuV,
+    PolarizerZPM,
+    PolarizerUV,
+    PolarizerUHV,
+    PolarizerUEV,
+    PolarizerUIV,
+    PolarizerUMV,
+    RockBreakerLuV,
+    RockBreakerZPM,
+    RockBreakerUV,
+    RockBreakerUHV,
+    RockBreakerUEV,
+    RockBreakerUIV,
+    RockBreakerUMV,
+    RecyclerLuV,
+    RecyclerZPM,
+    RecyclerUV,
+    RecyclerUHV,
+    RecyclerUEV,
+    RecyclerUIV,
+    RecyclerUMV,
+    ReplicatorLuV,
+    ReplicatorZPM,
+    ReplicatorUV,
+    ReplicatorUHV,
+    ReplicatorUEV,
+    ReplicatorUIV,
+    ReplicatorUMV,
+    ScannerLuV,
+    ScannerZPM,
+    ScannerUV,
+    ScannerUHV,
+    ScannerUEV,
+    ScannerUIV,
+    ScannerUMV,
+    SiftingMachineLuV,
+    SiftingMachineZPM,
+    SiftingMachineUV,
+    SiftingMachineUHV,
+    SiftingMachineUEV,
+    SiftingMachineUIV,
+    SiftingMachineUMV,
+    SlicingMachineLuV,
+    SlicingMachineZPM,
+    SlicingMachineUV,
+    SlicingMachineUHV,
+    SlicingMachineUEV,
+    SlicingMachineUIV,
+    SlicingMachineUMV,
+    ThermalCentrifugeLuV,
+    ThermalCentrifugeZPM,
+    ThermalCentrifugeUV,
+    ThermalCentrifugeUHV,
+    ThermalCentrifugeUEV,
+    ThermalCentrifugeUIV,
+    ThermalCentrifugeUMV,
+    WiremillLuV,
+    WiremillZPM,
+    WiremillUV,
+    WiremillUHV,
+    WiremillUEV,
+    WiremillUIV,
+    WiremillUMV,
+    Automation_ChestBuffer_UEV,
+    Automation_ChestBuffer_UIV,
+    Automation_ChestBuffer_UMV,
+    Automation_ChestBuffer_UXV,
+    BetterJukebox_LV,
+    BetterJukebox_MV,
+    BetterJukebox_HV,
+    BetterJukebox_EV,
+    BetterJukebox_IV,
+    WirelessHeadphones,
+    Thermal_Superconductor,
+    Relativistic_Heat_Capacitor,
+    Phononic_Seed_Crystal,
+    Harmonic_Compound,
+    ResearchCompleter,
+    Spray_Color_Infinite,
+    Casing_AirFilter_Turbine_T1,
+    Casing_AirFilter_Vent_T1,
+    Casing_AirFilter_Turbine_T2,
+    Casing_AirFilter_Vent_T2,
+    Casing_AirFilter_Turbine_T3,
+    Casing_AirFilter_Vent_T3,
+    Casing_Pyrolyse,
+    NameRemover,
+    Hatch_Nanite,
+    Hatch_Catalyst_Bulk,
+    Machine_Multi_AirFilterT1,
+    Machine_Multi_AirFilterT2,
+    Machine_Multi_AirFilterT3,
+    Heavy_Hellish_Mud,
+    Netherite_Scrap_Seed,
+    Brittle_Netherite_Scrap,
+    Netherite_Nanoparticles,
+    Intensely_Bonded_Netherite_Nanoparticles,
+    Hot_Netherite_Scrap,
+    LargeMolecularAssembler,
+    Prismarine_Precipitate,
+    Prismatic_Crystal,
+    Radiation_Proof_Prismatic_Naquadah_Composite_Sheet,
+    Naquarite_Universal_Insulator_Foil,
+
+    SpaceElevatorController,
+    SpaceElevatorModuleAssemblerT1,
+    SpaceElevatorModuleAssemblerT2,
+    SpaceElevatorModuleAssemblerT3,
+    SpaceElevatorModuleMinerT1,
+    SpaceElevatorModuleMinerT2,
+    SpaceElevatorModuleMinerT3,
+    SpaceElevatorModulePumpT1,
+    SpaceElevatorModulePumpT2,
+    SpaceElevatorModulePumpT3,
+    SpaceElevatorModuleManager,
+    SpaceElevatorModuleResearch,
+    SpaceElevatorMotorT1,
+    SpaceElevatorMotorT2,
+    SpaceElevatorMotorT3,
+    SpaceElevatorMotorT4,
+    SpaceElevatorMotorT5,
+    SpaceElevatorCable,
+    SpaceElevatorBaseCasing,
+    SpaceElevatorSupportStructure,
+    SpaceElevatorInternalStructure,
+    NanotubeSpool,
+    MiningDroneLV,
+    MiningDroneMV,
+    MiningDroneHV,
+    MiningDroneEV,
+    MiningDroneIV,
+    MiningDroneLuV,
+    MiningDroneZPM,
+    MiningDroneUV,
+    MiningDroneUHV,
+    MiningDroneUEV,
+    MiningDroneUIV,
+    MiningDroneUMV,
+    MiningDroneUXV,
+    MiningDroneMAX,
+
+    DysonSwarmController,
+    DysonSwarmReceiverCasing,
+    DysonSwarmReceiverDish,
+    DysonSwarmDeploymentUnitCasing,
+    DysonSwarmDeploymentUnitCore,
+    DysonSwarmDeploymentUnitMagnet,
+    DysonSwarmControlCasing,
+    DysonSwarmControlPrimary,
+    DysonSwarmControlSecondary,
+    DysonSwarmControlToroid,
+    UltraHighStrengthConcrete,
+    DysonSwarmModule,
+    TaHfCNanofibers,
+    NtNanofibers,
+    UHTResistantMesh,
+    TaHfNanoparticles,
+    NtNanoparticles,
+
+    PrecisionFieldSyncCasing,
+    MagneticAnchorCasing,
+    FieldEnergyAbsorberCasing,
+    LoadbearingDistributionCasing,
+    NaniteFramework,
+    NaniteShieldingGlass,
+
+    PlanetaryGasSiphonController,
+    PlanetaryGasSiphonCasing,
+
+    MagLevHarness,
+
+    // semicolon after the comment to reduce merge conflicts
+    ;
 
     public static final ItemList[] DYE_ONLY_ITEMS = { Color_00, Color_01, Color_02, Color_03, Color_04, Color_05,
         Color_06, Color_07, Color_08, Color_09, Color_10, Color_11, Color_12, Color_13, Color_14, Color_15 },
@@ -2087,24 +2757,33 @@ public enum ItemList implements IItemContainer {
             Spray_Color_Used_14, Spray_Color_Used_15 },
         TRANSFORMERS = { Transformer_LV_ULV, Transformer_MV_LV, Transformer_HV_MV, Transformer_EV_HV, Transformer_IV_EV,
             Transformer_LuV_IV, Transformer_ZPM_LuV, Transformer_UV_ZPM, Transformer_MAX_UV },
-        MACHINE_HULLS = { Hull_ULV, Hull_LV, Hull_MV, Hull_HV, Hull_EV, Hull_IV, Hull_LuV, Hull_ZPM, Hull_UV,
-            Hull_MAX },
+        MACHINE_HULLS = { Hull_ULV, Hull_LV, Hull_MV, Hull_HV, Hull_EV, Hull_IV, Hull_LuV, Hull_ZPM, Hull_UV, Hull_MAX,
+            Hull_UEV, Hull_UIV, Hull_UMV, Hull_UXV, Hull_MAXV },
         HATCHES_DYNAMO = { Hatch_Dynamo_ULV, Hatch_Dynamo_LV, Hatch_Dynamo_MV, Hatch_Dynamo_HV, Hatch_Dynamo_EV,
-            Hatch_Dynamo_IV, Hatch_Dynamo_LuV, Hatch_Dynamo_ZPM, Hatch_Dynamo_UV, Hatch_Dynamo_MAX },
+            Hatch_Dynamo_IV, Hatch_Dynamo_LuV, Hatch_Dynamo_ZPM, Hatch_Dynamo_UV, Hatch_Dynamo_UHV },
         HATCHES_ENERGY = { Hatch_Energy_ULV, Hatch_Energy_LV, Hatch_Energy_MV, Hatch_Energy_HV, Hatch_Energy_EV,
-            Hatch_Energy_IV, Hatch_Energy_LuV, Hatch_Energy_ZPM, Hatch_Energy_UV, Hatch_Energy_MAX },
+            Hatch_Energy_IV, Hatch_Energy_LuV, Hatch_Energy_ZPM, Hatch_Energy_UV, Hatch_Energy_UHV },
         HATCHES_INPUT = { Hatch_Input_ULV, Hatch_Input_LV, Hatch_Input_MV, Hatch_Input_HV, Hatch_Input_EV,
-            Hatch_Input_IV, Hatch_Input_LuV, Hatch_Input_ZPM, Hatch_Input_UV, Hatch_Input_MAX },
+            Hatch_Input_IV, Hatch_Input_LuV, Hatch_Input_ZPM, Hatch_Input_UV, Hatch_Input_UHV },
         HATCHES_INPUT_BUS = { Hatch_Input_Bus_ULV, Hatch_Input_Bus_LV, Hatch_Input_Bus_MV, Hatch_Input_Bus_HV,
             Hatch_Input_Bus_EV, Hatch_Input_Bus_IV, Hatch_Input_Bus_LuV, Hatch_Input_Bus_ZPM, Hatch_Input_Bus_UV,
             Hatch_Input_Bus_MAX },
         HATCHES_OUTPUT = { Hatch_Output_ULV, Hatch_Output_LV, Hatch_Output_MV, Hatch_Output_HV, Hatch_Output_EV,
-            Hatch_Output_IV, Hatch_Output_LuV, Hatch_Output_ZPM, Hatch_Output_UV, Hatch_Output_MAX },
+            Hatch_Output_IV, Hatch_Output_LuV, Hatch_Output_ZPM, Hatch_Output_UV, Hatch_Output_UHV },
         HATCHES_OUTPUT_BUS = { Hatch_Output_Bus_ULV, Hatch_Output_Bus_LV, Hatch_Output_Bus_MV, Hatch_Output_Bus_HV,
             Hatch_Output_Bus_EV, Hatch_Output_Bus_IV, Hatch_Output_Bus_LuV, Hatch_Output_Bus_ZPM, Hatch_Output_Bus_UV,
             Hatch_Output_Bus_MAX },
         HATCHES_MUFFLER = { Hatch_Muffler_LV, Hatch_Muffler_LV, Hatch_Muffler_MV, Hatch_Muffler_HV, Hatch_Muffler_EV,
-            Hatch_Muffler_IV, Hatch_Muffler_LuV, Hatch_Muffler_ZPM, Hatch_Muffler_UV, Hatch_Muffler_MAX };
+            Hatch_Muffler_IV, Hatch_Muffler_LuV, Hatch_Muffler_ZPM, Hatch_Muffler_UV, Hatch_Muffler_MAX },
+        WIRELESS_ENERGY_HATCHES = { Wireless_Hatch_Energy_ULV, Wireless_Hatch_Energy_LV, Wireless_Hatch_Energy_MV,
+            Wireless_Hatch_Energy_HV, Wireless_Hatch_Energy_EV, Wireless_Hatch_Energy_IV, Wireless_Hatch_Energy_LuV,
+            Wireless_Hatch_Energy_ZPM, Wireless_Hatch_Energy_UV, Wireless_Hatch_Energy_UHV, Wireless_Hatch_Energy_UEV,
+            Wireless_Hatch_Energy_UIV, Wireless_Hatch_Energy_UMV, Wireless_Hatch_Energy_UXV,
+            Wireless_Hatch_Energy_MAX },
+        WIRELESS_ENERGY_COVERS = { Cover_Wireless_Energy_LV, Cover_Wireless_Energy_MV, Cover_Wireless_Energy_HV,
+            Cover_Wireless_Energy_EV, Cover_Wireless_Energy_IV, Cover_Wireless_Energy_LuV, Cover_Wireless_Energy_ZPM,
+            Cover_Wireless_Energy_UV, Cover_Wireless_Energy_UHV, Cover_Wireless_Energy_UEV, Cover_Wireless_Energy_UIV,
+            Cover_Wireless_Energy_UMV, Cover_Wireless_Energy_UXV, Cover_Wireless_Energy_MAX };
     public static Fluid sOilExtraHeavy, sEpichlorhydrin, sDrillingFluid, sBlueVitriol, sNickelSulfate, sGreenVitriol,
         sToluene, sNitrationMixture, sRocketFuel, sHydricSulfur, sIndiumConcentrate, sLeadZincSolution,
         sHydrochloricAcid;
@@ -2129,28 +2808,34 @@ public enum ItemList implements IItemContainer {
         mHasNotBeenSet = false;
         if (aItem == null) return this;
         ItemStack aStack = new ItemStack(aItem, 1, 0);
-        mStack = GT_Utility.copyAmount(1, aStack);
+        mStack = GTUtility.copyAmount(1, aStack);
         return this;
     }
 
     @Override
     public IItemContainer set(ItemStack aStack) {
         mHasNotBeenSet = false;
-        mStack = GT_Utility.copyAmount(1, aStack);
+        mStack = GTUtility.copyAmount(1, aStack);
+        return this;
+    }
+
+    @Override
+    public IItemContainer hidden() {
+        codechicken.nei.api.API.hideItem(get(1L));
         return this;
     }
 
     @Override
     public Item getItem() {
         sanityCheck();
-        if (GT_Utility.isStackInvalid(mStack)) return null;
+        if (GTUtility.isStackInvalid(mStack)) return null;
         return mStack.getItem();
     }
 
     @Override
     public Block getBlock() {
         sanityCheck();
-        return GT_Utility.getBlockFromItem(getItem());
+        return GTUtility.getBlockFromItem(getItem());
     }
 
     @Override
@@ -2166,56 +2851,56 @@ public enum ItemList implements IItemContainer {
     @Override
     public boolean isStackEqual(Object aStack, boolean aWildcard, boolean aIgnoreNBT) {
         if (mDeprecated && !mWarned) {
-            new Exception(this + " is now deprecated").printStackTrace(GT_Log.err);
+            new Exception(this + " is now deprecated").printStackTrace(GTLog.err);
             // warn only once
             mWarned = true;
         }
-        if (GT_Utility.isStackInvalid(aStack)) return false;
-        return GT_Utility.areUnificationsEqual((ItemStack) aStack, aWildcard ? getWildcard(1) : get(1), aIgnoreNBT);
+        if (GTUtility.isStackInvalid(aStack)) return false;
+        return GTUtility.areUnificationsEqual((ItemStack) aStack, aWildcard ? getWildcard(1) : get(1), aIgnoreNBT);
     }
 
     @Override
     public ItemStack get(long aAmount, Object... aReplacements) {
         sanityCheck();
-        if (GT_Utility.isStackInvalid(mStack)) {
-            GT_Log.out.println("Object in the ItemList is null at:");
-            new NullPointerException().printStackTrace(GT_Log.out);
-            return GT_Utility.copyAmount(aAmount, aReplacements);
+        if (GTUtility.isStackInvalid(mStack)) {
+            GTLog.out.println("Object in the ItemList is null at:");
+            new NullPointerException().printStackTrace(GTLog.out);
+            return GTUtility.copyAmount(aAmount, aReplacements);
         }
-        return GT_Utility.copyAmount(aAmount, GT_OreDictUnificator.get(mStack));
+        return GTUtility.copyAmount(aAmount, GTOreDictUnificator.get(mStack));
     }
 
     @Override
     public ItemStack getWildcard(long aAmount, Object... aReplacements) {
         sanityCheck();
-        if (GT_Utility.isStackInvalid(mStack)) return GT_Utility.copyAmount(aAmount, aReplacements);
-        return GT_Utility.copyAmountAndMetaData(aAmount, W, GT_OreDictUnificator.get(mStack));
+        if (GTUtility.isStackInvalid(mStack)) return GTUtility.copyAmount(aAmount, aReplacements);
+        return GTUtility.copyAmountAndMetaData(aAmount, WILDCARD, GTOreDictUnificator.get(mStack));
     }
 
     @Override
     public ItemStack getUndamaged(long aAmount, Object... aReplacements) {
         sanityCheck();
-        if (GT_Utility.isStackInvalid(mStack)) return GT_Utility.copyAmount(aAmount, aReplacements);
-        return GT_Utility.copyAmountAndMetaData(aAmount, 0, GT_OreDictUnificator.get(mStack));
+        if (GTUtility.isStackInvalid(mStack)) return GTUtility.copyAmount(aAmount, aReplacements);
+        return GTUtility.copyAmountAndMetaData(aAmount, 0, GTOreDictUnificator.get(mStack));
     }
 
     @Override
     public ItemStack getAlmostBroken(long aAmount, Object... aReplacements) {
         sanityCheck();
-        if (GT_Utility.isStackInvalid(mStack)) return GT_Utility.copyAmount(aAmount, aReplacements);
-        return GT_Utility.copyAmountAndMetaData(aAmount, mStack.getMaxDamage() - 1, GT_OreDictUnificator.get(mStack));
+        if (GTUtility.isStackInvalid(mStack)) return GTUtility.copyAmount(aAmount, aReplacements);
+        return GTUtility.copyAmountAndMetaData(aAmount, mStack.getMaxDamage() - 1, GTOreDictUnificator.get(mStack));
     }
 
     @Override
     public ItemStack getWithName(long aAmount, String aDisplayName, Object... aReplacements) {
         ItemStack rStack = get(1, aReplacements);
-        if (GT_Utility.isStackInvalid(rStack)) return NI;
+        if (GTUtility.isStackInvalid(rStack)) return NI;
 
         // CamelCase alphanumeric words from aDisplayName
         StringBuilder tCamelCasedDisplayNameBuilder = new StringBuilder();
         final String[] tDisplayNameWords = aDisplayName.split("\\W");
         for (String tWord : tDisplayNameWords) {
-            if (tWord.length() > 0) tCamelCasedDisplayNameBuilder.append(
+            if (!tWord.isEmpty()) tCamelCasedDisplayNameBuilder.append(
                 tWord.substring(0, 1)
                     .toUpperCase(Locale.US));
             if (tWord.length() > 1) tCamelCasedDisplayNameBuilder.append(
@@ -2230,36 +2915,36 @@ public enum ItemList implements IItemContainer {
         // Construct a translation key from UnlocalizedName and CamelCased DisplayName
         final String tKey = rStack.getUnlocalizedName() + ".with." + tCamelCasedDisplayNameBuilder + ".name";
 
-        rStack.setStackDisplayName(GT_LanguageManager.addStringLocalization(tKey, aDisplayName));
-        return GT_Utility.copyAmount(aAmount, rStack);
+        rStack.setStackDisplayName(GTLanguageManager.addStringLocalization(tKey, aDisplayName));
+        return GTUtility.copyAmount(aAmount, rStack);
     }
 
     @Override
     public ItemStack getWithCharge(long aAmount, int aEnergy, Object... aReplacements) {
         ItemStack rStack = get(1, aReplacements);
-        if (GT_Utility.isStackInvalid(rStack)) return null;
-        GT_ModHandler.chargeElectricItem(rStack, aEnergy, Integer.MAX_VALUE, true, false);
-        return GT_Utility.copyAmount(aAmount, rStack);
+        if (GTUtility.isStackInvalid(rStack)) return null;
+        GTModHandler.chargeElectricItem(rStack, aEnergy, Integer.MAX_VALUE, true, false);
+        return GTUtility.copyAmount(aAmount, rStack);
     }
 
     @Override
     public ItemStack getWithDamage(long aAmount, long aMetaValue, Object... aReplacements) {
         sanityCheck();
-        if (GT_Utility.isStackInvalid(mStack)) return GT_Utility.copyAmount(aAmount, aReplacements);
-        return GT_Utility.copyAmountAndMetaData(aAmount, aMetaValue, GT_OreDictUnificator.get(mStack));
+        if (GTUtility.isStackInvalid(mStack)) return GTUtility.copyAmount(aAmount, aReplacements);
+        return GTUtility.copyAmountAndMetaData(aAmount, aMetaValue, GTOreDictUnificator.get(mStack));
     }
 
     @Override
     public IItemContainer registerOre(Object... aOreNames) {
         sanityCheck();
-        for (Object tOreName : aOreNames) GT_OreDictUnificator.registerOre(tOreName, get(1));
+        for (Object tOreName : aOreNames) GTOreDictUnificator.registerOre(tOreName, get(1));
         return this;
     }
 
     @Override
     public IItemContainer registerWildcardAsOre(Object... aOreNames) {
         sanityCheck();
-        for (Object tOreName : aOreNames) GT_OreDictUnificator.registerOre(tOreName, getWildcard(1));
+        for (Object tOreName : aOreNames) GTOreDictUnificator.registerOre(tOreName, getWildcard(1));
         return this;
     }
 
@@ -2271,11 +2956,17 @@ public enum ItemList implements IItemContainer {
         return mStack;
     }
 
+    @Override
+    public IItemContainer setRender(IItemRenderer aRenderer) {
+        MetaGeneratedItemRenderer.registerSpecialRenderer(this, aRenderer);
+        return this;
+    }
+
     private void sanityCheck() {
         if (mHasNotBeenSet)
             throw new IllegalAccessError("The Enum '" + name() + "' has not been set to an Item at this time!");
         if (mDeprecated && !mWarned) {
-            new Exception(this + " is now deprecated").printStackTrace(GT_Log.err);
+            new Exception(this + " is now deprecated").printStackTrace(GTLog.err);
             // warn only once
             mWarned = true;
         }

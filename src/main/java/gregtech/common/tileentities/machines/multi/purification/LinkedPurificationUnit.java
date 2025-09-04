@@ -1,33 +1,33 @@
 package gregtech.common.tileentities.machines.multi.purification;
 
-import static gregtech.GT_Mod.gregtechproxy;
+import static gregtech.GTMod.proxy;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
-import gregtech.api.util.GT_Util;
+import gregtech.api.util.GTUtil;
 
 /**
- * Small wrapper around a GT_MetaTileEntity_PurificationUnitBase, to be stored in the main purification plant
- * controller. May be useful for storing additional data in the controller that the individual units do not need
- * to know about.
+ * Small wrapper around a MTEPurificationUnitBase, to be stored in the main purification plant controller. May be useful
+ * for storing additional data in the controller that the individual units do not need to know about.
  */
 public class LinkedPurificationUnit {
 
     /**
-     * Whether this unit is active in the current cycle. We need to keep track of this so units cannot come online
-     * in the middle of a cycle and suddenly start processing.
+     * Whether this unit is active in the current cycle. We need to keep track of this so units cannot come online in
+     * the middle of a cycle and suddenly start processing.
      */
     private boolean mIsActive = false;
 
-    private final GT_MetaTileEntity_PurificationUnitBase<?> mMetaTileEntity;
+    private final MTEPurificationUnitBase<?> mMetaTileEntity;
 
-    public LinkedPurificationUnit(GT_MetaTileEntity_PurificationUnitBase<?> unit) {
+    public LinkedPurificationUnit(MTEPurificationUnitBase<?> unit) {
         this.mMetaTileEntity = unit;
     }
 
@@ -40,7 +40,7 @@ public class LinkedPurificationUnit {
         this.mIsActive = nbtData.getBoolean("active");
         NBTTagCompound linkData = nbtData.getCompoundTag("linkData");
         World world = null;
-        if (!gregtechproxy.isClientSide()) {
+        if (!proxy.isClientSide()) {
             world = DimensionManager.getWorld(nbtData.getInteger("worldID"));
         } else {
             world = Minecraft.getMinecraft().thePlayer.worldObj;
@@ -52,18 +52,17 @@ public class LinkedPurificationUnit {
         int z = linkData.getInteger("z");
 
         // Find a TileEntity at this location
-        TileEntity te = GT_Util.getTileEntity(world, x, y, z, true);
+        TileEntity te = GTUtil.getTileEntity(world, x, y, z, true);
         if (te == null) {
             // This is a bug, throw a fatal error.
             throw new NullPointerException("Unit disappeared during server sync. This is a bug.");
         }
 
         // Cast TileEntity to proper GT TileEntity
-        this.mMetaTileEntity = (GT_MetaTileEntity_PurificationUnitBase<?>) ((IGregTechTileEntity) te)
-            .getMetaTileEntity();
+        this.mMetaTileEntity = (MTEPurificationUnitBase<?>) ((IGregTechTileEntity) te).getMetaTileEntity();
     }
 
-    public GT_MetaTileEntity_PurificationUnitBase<?> metaTileEntity() {
+    public MTEPurificationUnitBase<?> metaTileEntity() {
         return mMetaTileEntity;
     }
 
@@ -82,19 +81,19 @@ public class LinkedPurificationUnit {
 
     public String getStatusString() {
         if (this.isActive()) {
-            return EnumChatFormatting.GREEN + "Active";
+            return EnumChatFormatting.GREEN + StatCollector.translateToLocal("GT5U.gui.text.status.active");
         }
 
         PurificationUnitStatus status = this.mMetaTileEntity.status();
         switch (status) {
             case ONLINE -> {
-                return EnumChatFormatting.GREEN + "Online";
+                return EnumChatFormatting.GREEN + StatCollector.translateToLocal("GT5U.gui.text.status.online");
             }
             case DISABLED -> {
-                return EnumChatFormatting.YELLOW + "Disabled";
+                return EnumChatFormatting.YELLOW + StatCollector.translateToLocal("GT5U.gui.text.status.disabled");
             }
             case INCOMPLETE_STRUCTURE -> {
-                return EnumChatFormatting.RED + "Incomplete Structure";
+                return EnumChatFormatting.RED + StatCollector.translateToLocal("GT5U.gui.text.status.incomplete");
             }
         }
 

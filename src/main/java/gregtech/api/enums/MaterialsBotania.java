@@ -9,14 +9,14 @@ import static gregtech.api.enums.OrePrefixes.rotor;
 
 import java.util.Arrays;
 
-import gregtech.api.enums.TC_Aspects.TC_AspectStack;
+import gregtech.api.enums.TCAspects.TC_AspectStack;
 
 public class MaterialsBotania {
 
     // Botania materials.
-    public static Materials Manasteel = new MaterialBuilder(201, TextureSet.SET_METALLIC, "Manasteel")
+    public static Materials Manasteel = new MaterialBuilder(201, new TextureSet("Manasteel", false), "Manasteel")
         .setName("Manasteel")
-        .setRGBA(150, 219, 252, 255)
+        .setRGBA(70, 170, 230, 255)
         .addDustItems()
         .addMetalItems()
         .addToolHeadItems()
@@ -28,11 +28,11 @@ public class MaterialsBotania {
         .setBlastFurnaceTemp(1500)
         .setBlastFurnaceRequired(true)
         .setAspects(
-            Arrays.asList(new TC_AspectStack(TC_Aspects.METALLUM, 3), new TC_AspectStack(TC_Aspects.PRAECANTATIO, 1)))
+            Arrays.asList(new TC_AspectStack(TCAspects.METALLUM, 3), new TC_AspectStack(TCAspects.PRAECANTATIO, 1)))
         .constructMaterial();
-    public static Materials Terrasteel = new MaterialBuilder(202, TextureSet.SET_METALLIC, "Terrasteel")
+    public static Materials Terrasteel = new MaterialBuilder(202, new TextureSet("Manasteel", false), "Terrasteel")
         .setName("Terrasteel")
-        .setRGBA(76, 191, 38, 255)
+        .setRGBA(70, 200, 0, 255)
         .addDustItems()
         .addMetalItems()
         .addToolHeadItems()
@@ -45,29 +45,31 @@ public class MaterialsBotania {
         .setBlastFurnaceRequired(true)
         .setAspects(
             Arrays.asList(
-                new TC_AspectStack(TC_Aspects.METALLUM, 2),
-                new TC_AspectStack(TC_Aspects.TERRA, 1),
-                new TC_AspectStack(TC_Aspects.PRAECANTATIO, 1)))
+                new TC_AspectStack(TCAspects.METALLUM, 2),
+                new TC_AspectStack(TCAspects.TERRA, 1),
+                new TC_AspectStack(TCAspects.PRAECANTATIO, 1)))
         .constructMaterial();
-    public static Materials ElvenElementium = new MaterialBuilder(203, TextureSet.SET_METALLIC, "Elven Elementium")
-        .setName("ElvenElementium")
-        .setRGBA(219, 37, 205, 255)
-        .addDustItems()
-        .addMetalItems()
-        .addToolHeadItems()
-        .addGearItems()
-        .setToolSpeed(20.0F)
-        .setDurability(32768)
-        .setToolQuality(7)
-        .setMeltingPoint(7200)
-        .setBlastFurnaceTemp(7200)
-        .setBlastFurnaceRequired(true)
-        .setAspects(
-            Arrays.asList(
-                new TC_AspectStack(TC_Aspects.METALLUM, 3),
-                new TC_AspectStack(TC_Aspects.PRAECANTATIO, 2),
-                new TC_AspectStack(TC_Aspects.AURAM, 1)))
-        .constructMaterial();
+    public static Materials ElvenElementium = new MaterialBuilder(
+        203,
+        new TextureSet("Manasteel", false),
+        "Elven Elementium").setName("ElvenElementium")
+            .setRGBA(255, 45, 240, 255)
+            .addDustItems()
+            .addMetalItems()
+            .addToolHeadItems()
+            .addGearItems()
+            .setToolSpeed(20.0F)
+            .setDurability(32768)
+            .setToolQuality(7)
+            .setMeltingPoint(7200)
+            .setBlastFurnaceTemp(7200)
+            .setBlastFurnaceRequired(true)
+            .setAspects(
+                Arrays.asList(
+                    new TC_AspectStack(TCAspects.METALLUM, 3),
+                    new TC_AspectStack(TCAspects.PRAECANTATIO, 2),
+                    new TC_AspectStack(TCAspects.AURAM, 1)))
+            .constructMaterial();
     public static Materials Livingrock = new MaterialBuilder(204, new TextureSet("Livingrock", true), "Livingrock")
         .setName("Livingrock")
         .addDustItems()
@@ -79,11 +81,11 @@ public class MaterialsBotania {
         .setOreValue(3)
         .setDensityMultiplier(1)
         .setDensityDivider(1)
-        .setAspects(Arrays.asList(new TC_AspectStack(TC_Aspects.TERRA, 2), new TC_AspectStack(TC_Aspects.VICTUS, 2)))
+        .setAspects(Arrays.asList(new TC_AspectStack(TCAspects.TERRA, 2), new TC_AspectStack(TCAspects.VICTUS, 2)))
         .constructMaterial();
     public static Materials GaiaSpirit = new Materials(
         205,
-        TextureSet.SET_METALLIC.withBlockTextures("GaiaSpirit"),
+        new TextureSet("GaiaSpirit", true),
         32.0F,
         850000,
         12,
@@ -105,10 +107,10 @@ public class MaterialsBotania {
         1,
         Dyes._NULL,
         Arrays.asList(
-            new TC_AspectStack(TC_Aspects.PRAECANTATIO, 27),
-            new TC_AspectStack(TC_Aspects.AURAM, 24),
-            new TC_AspectStack(TC_Aspects.VICTUS, 24),
-            new TC_AspectStack(TC_Aspects.METALLUM, 1)));
+            new TC_AspectStack(TCAspects.PRAECANTATIO, 27),
+            new TC_AspectStack(TCAspects.AURAM, 24),
+            new TC_AspectStack(TCAspects.VICTUS, 24),
+            new TC_AspectStack(TCAspects.METALLUM, 1)));
     public static Materials Livingwood = new MaterialBuilder(206, new TextureSet("Livingwood", true), "Livingwood")
         .setName("Livingwood")
         .addDustItems()
@@ -121,7 +123,7 @@ public class MaterialsBotania {
         .setOreValue(3)
         .setDensityMultiplier(1)
         .setDensityDivider(1)
-        .setAspects(Arrays.asList(new TC_AspectStack(TC_Aspects.ARBOR, 4), new TC_AspectStack(TC_Aspects.VICTUS, 2)))
+        .setAspects(Arrays.asList(new TC_AspectStack(TCAspects.ARBOR, 4), new TC_AspectStack(TCAspects.VICTUS, 2)))
         .constructMaterial();
     public static Materials Dreamwood = new MaterialBuilder(207, new TextureSet("Dreamwood", true), "Dreamwood")
         .setName("Dreamwood")
@@ -137,21 +139,21 @@ public class MaterialsBotania {
         .setDensityDivider(1)
         .setAspects(
             Arrays.asList(
-                new TC_AspectStack(TC_Aspects.ARBOR, 4),
-                new TC_AspectStack(TC_Aspects.AURAM, 2),
-                new TC_AspectStack(TC_Aspects.PRAECANTATIO, 1)))
+                new TC_AspectStack(TCAspects.ARBOR, 4),
+                new TC_AspectStack(TCAspects.AURAM, 2),
+                new TC_AspectStack(TCAspects.PRAECANTATIO, 1)))
         .constructMaterial();
     public static Materials ManaDiamond = new Materials(
         208,
-        TextureSet.SET_DIAMOND,
+        new TextureSet("ManaDiamond", true),
         16.0F,
         2560,
         8,
         1 | 4,
-        38,
-        237,
-        224,
         255,
+        255,
+        255,
+        0,
         "ManaDiamond",
         "Mana Diamond",
         -1,
@@ -165,20 +167,20 @@ public class MaterialsBotania {
         1,
         Dyes._NULL,
         Arrays.asList(
-            new TC_Aspects.TC_AspectStack(TC_Aspects.PRAECANTATIO, 4),
-            new TC_Aspects.TC_AspectStack(TC_Aspects.VITREUS, 4),
-            new TC_Aspects.TC_AspectStack(TC_Aspects.LUCRUM, 4)));
+            new TCAspects.TC_AspectStack(TCAspects.PRAECANTATIO, 4),
+            new TCAspects.TC_AspectStack(TCAspects.VITREUS, 4),
+            new TCAspects.TC_AspectStack(TCAspects.LUCRUM, 4)));
     public static Materials BotaniaDragonstone = new Materials(
         209,
-        TextureSet.SET_DIAMOND,
+        new TextureSet("Dragonstone", true),
         24.0F,
         3840,
         12,
         1 | 4,
-        242,
-        44,
-        239,
         255,
+        255,
+        255,
+        0,
         "BotaniaDragonstone",
         "Dragonstone",
         -1,
@@ -192,9 +194,9 @@ public class MaterialsBotania {
         1,
         Dyes._NULL,
         Arrays.asList(
-            new TC_Aspects.TC_AspectStack(TC_Aspects.PRAECANTATIO, 6),
-            new TC_Aspects.TC_AspectStack(TC_Aspects.VITREUS, 6),
-            new TC_Aspects.TC_AspectStack(TC_Aspects.AURAM, 4)));
+            new TCAspects.TC_AspectStack(TCAspects.PRAECANTATIO, 6),
+            new TCAspects.TC_AspectStack(TCAspects.VITREUS, 6),
+            new TCAspects.TC_AspectStack(TCAspects.AURAM, 4)));
 
     public static void init() {
         GaiaSpirit.mChemicalFormula = "Gs";
@@ -205,6 +207,7 @@ public class MaterialsBotania {
         Livingrock.mChemicalFormula = "Lv";
         Terrasteel.mChemicalFormula = "Tr";
         ElvenElementium.mChemicalFormula = "Ef";
+        ManaDiamond.mChemicalFormula = "Ma\u2084C";
 
         Livingrock.add(SubTag.NO_SMASHING, SubTag.NO_SMELTING);
         Livingwood.add(SubTag.WOOD, SubTag.FLAMMABLE, SubTag.NO_SMELTING, SubTag.NO_SMASHING);

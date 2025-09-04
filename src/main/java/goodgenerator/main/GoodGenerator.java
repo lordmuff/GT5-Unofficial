@@ -2,24 +2,21 @@ package goodgenerator.main;
 
 import net.minecraft.creativetab.CreativeTabs;
 
-import com.github.bartimaeusnek.bartworks.API.WerkstoffAdderRegistry;
-
-import cpw.mods.fml.common.Loader;
+import bartworks.API.WerkstoffAdderRegistry;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import goodgenerator.common.CommonProxy;
 import goodgenerator.crossmod.thaumcraft.Research;
-import goodgenerator.items.MyMaterial;
+import goodgenerator.items.GGMaterial;
 import goodgenerator.loader.Loaders;
 import goodgenerator.loader.NaquadahReworkRecipeLoader;
 import goodgenerator.tabs.MyTabs;
 import gregtech.GT_Version;
+import gregtech.api.enums.Mods;
 
 @SuppressWarnings("ALL")
 @Mod(
@@ -42,8 +39,6 @@ public final class GoodGenerator {
     @SidedProxy(clientSide = "goodgenerator.client.ClientProxy", serverSide = "goodgenerator.common.CommonProxy")
     public static CommonProxy proxy;
 
-    public static SimpleNetworkWrapper CHANNEL = NetworkRegistry.INSTANCE.newSimpleChannel(MOD_ID);
-
     static {}
 
     @Mod.Instance(GoodGenerator.MOD_ID)
@@ -51,8 +46,8 @@ public final class GoodGenerator {
 
     @Mod.EventHandler
     public static void preInit(FMLPreInitializationEvent event) {
-        GG_Config_Loader.run();
-        WerkstoffAdderRegistry.addWerkstoffAdder(new MyMaterial());
+        GGConfigLoader.run();
+        WerkstoffAdderRegistry.addWerkstoffAdder(new GGMaterial());
         // WerkstoffAdderRegistry.addWerkstoffAdder(new IsotopeMaterialLoader());
         Loaders.preInitLoad();
         proxy.preInit(event);
@@ -73,13 +68,12 @@ public final class GoodGenerator {
 
     @Mod.EventHandler
     public void onLoadComplete(FMLLoadCompleteEvent event) {
-        // NaquadahReworkRecipeLoader.SmallRecipeChange();
         NaquadahReworkRecipeLoader.Remover();
         Loaders.completeLoad();
     }
 
     public static void crossMod() {
-        if (Loader.isModLoaded("Thaumcraft")) {
+        if (Mods.Thaumcraft.isModLoaded()) {
             Research.addResearch();
         }
     }

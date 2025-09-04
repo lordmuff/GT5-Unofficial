@@ -1,7 +1,9 @@
 package gtPlusPlus.core.material;
 
+import static gregtech.api.util.GTRecipeBuilder.INGOTS;
 import static gtPlusPlus.api.recipe.GTPPRecipeMaps.chemicalDehydratorRecipes;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import net.minecraft.block.Block;
@@ -9,11 +11,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-import gregtech.api.enums.GT_Values;
-import gregtech.api.util.GT_Utility;
+import gregtech.api.enums.GTValues;
+import gregtech.api.util.GTUtility;
 import gtPlusPlus.api.interfaces.RunnableWithInfo;
 import gtPlusPlus.api.objects.Logger;
-import gtPlusPlus.api.objects.data.AutoMap;
 import gtPlusPlus.core.block.base.BasicBlock.BlockTypes;
 import gtPlusPlus.core.block.base.BlockBaseModular;
 import gtPlusPlus.core.block.base.BlockBaseOre;
@@ -40,30 +41,30 @@ import gtPlusPlus.core.item.base.rods.BaseItemRod;
 import gtPlusPlus.core.item.base.rods.BaseItemRodLong;
 import gtPlusPlus.core.item.base.rotors.BaseItemRotor;
 import gtPlusPlus.core.item.base.screws.BaseItemScrew;
-import gtPlusPlus.core.material.nuclear.FLUORIDES;
+import gtPlusPlus.core.material.nuclear.MaterialsFluorides;
 import gtPlusPlus.core.material.state.MaterialState;
 import gtPlusPlus.core.util.Utils;
 import gtPlusPlus.core.util.minecraft.FluidUtils;
 import gtPlusPlus.core.util.minecraft.ItemUtils;
-import gtPlusPlus.xmod.gregtech.loaders.RecipeGen_AlloySmelter;
-import gtPlusPlus.xmod.gregtech.loaders.RecipeGen_Assembler;
-import gtPlusPlus.xmod.gregtech.loaders.RecipeGen_BlastSmelter;
-import gtPlusPlus.xmod.gregtech.loaders.RecipeGen_DustGeneration;
-import gtPlusPlus.xmod.gregtech.loaders.RecipeGen_Extruder;
-import gtPlusPlus.xmod.gregtech.loaders.RecipeGen_FluidCanning;
-import gtPlusPlus.xmod.gregtech.loaders.RecipeGen_Fluids;
-import gtPlusPlus.xmod.gregtech.loaders.RecipeGen_Fluorite;
-import gtPlusPlus.xmod.gregtech.loaders.RecipeGen_MaterialProcessing;
-import gtPlusPlus.xmod.gregtech.loaders.RecipeGen_MetalRecipe;
-import gtPlusPlus.xmod.gregtech.loaders.RecipeGen_Ore;
-import gtPlusPlus.xmod.gregtech.loaders.RecipeGen_Plasma;
-import gtPlusPlus.xmod.gregtech.loaders.RecipeGen_Plates;
-import gtPlusPlus.xmod.gregtech.loaders.RecipeGen_Recycling;
-import gtPlusPlus.xmod.gregtech.loaders.RecipeGen_ShapedCrafting;
+import gtPlusPlus.xmod.gregtech.loaders.RecipeGenAlloySmelter;
+import gtPlusPlus.xmod.gregtech.loaders.RecipeGenAssembler;
+import gtPlusPlus.xmod.gregtech.loaders.RecipeGenBlastSmelter;
+import gtPlusPlus.xmod.gregtech.loaders.RecipeGenDustGeneration;
+import gtPlusPlus.xmod.gregtech.loaders.RecipeGenExtruder;
+import gtPlusPlus.xmod.gregtech.loaders.RecipeGenFluidCanning;
+import gtPlusPlus.xmod.gregtech.loaders.RecipeGenFluids;
+import gtPlusPlus.xmod.gregtech.loaders.RecipeGenFluorite;
+import gtPlusPlus.xmod.gregtech.loaders.RecipeGenMaterialProcessing;
+import gtPlusPlus.xmod.gregtech.loaders.RecipeGenMetalRecipe;
+import gtPlusPlus.xmod.gregtech.loaders.RecipeGenOre;
+import gtPlusPlus.xmod.gregtech.loaders.RecipeGenPlasma;
+import gtPlusPlus.xmod.gregtech.loaders.RecipeGenPlates;
+import gtPlusPlus.xmod.gregtech.loaders.RecipeGenRecycling;
+import gtPlusPlus.xmod.gregtech.loaders.RecipeGenShapedCrafting;
 
 public class MaterialGenerator {
 
-    public static final AutoMap<Set<RunnableWithInfo<Material>>> mRecipeMapsToGenerate = new AutoMap<>();
+    public static final ArrayList<Set<RunnableWithInfo<Material>>> mRecipeMapsToGenerate = new ArrayList<>();
 
     @SuppressWarnings("unused")
     private static volatile Item temp;
@@ -81,11 +82,8 @@ public class MaterialGenerator {
     public static boolean addFluidCannerRecipe(ItemStack aEmpty, ItemStack aFullContainer, FluidStack aFluidIn,
         FluidStack rFluidOut, Integer aTime, Integer aEu) {
 
-        RecipeGen_FluidCanning g = new RecipeGen_FluidCanning(false, aEmpty, aFullContainer, aFluidIn, null, null, 0);
-        if (g != null && g.valid()) {
-            return true;
-        }
-        return false;
+        RecipeGenFluidCanning g = new RecipeGenFluidCanning(false, aEmpty, aFullContainer, aFluidIn, null, null, 0);
+        return g.valid();
     }
 
     public static void generate(final Material matInfo) {
@@ -111,12 +109,12 @@ public class MaterialGenerator {
             }
 
             int sRadiation = 0;
-            if (ItemUtils.isRadioactive(materialName) || (matInfo.vRadiationLevel != 0)) {
+            if (ItemUtils.getRadioactivityLevel(materialName) > 0 || (matInfo.vRadiationLevel != 0)) {
                 sRadiation = matInfo.vRadiationLevel;
             }
 
             if (matInfo.getState() == MaterialState.SOLID) {
-                if (generateEverything == true) {
+                if (generateEverything) {
                     if (sRadiation >= 1) {
                         tempBlock = new BlockBaseModular(matInfo, BlockTypes.STANDARD);
                         temp = new BaseItemIngot(matInfo);
@@ -156,7 +154,7 @@ public class MaterialGenerator {
                     temp = new BaseItemPlateDouble(matInfo);
                 }
             } else if (matInfo.getState() == MaterialState.LIQUID) {
-                if (generateEverything == true) {
+                if (generateEverything) {
                     tempBlock = new BlockBaseModular(matInfo, BlockTypes.STANDARD);
                 }
                 temp = new BaseItemIngot(matInfo);
@@ -173,32 +171,29 @@ public class MaterialGenerator {
             } else if (matInfo.getState() == MaterialState.PURE_LIQUID) {
                 FluidUtils.generateFluidNoPrefix(unlocalizedName, materialName, matInfo.getMeltingPointK(), C);
                 return true;
-            } else if (matInfo.getState() == MaterialState.ORE) {
-
             }
 
             // Add A jillion Recipes - old code
-            new RecipeGen_AlloySmelter(matInfo);
-            new RecipeGen_Assembler(matInfo);
+            new RecipeGenAlloySmelter(matInfo);
+            new RecipeGenAssembler(matInfo);
             if (generateBlastSmelterRecipes) {
-                new RecipeGen_BlastSmelter(matInfo);
+                new RecipeGenBlastSmelter(matInfo);
             }
-            new RecipeGen_MetalRecipe(matInfo);
-            new RecipeGen_Extruder(matInfo);
-            new RecipeGen_Fluids(matInfo);
-            new RecipeGen_Plates(matInfo);
-            new RecipeGen_ShapedCrafting(matInfo);
-            new RecipeGen_MaterialProcessing(matInfo);
+            new RecipeGenMetalRecipe(matInfo);
+            new RecipeGenExtruder(matInfo);
+            new RecipeGenFluids(matInfo);
+            new RecipeGenPlates(matInfo);
+            new RecipeGenShapedCrafting(matInfo);
+            new RecipeGenMaterialProcessing(matInfo);
 
-            new RecipeGen_DustGeneration(matInfo);
-            new RecipeGen_Recycling(matInfo);
-            new RecipeGen_Plasma(matInfo);
+            new RecipeGenDustGeneration(matInfo);
+            new RecipeGenRecycling(matInfo);
+            new RecipeGenPlasma(matInfo);
 
             return true;
 
         } catch (final Throwable t) {
-
-            Logger.MATERIALS("" + matInfo.getLocalizedName() + " failed to generate.");
+            Logger.MATERIALS(matInfo.getLocalizedName() + " failed to generate.");
             return false;
         }
     }
@@ -215,7 +210,7 @@ public class MaterialGenerator {
         }
 
         int sRadiation = 0;
-        if (ItemUtils.isRadioactive(materialName) || (matInfo.vRadiationLevel != 0)) {
+        if (ItemUtils.getRadioactivityLevel(materialName) > 0 || (matInfo.vRadiationLevel != 0)) {
             sRadiation = matInfo.vRadiationLevel;
         }
 
@@ -225,9 +220,9 @@ public class MaterialGenerator {
 
         // Add A jillion Recipes - old code
         try {
-            RecipeGen_DustGeneration.addMixerRecipe_Standalone(matInfo);
-            new RecipeGen_Fluids(matInfo);
-            new RecipeGen_MaterialProcessing(matInfo);
+            RecipeGenDustGeneration.addMixerRecipe_Standalone(matInfo);
+            new RecipeGenFluids(matInfo);
+            new RecipeGenMaterialProcessing(matInfo);
         } catch (Throwable t) {
             Logger.MATERIALS("Failed to generate some recipes for " + materialName);
             Logger.ERROR("Failed to generate some recipes for " + materialName);
@@ -247,10 +242,10 @@ public class MaterialGenerator {
     public static void generateNuclearDusts(final Material matInfo, boolean generateDehydratorRecipe) {
         generateNuclearMaterial(matInfo, false, true, false, false, true);
         if (generateDehydratorRecipe && matInfo.getFluid() != null && matInfo.getDust(0) != null) {
-            GT_Values.RA.stdBuilder()
-                .itemInputs(GT_Utility.getIntegratedCircuit(20))
+            GTValues.RA.stdBuilder()
+                .itemInputs(GTUtility.getIntegratedCircuit(20))
                 .itemOutputs(matInfo.getDust(1))
-                .fluidInputs(matInfo.getFluidStack(144))
+                .fluidInputs(matInfo.getFluidStack(1 * INGOTS))
                 .eut(matInfo.vVoltageMultiplier)
                 .duration(10 * (matInfo.vVoltageMultiplier / 5))
                 .addTo(chemicalDehydratorRecipes);
@@ -287,24 +282,24 @@ public class MaterialGenerator {
             if (generatePlates) {
                 temp = new BaseItemPlate(matInfo);
                 temp = new BaseItemPlateDouble(matInfo);
-                new RecipeGen_Plates(matInfo);
-                new RecipeGen_Extruder(matInfo);
-                new RecipeGen_Assembler(matInfo);
+                new RecipeGenPlates(matInfo);
+                new RecipeGenExtruder(matInfo);
+                new RecipeGenAssembler(matInfo);
             }
 
             if (!disableOptionalRecipes) {
-                new RecipeGen_ShapedCrafting(matInfo);
-                new RecipeGen_Fluids(matInfo);
-                new RecipeGen_MaterialProcessing(matInfo);
-                new RecipeGen_Recycling(matInfo);
+                new RecipeGenShapedCrafting(matInfo);
+                new RecipeGenMaterialProcessing(matInfo);
             }
 
-            new RecipeGen_MetalRecipe(matInfo);
-            new RecipeGen_DustGeneration(matInfo, disableOptionalRecipes);
-            new RecipeGen_Plasma(matInfo);
+            new RecipeGenRecycling(matInfo);
+            new RecipeGenFluids(matInfo);
+            new RecipeGenMetalRecipe(matInfo);
+            new RecipeGenDustGeneration(matInfo, disableOptionalRecipes);
+            new RecipeGenPlasma(matInfo);
 
         } catch (final Throwable t) {
-            Logger.MATERIALS("" + matInfo.getLocalizedName() + " failed to generate.");
+            Logger.MATERIALS(matInfo.getLocalizedName() + " failed to generate.");
         }
     }
 
@@ -324,13 +319,6 @@ public class MaterialGenerator {
 
             final String unlocalizedName = matInfo.getUnlocalizedName();
             final String materialName = matInfo.getLocalizedName();
-            final short[] C = customRGB;
-            final Integer Colour = Utils.rgbtoHexValue(C[0], C[1], C[2]);
-
-            if (Colour == null) {
-                Logger.DEBUG_MATERIALS("Invalid Material while constructing " + materialName + ".");
-                return;
-            }
 
             int sRadiation = 0;
             if (matInfo.vRadiationLevel > 0) {
@@ -365,10 +353,10 @@ public class MaterialGenerator {
                 "Generated all ore components for " + matInfo.getLocalizedName()
                     + ", now generating processing recipes.");
 
-            if (matInfo == FLUORIDES.FLUORITE) {
-                new RecipeGen_Fluorite(matInfo);
+            if (matInfo == MaterialsFluorides.FLUORITE) {
+                new RecipeGenFluorite(matInfo);
             } else {
-                new RecipeGen_Ore(matInfo);
+                new RecipeGenOre(matInfo);
             }
 
         } catch (final Throwable t) {
@@ -406,22 +394,22 @@ public class MaterialGenerator {
                 "Generated all ore & base components for " + matInfo.getLocalizedName()
                     + ", now generating processing recipes.");
 
-            new RecipeGen_Ore(matInfo, true);
-            new RecipeGen_AlloySmelter(matInfo);
-            new RecipeGen_Assembler(matInfo);
-            new RecipeGen_BlastSmelter(matInfo);
-            new RecipeGen_MetalRecipe(matInfo);
-            new RecipeGen_Extruder(matInfo);
-            new RecipeGen_Fluids(matInfo);
-            new RecipeGen_Plates(matInfo);
-            new RecipeGen_ShapedCrafting(matInfo);
-            new RecipeGen_MaterialProcessing(matInfo);
-            new RecipeGen_DustGeneration(matInfo);
-            new RecipeGen_Recycling(matInfo);
-            new RecipeGen_Plasma(matInfo);
+            new RecipeGenOre(matInfo, true);
+            new RecipeGenAlloySmelter(matInfo);
+            new RecipeGenAssembler(matInfo);
+            new RecipeGenBlastSmelter(matInfo);
+            new RecipeGenMetalRecipe(matInfo);
+            new RecipeGenExtruder(matInfo);
+            new RecipeGenFluids(matInfo);
+            new RecipeGenPlates(matInfo);
+            new RecipeGenShapedCrafting(matInfo);
+            new RecipeGenMaterialProcessing(matInfo);
+            new RecipeGenDustGeneration(matInfo);
+            new RecipeGenRecycling(matInfo);
+            new RecipeGenPlasma(matInfo);
             return true;
         } catch (final Throwable t) {
-            Logger.MATERIALS("" + matInfo.getLocalizedName() + " failed to generate.");
+            Logger.MATERIALS(matInfo.getLocalizedName() + " failed to generate.");
             t.printStackTrace();
             return false;
         }

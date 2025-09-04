@@ -1,13 +1,14 @@
 package gregtech.api.recipe;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import gregtech.api.util.FieldsAreNonnullByDefault;
-import gregtech.api.util.GT_Recipe;
-import gregtech.api.util.GT_RecipeBuilder;
+import gregtech.api.util.GTRecipe;
+import gregtech.api.util.GTRecipeBuilder;
 import gregtech.api.util.MethodsReturnNonnullByDefault;
 
 /**
@@ -37,41 +38,63 @@ public final class RecipeMapBackendProperties {
     public final boolean specialSlotSensitive;
 
     /**
-     * If recipe builder should stop optimizing inputs.
-     */
-    public final boolean disableOptimize;
-
-    /**
      * Changes how recipes are emitted by a particular recipe builder.
      */
-    public final Function<? super GT_RecipeBuilder, ? extends Iterable<? extends GT_Recipe>> recipeEmitter;
-
-    /**
-     * Runs a custom hook on all recipes added <b>via builder</b>.
-     */
-    @Nullable
-    public final Function<? super GT_Recipe, ? extends GT_Recipe> recipeTransformer;
+    public final Function<? super GTRecipeBuilder, ? extends Iterable<? extends GTRecipe>> recipeEmitter;
 
     @Nullable
-    public final String recipeConfigCategory;
+    private Consumer<? super GTRecipeBuilder> builderTransformer;
     @Nullable
-    public final Function<? super GT_Recipe, String> recipeConfigKeyConvertor;
+    private Consumer<? super GTRecipe> recipeTransformer;
 
     RecipeMapBackendProperties(int minItemInputs, int minFluidInputs, boolean specialSlotSensitive,
-        boolean disableOptimize,
-        Function<? super GT_RecipeBuilder, ? extends Iterable<? extends GT_Recipe>> recipeEmitter,
-        @Nullable Function<? super GT_Recipe, ? extends GT_Recipe> recipeTransformer,
-        @Nullable String recipeConfigCategory, @Nullable Function<? super GT_Recipe, String> recipeConfigKeyConvertor) {
+        Function<? super GTRecipeBuilder, ? extends Iterable<? extends GTRecipe>> recipeEmitter,
+        @Nullable Consumer<? super GTRecipeBuilder> builderTransformer,
+        @Nullable Consumer<? super GTRecipe> recipeTransformer) {
         if (minItemInputs < 0 || minFluidInputs < 0) {
             throw new IllegalArgumentException("minItemInputs and minFluidInputs cannot be negative");
         }
         this.minItemInputs = minItemInputs;
         this.minFluidInputs = minFluidInputs;
         this.specialSlotSensitive = specialSlotSensitive;
-        this.disableOptimize = disableOptimize;
         this.recipeEmitter = recipeEmitter;
+        this.builderTransformer = builderTransformer;
         this.recipeTransformer = recipeTransformer;
-        this.recipeConfigCategory = recipeConfigCategory;
-        this.recipeConfigKeyConvertor = recipeConfigKeyConvertor;
+    }
+
+    public void appendBuilderTransformer(Consumer<? super GTRecipeBuilder> builderTransformer) {
+        if (this.builderTransformer == null) {
+            this.builderTransformer = builderTransformer;
+        } else {
+            Consumer<? super GTRecipeBuilder> t = this.builderTransformer;
+            this.builderTransformer = b -> {
+                t.accept(b);
+                builderTransformer.accept(b);
+            };
+        }
+    }
+
+    public void appendRecipeTransformer(Consumer<? super GTRecipe> recipeTransformer) {
+        if (this.recipeTransformer == null) {
+            this.recipeTransformer = recipeTransformer;
+        } else {
+            Consumer<? super GTRecipe> t = this.recipeTransformer;
+            this.recipeTransformer = r -> {
+                t.accept(r);
+                recipeTransformer.accept(r);
+            };
+        }
+    }
+
+    public void transformBuilder(GTRecipeBuilder builder) {
+        if (builderTransformer != null) {
+            builderTransformer.accept(builder);
+        }
+    }
+
+    public void transformRecipe(GTRecipe recipe) {
+        if (recipeTransformer != null) {
+            recipeTransformer.accept(recipe);
+        }
     }
 }

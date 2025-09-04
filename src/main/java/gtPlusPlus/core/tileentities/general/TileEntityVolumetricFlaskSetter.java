@@ -1,5 +1,7 @@
 package gtPlusPlus.core.tileentities.general;
 
+import java.util.ArrayList;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -10,18 +12,16 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.FluidStack;
 
+import gregtech.api.util.GTUtility;
 import gtPlusPlus.api.objects.Logger;
-import gtPlusPlus.api.objects.data.AutoMap;
-import gtPlusPlus.core.container.Container_VolumetricFlaskSetter;
-import gtPlusPlus.core.inventories.Inventory_VolumetricFlaskSetter;
-import gtPlusPlus.core.util.math.MathUtils;
-import gtPlusPlus.core.util.minecraft.PlayerUtils;
+import gtPlusPlus.core.container.ContainerVolumetricFlaskSetter;
+import gtPlusPlus.core.inventories.InventoryVolumetricFlaskSetter;
 import gtPlusPlus.xmod.gregtech.common.helpers.VolumetricFlaskHelper;
 
 public class TileEntityVolumetricFlaskSetter extends TileEntity implements ISidedInventory {
 
     private int tickCount = 0;
-    private final Inventory_VolumetricFlaskSetter inventoryContents;
+    private final InventoryVolumetricFlaskSetter inventoryContents;
     private String customName;
     public int locationX;
     public int locationY;
@@ -30,7 +30,7 @@ public class TileEntityVolumetricFlaskSetter extends TileEntity implements ISide
     private int aCustomValue = 1000;
 
     public TileEntityVolumetricFlaskSetter() {
-        this.inventoryContents = new Inventory_VolumetricFlaskSetter();
+        this.inventoryContents = new InventoryVolumetricFlaskSetter();
         this.setTileLocation();
     }
 
@@ -41,7 +41,7 @@ public class TileEntityVolumetricFlaskSetter extends TileEntity implements ISide
 
     public void setCustomValue(int aVal) {
         log("Old Value: " + this.aCustomValue);
-        this.aCustomValue = (short) MathUtils.balance(aVal, 0, Short.MAX_VALUE);
+        this.aCustomValue = aVal;
         log("New Value: " + this.aCustomValue);
         markDirty();
     }
@@ -62,7 +62,7 @@ public class TileEntityVolumetricFlaskSetter extends TileEntity implements ISide
     public final boolean hasFlask() {
         for (int i = 0; i < this.getInventory()
             .getInventory().length - 1; i++) {
-            if (i == Container_VolumetricFlaskSetter.SLOT_OUTPUT) {
+            if (i == ContainerVolumetricFlaskSetter.SLOT_OUTPUT) {
                 continue;
             }
             if (this.getInventory()
@@ -73,7 +73,7 @@ public class TileEntityVolumetricFlaskSetter extends TileEntity implements ISide
         return false;
     }
 
-    public Inventory_VolumetricFlaskSetter getInventory() {
+    public InventoryVolumetricFlaskSetter getInventory() {
         return this.inventoryContents;
     }
 
@@ -84,6 +84,8 @@ public class TileEntityVolumetricFlaskSetter extends TileEntity implements ISide
             return 2;
         } else if (VolumetricFlaskHelper.isGiganticVolumetricFlask(aStack)) {
             return 3;
+        } else if (VolumetricFlaskHelper.isKleinBottle(aStack)) {
+            return 4;
         }
         return 0;
     }
@@ -123,18 +125,18 @@ public class TileEntityVolumetricFlaskSetter extends TileEntity implements ISide
             .clone();
 
         // Check if there is output in slot.
-        Boolean hasOutput = false;
-        if (aInputs[Container_VolumetricFlaskSetter.SLOT_OUTPUT] != null) {
+        boolean hasOutput = false;
+        if (aInputs[ContainerVolumetricFlaskSetter.SLOT_OUTPUT] != null) {
             hasOutput = true;
-            if (aInputs[Container_VolumetricFlaskSetter.SLOT_OUTPUT].stackSize >= 16) {
+            if (aInputs[ContainerVolumetricFlaskSetter.SLOT_OUTPUT].stackSize >= 16) {
                 return false;
             }
         }
-        AutoMap<Integer> aValidSlots = new AutoMap<>();
+        ArrayList<Integer> aValidSlots = new ArrayList<>();
         int aSlotCount = 0;
         for (ItemStack i : aInputs) {
             if (i != null) {
-                aValidSlots.put(aSlotCount);
+                aValidSlots.add(aSlotCount);
             }
             aSlotCount++;
         }
@@ -145,7 +147,7 @@ public class TileEntityVolumetricFlaskSetter extends TileEntity implements ISide
                 log("Skipping Custom slot as value <= 0");
                 continue;
             }
-            if (e == Container_VolumetricFlaskSetter.SLOT_OUTPUT) {
+            if (e == ContainerVolumetricFlaskSetter.SLOT_OUTPUT) {
                 continue;
             }
 
@@ -163,7 +165,7 @@ public class TileEntityVolumetricFlaskSetter extends TileEntity implements ISide
                 }
                 // Existing Output
                 else {
-                    ItemStack f = aInputs[Container_VolumetricFlaskSetter.SLOT_OUTPUT];
+                    ItemStack f = aInputs[ContainerVolumetricFlaskSetter.SLOT_OUTPUT];
                     FluidStack aFluidInCheckedSlot = VolumetricFlaskHelper.getFlaskFluid(f);
                     int aTypeInCheckedSlot = getFlaskType(f);
                     // Check that the Circuit in the Output slot is not null and the same type as the circuit input.
@@ -200,6 +202,8 @@ public class TileEntityVolumetricFlaskSetter extends TileEntity implements ISide
                         aOutput = VolumetricFlaskHelper.getLargeVolumetricFlask(1);
                     } else if (aTypeInSlot == 3) {
                         aOutput = VolumetricFlaskHelper.getGiganticVolumetricFlask(1);
+                    } else if (aTypeInSlot == 4) {
+                        aOutput = VolumetricFlaskHelper.getKleinBottle(1);
                     } else {
                         aOutput = null;
                     }
@@ -214,12 +218,11 @@ public class TileEntityVolumetricFlaskSetter extends TileEntity implements ISide
                             VolumetricFlaskHelper.setFluid(aOutput, aOutputFluid);
                         }
                         this.setInventorySlotContents(e, aInputStack);
-                        this.setInventorySlotContents(Container_VolumetricFlaskSetter.SLOT_OUTPUT, aOutput);
+                        this.setInventorySlotContents(ContainerVolumetricFlaskSetter.SLOT_OUTPUT, aOutput);
                         return true;
                     }
                 }
             }
-            continue;
         }
         return false;
     }
@@ -359,7 +362,7 @@ public class TileEntityVolumetricFlaskSetter extends TileEntity implements ISide
 
     @Override
     public boolean canExtractItem(final int aSlot, final ItemStack p_102008_2_, final int p_102008_3_) {
-        return aSlot == Container_VolumetricFlaskSetter.SLOT_OUTPUT;
+        return aSlot == ContainerVolumetricFlaskSetter.SLOT_OUTPUT;
     }
 
     public String getCustomName() {
@@ -377,7 +380,7 @@ public class TileEntityVolumetricFlaskSetter extends TileEntity implements ISide
 
     @Override
     public boolean hasCustomInventoryName() {
-        return (this.customName != null) && !this.customName.equals("");
+        return (this.customName != null) && !this.customName.isEmpty();
     }
 
     @Override
@@ -396,7 +399,7 @@ public class TileEntityVolumetricFlaskSetter extends TileEntity implements ISide
     public boolean onScrewdriverRightClick(byte side, EntityPlayer player, int x, int y, int z) {
 
         if (player.isSneaking()) {
-            PlayerUtils.messagePlayer(player, "Value: " + this.getCustomValue());
+            GTUtility.sendChatToPlayer(player, "Value: " + this.getCustomValue());
         }
 
         try {
@@ -405,7 +408,7 @@ public class TileEntityVolumetricFlaskSetter extends TileEntity implements ISide
             } else {
                 aCurrentMode++;
             }
-            PlayerUtils.messagePlayer(player, "Slot " + aCurrentMode + " is now default.");
+            GTUtility.sendChatToPlayer(player, "Slot " + aCurrentMode + " is now default.");
             return true;
         } catch (Throwable t) {
             return false;

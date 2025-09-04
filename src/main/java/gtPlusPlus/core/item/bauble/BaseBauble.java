@@ -17,21 +17,21 @@ import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import cpw.mods.fml.common.Optional;
 import gregtech.api.enums.Mods;
-import gregtech.api.util.GT_LanguageManager;
+import gregtech.api.util.GTLanguageManager;
 import gtPlusPlus.core.creative.AddToCreativeTab;
 import gtPlusPlus.core.util.minecraft.NBTUtils;
 
 @Optional.InterfaceList(
-    value = { @Optional.Interface(iface = "baubles.api.IBauble", modid = Mods.Names.BAUBLES),
-        @Optional.Interface(iface = "baubles.api.BaubleType", modid = Mods.Names.BAUBLES) })
+    value = { @Optional.Interface(iface = "baubles.api.IBauble", modid = Mods.ModIDs.BAUBLES),
+        @Optional.Interface(iface = "baubles.api.BaubleType", modid = Mods.ModIDs.BAUBLES) })
 public class BaseBauble extends Item implements IBauble {
 
     /**
      * Implementation suggestions taken from Botania.
      */
-    private BaubleType mThisBauble;
+    private final BaubleType mThisBauble;
 
-    private List<String> damageNegations = new ArrayList<>();
+    private final List<String> damageNegations = new ArrayList<>();
     Multimap<String, AttributeModifier> attributes = HashMultimap.create();
 
     public BaseBauble(BaubleType type) {
@@ -47,10 +47,10 @@ public class BaseBauble extends Item implements IBauble {
     @Override
     public String getItemStackDisplayName(final ItemStack tItem) {
         String key = "gtplusplus." + getUnlocalizedName() + ".name";
-        if (key.equals(GT_LanguageManager.getTranslation(key))) {
+        if (key.equals(GTLanguageManager.getTranslation(key))) {
             return super.getItemStackDisplayName(tItem).replaceAll(".name", "");
         }
-        return GT_LanguageManager.getTranslation(key);
+        return GTLanguageManager.getTranslation(key);
     }
 
     @Override

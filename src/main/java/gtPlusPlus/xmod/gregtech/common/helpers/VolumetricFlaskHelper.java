@@ -6,7 +6,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidStack;
 
 import gregtech.api.enums.ItemList;
-import gregtech.common.items.GT_VolumetricFlask;
+import gregtech.common.items.ItemVolumetricFlask;
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 
 public class VolumetricFlaskHelper {
@@ -23,8 +23,14 @@ public class VolumetricFlaskHelper {
         return GregtechItemList.VOLUMETRIC_FLASK_32k.get(aAmount);
     }
 
+    public static ItemStack getKleinBottle(int aAmount) {
+        return GregtechItemList.KLEIN_BOTTLE.get(aAmount);
+    }
+
     public static boolean isVolumetricFlask(ItemStack aStack) {
-        return isNormalVolumetricFlask(aStack) || isLargeVolumetricFlask(aStack) || isGiganticVolumetricFlask(aStack);
+        return isNormalVolumetricFlask(aStack) || isLargeVolumetricFlask(aStack)
+            || isGiganticVolumetricFlask(aStack)
+            || isKleinBottle(aStack);
     }
 
     public static boolean isNormalVolumetricFlask(ItemStack aStack) {
@@ -39,11 +45,15 @@ public class VolumetricFlaskHelper {
         return GregtechItemList.VOLUMETRIC_FLASK_32k.getItem() == aStack.getItem();
     }
 
+    public static boolean isKleinBottle(ItemStack aStack) {
+        return GregtechItemList.KLEIN_BOTTLE.getItem() == aStack.getItem();
+    }
+
     public static int getMaxFlaskCapacity(ItemStack aStack) {
         if (aStack != null) {
             Item aItem = aStack.getItem();
-            if (aItem instanceof GT_VolumetricFlask) {
-                return ((GT_VolumetricFlask) aItem).getMaxCapacity();
+            if (aItem instanceof ItemVolumetricFlask) {
+                return ((ItemVolumetricFlask) aItem).getMaxCapacity();
             }
         }
         return 0;
@@ -120,6 +130,6 @@ public class VolumetricFlaskHelper {
     }
 
     public static Item generateNewFlask(String unlocalized, String english, int maxCapacity) {
-        return new GT_VolumetricFlask(unlocalized, english, maxCapacity);
+        return new ItemVolumetricFlask(unlocalized, english, maxCapacity);
     }
 }

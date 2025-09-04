@@ -6,7 +6,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import gregtech.api.interfaces.IIconContainer;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.ITextureBuilder;
-import gregtech.common.render.GT_TextureBuilder;
+import gregtech.common.render.GTTextureBuilder;
 
 /**
  * <p>
@@ -39,6 +39,17 @@ public final class TextureFactory {
 
     private TextureFactory() {
         throw new AssertionError("Non-instantiable class");
+    }
+
+    /**
+     * Multi-layered {@link ITexture} factory
+     *
+     * @param texture The layer of {@link ITexture} from bottom to top
+     * @return The instance of an {@link ITexture} implementation
+     */
+    public static ITexture of(final ITexture texture) {
+        return builder().addLayer(texture)
+            .build();
     }
 
     /**
@@ -152,6 +163,6 @@ public final class TextureFactory {
      * @return An instance of the {@link ITextureBuilder} implementation
      */
     public static ITextureBuilder builder() {
-        return new GT_TextureBuilder();
+        return new GTTextureBuilder();
     }
 }

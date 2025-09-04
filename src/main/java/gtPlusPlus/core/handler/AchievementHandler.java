@@ -16,16 +16,15 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemSmeltedEvent;
+import gregtech.GTMod;
 import gregtech.api.enums.Materials;
-import gregtech.api.util.GT_Log;
+import gregtech.api.util.GTLog;
 import gtPlusPlus.api.objects.Logger;
-import gtPlusPlus.core.block.ModBlocks;
 import gtPlusPlus.core.item.ModItems;
-import gtPlusPlus.core.lib.CORE;
-import gtPlusPlus.core.material.ALLOY;
-import gtPlusPlus.core.material.ELEMENT;
+import gtPlusPlus.core.lib.GTPPCore;
+import gtPlusPlus.core.material.MaterialsAlloy;
+import gtPlusPlus.core.material.MaterialsElements;
 import gtPlusPlus.core.util.minecraft.ItemUtils;
-import gtPlusPlus.core.util.minecraft.gregtech.PollutionUtils;
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 import gtPlusPlus.xmod.gregtech.common.items.MetaGeneratedGregtechTools;
 
@@ -41,7 +40,7 @@ public class AchievementHandler {
     public AchievementHandler() {
 
         Logger.INFO("Initializing GT++ achievements");
-        GT_Log.out.println("Initializing GT++ achievements");
+        GTLog.out.println("Initializing GT++ achievements");
 
         // register first
         this.registerAchievement(
@@ -74,27 +73,21 @@ public class AchievementHandler {
             true);
 
         // Material Advancement
-        this.registerAchievement("dust.potin", 0, 2, ALLOY.POTIN.getDust(1), aBaseAchievementName, false);
-        this.registerAchievement("dust.eglin", 0, 4, ALLOY.EGLIN_STEEL.getDust(1), "dust.potin", false);
-        this.registerAchievement("dust.staballoy", 0, 6, ALLOY.STABALLOY.getDust(1), "dust.eglin", false);
-        this.registerAchievement("dust.quantum", 0, 8, ALLOY.QUANTUM.getDust(1), "dust.staballoy", true);
-        this.registerAchievement("dust.hypogen", 0, 10, ELEMENT.STANDALONE.HYPOGEN.getDust(1), "dust.quantum", true);
+        this.registerAchievement("dust.potin", 0, 2, MaterialsAlloy.POTIN.getDust(1), aBaseAchievementName, false);
+        this.registerAchievement("dust.eglin", 0, 4, MaterialsAlloy.EGLIN_STEEL.getDust(1), "dust.potin", false);
+        this.registerAchievement("dust.staballoy", 0, 6, MaterialsAlloy.STABALLOY.getDust(1), "dust.eglin", false);
+        this.registerAchievement("dust.quantum", 0, 8, MaterialsAlloy.QUANTUM.getDust(1), "dust.staballoy", true);
+        this.registerAchievement(
+            "dust.hypogen",
+            0,
+            10,
+            MaterialsElements.STANDALONE.HYPOGEN.getDust(1),
+            "dust.quantum",
+            true);
 
         // Blocks
-        this.registerAchievement(
-            "block.fishtrap",
-            -2,
-            2,
-            ItemUtils.getSimpleStack(ModBlocks.blockFishTrap),
-            "dust.potin",
-            false);
-        this.registerAchievement(
-            "block.withercage",
-            -2,
-            4,
-            ItemUtils.getSimpleStack(ModBlocks.blockWitherGuard),
-            "dust.eglin",
-            false);
+        this.registerAchievement("block.fishtrap", -2, 2, GregtechItemList.FishTrap.get(1), "dust.potin", false);
+        this.registerAchievement("block.withercage", -2, 4, GregtechItemList.WitherGuard.get(1), "dust.eglin", false);
 
         // Machines (-10/-8/-6)
         this.registerAchievement("rtg", -16, -10, GregtechItemList.RTG.get(1), aBaseAchievementName, false);
@@ -126,7 +119,7 @@ public class AchievementHandler {
             GregtechItemList.Boiler_Advanced_MV.get(1),
             aBaseAchievementName,
             false);
-        if (PollutionUtils.isPollutionEnabled()) {
+        if (GTMod.proxy.mPollution) {
             this.registerAchievement(
                 "pollutionremoval",
                 -11,
@@ -210,23 +203,10 @@ public class AchievementHandler {
             "decay.neptunium238",
             11,
             8,
-            ItemUtils.getSimpleStack(ModItems.dustNeptunium238),
+            new ItemStack(ModItems.dustNeptunium238),
             "multi.cyclo",
             false);
-        this.registerAchievement(
-            "decay.radium226",
-            12,
-            8,
-            ItemUtils.getSimpleStack(ModItems.dustRadium226),
-            "multi.cyclo",
-            false);
-        this.registerAchievement(
-            "decay.molybdenum99",
-            13,
-            8,
-            ItemUtils.getSimpleStack(ModItems.dustMolybdenum99),
-            "multi.cyclo",
-            false);
+        this.registerAchievement("decay.radium226", 12, 8, new ItemStack(ModItems.dustRadium226), "multi.cyclo", false);
 
         AchievementPage.registerAchievementPage(
             new AchievementPage(
@@ -253,9 +233,9 @@ public class AchievementHandler {
         }
 
         achievement.registerStat();
-        if (CORE.DEVENV) {
-            GT_Log.out.println("achievement." + textId + "=");
-            GT_Log.out.println("achievement." + textId + ".desc=");
+        if (GTPPCore.DEVENV) {
+            GTLog.out.println("achievement." + textId + "=");
+            GTLog.out.println("achievement." + textId + ".desc=");
         }
 
         this.achievementList.put(textId, achievement);
@@ -279,15 +259,14 @@ public class AchievementHandler {
      * @param aStack  - The Itemstack to check for achievements.
      * @param aPlayer - The player to unlock for.
      */
-    private void handleAchivement(ItemStack aStack, EntityPlayer aPlayer) {
+    private void handleAchievement(ItemStack aStack, EntityPlayer aPlayer) {
 
         if (aPlayer != null && aStack != null) {
             /*
              * Copy this to all events because I am lazy - Alk 2019
              */
 
-            // Safe name
-            String aUnlocalName = ItemUtils.getUnlocalizedItemName(aStack);
+            String aUnlocalName = aStack.getUnlocalizedName();
 
             boolean isValid = false;
             // Check if valid name // mod
@@ -467,7 +446,7 @@ public class AchievementHandler {
         EntityPlayer player = event.player;
         ItemStack stack = event.crafting;
         if (player != null && stack != null) {
-            handleAchivement(stack, player);
+            handleAchievement(stack, player);
         }
     }
 
@@ -476,7 +455,7 @@ public class AchievementHandler {
         EntityPlayer player = event.player;
         ItemStack stack = event.smelting;
         if (player != null && stack != null) {
-            handleAchivement(stack, player);
+            handleAchievement(stack, player);
         }
     }
 
@@ -485,7 +464,7 @@ public class AchievementHandler {
         EntityPlayer player = event.entityPlayer;
         ItemStack stack = event.item.getEntityItem();
         if (player != null && stack != null) {
-            handleAchivement(stack, player);
+            handleAchievement(stack, player);
         }
     }
 }

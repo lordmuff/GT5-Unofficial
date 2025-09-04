@@ -12,36 +12,29 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraftforge.oredict.OreDictionary;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.util.GTRecipeBuilder;
+import gregtech.api.util.StringUtils;
 import gtPlusPlus.core.creative.AddToCreativeTab;
-import gtPlusPlus.core.util.Utils;
-import gtPlusPlus.core.util.minecraft.ItemUtils;
 
 public abstract class LogBase extends BlockLog {
 
-    public String[] treeType = new String[] {};
+    public String[] treeType;
     protected IIcon[] textureSide;
     protected IIcon[] textureTop;
 
     public LogBase(String blockNameLocalized, String blockNameUnlocalized, String[] treeTypes) {
         this.treeType = treeTypes;
-        String blockName = "block" + Utils.sanitizeString(blockNameLocalized) + "Log";
+        String blockName = "block" + StringUtils.sanitizeString(blockNameLocalized) + "Log";
         GameRegistry.registerBlock(this, ItemBlock.class, blockName);
         this.setBlockName(blockName);
-        ItemUtils.addItemToOreDictionary(
-            ItemUtils.getSimpleStack(this),
-            "log" + Utils.sanitizeString(blockNameLocalized),
-            true);
-        ItemUtils.addItemToOreDictionary(ItemUtils.getSimpleStack(this), "logWood", true);
+        OreDictionary.registerOre("logWood", new ItemStack(this, 1, GTRecipeBuilder.WILDCARD));
         this.setCreativeTab(AddToCreativeTab.tabBOP);
         Blocks.fire.setFireInfo(this, 20, 100);
-    }
-
-    private void setVanillaVariable(Object toSet, Object value) {
-        toSet = value;
     }
 
     /**
@@ -78,8 +71,8 @@ public abstract class LogBase extends BlockLog {
             this.textureTop[i] = iIcon
                 .registerIcon(GTPlusPlus.ID + ":" + "trees/" + "logs/" + "log_" + treeType[i] + "_top");
         }
-
-        setVanillaVariable(this.field_150167_a, this.textureSide);
-        setVanillaVariable(this.field_150166_b, this.textureTop);
+        // TODO uncomment the line below, I don't want to do it now in case it causes a crash
+        // this.field_150167_a = this.textureSide;
+        // this.field_150166_b = this.textureTop;
     }
 }

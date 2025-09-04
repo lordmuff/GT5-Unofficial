@@ -4,17 +4,16 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
 import gregtech.api.enums.TAE;
 import gregtech.api.enums.Textures;
-import gregtech.api.util.GT_LanguageManager;
-import gregtech.common.blocks.GT_Material_Casings;
+import gregtech.api.render.TextureFactory;
+import gregtech.api.util.GTLanguageManager;
+import gregtech.common.blocks.MaterialCasings;
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
-import gtPlusPlus.xmod.gregtech.api.objects.GTPP_CopiedBlockTexture;
 import gtPlusPlus.xmod.gregtech.common.blocks.textures.TexturesGtBlock;
 
 public class GregtechMetaSpecialMachineCasings extends GregtechMetaCasingBlocksAbstract {
@@ -31,31 +30,17 @@ public class GregtechMetaSpecialMachineCasings extends GregtechMetaCasingBlocksA
         public SpecialCasingItemBlock(Block par1) {
             super(par1);
         }
-
-        @Override
-        public void addInformation(ItemStack aStack, EntityPlayer aPlayer, List aList, boolean aF3_H) {
-            int aMeta = aStack.getItemDamage();
-            if (aMeta < 10) {
-                // aList.add("Tier: "+GT_Values.VN[aMeta]);
-            }
-            super.addInformation(aStack, aPlayer, aList, aF3_H);
-        }
     }
 
     public GregtechMetaSpecialMachineCasings() {
-        super(SpecialCasingItemBlock.class, "gtplusplus.blockspecialcasings.2", GT_Material_Casings.INSTANCE);
-        for (byte i = 0; i < 16; i = (byte) (i + 1)) {
-            // TAE.registerTextures(new GT_CopiedBlockTexture(this, 6, i));
-            // Don't register these Textures, They already exist within vanilla GT. (May not exist in 5.08)
-        }
-        GT_LanguageManager.addStringLocalization(this.getUnlocalizedName() + ".0.name", "Strong Bronze Machine Casing");
-        GT_LanguageManager
+        super(SpecialCasingItemBlock.class, "gtplusplus.blockspecialcasings.2", MaterialCasings.INSTANCE);
+        GTLanguageManager.addStringLocalization(this.getUnlocalizedName() + ".0.name", "Strong Bronze Machine Casing");
+        GTLanguageManager
             .addStringLocalization(this.getUnlocalizedName() + ".1.name", "Sturdy Aluminium Machine Casing");
-        GT_LanguageManager
+        GTLanguageManager
             .addStringLocalization(this.getUnlocalizedName() + ".2.name", "Vigorous Laurenium Machine Casing");
-        TAE.registerTexture(84, new GTPP_CopiedBlockTexture(this, 6, 2));
-        GT_LanguageManager
-            .addStringLocalization(this.getUnlocalizedName() + ".3.name", "Rugged Botmium Machine Casing");
+        TAE.registerTexture(84, TextureFactory.of(this, 2));
+        GTLanguageManager.addStringLocalization(this.getUnlocalizedName() + ".3.name", "Rugged Botmium Machine Casing");
 
         GregtechItemList.Casing_Machine_Custom_1.set(new ItemStack(this, 1, 0));
         GregtechItemList.Casing_Machine_Custom_2.set(new ItemStack(this, 1, 1));

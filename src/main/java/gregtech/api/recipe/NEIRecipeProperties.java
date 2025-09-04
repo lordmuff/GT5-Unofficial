@@ -1,10 +1,14 @@
 package gregtech.api.recipe;
 
 import java.util.Comparator;
+import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 
 import com.gtnewhorizons.modularui.api.math.Pos2d;
 import com.gtnewhorizons.modularui.api.math.Size;
@@ -12,13 +16,13 @@ import com.gtnewhorizons.modularui.api.math.Size;
 import codechicken.nei.recipe.HandlerInfo;
 import gregtech.api.objects.overclockdescriber.OverclockDescriber;
 import gregtech.api.util.FieldsAreNonnullByDefault;
-import gregtech.api.util.GT_Recipe;
+import gregtech.api.util.GTRecipe;
 import gregtech.api.util.MethodsReturnNonnullByDefault;
 import gregtech.nei.formatter.INEISpecialInfoFormatter;
 
 /**
- * Data object storing info exclusively used to draw NEI recipe GUI. Not all the properties used to draw NEI
- * are present here. See {@link BasicUIProperties} for the rest.
+ * Data object storing info exclusively used to draw NEI recipe GUI. Not all the properties used to draw NEI are present
+ * here. See {@link BasicUIProperties} for the rest.
  * <p>
  * Use {@link #builder} for creation.
  */
@@ -49,7 +53,7 @@ public final class NEIRecipeProperties {
     public final Pos2d recipeBackgroundOffset;
 
     /**
-     * Formats special description for the recipe, mainly {@link gregtech.api.util.GT_Recipe#mSpecialValue}.
+     * Formats special description for the recipe, mainly {@link GTRecipe#mSpecialValue}.
      */
     public final INEISpecialInfoFormatter neiSpecialInfoFormatter;
 
@@ -68,14 +72,33 @@ public final class NEIRecipeProperties {
     public final boolean renderRealStackSizes;
 
     /**
-     * Comparator for NEI recipe sort. {@link GT_Recipe#compareTo(GT_Recipe)} by default.
+     * Specifies what item inputs get displayed on NEI.
      */
-    public final Comparator<GT_Recipe> comparator;
+    public final Function<GTRecipe, ItemStack[]> itemInputsGetter;
+    /**
+     * Specifies what fluid inputs get displayed on NEI.
+     */
+    public final Function<GTRecipe, FluidStack[]> fluidInputsGetter;
+    /**
+     * Specifies what item outputs get displayed on NEI.
+     */
+    public final Function<GTRecipe, ItemStack[]> itemOutputsGetter;
+    /**
+     * Specifies what fluid outputs get displayed on NEI.
+     */
+    public final Function<GTRecipe, FluidStack[]> fluidOutputsGetter;
+
+    /**
+     * Comparator for NEI recipe sort. {@link GTRecipe#compareTo(GTRecipe)} by default.
+     */
+    public final Comparator<GTRecipe> comparator;
 
     NEIRecipeProperties(boolean registerNEI, @Nullable UnaryOperator<HandlerInfo.Builder> handlerInfoCreator,
         Size recipeBackgroundSize, Pos2d recipeBackgroundOffset, INEISpecialInfoFormatter neiSpecialInfoFormatter,
         boolean unificateOutput, boolean useCustomFilter, boolean renderRealStackSizes,
-        Comparator<GT_Recipe> comparator) {
+        Function<GTRecipe, ItemStack[]> itemInputsGetter, Function<GTRecipe, FluidStack[]> fluidInputsGetter,
+        Function<GTRecipe, ItemStack[]> itemOutputsGetter, Function<GTRecipe, FluidStack[]> fluidOutputsGetter,
+        Comparator<GTRecipe> comparator) {
         this.registerNEI = registerNEI;
         this.handlerInfoCreator = handlerInfoCreator;
         this.recipeBackgroundOffset = recipeBackgroundOffset;
@@ -84,6 +107,10 @@ public final class NEIRecipeProperties {
         this.unificateOutput = unificateOutput;
         this.useCustomFilter = useCustomFilter;
         this.renderRealStackSizes = renderRealStackSizes;
+        this.itemInputsGetter = itemInputsGetter;
+        this.fluidInputsGetter = fluidInputsGetter;
+        this.itemOutputsGetter = itemOutputsGetter;
+        this.fluidOutputsGetter = fluidOutputsGetter;
         this.comparator = comparator;
     }
 }

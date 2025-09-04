@@ -12,9 +12,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ModelSickBlaze extends ModelBlaze {
 
     /** The sticks that fly around the Blaze. */
-    private ModelRenderer[] blazeSticks = new ModelRenderer[24];
+    private final ModelRenderer[] blazeSticks = new ModelRenderer[24];
 
-    private ModelRenderer blazeHead;
+    private final ModelRenderer blazeHead;
 
     public ModelSickBlaze() {
         for (int i = 0; i < this.blazeSticks.length; ++i) {
@@ -24,11 +24,6 @@ public class ModelSickBlaze extends ModelBlaze {
 
         this.blazeHead = new ModelRenderer(this, 0, 0);
         this.blazeHead.addBox(-4.0F, -4.0F, -4.0F, 8, 8, 8);
-    }
-
-    @Override
-    public int func_78104_a() {
-        return 8;
     }
 
     /**

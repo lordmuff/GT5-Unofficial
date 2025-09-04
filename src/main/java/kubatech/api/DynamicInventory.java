@@ -13,7 +13,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.lwjgl.opengl.GL11;
 
 import com.gtnewhorizons.modularui.api.GlStateManager;
@@ -34,8 +37,8 @@ import com.gtnewhorizons.modularui.common.widget.ChangeableWidget;
 import com.gtnewhorizons.modularui.common.widget.DynamicPositionedRow;
 import com.gtnewhorizons.modularui.common.widget.FakeSyncWidget;
 import com.gtnewhorizons.modularui.common.widget.Scrollable;
-import com.kuba6000.mobsinfo.api.utils.ItemID;
 
+import gregtech.api.util.GTUtility.ItemId;
 import kubatech.api.helpers.GTHelper;
 import kubatech.api.utils.ModUtils;
 
@@ -47,9 +50,13 @@ public class DynamicInventory<T> {
     private int usedSlots = 0;
     List<T> inventory;
     TInventoryGetter<T> inventoryGetter;
+    @Nullable
     TInventoryInjector inventoryInjector = null;
+    @Nullable
     TInventoryExtractor<T> inventoryExtractor = null;
+    @Nullable
     TInventoryReplacerOrMerger inventoryReplacer = null;
+    @Nullable
     Supplier<Boolean> isEnabledGetter = null;
     boolean isEnabled = true;
 
@@ -62,32 +69,32 @@ public class DynamicInventory<T> {
         this.inventoryGetter = inventoryGetter;
     }
 
-    public DynamicInventory<T> allowInventoryInjection(TInventoryInjector inventoryInjector) {
+    public @NotNull DynamicInventory<T> allowInventoryInjection(TInventoryInjector inventoryInjector) {
         this.inventoryInjector = inventoryInjector;
         return this;
     }
 
-    public DynamicInventory<T> allowInventoryExtraction(TInventoryExtractor<T> inventoryExtractor) {
+    public @NotNull DynamicInventory<T> allowInventoryExtraction(TInventoryExtractor<T> inventoryExtractor) {
         this.inventoryExtractor = inventoryExtractor;
         return this;
     }
 
-    public DynamicInventory<T> allowInventoryReplace(TInventoryReplacerOrMerger inventoryReplacer) {
+    public @NotNull DynamicInventory<T> allowInventoryReplace(TInventoryReplacerOrMerger inventoryReplacer) {
         this.inventoryReplacer = inventoryReplacer;
         return this;
     }
 
-    public DynamicInventory<T> setEnabled(Supplier<Boolean> isEnabled) {
+    public @NotNull DynamicInventory<T> setEnabled(Supplier<Boolean> isEnabled) {
         this.isEnabledGetter = isEnabled;
         return this;
     }
 
-    public UITexture getItemSlot() {
+    public @NotNull UITexture getItemSlot() {
         return ModularUITextures.ITEM_SLOT;
     }
 
     @SuppressWarnings("UnstableApiUsage")
-    public Widget asWidget(ModularWindow.Builder builder, UIBuildContext buildContext) {
+    public @NotNull Widget asWidget(ModularWindow.Builder builder, @NotNull UIBuildContext buildContext) {
         ChangeableWidget container = new ChangeableWidget(() -> createWidget(buildContext.getPlayer()));
 
         // TODO: Only reset the widget when there are more slot stacks, otherwise just refresh them somehow
@@ -117,19 +124,19 @@ public class DynamicInventory<T> {
                 }
             }), builder)
             .attachSyncer(new FakeSyncWidget.ListSyncer<>(() -> {
-                HashMap<ItemID, Integer> itemMap = new HashMap<>();
-                HashMap<ItemID, ItemStack> stackMap = new HashMap<>();
-                HashMap<ItemID, ArrayList<Integer>> realSlotMap = new HashMap<>();
+                HashMap<ItemId, Integer> itemMap = new HashMap<>();
+                HashMap<ItemId, ItemStack> stackMap = new HashMap<>();
+                HashMap<ItemId, ArrayList<Integer>> realSlotMap = new HashMap<>();
                 for (int i = 0, mStorageSize = inventory.size(); i < mStorageSize; i++) {
                     ItemStack stack = inventoryGetter.get(inventory.get(i));
-                    ItemID id = ItemID.createNoCopy(stack, false);
+                    ItemId id = ItemId.createNoCopyWithStackSize(stack);
                     itemMap.merge(id, 1, Integer::sum);
                     stackMap.putIfAbsent(id, stack);
                     realSlotMap.computeIfAbsent(id, unused -> new ArrayList<>())
                         .add(i);
                 }
                 List<GTHelper.StackableItemSlot> newDrawables = new ArrayList<>();
-                for (Map.Entry<ItemID, Integer> entry : itemMap.entrySet()) {
+                for (Map.Entry<ItemId, Integer> entry : itemMap.entrySet()) {
                     newDrawables.add(
                         new GTHelper.StackableItemSlot(
                             entry.getValue(),
@@ -164,6 +171,7 @@ public class DynamicInventory<T> {
         return container;
     }
 
+    @NotNull
     List<GTHelper.StackableItemSlot> drawables = new ArrayList<>();
 
     private Widget createWidget(EntityPlayer player) {
@@ -172,19 +180,19 @@ public class DynamicInventory<T> {
         ArrayList<Widget> buttons = new ArrayList<>();
 
         if (!ModUtils.isClientThreaded()) {
-            HashMap<ItemID, Integer> itemMap = new HashMap<>();
-            HashMap<ItemID, ItemStack> stackMap = new HashMap<>();
-            HashMap<ItemID, ArrayList<Integer>> realSlotMap = new HashMap<>();
+            HashMap<ItemId, Integer> itemMap = new HashMap<>();
+            HashMap<ItemId, ItemStack> stackMap = new HashMap<>();
+            HashMap<ItemId, ArrayList<Integer>> realSlotMap = new HashMap<>();
             for (int i = 0, inventorySize = inventory.size(); i < inventorySize; i++) {
                 ItemStack stack = inventoryGetter.get(inventory.get(i));
-                ItemID id = ItemID.createNoCopy(stack, false);
+                ItemId id = ItemId.createNoCopyWithStackSize(stack);
                 itemMap.merge(id, 1, Integer::sum);
                 stackMap.putIfAbsent(id, stack);
                 realSlotMap.computeIfAbsent(id, unused -> new ArrayList<>())
                     .add(i);
             }
             drawables = new ArrayList<>();
-            for (Map.Entry<ItemID, Integer> entry : itemMap.entrySet()) {
+            for (Map.Entry<ItemId, Integer> entry : itemMap.entrySet()) {
                 drawables.add(
                     new GTHelper.StackableItemSlot(
                         entry.getValue(),
@@ -235,7 +243,6 @@ public class DynamicInventory<T> {
                             player.inventory.setItemStack(stack);
                             ((EntityPlayerMP) player).isChangingQuantityOnly = false;
                             ((EntityPlayerMP) player).updateHeldItem();
-                            return;
                         }
                     } else if (clickData.shift) {
                         if (inventoryExtractor == null) return;
@@ -247,7 +254,7 @@ public class DynamicInventory<T> {
                             if (player.inventory.addItemStackToInventory(stack))
                                 player.inventoryContainer.detectAndSendChanges();
                             else player.entityDropItem(stack, 0.f);
-                            return;
+
                         }
                     } else {
                         ItemStack input = player.inventory.getItemStack();
@@ -266,20 +273,15 @@ public class DynamicInventory<T> {
                                     ItemStack leftover = inventoryInjector.inject(copy);
                                     if (leftover == null) return;
                                     input.stackSize--;
-                                    if (input.stackSize > 0) {
-                                        ((EntityPlayerMP) player).isChangingQuantityOnly = true;
-                                        ((EntityPlayerMP) player).updateHeldItem();
-                                        return;
-                                    } else player.inventory.setItemStack(null);
                                 } else {
                                     ItemStack leftover = inventoryInjector.inject(input);
                                     if (leftover == null) return;
-                                    if (input.stackSize > 0) {
-                                        ((EntityPlayerMP) player).isChangingQuantityOnly = true;
-                                        ((EntityPlayerMP) player).updateHeldItem();
-                                        return;
-                                    } else player.inventory.setItemStack(null);
                                 }
+                                if (input.stackSize > 0) {
+                                    ((EntityPlayerMP) player).isChangingQuantityOnly = true;
+                                    ((EntityPlayerMP) player).updateHeldItem();
+                                    return;
+                                } else player.inventory.setItemStack(null);
                             }
                             ((EntityPlayerMP) player).isChangingQuantityOnly = false;
                             ((EntityPlayerMP) player).updateHeldItem();
@@ -294,7 +296,6 @@ public class DynamicInventory<T> {
                                 player.inventory.setItemStack(stack);
                                 ((EntityPlayerMP) player).isChangingQuantityOnly = false;
                                 ((EntityPlayerMP) player).updateHeldItem();
-                                return;
                             }
                         }
                     }
@@ -321,9 +322,9 @@ public class DynamicInventory<T> {
                         List<String> tip = new ArrayList<>(
                             Collections.singletonList(drawables.get(finalID).stack.getDisplayName()));
                         if (drawables.get(finalID).count > 1) tip.add(
-                            EnumChatFormatting.DARK_PURPLE + "There are "
-                                + drawables.get(finalID).count
-                                + " identical slots");
+                            EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocalFormatted(
+                                "kubatech.gui.tooltip.dynamic_inventory.identical_slots",
+                                drawables.get(finalID).count));
                         return tip;
                     }
                     return Collections.emptyList();
@@ -367,23 +368,17 @@ public class DynamicInventory<T> {
                         ItemStack leftover = inventoryInjector.inject(copy);
                         if (leftover == null) return;
                         input.stackSize--;
-                        if (input.stackSize > 0) {
-                            ((EntityPlayerMP) player).isChangingQuantityOnly = true;
-                            ((EntityPlayerMP) player).updateHeldItem();
-                            return;
-                        } else player.inventory.setItemStack(null);
                     } else {
                         ItemStack leftover = inventoryInjector.inject(input);
                         if (leftover == null) return;
-                        if (input.stackSize > 0) {
-                            ((EntityPlayerMP) player).isChangingQuantityOnly = true;
-                            ((EntityPlayerMP) player).updateHeldItem();
-                            return;
-                        } else player.inventory.setItemStack(null);
                     }
+                    if (input.stackSize > 0) {
+                        ((EntityPlayerMP) player).isChangingQuantityOnly = true;
+                        ((EntityPlayerMP) player).updateHeldItem();
+                        return;
+                    } else player.inventory.setItemStack(null);
                     ((EntityPlayerMP) player).isChangingQuantityOnly = false;
                     ((EntityPlayerMP) player).updateHeldItem();
-                    return;
                 }
             })
             .setBackground(
@@ -395,9 +390,14 @@ public class DynamicInventory<T> {
                                 .alignment(Alignment.TopLeft)
                                 .withOffset(1, 1) })
             .dynamicTooltip(() -> {
-                List<String> tip = new ArrayList<>(Collections.singleton(EnumChatFormatting.GRAY + "Empty slot"));
-                if (slots - usedSlots > 1)
-                    tip.add(EnumChatFormatting.DARK_PURPLE + "There are " + (slots - usedSlots) + " identical slots");
+                List<String> tip = new ArrayList<>(
+                    Collections.singleton(
+                        EnumChatFormatting.GRAY
+                            + StatCollector.translateToLocal("kubatech.gui.tooltip.dynamic_inventory.empty_slot")));
+                if (slots - usedSlots > 1) tip.add(
+                    EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocalFormatted(
+                        "kubatech.gui.tooltip.dynamic_inventory.identical_slots",
+                        slots - usedSlots));
                 return tip;
             })
             .setSize(18, 18));
@@ -407,8 +407,7 @@ public class DynamicInventory<T> {
             DynamicPositionedRow row = new DynamicPositionedRow().setSynced(false);
             for (int j = 0, jmax = (i == imax ? (buttons.size() - 1) % perRow : (perRow - 1)); j <= jmax; j++) {
                 final int finalI = i * perRow;
-                final int finalJ = j;
-                final int ID = finalI + finalJ;
+                final int ID = finalI + j;
                 row.widget(buttons.get(ID));
             }
             dynamicInventoryWidget.widget(row.setPos(0, i * 18));

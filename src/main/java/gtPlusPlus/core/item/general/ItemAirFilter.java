@@ -12,14 +12,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import gtPlusPlus.core.creative.AddToCreativeTab;
-import gtPlusPlus.core.util.Utils;
 
 public class ItemAirFilter extends Item {
 
-    public IIcon[] icons = new IIcon[1];
+    public IIcon[] icons = new IIcon[2];
 
     public ItemAirFilter() {
         super();
@@ -33,12 +33,13 @@ public class ItemAirFilter extends Item {
 
     @Override
     public void registerIcons(IIconRegister reg) {
-        this.icons[0] = reg.registerIcon(GTPlusPlus.ID + ":" + "itemAirFilter");
+        this.icons[0] = reg.registerIcon(GTPlusPlus.ID + ":itemAirFilter1");
+        this.icons[1] = reg.registerIcon(GTPlusPlus.ID + ":itemAirFilter2");
     }
 
     @Override
     public IIcon getIconFromDamage(int meta) {
-        return this.icons[0];
+        return this.icons[meta];
     }
 
     @Override
@@ -57,26 +58,16 @@ public class ItemAirFilter extends Item {
     public String getItemStackDisplayName(final ItemStack tItem) {
 
         if (tItem == null) {
-            return "Air Filter";
+            return StatCollector.translateToLocal("item.GTPP.air_filter.name");
         }
 
-        String itemName = tItem == null ? "Air Filter" : super.getItemStackDisplayName(tItem);
-        String suffixName = "";
         if (tItem.getItemDamage() == 0) {
-            suffixName = " [Tier 1]";
+            return StatCollector.translateToLocal("item.GTPP.air_filter.name.t1");
         } else if (tItem.getItemDamage() == 1) {
-            suffixName = " [Tier 2]";
+            return StatCollector.translateToLocal("item.GTPP.air_filter.name.t1");
+        } else {
+            return StatCollector.translateToLocal("item.GTPP.air_filter.name");
         }
-        return (itemName + suffixName);
-    }
-
-    @Override
-    public int getColorFromItemStack(final ItemStack stack, int HEX_OxFFFFFF) {
-        int meta = stack.getItemDamage();
-        if (meta == 1) {
-            HEX_OxFFFFFF = Utils.rgbtoHexValue(150, 180, 35);
-        }
-        return HEX_OxFFFFFF;
     }
 
     private static boolean createNBT(ItemStack rStack) {
@@ -88,11 +79,11 @@ public class ItemAirFilter extends Item {
         return true;
     }
 
-    public static final long getFilterMaxDamage(final ItemStack aStack) {
+    public static long getFilterMaxDamage(final ItemStack aStack) {
         return aStack.getItemDamage() == 0 ? 50 : 2500;
     }
 
-    public static final long getFilterDamage(final ItemStack aStack) {
+    public static long getFilterDamage(final ItemStack aStack) {
         NBTTagCompound aNBT = aStack.getTagCompound();
         if (aNBT != null) {
             aNBT = aNBT.getCompoundTag("AirFilter");
@@ -105,7 +96,7 @@ public class ItemAirFilter extends Item {
         return 0L;
     }
 
-    public static final boolean setFilterDamage(final ItemStack aStack, final long aDamage) {
+    public static boolean setFilterDamage(final ItemStack aStack, final long aDamage) {
         NBTTagCompound aNBT = aStack.getTagCompound();
         if (aNBT != null) {
             aNBT = aNBT.getCompoundTag("AirFilter");
@@ -124,15 +115,18 @@ public class ItemAirFilter extends Item {
         }
         double currentDamage = getFilterDamage(stack);
         double meta = getFilterMaxDamage(stack);
-        double durabilitypercent = currentDamage / meta;
-        return durabilitypercent;
+        return currentDamage / meta;
     }
 
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-        list.add(EnumChatFormatting.GRAY + "An Air filter for Atmospheric Reconditioning.");
+        list.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("GTPP.tooltip.air_filter.0"));
         long maxDamage = getFilterMaxDamage(stack);
-        list.add(EnumChatFormatting.GRAY + "" + (maxDamage - getFilterDamage(stack)) + "/" + maxDamage + " uses left.");
+        list.add(
+            EnumChatFormatting.GRAY + StatCollector.translateToLocalFormatted(
+                "GTPP.tooltip.air_filter.1",
+                (maxDamage - getFilterDamage(stack)),
+                maxDamage));
         super.addInformation(stack, player, list, bool);
     }
 

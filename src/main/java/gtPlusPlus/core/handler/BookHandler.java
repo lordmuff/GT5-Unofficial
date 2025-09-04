@@ -9,12 +9,12 @@ import java.util.Map;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
-import gregtech.api.enums.GT_Values;
-import gregtech.api.util.GT_ModHandler;
-import gregtech.api.util.GT_OreDictUnificator;
+import gregtech.api.enums.Materials;
+import gregtech.api.enums.OrePrefixes;
+import gregtech.api.util.GTModHandler;
+import gregtech.api.util.GTOreDictUnificator;
 import gtPlusPlus.api.objects.Logger;
 import gtPlusPlus.core.item.ModItems;
-import gtPlusPlus.core.util.minecraft.ItemUtils;
 import gtPlusPlus.core.util.minecraft.RecipeUtils;
 
 public class BookHandler {
@@ -28,7 +28,6 @@ public class BookHandler {
     public static BookTemplate book_ModularBauble;
     public static BookTemplate book_MultiMachineManual;
     public static BookTemplate book_NuclearManual;
-    public static BookTemplate book_MultiChemicalPlant;
 
     public static void run() {
 
@@ -173,7 +172,7 @@ public class BookHandler {
                 """
                     [1] 7x Hastelloy-X or I/O
                     [2] 5x Incoloy-DS Fluid Containment
-                    [3] 4x Zeron-100 Shielding
+                    [3] 4x Reactor Shield Casing
                     [4] 17x Hastelloy-N Sealant Case
                     Multiblock Construction
                     Convention is [LxHxW]
@@ -209,205 +208,6 @@ public class BookHandler {
                     Fission Fuel
                     Processing Plant----------------------
                     This structure is used to produce the Molten Salts required to run a Liquid Fluorine Thorium Reactor [LFTR].""" });
-
-        book_MultiChemicalPlant = writeBookTemplate(
-            "book_Multi_ChemicalPlant",
-            "Chemical Plant Manual",
-            "Alkalus",
-            new String[] {
-
-                // Intro
-                "This book will explain how the Chemical Plant is constructed, which blocks are valid to upgrade it and also how the upgrades work.",
-
-                // Info
-                """
-                    Solid Casings = Plant tier
-                    Machine Casings = Hatch tier
-                    Higher tier coils  More Speed
-                    T1 50% , T2 100% , T3 150%, etc
-                    """, """
-                    Higher tier pipe casings boost parallel
-                    and reduce catalyst consumption.
-                    +2 parallel per tier, 20% extra chance of
-                    not damaging catalyst per tier.""", """
-                    Awakened Draconium Coil (or above) with
-                    Tungstensteel Pipe Casing
-                    does not damage catalyst at all.""",
-
-                // Machine Casings
-                """
-                    Valid Solid Machine Casings:
-                    1 - Strong Bronze
-                    2 - Solid Steel
-                    3 - Sturdy Aluminium
-                    4 - Clean Stainless Steel
-                    5 - Stable Titanium
-                    6 - Robust Tungstensteel
-                    7 - Vigorous Laurenium
-                    8 - Rugged Botmium""",
-
-                // Machine Casings
-                "Valid Tiered Machine Casings:" + "\n"
-                    + "\n"
-                    + "1 - "
-                    + GT_Values.VN[0]
-                    + "\n"
-                    + "2 - "
-                    + GT_Values.VN[1]
-                    + "\n"
-                    + "3 - "
-                    + GT_Values.VN[2]
-                    + "\n"
-                    + "4 - "
-                    + GT_Values.VN[3]
-                    + "\n"
-                    + "5 - "
-                    + GT_Values.VN[4]
-                    + "\n"
-                    + "6 - "
-                    + GT_Values.VN[5]
-                    + "\n"
-                    + "7 - "
-                    + GT_Values.VN[6]
-                    + "\n"
-                    + "8 - "
-                    + GT_Values.VN[7]
-                    + "\n"
-                    + "9 - "
-                    + GT_Values.VN[8]
-                    + "\n"
-                    + "10 - "
-                    + GT_Values.VN[9],
-
-                // Pipe Casings
-                """
-                    Valid Pipe Casings:
-
-                    1 - Bronze
-                    2 - Steel
-                    3 - Titanium
-                    4 - Tungstensteel""",
-
-                // Coils
-                """
-                    Valid Coils:
-
-                    1 - Cupronickel
-                    2 - Kanthal
-                    3 - Nichrome
-                    4 - TPV-Alloy
-                    5 - HSS-G
-                    6 - HSS-S
-                    7 - Naquadah
-                    8 - Naquadah Alloy
-                    9 - Trinium
-                    10 - Fluxed Electrum""", """
-                    11 - Awakened Draconium
-                    12 - Infinity
-                    13 - Hypogen
-                    14 - Eternal""",
-
-                // Requirements
-                """
-                    Multiblock Requirements:
-
-                    27x Coils
-                    18x Pipe Casings
-                    57x Tiered Machine Casings
-                    70+ Solid Casings
-                    1x Catalyst Housing (Catalysts cannot go inside an Input Bus)""",
-
-                // Construction Guide
-                """
-                    Construction Guide Pt1:
-
-                    Controller is placed on a middle casing in the bottom layer
-                    Hatches can only be placed on the bottom layer edges""", """
-                    Construction Guide Pt2:
-
-                    7x7x7 Hollow frame of solid casings
-                    5x1x5 layer of solid casings (fills in top layer)
-                    5x1x5 layer of machine casings (fills in bottom layer)""", """
-                    Construction Guide Pt3:
-                    In the central 3x5x3:
-                    3x1x3 layer of Coils, surrounded by ring of Machine Casings
-                    3x1x3 layer of Pipe Casings
-                    3x1x3 layer of Coils
-                    3x1x3 layer of Pipe Casings
-                    3x1x3 layer of Coils, surrounded by ring of Machine Casings""",
-
-                // Construction Guide Info
-                """
-                    Information:
-
-                    A = Air
-                    X = Solid Casing
-                    M = Machine Casing
-                    P = Pipe Casing
-                    C = Coil Casing""", """
-                    Layer 1:
-
-                    XXXXXXX
-                    XMMMMMX
-                    XMMMMMX
-                    XMMMMMX
-                    XMMMMMX
-                    XMMMMMX
-                    XXXXXXX""", """
-                    Layer 2:
-
-                    XAAAAAX
-                    AMMMMMA
-                    AMCCCMA
-                    AMCCCMA
-                    AMCCCMA
-                    AMMMMMA
-                    XAAAAAX""", """
-                    Layer 3:
-
-                    XAAAAAX
-                    AAAAAAA
-                    AAPPPAA
-                    AAPPPAA
-                    AAPPPAA
-                    AAAAAAA
-                    XAAAAAX""", """
-                    Layer 4:
-
-                    XAAAAAX
-                    AAAAAAA
-                    AACCCAA
-                    AACCCAA
-                    AACCCAA
-                    AAAAAAA
-                    XAAAAAX""", """
-                    Layer 5:
-
-                    XAAAAAX
-                    AAAAAAA
-                    AAPPPAA
-                    AAPPPAA
-                    AAPPPAA
-                    AAAAAAA
-                    XAAAAAX""", """
-                    Layer 6:
-
-                    XAAAAAX
-                    AMMMMMA
-                    AMCCCMA
-                    AMCCCMA
-                    AMCCCMA
-                    AMMMMMA
-                    XAAAAAX""", """
-                    Layer 7:
-
-                    XXXXXXX
-                    XXXXXXX
-                    XXXXXXX
-                    XXXXXXX
-                    XXXXXXX
-                    XXXXXXX
-                    XXXXXXX""", });
     }
 
     public static ItemStack ItemBookWritten_ThermalBoiler;
@@ -415,43 +215,36 @@ public class BookHandler {
     public static ItemStack ItemBookWritten_ModularBaubles;
     public static ItemStack ItemBookWritten_MultiPowerStorage;
     public static ItemStack ItemBookWritten_MultiMachineManual;
-    public static ItemStack ItemBookWritten_MultiChemicalPlant;
 
     public static void runLater() {
-        ItemBookWritten_ThermalBoiler = ItemUtils.simpleMetaStack(ModItems.itemCustomBook, 0, 1);
-        ItemBookWritten_MultiPowerStorage = ItemUtils.simpleMetaStack(ModItems.itemCustomBook, 1, 1);
-        ItemBookWritten_ModularBaubles = ItemUtils.simpleMetaStack(ModItems.itemCustomBook, 2, 1);
-        ItemBookWritten_MultiMachineManual = ItemUtils.simpleMetaStack(ModItems.itemCustomBook, 3, 1);
-        ItemBookWritten_NuclearManual = ItemUtils.simpleMetaStack(ModItems.itemCustomBook, 4, 1);
-        ItemBookWritten_MultiChemicalPlant = ItemUtils.simpleMetaStack(ModItems.itemCustomBook, 5, 1);
+        ItemBookWritten_ThermalBoiler = new ItemStack(ModItems.itemCustomBook, 1, 0);
+        ItemBookWritten_MultiPowerStorage = new ItemStack(ModItems.itemCustomBook, 1, 1);
+        ItemBookWritten_ModularBaubles = new ItemStack(ModItems.itemCustomBook, 1, 2);
+        ItemBookWritten_MultiMachineManual = new ItemStack(ModItems.itemCustomBook, 1, 3);
+        ItemBookWritten_NuclearManual = new ItemStack(ModItems.itemCustomBook, 1, 4);
 
         // Multiblock Manuals
         RecipeUtils.addShapelessGregtechRecipe(
-            new ItemStack[] { ItemUtils.getSimpleStack(Items.writable_book),
-                ItemUtils.getSimpleStack(Items.lava_bucket) },
+            new ItemStack[] { new ItemStack(Items.writable_book), new ItemStack(Items.lava_bucket) },
             ItemBookWritten_ThermalBoiler);
-        GT_ModHandler.addCraftingRecipe(
+        GTModHandler.addCraftingRecipe(
             ItemBookWritten_MultiMachineManual,
-            GT_ModHandler.RecipeBits.NOT_REMOVABLE | GT_ModHandler.RecipeBits.REVERSIBLE
-                | GT_ModHandler.RecipeBits.BUFFERED,
-            new Object[] { "Xw", 'X', ItemUtils.getSimpleStack(Items.writable_book) });
+            GTModHandler.RecipeBits.NOT_REMOVABLE | GTModHandler.RecipeBits.REVERSIBLE
+                | GTModHandler.RecipeBits.BUFFERED,
+            new Object[] { "Xw", 'X', new ItemStack(Items.writable_book) });
         RecipeUtils.addShapelessGregtechRecipe(
-            new ItemStack[] { ItemUtils.getSimpleStack(Items.writable_book),
-                ItemUtils.getItemStackOfAmountFromOreDict("wireGt01Tin", 1) },
+            new ItemStack[] { new ItemStack(Items.writable_book),
+                GTOreDictUnificator.get(OrePrefixes.wireGt01, Materials.Tin, 1) },
             ItemBookWritten_MultiPowerStorage);
         RecipeUtils.addShapelessGregtechRecipe(
-            new ItemStack[] { ItemUtils.getSimpleStack(Items.writable_book),
-                ItemUtils.getItemStackOfAmountFromOreDict("dustUranium", 1) },
+            new ItemStack[] { new ItemStack(Items.writable_book),
+                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Uranium, 1) },
             ItemBookWritten_NuclearManual);
-        RecipeUtils.addShapelessGregtechRecipe(
-            new ItemStack[] { ItemUtils.getSimpleStack(Items.writable_book),
-                ItemUtils.getItemStackOfAmountFromOreDict("wireGt01Copper", 1) },
-            ItemBookWritten_MultiChemicalPlant);
 
         for (int i = 0; i < mBookKeeperCount; i++) {
-            ItemStack bookstack = ItemUtils.simpleMetaStack(ModItems.itemCustomBook, i, 1);
-            GT_OreDictUnificator.registerOre("bookWritten", bookstack);
-            GT_OreDictUnificator.registerOre("craftingBook", bookstack);
+            ItemStack bookstack = new ItemStack(ModItems.itemCustomBook, 1, i);
+            GTOreDictUnificator.registerOre("bookWritten", bookstack);
+            GTOreDictUnificator.registerOre("craftingBook", bookstack);
         }
     }
 

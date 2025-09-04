@@ -4,11 +4,11 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 import net.minecraft.util.EnumChatFormatting;
 
-import gregtech.api.enums.GT_Values;
-import gregtech.api.util.GT_OverclockCalculator;
-import gregtech.api.util.GT_Recipe;
-import gregtech.api.util.GT_Utility;
+import gregtech.api.enums.GTValues;
+import gregtech.api.util.GTRecipe;
+import gregtech.api.util.GTUtility;
 import gregtech.api.util.MethodsReturnNonnullByDefault;
+import gregtech.api.util.OverclockCalculator;
 import gregtech.nei.formatter.FusionSpecialValueFormatter;
 
 @ParametersAreNonnullByDefault
@@ -23,9 +23,9 @@ public class FusionOverclockDescriber extends EUOverclockDescriber {
     }
 
     @Override
-    public GT_OverclockCalculator createCalculator(GT_OverclockCalculator template, GT_Recipe recipe) {
+    public OverclockCalculator createCalculator(OverclockCalculator template, GTRecipe recipe) {
         return super.createCalculator(template, recipe)
-            .limitOverclockCount(overclock(recipe.mSpecialValue, recipe.mEUt))
+            .setMaxOverclocks(maxOverclocks(recipe.mSpecialValue, recipe.mEUt))
             .setEUtIncreasePerOC(getEUtIncreasePerOC())
             .setDurationDecreasePerOC(getDurationDecreasePerOC());
     }
@@ -40,21 +40,21 @@ public class FusionOverclockDescriber extends EUOverclockDescriber {
 
     @Override
     public String getTierString() {
-        return GT_Values.TIER_COLORS[tier] + "MK " + getFusionTier() + EnumChatFormatting.RESET;
+        return GTValues.TIER_COLORS[tier] + "MK " + getFusionTier() + EnumChatFormatting.RESET;
     }
 
     @Override
-    public boolean canHandle(GT_Recipe recipe) {
-        byte tier = GT_Utility.getTier(recipe.mEUt);
+    public boolean canHandle(GTRecipe recipe) {
+        byte tier = GTUtility.getTier(recipe.mEUt);
         if (this.tier < tier) {
             return false;
         }
         return this.capableStartup >= recipe.mSpecialValue;
     }
 
-    protected int overclock(long startEnergy, long voltage) {
+    protected int maxOverclocks(long startEnergy, long voltage) {
         // Fusion Computer tier - recipe tier
-        return Math.max(getFusionTier() - FusionSpecialValueFormatter.getFusionTier(startEnergy, voltage), 0);
+        return getFusionTier() - FusionSpecialValueFormatter.getFusionTier(startEnergy, voltage);
     }
 
     protected int getFusionTier() {

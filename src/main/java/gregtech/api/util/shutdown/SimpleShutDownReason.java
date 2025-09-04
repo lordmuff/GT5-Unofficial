@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.StatCollector;
 
@@ -36,6 +37,19 @@ public class SimpleShutDownReason implements ShutDownReason {
         return Objects.requireNonNull(StatCollector.translateToLocal("GT5U.gui.text." + key));
     }
 
+    @Override
+    public @NotNull NBTTagCompound writeToNBT(@NotNull NBTTagCompound tag) {
+        tag.setString("key", key);
+        tag.setBoolean("wasCritical", wasCritical);
+        return tag;
+    }
+
+    @Override
+    public void readFromNBT(@NotNull NBTTagCompound tag) {
+        key = tag.getString("key");
+        wasCritical = tag.getBoolean("wasCritical");
+    }
+
     @NotNull
     @Override
     public ShutDownReason newInstance() {
@@ -60,8 +74,8 @@ public class SimpleShutDownReason implements ShutDownReason {
     }
 
     /**
-     * Creates new reason with critical state. Add your localized description with `GT5U.gui.text.{key}`.
-     * This is already registered to registry.
+     * Creates new reason with critical state. Add your localized description with `GT5U.gui.text.{key}`. This is
+     * already registered to registry.
      */
     @Nonnull
     public static ShutDownReason ofCritical(String key) {
@@ -69,8 +83,8 @@ public class SimpleShutDownReason implements ShutDownReason {
     }
 
     /**
-     * Creates new reason with normal state. Add your localized description with `GT5U.gui.text.{key}`.
-     * This is already registered to registry.
+     * Creates new reason with normal state. Add your localized description with `GT5U.gui.text.{key}`. This is already
+     * registered to registry.
      */
     @Nonnull
     public static ShutDownReason ofNormal(String key) {

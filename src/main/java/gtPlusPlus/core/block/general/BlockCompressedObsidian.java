@@ -23,7 +23,7 @@ import gtPlusPlus.core.item.base.itemblock.ItemBlockMeta;
 
 public class BlockCompressedObsidian extends BlockObsidian {
 
-    private final IIcon textureArray[] = new IIcon[11];
+    private final IIcon[] textureArray = new IIcon[14];
 
     public BlockCompressedObsidian() {
         this.setBlockName("blockCompressedObsidian");
@@ -49,17 +49,20 @@ public class BlockCompressedObsidian extends BlockObsidian {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(final IIconRegister iicon) {
-        this.textureArray[0] = iicon.registerIcon(GTPlusPlus.ID + ":" + "compressed/" + "obsidian1");
-        this.textureArray[1] = iicon.registerIcon(GTPlusPlus.ID + ":" + "compressed/" + "obsidian2");
-        this.textureArray[2] = iicon.registerIcon(GTPlusPlus.ID + ":" + "compressed/" + "obsidian3");
-        this.textureArray[3] = iicon.registerIcon(GTPlusPlus.ID + ":" + "compressed/" + "obsidian4");
-        this.textureArray[4] = iicon.registerIcon(GTPlusPlus.ID + ":" + "compressed/" + "obsidian5");
-        this.textureArray[5] = iicon.registerIcon(GTPlusPlus.ID + ":" + "compressed/" + "obsidian_invert");
-        this.textureArray[6] = iicon.registerIcon(GTPlusPlus.ID + ":" + "compressed/" + "glowstone1");
-        this.textureArray[7] = iicon.registerIcon(GTPlusPlus.ID + ":" + "compressed/" + "glowstone2");
-        this.textureArray[8] = iicon.registerIcon(GTPlusPlus.ID + ":" + "compressed/" + "glowstone3");
-        this.textureArray[9] = iicon.registerIcon(GTPlusPlus.ID + ":" + "compressed/" + "glowstone4");
-        this.textureArray[10] = iicon.registerIcon(GTPlusPlus.ID + ":" + "compressed/" + "glowstone5");
+        this.textureArray[0] = iicon.registerIcon(GTPlusPlus.ID + ":compressed/obsidian1");
+        this.textureArray[1] = iicon.registerIcon(GTPlusPlus.ID + ":compressed/obsidian2");
+        this.textureArray[2] = iicon.registerIcon(GTPlusPlus.ID + ":compressed/obsidian3");
+        this.textureArray[3] = iicon.registerIcon(GTPlusPlus.ID + ":compressed/obsidian4");
+        this.textureArray[4] = iicon.registerIcon(GTPlusPlus.ID + ":compressed/obsidian5");
+        this.textureArray[5] = iicon.registerIcon(GTPlusPlus.ID + ":compressed/obsidian_invert");
+        this.textureArray[6] = iicon.registerIcon(GTPlusPlus.ID + ":compressed/glowstone1");
+        this.textureArray[7] = iicon.registerIcon(GTPlusPlus.ID + ":compressed/glowstone2");
+        this.textureArray[8] = iicon.registerIcon(GTPlusPlus.ID + ":compressed/glowstone3");
+        this.textureArray[9] = iicon.registerIcon(GTPlusPlus.ID + ":compressed/glowstone4");
+        this.textureArray[10] = iicon.registerIcon(GTPlusPlus.ID + ":compressed/glowstone5");
+        this.textureArray[11] = iicon.registerIcon(GTPlusPlus.ID + ":compressed/netherrack1");
+        this.textureArray[12] = iicon.registerIcon(GTPlusPlus.ID + ":compressed/netherrack2");
+        this.textureArray[13] = iicon.registerIcon(GTPlusPlus.ID + ":compressed/netherrack3");
     }
 
     /**
@@ -78,7 +81,7 @@ public class BlockCompressedObsidian extends BlockObsidian {
 
     @Override
     public void getSubBlocks(final Item item, final CreativeTabs tab, final List list) {
-        for (int i = 0; i < 11; i++) {
+        for (int i = 0; i < 14; i++) {
             list.add(new ItemStack(item, 1, i));
         }
     }

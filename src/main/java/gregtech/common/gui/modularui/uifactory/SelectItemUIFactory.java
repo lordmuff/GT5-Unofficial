@@ -18,15 +18,15 @@ import com.gtnewhorizons.modularui.api.drawable.ItemDrawable;
 import com.gtnewhorizons.modularui.api.drawable.Text;
 import com.gtnewhorizons.modularui.api.screen.ModularWindow;
 import com.gtnewhorizons.modularui.api.screen.UIBuildContext;
+import com.gtnewhorizons.modularui.api.widget.Widget;
 import com.gtnewhorizons.modularui.common.widget.ButtonWidget;
 import com.gtnewhorizons.modularui.common.widget.DrawableWidget;
 import com.gtnewhorizons.modularui.common.widget.TextWidget;
 
 import gregtech.api.enums.Dyes;
-import gregtech.api.gui.GT_GUIColorOverride;
-import gregtech.api.gui.modularui.GT_UITextures;
-import gregtech.api.util.GT_Util;
-import gregtech.api.util.GT_Utility;
+import gregtech.api.gui.GUIColorOverride;
+import gregtech.api.gui.modularui.GTUITextures;
+import gregtech.api.util.GTUtility;
 
 /**
  * Creates UI for selecting item from given list. This is client-only UI to allow using client-preferred settings.
@@ -44,10 +44,10 @@ public class SelectItemUIFactory {
     private int selected;
     private boolean anotherWindow = false;
     private AtomicBoolean dialogOpened;
-    private int guiTint = GT_Util.getRGBInt(Dyes.MACHINE_METAL.getRGBA());
+    private int guiTint = Dyes.MACHINE_METAL.toInt();
     private Supplier<ItemStack> currentGetter;
 
-    private final GT_GUIColorOverride colorOverride = GT_GUIColorOverride.get("SelectItemUIFactory");
+    private final GUIColorOverride colorOverride = GUIColorOverride.get("SelectItemUIFactory");
 
     private int getTextColorOrDefault(String textType, int defaultColor) {
         return colorOverride.getTextColorOrDefault(textType, defaultColor);
@@ -139,10 +139,10 @@ public class SelectItemUIFactory {
                 super.onScreenUpdate();
                 if (currentGetter != null) {
                     ItemStack current = currentGetter.get();
-                    selected = GT_Utility.findMatchingStackInList(stacks, current);
+                    selected = GTUtility.findMatchingStackInList(stacks, current);
                 }
             }
-        }.setDrawable(GT_UITextures.SLOT_DARK_GRAY)
+        }.setDrawable(GTUITextures.SLOT_DARK_GRAY)
             .setPos(currentSlotX, currentSlotY)
             .setSize(18, 18))
             .widget(
@@ -167,18 +167,22 @@ public class SelectItemUIFactory {
                 }
             }.setOnClick((clickData, widget) -> {
                 if (clickData.mouseButton == 0) {
-                    setSelected(index);
+                    setSelected(index, widget);
                 } else {
-                    setSelected(UNSELECTED);
+                    setSelected(UNSELECTED, widget);
                 }
                 selectedCallback.accept(getCandidate(getSelected()));
+                if (clickData.shift) {
+                    widget.getWindow()
+                        .tryClose();
+                }
             })
                 .setSynced(false, false)
-                .dynamicTooltip(() -> GuiHelper.getItemTooltip(stacks.get(index)))
+                .dynamicTooltip(() -> getItemTooltips(index))
                 .setUpdateTooltipEveryTick(true)
                 .setBackground(
                     () -> new IDrawable[] {
-                        index == selected ? GT_UITextures.SLOT_DARK_GRAY : ModularUITextures.ITEM_SLOT, })
+                        index == selected ? GTUITextures.SLOT_DARK_GRAY : ModularUITextures.ITEM_SLOT, })
                 .setPos(7 + 18 * (index % cols), 43 + 18 * (index / cols))
                 .setSize(18, 18));
         }
@@ -207,12 +211,16 @@ public class SelectItemUIFactory {
         return selected;
     }
 
-    public void setSelected(int selected) {
+    public void setSelected(int selected, Widget widget) {
         if (selected == this.selected) return;
-        int newSelected = GT_Utility.clamp(selected, UNSELECTED, stacks.size() - 1);
+        int newSelected = GTUtility.clamp(selected, UNSELECTED, stacks.size() - 1);
         if (noDeselect && newSelected == UNSELECTED) return;
 
         this.selected = newSelected;
+    }
+
+    protected List<String> getItemTooltips(final int index) {
+        return GuiHelper.getItemTooltip(stacks.get(index));
     }
 
     private ItemStack getCandidate(int listIndex) {

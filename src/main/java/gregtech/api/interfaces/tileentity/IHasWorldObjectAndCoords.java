@@ -1,7 +1,6 @@
 package gregtech.api.interfaces.tileentity;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -80,13 +79,13 @@ public interface IHasWorldObjectAndCoords {
 
     Block getBlockAtSideAndDistance(ForgeDirection side, int aDistance);
 
-    byte getMetaID(int aX, int aY, int aZ);
+    int getMetaID(int aX, int aY, int aZ);
 
-    byte getMetaIDOffset(int aX, int aY, int aZ);
+    int getMetaIDOffset(int aX, int aY, int aZ);
 
-    byte getMetaIDAtSide(ForgeDirection side);
+    int getMetaIDAtSide(ForgeDirection side);
 
-    byte getMetaIDAtSideAndDistance(ForgeDirection side, int aDistance);
+    int getMetaIDAtSideAndDistance(ForgeDirection side, int aDistance);
 
     byte getLightLevel(int aX, int aY, int aZ);
 
@@ -167,24 +166,4 @@ public interface IHasWorldObjectAndCoords {
      * Function of the regular TileEntity
      */
     boolean isInvalidTileEntity();
-
-    /**
-     * Opens the GUI with this ID of this MetaTileEntity
-     *
-     * @deprecated Use ModularUI
-     */
-    @Deprecated
-    default boolean openGUI(EntityPlayer aPlayer, int aID) {
-        return false;
-    }
-
-    /**
-     * Opens the GUI with the ID = 0 of this TileEntity
-     *
-     * @deprecated Use ModularUI
-     */
-    @Deprecated
-    default boolean openGUI(EntityPlayer aPlayer) {
-        return false;
-    }
 }

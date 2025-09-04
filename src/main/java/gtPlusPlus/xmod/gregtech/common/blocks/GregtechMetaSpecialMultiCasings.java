@@ -13,10 +13,10 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.TAE;
 import gregtech.api.enums.Textures;
-import gregtech.api.util.GT_LanguageManager;
-import gregtech.common.blocks.GT_Material_Casings;
+import gregtech.api.render.TextureFactory;
+import gregtech.api.util.GTLanguageManager;
+import gregtech.common.blocks.MaterialCasings;
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
-import gtPlusPlus.xmod.gregtech.api.objects.GTPP_CopiedBlockTexture;
 import gtPlusPlus.xmod.gregtech.common.blocks.textures.TexturesGtBlock;
 import gtPlusPlus.xmod.gregtech.common.blocks.textures.turbine.LargeTurbineTextureHandler;
 
@@ -30,41 +30,34 @@ public class GregtechMetaSpecialMultiCasings extends GregtechMetaCasingBlocksAbs
 
         @Override
         public void addInformation(ItemStack aStack, EntityPlayer aPlayer, List aList, boolean aF3_H) {
-            int aMeta = aStack.getItemDamage();
-            if (aMeta < 10) {
-                // aList.add("Tier: "+GT_Values.VN[aMeta]);
-            }
             super.addInformation(aStack, aPlayer, aList, aF3_H);
         }
     }
 
     public GregtechMetaSpecialMultiCasings() {
-        super(SpecialCasingItemBlock.class, "gtplusplus.blockspecialcasings.1", GT_Material_Casings.INSTANCE);
-        GT_LanguageManager.addStringLocalization(this.getUnlocalizedName() + ".0.name", "Turbine Shaft");
-        GT_LanguageManager
+        super(SpecialCasingItemBlock.class, "gtplusplus.blockspecialcasings.1", MaterialCasings.INSTANCE);
+        GTLanguageManager.addStringLocalization(this.getUnlocalizedName() + ".0.name", "Turbine Shaft");
+        GTLanguageManager
             .addStringLocalization(this.getUnlocalizedName() + ".1.name", "Reinforced Steam Turbine Casing");
-        GT_LanguageManager
+        GTLanguageManager
             .addStringLocalization(this.getUnlocalizedName() + ".2.name", "Reinforced HP Steam Turbine Casing");
-        GT_LanguageManager
-            .addStringLocalization(this.getUnlocalizedName() + ".3.name", "Reinforced Gas Turbine Casing");
-        GT_LanguageManager
+        GTLanguageManager.addStringLocalization(this.getUnlocalizedName() + ".3.name", "Reinforced Gas Turbine Casing");
+        GTLanguageManager
             .addStringLocalization(this.getUnlocalizedName() + ".4.name", "Reinforced Plasma Turbine Casing");
-        GT_LanguageManager.addStringLocalization(this.getUnlocalizedName() + ".5.name", "Tesla Containment Casing");
-        GT_LanguageManager.addStringLocalization(this.getUnlocalizedName() + ".6.name", "Structural Solar Casing");
-        GT_LanguageManager.addStringLocalization(this.getUnlocalizedName() + ".7.name", "Salt Containment Casing");
-        GT_LanguageManager.addStringLocalization(this.getUnlocalizedName() + ".8.name", "Thermally Insulated Casing");
-        GT_LanguageManager.addStringLocalization(this.getUnlocalizedName() + ".9.name", "Flotation Cell Casings");
-        GT_LanguageManager.addStringLocalization(this.getUnlocalizedName() + ".10.name", "Reinforced Engine Casing");
-        GT_LanguageManager
-            .addStringLocalization(this.getUnlocalizedName() + ".11.name", "Molecular Containment Casing");
-        GT_LanguageManager
+        GTLanguageManager.addStringLocalization(this.getUnlocalizedName() + ".5.name", "Tesla Containment Casing");
+        GTLanguageManager.addStringLocalization(this.getUnlocalizedName() + ".6.name", "Structural Solar Casing");
+        GTLanguageManager.addStringLocalization(this.getUnlocalizedName() + ".7.name", "Salt Containment Casing");
+        GTLanguageManager.addStringLocalization(this.getUnlocalizedName() + ".8.name", "Thermally Insulated Casing");
+        GTLanguageManager.addStringLocalization(this.getUnlocalizedName() + ".9.name", "Flotation Cell Casings");
+        GTLanguageManager.addStringLocalization(this.getUnlocalizedName() + ".10.name", "Reinforced Engine Casing");
+        GTLanguageManager.addStringLocalization(this.getUnlocalizedName() + ".11.name", "Molecular Containment Casing");
+        GTLanguageManager
             .addStringLocalization(this.getUnlocalizedName() + ".12.name", "High Voltage Current Capacitor");
-        GT_LanguageManager.addStringLocalization(this.getUnlocalizedName() + ".13.name", "Particle Containment Casing");
-        GT_LanguageManager
+        GTLanguageManager.addStringLocalization(this.getUnlocalizedName() + ".13.name", "Particle Containment Casing");
+        GTLanguageManager
             .addStringLocalization(this.getUnlocalizedName() + ".14.name", "Reinforced Heat Exchanger Casing");
-        GT_LanguageManager
-            .addStringLocalization(this.getUnlocalizedName() + ".15.name", "Reinforced SC Turbine Casing");
-        TAE.registerTexture(1, 12, new GTPP_CopiedBlockTexture(this, 6, 14));
+        GTLanguageManager.addStringLocalization(this.getUnlocalizedName() + ".15.name", "Reinforced SC Turbine Casing");
+        TAE.registerTexture(1, 12, TextureFactory.of(this, 14));
 
         GregtechItemList.Casing_Turbine_Shaft.set(new ItemStack(this, 1, 0));
         GregtechItemList.Casing_Turbine_LP.set(new ItemStack(this, 1, 1));
@@ -93,26 +86,25 @@ public class GregtechMetaSpecialMultiCasings extends GregtechMetaCasingBlocksAbs
 
     @Override
     public IIcon getIcon(final int ordinalSide, final int aMeta) {
-        return getStaticIcon((byte) ordinalSide, (byte) aMeta);
+        return getStaticIcon((byte) ordinalSide, aMeta);
     }
 
-    public static IIcon getStaticIcon(final int ordinalSide, final byte aMeta) {
+    public static IIcon getStaticIcon(final int ordinalSide, final int aMeta) {
         return switch (aMeta) {
             case 0 -> TexturesGtBlock.Casing_Redox_1.getIcon();
-            case 1 -> Textures.BlockIcons.MACHINE_CASING_TURBINE.getIcon();
-            case 2 -> Textures.BlockIcons.MACHINE_CASING_STABLE_TITANIUM.getIcon();
-            case 3 -> Textures.BlockIcons.MACHINE_CASING_CLEAN_STAINLESSSTEEL.getIcon();
-            case 4 -> Textures.BlockIcons.MACHINE_CASING_ROBUST_TUNGSTENSTEEL.getIcon();
+            case 1 -> Textures.BlockIcons.MACHINE_CASING_TURBINE_STEEL.getIcon();
+            case 2 -> Textures.BlockIcons.MACHINE_CASING_TURBINE_TITANIUM.getIcon();
+            case 3 -> Textures.BlockIcons.MACHINE_CASING_TURBINE_STAINLESSSTEEL.getIcon();
+            case 4 -> Textures.BlockIcons.MACHINE_CASING_TURBINE_TUNGSTENSTEEL.getIcon();
             case 5 -> TexturesGtBlock.Casing_Material_RedSteel.getIcon();
             case 6 -> TexturesGtBlock.Casing_Material_MaragingSteel.getIcon();
             case 7 -> TexturesGtBlock.Casing_Material_Stellite.getIcon();
             case 8 -> TexturesGtBlock.Casing_Machine_Simple_Top.getIcon();
             case 9 -> TexturesGtBlock.TEXTURE_CASING_FLOTATION.getIcon();
-            case 10 -> TexturesGtBlock.Casing_Material_Talonite.getIcon();
+            case 10, 14 -> TexturesGtBlock.Casing_Material_Talonite.getIcon();
             case 11 -> Textures.BlockIcons.MACHINE_CASING_RADIATIONPROOF.getIcon();
             case 12 -> TexturesGtBlock.Casing_Redox_5.getIcon();
             case 13 -> TexturesGtBlock.TEXTURE_MAGIC_PANEL_B.getIcon();
-            case 14 -> TexturesGtBlock.Casing_Material_Talonite.getIcon();
             case 15 -> TexturesGtBlock.Turbine_SC_Material_Casing.getIcon();
             default -> Textures.BlockIcons.RENDERING_ERROR.getIcon();
         };

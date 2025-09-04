@@ -1,14 +1,14 @@
 package gregtech.api.objects.overclockdescriber;
 
-import static gregtech.api.util.GT_Utility.trans;
-
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import gregtech.GT_Mod;
-import gregtech.api.util.GT_OverclockCalculator;
-import gregtech.api.util.GT_Recipe;
-import gregtech.api.util.GT_Utility;
+import net.minecraft.util.StatCollector;
+
+import gregtech.GTMod;
+import gregtech.api.util.GTRecipe;
+import gregtech.api.util.GTUtility;
 import gregtech.api.util.MethodsReturnNonnullByDefault;
+import gregtech.api.util.OverclockCalculator;
 import gregtech.nei.RecipeDisplayInfo;
 
 /**
@@ -45,12 +45,12 @@ public abstract class OverclockDescriber {
     /**
      * Creates overclock calculator from given template. This template should be used instead of building from the
      * ground to avoid issues coming from different caller using different templates, but it's not applicable when using
-     * {@link GT_OverclockCalculator#ofNoOverclock(GT_Recipe)}.
+     * {@link OverclockCalculator#ofNoOverclock(GTRecipe)}.
      *
      * @param template Calculator that can be used as template. Recipe EU/t and duration are already set.
      * @param recipe   Recipe to calculate.
      */
-    public abstract GT_OverclockCalculator createCalculator(GT_OverclockCalculator template, GT_Recipe recipe);
+    public abstract OverclockCalculator createCalculator(OverclockCalculator template, GTRecipe recipe);
 
     /**
      * Draws info about the energy this object can handle on NEI recipe GUI.
@@ -60,14 +60,12 @@ public abstract class OverclockDescriber {
     public void drawDurationInfo(RecipeDisplayInfo recipeInfo) {
         if (getDurationTicks(recipeInfo.calculator) <= 0) return;
 
-        String textToDraw = trans("158", "Time: ");
-        if (GT_Mod.gregtechproxy.mNEIRecipeSecondMode) {
-            textToDraw += getDurationStringSeconds(recipeInfo.calculator);
-            if (getDurationSeconds(recipeInfo.calculator) <= 1.0d) {
-                textToDraw += String.format(" (%s)", getDurationStringTicks(recipeInfo.calculator));
-            }
+        String textToDraw;
+
+        if (GTMod.proxy.mNEIRecipeSecondMode && getDurationSeconds(recipeInfo.calculator) > 1.0d) {
+            textToDraw = getDurationStringSeconds(recipeInfo.calculator);
         } else {
-            textToDraw += getDurationStringTicks(recipeInfo.calculator);
+            textToDraw = getDurationStringTicks(recipeInfo.calculator);
         }
         recipeInfo.drawText(textToDraw);
     }
@@ -76,31 +74,33 @@ public abstract class OverclockDescriber {
      * Used to limit the shown recipes when searching recipes with NEI recipe catalyst. Unless overridden, this method
      * doesn't do anything special (except for a bit worse performance).
      * <p>
-     * In order to make use of this method, {@link gregtech.api.recipe.RecipeMapBuilder#useCustomFilterForNEI}
-     * should be enabled for the recipemap.
+     * In order to make use of this method, {@link gregtech.api.recipe.RecipeMapBuilder#useCustomFilterForNEI} should be
+     * enabled for the recipemap.
      *
      * @return If this object can handle the supplied recipe
      */
-    public boolean canHandle(GT_Recipe recipe) {
-        byte tier = GT_Utility.getTier(recipe.mEUt);
+    public boolean canHandle(GTRecipe recipe) {
+        byte tier = GTUtility.getTier(recipe.mEUt);
         return this.tier >= tier;
     }
 
-    private int getDurationTicks(GT_OverclockCalculator calculator) {
+    private int getDurationTicks(OverclockCalculator calculator) {
         return calculator.getDuration();
     }
 
-    private double getDurationSeconds(GT_OverclockCalculator calculator) {
+    private double getDurationSeconds(OverclockCalculator calculator) {
         return 0.05d * getDurationTicks(calculator);
     }
 
-    private String getDurationStringSeconds(GT_OverclockCalculator calculator) {
-        return GT_Utility.formatNumbers(getDurationSeconds(calculator)) + GT_Utility.trans("161", " secs");
+    private String getDurationStringSeconds(OverclockCalculator calculator) {
+        return StatCollector.translateToLocalFormatted(
+            "GT5U.nei.display.duration.seconds",
+            GTUtility.formatNumbers(getDurationSeconds(calculator)));
     }
 
-    private String getDurationStringTicks(GT_OverclockCalculator calculator) {
-        String ticksString = getDurationTicks(calculator) == 1 ? GT_Utility.trans("209.1", " tick")
-            : GT_Utility.trans("209", " ticks");
-        return GT_Utility.formatNumbers(getDurationTicks(calculator)) + ticksString;
+    private String getDurationStringTicks(OverclockCalculator calculator) {
+        return StatCollector.translateToLocalFormatted(
+            "GT5U.nei.display.duration.ticks",
+            GTUtility.formatNumbers(getDurationTicks(calculator)));
     }
 }

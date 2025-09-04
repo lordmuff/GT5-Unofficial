@@ -15,35 +15,30 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.GregTech_API;
+import gregtech.api.covers.CoverRegistry;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TextureSet;
-import gregtech.api.objects.GT_RenderedTexture;
-import gregtech.api.util.GT_LanguageManager;
-import gregtech.api.util.GT_OreDictUnificator;
+import gregtech.api.render.TextureFactory;
+import gregtech.api.util.GTLanguageManager;
+import gregtech.api.util.GTOreDictUnificator;
+import gregtech.api.util.StringUtils;
 import gtPlusPlus.api.objects.Logger;
+import gtPlusPlus.core.config.Configuration;
 import gtPlusPlus.core.creative.AddToCreativeTab;
-import gtPlusPlus.core.lib.CORE;
+import gtPlusPlus.core.lib.GTPPCore;
 import gtPlusPlus.core.material.Material;
 import gtPlusPlus.core.util.Utils;
-import gtPlusPlus.core.util.data.StringUtils;
 import gtPlusPlus.core.util.math.MathUtils;
 import gtPlusPlus.core.util.minecraft.EntityUtils;
-import gtPlusPlus.core.util.minecraft.ItemUtils;
 import gtPlusPlus.core.util.sys.KeyboardUtils;
 
 public class BaseItemComponent extends Item {
-
-    private static final Class<TextureSet> mTextureSetPreload;
-
-    static {
-        mTextureSetPreload = TextureSet.class;
-    }
 
     public final Material componentMaterial;
     public final String materialName;
@@ -51,7 +46,7 @@ public class BaseItemComponent extends Item {
     public final String translatedMaterialName;
     public final ComponentTypes componentType;
     public final int componentColour;
-    public Object extraData;
+    public short[] extraData;
 
     protected IIcon base;
     protected IIcon overlay;
@@ -71,15 +66,14 @@ public class BaseItemComponent extends Item {
 
         // if (componentType != ComponentTypes.DUST)
 
-        GT_OreDictUnificator.registerOre(
-            componentType.getOreDictName() + material.getUnlocalizedName(),
-            ItemUtils.getSimpleStack(this));
+        GTOreDictUnificator
+            .registerOre(componentType.getOreDictName() + material.getUnlocalizedName(), new ItemStack(this));
         if (componentType == ComponentTypes.GEAR) {
-            GT_OreDictUnificator.registerOre("gear" + material.getUnlocalizedName(), ItemUtils.getSimpleStack(this));
+            GTOreDictUnificator.registerOre("gear" + material.getUnlocalizedName(), new ItemStack(this));
         }
         registerComponent();
 
-        GT_LanguageManager.addStringLocalization("gtplusplus.item." + unlocalName + ".name", getFormattedLangName());
+        GTLanguageManager.addStringLocalization("gtplusplus.item." + unlocalName + ".name", getFormattedLangName());
     }
 
     // For Cell Generation
@@ -88,7 +82,7 @@ public class BaseItemComponent extends Item {
         // Handles .'s from fluid internal names.
         String aFormattedNameForFluids;
         if (unlocalName.contains(".")) {
-            aFormattedNameForFluids = StringUtils.splitAndUppercase(unlocalName, ".");
+            aFormattedNameForFluids = StringUtils.splitAndUppercase(unlocalName);
         } else {
             aFormattedNameForFluids = unlocalName;
         }
@@ -109,12 +103,12 @@ public class BaseItemComponent extends Item {
 
         this.setTextureName(GTPlusPlus.ID + ":" + "item" + ComponentTypes.CELL.COMPONENT_NAME);
         GameRegistry.registerItem(this, aFormattedNameForFluids);
-        GT_OreDictUnificator.registerOre(
-            ComponentTypes.CELL.getOreDictName() + Utils.sanitizeStringKeepBrackets(localName),
-            ItemUtils.getSimpleStack(this));
+        GTOreDictUnificator.registerOre(
+            ComponentTypes.CELL.getOreDictName() + StringUtils.sanitizeStringKeepBrackets(localName),
+            new ItemStack(this));
         registerComponent();
 
-        GT_LanguageManager
+        GTLanguageManager
             .addStringLocalization("gtplusplus.item." + this.unlocalName + ".name", getFormattedLangName());
     }
 
@@ -136,7 +130,7 @@ public class BaseItemComponent extends Item {
             .name();
         ItemStack x = aMap.get(aKey);
         if (x == null) {
-            aMap.put(aKey, ItemUtils.getSimpleStack(this));
+            aMap.put(aKey, new ItemStack(this));
             Logger.MATERIALS(
                 "Registering a material component. Item: [" + componentMaterial.getUnlocalizedName()
                     + "] Map: ["
@@ -144,21 +138,15 @@ public class BaseItemComponent extends Item {
                     + "]");
             Material.mComponentMap.put(componentMaterial.getUnlocalizedName(), aMap);
             if (componentType == ComponentTypes.PLATE) {
-                GregTech_API.registerCover(
+                CoverRegistry.registerDecorativeCover(
                     componentMaterial.getPlate(1),
-                    new GT_RenderedTexture(
-                        componentMaterial.getTextureSet().mTextures[71],
-                        componentMaterial.getRGBA(),
-                        false),
-                    null);
+                    TextureFactory
+                        .of(componentMaterial.getTextureSet().mTextures[71], componentMaterial.getRGBA(), false));
             } else if (componentType == ComponentTypes.PLATEDOUBLE) {
-                GregTech_API.registerCover(
+                CoverRegistry.registerDecorativeCover(
                     componentMaterial.getPlateDouble(1),
-                    new GT_RenderedTexture(
-                        componentMaterial.getTextureSet().mTextures[72],
-                        componentMaterial.getRGBA(),
-                        false),
-                    null);
+                    TextureFactory
+                        .of(componentMaterial.getTextureSet().mTextures[72], componentMaterial.getRGBA(), false));
             }
             return true;
         } else {
@@ -169,7 +157,7 @@ public class BaseItemComponent extends Item {
     }
 
     public String getCorrectTextures() {
-        if (!CORE.ConfigSwitches.useGregtechTextures) {
+        if (!Configuration.visual.useGregtechTextures) {
             return GTPlusPlus.ID + ":" + "item" + this.componentType.COMPONENT_NAME;
         }
         String metType = "9j4852jyo3rjmh3owlhw9oe";
@@ -198,12 +186,12 @@ public class BaseItemComponent extends Item {
 
     public String getFluidName(String aKey) {
         String trans;
-        trans = GT_LanguageManager.getTranslation(aKey);
+        trans = GTLanguageManager.getTranslation(aKey);
         if (!trans.equals(aKey)) return trans;
         aKey = "fluid." + aKey;
-        trans = GT_LanguageManager.getTranslation(aKey);
+        trans = GTLanguageManager.getTranslation(aKey);
         if (!trans.equals(aKey)) return trans;
-        return GT_LanguageManager.addStringLocalization(
+        return GTLanguageManager.addStringLocalization(
             "gtplusplus.fluid." + this.materialName.toLowerCase()
                 .replace(" ", ""),
             this.materialName);
@@ -211,7 +199,7 @@ public class BaseItemComponent extends Item {
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        return GT_LanguageManager.getTranslation("gtplusplus.item." + unlocalName + ".name")
+        return GTLanguageManager.getTranslation("gtplusplus.item." + unlocalName + ".name")
             .replace("%s", "%temp")
             .replace("%material", translatedMaterialName)
             .replace("%temp", "%s");
@@ -223,75 +211,44 @@ public class BaseItemComponent extends Item {
         final boolean bool) {
 
         try {
+            if (this.materialName != null && !this.materialName.isEmpty() && (this.componentMaterial != null)) {
 
-            if (this.componentMaterial == null) {
-                if (this.materialName != null) {
-                    // list.add(Utils.sanitizeStringKeepBrackets(materialName));
-                }
-            }
-
-            if ((this.materialName != null) && (this.materialName != "")
-                && !this.materialName.equals("")
-                && (this.componentMaterial != null)) {
-
-                if (this.componentMaterial != null) {
-                    if (!this.componentMaterial.vChemicalFormula.contains("?")) {
-                        list.add(Utils.sanitizeStringKeepBrackets(this.componentMaterial.vChemicalFormula));
-                    } else if (this.componentMaterial.vChemicalFormula.contains("?")) {
-                        String temp = componentMaterial.vChemicalFormula;
-                        temp = temp.replace(" ", "");
-                        temp = temp.replace("-", "");
-                        temp = temp.replace("_", "");
-                        temp = temp.replace("!", "");
-                        temp = temp.replace("@", "");
-                        temp = temp.replace("#", "");
-                        temp = temp.replace(" ", "");
-                        list.add(temp);
-                    }
-
-                    if (this.componentMaterial.isRadioactive) {
-                        list.add(CORE.GT_Tooltip_Radioactive.get());
-                    }
-
-                    if (this.componentType == ComponentTypes.INGOT || this.componentType == ComponentTypes.HOTINGOT) {
-                        if ((this.materialName != null) && (this.materialName != "")
-                            && !this.materialName.equals("")
-                            && this.unlocalName.toLowerCase()
-                                .contains("hot")) {
-                            list.add(
-                                EnumChatFormatting.GRAY + "Warning: "
-                                    + EnumChatFormatting.RED
-                                    + "Very hot! "
-                                    + EnumChatFormatting.GRAY
-                                    + " Avoid direct handling..");
-                        }
-                    }
+                if (this.componentMaterial.vChemicalFormula.contains("?")) {
+                    list.add(StringUtils.sanitizeStringKeepBracketsQuestion(this.componentMaterial.vChemicalFormula));
                 } else {
-                    String aChemicalFormula = Material.sChemicalFormula.get(materialName.toLowerCase());
-                    if (aChemicalFormula != null && aChemicalFormula.length() > 0) {
-                        list.add(Utils.sanitizeStringKeepBrackets(aChemicalFormula));
+                    list.add(StringUtils.sanitizeStringKeepBrackets(this.componentMaterial.vChemicalFormula));
+                }
+
+                if (this.componentMaterial.isRadioactive) {
+                    list.add(GTPPCore.GT_Tooltip_Radioactive.get());
+                }
+
+                if (this.componentType == ComponentTypes.INGOT || this.componentType == ComponentTypes.HOTINGOT) {
+                    if (this.unlocalName.toLowerCase()
+                        .contains("hot")) {
+                        list.add(StatCollector.translateToLocal("gtpp.tooltip.ingot.very_hot"));
                     }
                 }
 
                 // Hidden Tooltip
                 if (KeyboardUtils.isCtrlKeyDown()) {
-                    if (this.componentMaterial != null) {
-                        String type = this.componentMaterial.getTextureSet().mSetName;
-                        String output = type.substring(0, 1)
-                            .toUpperCase() + type.substring(1);
-                        list.add(EnumChatFormatting.GRAY + "Material Type: " + output + ".");
-                        list.add(
-                            EnumChatFormatting.GRAY + "Material State: "
-                                + this.componentMaterial.getState()
-                                    .name()
-                                + ".");
-                        list.add(
-                            EnumChatFormatting.GRAY + "Radioactivity Level: "
-                                + this.componentMaterial.vRadiationLevel
-                                + ".");
-                    }
+                    String type = this.componentMaterial.getTextureSet().mSetName;
+                    String output = type.substring(0, 1)
+                        .toUpperCase() + type.substring(1);
+                    list.add(
+                        EnumChatFormatting.GRAY
+                            + StatCollector.translateToLocalFormatted("GTPP.tooltip.material.type", output));
+                    list.add(
+                        EnumChatFormatting.GRAY + StatCollector.translateToLocalFormatted(
+                            "GTPP.tooltip.material.state",
+                            this.componentMaterial.getState()
+                                .name()));
+                    list.add(
+                        EnumChatFormatting.GRAY + StatCollector.translateToLocalFormatted(
+                            "GTPP.tooltip.material.radioactivity",
+                            this.componentMaterial.vRadiationLevel));
                 } else {
-                    list.add(EnumChatFormatting.DARK_GRAY + "Hold Ctrl to show additional info.");
+                    list.add(EnumChatFormatting.DARK_GRAY + StatCollector.translateToLocal("GTPP.tooltip.hold_ctrl"));
                 }
             }
         } catch (Throwable t) {}
@@ -299,43 +256,35 @@ public class BaseItemComponent extends Item {
         super.addInformation(stack, aPlayer, list, bool);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void onUpdate(final ItemStack iStack, final World world, final Entity entityHolding, final int p_77663_4_,
         final boolean p_77663_5_) {
         if (this.componentMaterial != null) {
-            if (entityHolding instanceof EntityPlayer) {
-                if (!((EntityPlayer) entityHolding).capabilities.isCreativeMode) {
-                    EntityUtils.applyRadiationDamageToEntity(
-                        iStack.stackSize,
-                        this.componentMaterial.vRadiationLevel,
-                        world,
-                        entityHolding);
-                }
-            }
+            EntityUtils.applyRadiationDamageToEntity(
+                iStack.stackSize,
+                this.componentMaterial.vRadiationLevel,
+                world,
+                entityHolding);
         }
     }
 
     /**
-     *
      * Handle Custom Rendering
-     *
      */
     @Override
     @SideOnly(Side.CLIENT)
     public boolean requiresMultipleRenderPasses() {
-        return (CORE.ConfigSwitches.useGregtechTextures ? true : false);
+        return Configuration.visual.useGregtechTextures;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public int getColorFromItemStack(final ItemStack stack, final int renderPass) {
 
         if (this.componentType == ComponentTypes.CELL || this.componentType == ComponentTypes.PLASMACELL) {
-            if (renderPass == 0 && !CORE.ConfigSwitches.useGregtechTextures) {
+            if (renderPass == 0 && !Configuration.visual.useGregtechTextures) {
                 return Utils.rgbtoHexValue(255, 255, 255);
             }
-            if (renderPass == 1 && CORE.ConfigSwitches.useGregtechTextures) {
+            if (renderPass == 1 && Configuration.visual.useGregtechTextures) {
                 return Utils.rgbtoHexValue(255, 255, 255);
             }
         }
@@ -343,10 +292,7 @@ public class BaseItemComponent extends Item {
         try {
             if (this.componentMaterial == null) {
                 if (extraData != null) {
-                    if (short.class.isInstance(extraData)) {
-                        short[] abc = (short[]) extraData;
-                        return Utils.rgbtoHexValue(abc[0], abc[1], abc[2]);
-                    }
+                    return Utils.rgbtoHexValue(extraData[0], extraData[1], extraData[2]);
                 }
                 return this.componentColour;
             }
@@ -380,7 +326,7 @@ public class BaseItemComponent extends Item {
 
     @Override
     public IIcon getIconFromDamageForRenderPass(final int damage, final int pass) {
-        if (CORE.ConfigSwitches.useGregtechTextures) {
+        if (Configuration.visual.useGregtechTextures) {
             if (pass == 0) {
                 return this.base;
             }
@@ -392,7 +338,7 @@ public class BaseItemComponent extends Item {
     @Override
     public void registerIcons(final IIconRegister i) {
 
-        if (CORE.ConfigSwitches.useGregtechTextures) {
+        if (Configuration.visual.useGregtechTextures) {
             this.base = i.registerIcon(getCorrectTextures());
             this.overlay = i.registerIcon(getCorrectTextures() + "_OVERLAY");
         } else {
@@ -401,7 +347,7 @@ public class BaseItemComponent extends Item {
         }
     }
 
-    public static enum ComponentTypes {
+    public enum ComponentTypes {
 
         DUST("Dust", "@ Dust", "dust", OrePrefixes.dust),
         DUSTSMALL("DustSmall", "Small Pile of @ Dust", "dustSmall", OrePrefixes.dustSmall),
@@ -425,14 +371,15 @@ public class BaseItemComponent extends Item {
         SPRING("Spring", "@ Spring", "spring", OrePrefixes.spring),
         SMALLSPRING("SmallSpring", "Small @ Spring", "springSmall", OrePrefixes.springSmall),
         FINEWIRE("FineWire", "Fine @ Wire", "wireFine", OrePrefixes.wireFine),
-        PLATEDENSE("PlateDense", "Dense @ Plate", "plateDense", OrePrefixes.plateDense),;
+        PLATEDENSE("PlateDense", "Dense @ Plate", "plateDense", OrePrefixes.plateDense),
+        PLATESUPERDENSE("PlateSuperDense", "Superdense @ Plate", "plateSuperdense", OrePrefixes.plateSuperdense);
 
         private final String COMPONENT_NAME;
         private final String DISPLAY_NAME;
         private final String OREDICT_NAME;
         private final OrePrefixes a_GT_EQUAL;
 
-        private ComponentTypes(final String LocalName, final String DisplayName, final String OreDictName,
+        ComponentTypes(final String LocalName, final String DisplayName, final String OreDictName,
             final OrePrefixes aPrefix) {
             this.COMPONENT_NAME = LocalName;
             this.DISPLAY_NAME = DisplayName;

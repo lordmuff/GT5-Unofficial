@@ -9,13 +9,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
 import gregtech.api.enums.ItemList;
-import gregtech.common.items.GT_MetaGenerated_Item_01;
+import gregtech.common.items.MetaGeneratedItem01;
 import gtPlusPlus.api.objects.Logger;
-import gtPlusPlus.core.container.Container_ProjectTable;
+import gtPlusPlus.core.container.ContainerProjectTable;
 import gtPlusPlus.core.inventories.projecttable.InventoryProjectMain;
 import gtPlusPlus.core.inventories.projecttable.InventoryProjectOutput;
 import gtPlusPlus.core.util.minecraft.NBTUtils;
-import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 import gtPlusPlus.xmod.gregtech.common.items.MetaGeneratedGregtechItems;
 import ic2.api.network.INetworkDataProvider;
 import ic2.api.network.INetworkUpdateListener;
@@ -28,7 +27,7 @@ public class TileEntityProjectTable extends TileEntity
     public InventoryProjectMain inventoryGrid;
     public InventoryProjectOutput inventoryOutputs;
 
-    private Container_ProjectTable container;
+    private ContainerProjectTable container;
 
     public TileEntityProjectTable() {
         this.inventoryGrid = new InventoryProjectMain(); // number of slots - without product slot
@@ -36,7 +35,7 @@ public class TileEntityProjectTable extends TileEntity
         this.canUpdate();
     }
 
-    public void setContainer(Container_ProjectTable container) {
+    public void setContainer(ContainerProjectTable container) {
         this.container = container;
     }
 
@@ -122,9 +121,8 @@ public class TileEntityProjectTable extends TileEntity
             // Data stick
             ItemStack dataStick = this.inventoryOutputs.getStackInSlot(0);
             if (dataStick != null && this.container != null && container.getOutputContent() != null) {
-                if ((dataStick.getItem() instanceof GT_MetaGenerated_Item_01 && dataStick.getItemDamage() == 32708)
+                if ((dataStick.getItem() instanceof MetaGeneratedItem01 && dataStick.getItemDamage() == 32708)
                     || (dataStick == ItemList.Tool_DataStick.get(1))
-                    || (dataStick == GregtechItemList.Old_Tool_DataStick.get(1))
                     || (dataStick.getItem() instanceof MetaGeneratedGregtechItems
                         && dataStick.getItemDamage() == 32208)) {
 
@@ -158,8 +156,4 @@ public class TileEntityProjectTable extends TileEntity
         super.updateEntity();
     }
 
-    @Override
-    public boolean canUpdate() {
-        return true;
-    }
 }

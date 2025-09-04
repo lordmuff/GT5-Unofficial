@@ -10,7 +10,7 @@ import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 import gtPlusPlus.api.objects.Logger;
-import gtPlusPlus.xmod.bop.blocks.BOP_Block_Registrator;
+import gtPlusPlus.xmod.bop.blocks.BOPBlockRegistrator;
 import gtPlusPlus.xmod.bop.blocks.base.SaplingBase;
 import gtPlusPlus.xmod.bop.world.features.trees.WorldGenRainForestTree_Ex;
 
@@ -30,36 +30,21 @@ public class SaplingRainforestTree extends SaplingBase {
         new WorldGenTrees(true);
         int i1 = 0;
         int j1 = 0;
-        boolean flag = false;
 
         Block block = Blocks.air;
 
-        if (flag) {
-            world.setBlock(x + i1, y, z + j1, block, 0, 4);
-            world.setBlock(x + i1 + 1, y, z + j1, block, 0, 4);
-            world.setBlock(x + i1, y, z + j1 + 1, block, 0, 4);
-            world.setBlock(x + i1 + 1, y, z + j1 + 1, block, 0, 4);
-        } else {
-            world.setBlock(x, y, z, block, 0, 4);
-        }
-        Object o = new WorldGenRainForestTree_Ex(
-            BOP_Block_Registrator.log_Rainforest,
-            BOP_Block_Registrator.leaves_Rainforest,
+        world.setBlock(x, y, z, block, 0, 4);
+        WorldGenerator worldGenRainForestTreeEx = new WorldGenRainForestTree_Ex(
+            BOPBlockRegistrator.log_Rainforest,
+            BOPBlockRegistrator.leaves_Rainforest,
             0,
             0,
             true,
             50,
             75);
 
-        if (!((WorldGenerator) o).generate(world, rand, x + i1, y, z + j1)) {
-            if (flag) {
-                world.setBlock(x + i1, y, z + j1, this, l, 4);
-                world.setBlock(x + i1 + 1, y, z + j1, this, l, 4);
-                world.setBlock(x + i1, y, z + j1 + 1, this, l, 4);
-                world.setBlock(x + i1 + 1, y, z + j1 + 1, this, l, 4);
-            } else {
-                world.setBlock(x, y, z, this, l, 4);
-            }
+        if (!worldGenRainForestTreeEx.generate(world, rand, x + i1, y, z + j1)) {
+            world.setBlock(x, y, z, this, l, 4);
         }
     }
 }

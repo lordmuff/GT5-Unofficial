@@ -1,21 +1,18 @@
 package gtPlusPlus.xmod.gregtech.api.enums;
 
-import static gregtech.api.enums.GT_Values.W;
+import static gregtech.api.util.GTRecipeBuilder.WILDCARD;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import gregtech.api.util.GT_ModHandler;
-import gregtech.api.util.GT_OreDictUnificator;
-import gregtech.api.util.GT_Utility;
-import gtPlusPlus.xmod.gregtech.api.interfaces.GregtechItemContainer;
+import gregtech.api.util.GTModHandler;
+import gregtech.api.util.GTOreDictUnificator;
+import gregtech.api.util.GTUtility;
+import gtPlusPlus.xmod.gregtech.api.interfaces.IGregtechItemContainer;
 
-/**
- * Class containing all non-OreDict Items of GregTech.
- */
-public enum GregtechItemList implements GregtechItemContainer {
+public enum GregtechItemList implements IGregtechItemContainer {
 
     /**
      * Items
@@ -26,32 +23,6 @@ public enum GregtechItemList implements GregtechItemContainer {
     Armour_Hazmat_Advanced_Chest,
     Armour_Hazmat_Advanced_Legs,
     Armour_Hazmat_Advanced_Boots,
-
-    // Gregtech Machine Parts
-    Electric_Motor_LuV,
-    Electric_Motor_ZPM,
-    Electric_Motor_UV,
-    Electric_Pump_LuV,
-    Electric_Pump_ZPM,
-    Electric_Pump_UV,
-    Conveyor_Module_LuV,
-    Conveyor_Module_ZPM,
-    Conveyor_Module_UV,
-    Electric_Piston_LuV,
-    Electric_Piston_ZPM,
-    Electric_Piston_UV,
-    Robot_Arm_LuV,
-    Robot_Arm_ZPM,
-    Robot_Arm_UV,
-    Field_Generator_LuV,
-    Field_Generator_ZPM,
-    Field_Generator_UV,
-    Emitter_LuV,
-    Emitter_ZPM,
-    Emitter_UV,
-    Sensor_LuV,
-    Sensor_ZPM,
-    Sensor_UV,
 
     // Mixed Components
     TransmissionComponent_LV,
@@ -64,52 +35,6 @@ public enum GregtechItemList implements GregtechItemContainer {
     TransmissionComponent_UV,
     TransmissionComponent_UHV,
 
-    // Recipe Circuit
-    Circuit_BioRecipeSelector,
-    Circuit_T3RecipeSelector,
-
-    // Circuits
-    Old_Circuit_Primitive,
-    Old_Circuit_Basic,
-    Old_Circuit_Good,
-    Old_Circuit_Advanced,
-    Old_Circuit_Data,
-    Old_Circuit_Elite,
-    Old_Circuit_Master,
-    Old_Tool_DataOrb,
-    Old_Circuit_Ultimate,
-    Old_Tool_DataStick,
-    Circuit_IV,
-    Circuit_LuV,
-    Circuit_ZPM,
-
-    // Circuit Parts
-    Circuit_Board_IV,
-    Circuit_Board_LuV,
-    Circuit_Board_ZPM,
-    Circuit_Parts_Crystal_Chip_IV,
-    Circuit_Parts_Crystal_Chip_LuV,
-    Circuit_Parts_Crystal_Chip_ZPM,
-    Circuit_Parts_IV,
-    Circuit_Parts_LuV,
-    Circuit_Parts_ZPM,
-    Circuit_Parts_Wiring_IV,
-    Circuit_Parts_Wiring_LuV,
-    Circuit_Parts_Wiring_ZPM,
-
-    // Old Style Circuits
-    Old_Circuit_Board_Basic,
-    Old_Circuit_Board_Advanced,
-    Old_Circuit_Board_Elite,
-    Old_Circuit_Parts_Crystal_Chip_Elite,
-    Old_Circuit_Parts_Crystal_Chip_Master,
-    Old_Circuit_Parts_Advanced,
-    Old_Circuit_Parts_Wiring_Basic,
-    Old_Circuit_Parts_Wiring_Advanced,
-    Old_Circuit_Parts_Wiring_Elite,
-    Old_Empty_Board_Basic,
-    Old_Empty_Board_Elite,
-
     // Batteries
     Battery_RE_EV_Sodium,
     Battery_RE_EV_Cadmium,
@@ -119,21 +44,10 @@ public enum GregtechItemList implements GregtechItemContainer {
     Shape_Extruder_WindmillShaft,
     Shape_Extruder_SmallGear,
 
-    // Cooked Raisin Toast for ImQ009
-    Food_Baked_Raisin_Bread,
-
-    // Fluid Cells to regulate flows.
-    Fluid_Cell_1L,
-    Fluid_Cell_16L,
-    Fluid_Cell_36L,
-    Fluid_Cell_144L,
-
-    // Debug
-    TESTITEM,
-
     // Larger Volumetric Flasks
     VOLUMETRIC_FLASK_8k,
     VOLUMETRIC_FLASK_32k,
+    KLEIN_BOTTLE,
 
     // RTG Fuels
     Pellet_RTG_PU238,
@@ -193,6 +107,18 @@ public enum GregtechItemList implements GregtechItemContainer {
     GTPP_Casing_ZPM,
     GTPP_Casing_UV,
     GTPP_Casing_UHV,
+
+    // Tiered Energy Cores
+    Energy_Core_ULV,
+    Energy_Core_LV,
+    Energy_Core_MV,
+    Energy_Core_HV,
+    Energy_Core_EV,
+    Energy_Core_IV,
+    Energy_Core_LuV,
+    Energy_Core_ZPM,
+    Energy_Core_UV,
+    Energy_Core_UHV,
 
     // IronBlastFurnace Machine_Bronze_BlastFurnace
     Casing_IronPlatedBricks,
@@ -331,14 +257,9 @@ public enum GregtechItemList implements GregtechItemContainer {
     Industrial_Extruder,
     Casing_Extruder,
 
-    // Multi-Machine
-    Industrial_MultiMachine,
     Casing_Multi_Use,
 
     // Bedrock Mining Platforms
-    /* BedrockMiner_MKI, */
-    /* BedrockMiner_MKII, */
-    /* BedrockMiner_MKIII, */
     Casing_BedrockMiner,
 
     // Large Packager
@@ -369,11 +290,7 @@ public enum GregtechItemList implements GregtechItemContainer {
     // large mixer
     Industrial_Mixer,
 
-    // Naq Reactor
-    Casing_Naq_Reactor_A,
-    Casing_Naq_Reactor_B,
-    Casing_Naq_Reactor_C,
-    /* Controller_Naq_Reactor, */
+    // Containment Casing
     Casing_Containment,
 
     // Arc Furnace
@@ -456,7 +373,11 @@ public enum GregtechItemList implements GregtechItemContainer {
     // Bit Steam Forge Hammer
     Controller_SteamForgeHammerMulti,
     // Big Steam Compressor
+    Controller_SteamMixerMulti,
+    // Big Steam Mixer
     Controller_SteamCompressorMulti,
+    // Big Steam Alloy Smelter
+    Controller_SteamAlloySmelterMulti,
 
     // Industrial Rock Breaker
     Controller_IndustrialRockBreaker,
@@ -497,6 +418,7 @@ public enum GregtechItemList implements GregtechItemContainer {
     // Air Intake hatch
     Hatch_Air_Intake,
     Hatch_Air_Intake_Extreme,
+    Hatch_Air_Intake_Atmospheric,
 
     // Reservoir Hatch
     Hatch_Reservoir,
@@ -516,7 +438,6 @@ public enum GregtechItemList implements GregtechItemContainer {
     // Custom Fluid Hatches
     Hatch_Input_Cryotheum,
     Hatch_Input_Pyrotheum,
-    Hatch_Input_Naquadah,
     Hatch_Input_Steam,
 
     // Steam Multi Buses
@@ -568,15 +489,15 @@ public enum GregtechItemList implements GregtechItemContainer {
     Hatch_SuperBus_Output_MAX,
 
     // Chisel Buses for Industrial Chisel
-    GT_MetaTileEntity_ChiselBus_LV,
-    GT_MetaTileEntity_ChiselBus_MV,
-    GT_MetaTileEntity_ChiselBus_HV,
+    ChiselBus_LV,
+    ChiselBus_MV,
+    ChiselBus_HV,
 
     // Solidifier Hatches for Industrial Multi Machine
-    GT_MetaTileEntity_Solidifier_I,
-    GT_MetaTileEntity_Solidifier_II,
-    GT_MetaTileEntity_Solidifier_III,
-    GT_MetaTileEntity_Solidifier_IV,
+    Hatch_Solidifier_I,
+    Hatch_Solidifier_II,
+    Hatch_Solidifier_III,
+    Hatch_Solidifier_IV,
 
     // ----------------------------------------------------------------------------
 
@@ -599,9 +520,6 @@ public enum GregtechItemList implements GregtechItemContainer {
      * Single Block Tile Entities
      */
 
-    // Crate Box
-    CrateStorage,
-
     // Auto TC Research Creator
     Thaumcraft_Researcher,
 
@@ -617,14 +535,6 @@ public enum GregtechItemList implements GregtechItemContainer {
     GT4_Electric_Auto_Workbench_LuV,
     GT4_Electric_Auto_Workbench_ZPM,
     GT4_Electric_Auto_Workbench_UV,
-    GT4_Electric_Inventory_Manager_LV,
-    GT4_Electric_Inventory_Manager_MV,
-    GT4_Electric_Inventory_Manager_HV,
-    GT4_Electric_Inventory_Manager_EV,
-    GT4_Electric_Inventory_Manager_IV,
-    GT4_Electric_Inventory_Manager_LuV,
-    GT4_Electric_Inventory_Manager_ZPM,
-    GT4_Electric_Inventory_Manager_UV,
 
     // GT4 Crop Harvester
     GT4_Crop_Harvester_LV,
@@ -667,20 +577,17 @@ public enum GregtechItemList implements GregtechItemContainer {
 
     // Basically is an automatic Cauldron
     SimpleDustWasher_ULV,
+    SimpleDustWasher_LV,
     SimpleDustWasher_MV,
+    SimpleDustWasher_HV,
     SimpleDustWasher_EV,
+    SimpleDustWasher_IV,
     SimpleDustWasher_LuV,
+    SimpleDustWasher_ZPM,
     SimpleDustWasher_UV,
 
     // Solar Tower Reflector
     Solar_Tower_Reflector,
-
-    // Super Tier Chests
-    Super_Chest_LV,
-    Super_Chest_MV,
-    Super_Chest_HV,
-    Super_Chest_EV,
-    Super_Chest_IV,
 
     // Wireless Chargers
     Charger_LV,
@@ -700,18 +607,6 @@ public enum GregtechItemList implements GregtechItemContainer {
     // Cold Trap
     ColdTrap_IV,
     ColdTrap_ZPM,
-
-    // Solar Generators
-    GT_Solar_ULV,
-    GT_Solar_LV,
-    GT_Solar_MV,
-    GT_Solar_HV,
-    GT_Solar_EV,
-    GT_Solar_IV,
-    GT_Solar_LuV,
-    GT_Solar_ZPM,
-    GT_Solar_UV,
-    GT_Solar_MAX,
 
     // Variable voltage RF convertor
     Energy_Buffer_1by1_ULV,
@@ -748,24 +643,6 @@ public enum GregtechItemList implements GregtechItemContainer {
     Generator_SemiFluid_EV,
     Generator_SemiFluid_IV,
 
-    // Advanced Mixer 4x4
-    Machine_Advanced_LV_Mixer,
-    Machine_Advanced_MV_Mixer,
-    Machine_Advanced_HV_Mixer,
-    Machine_Advanced_EV_Mixer,
-    Machine_Advanced_IV_Mixer,
-    Machine_Advanced_LuV_Mixer,
-    Machine_Advanced_ZPM_Mixer,
-    Machine_Advanced_UV_Mixer,
-
-    // Block that enables uplink to a superconductor network
-    SuperConductorInputNode,
-
-    // Heat Pipes
-    HeatPipe_Tier_1,
-    HeatPipe_Tier_2,
-    HeatPipe_Tier_3,
-
     // Chemical Dehydrators for nuclear fuels
     GT_Dehydrator_MV,
     GT_Dehydrator_HV,
@@ -775,16 +652,16 @@ public enum GregtechItemList implements GregtechItemContainer {
     GT_Dehydrator_ZPM,
 
     // Fluid Storage Tanks
-    GT_FluidTank_ULV,
-    GT_FluidTank_LV,
-    GT_FluidTank_MV,
-    GT_FluidTank_HV,
-    GT_FluidTank_EV,
-    GT_FluidTank_IV,
-    GT_FluidTank_LuV,
-    GT_FluidTank_ZPM,
-    GT_FluidTank_UV,
-    GT_FluidTank_MAX,
+    GTFluidTank_ULV,
+    GTFluidTank_LV,
+    GTFluidTank_MV,
+    GTFluidTank_HV,
+    GTFluidTank_EV,
+    GTFluidTank_IV,
+    GTFluidTank_LuV,
+    GTFluidTank_ZPM,
+    GTFluidTank_UV,
+    GTFluidTank_MAX,
 
     // GT RTG
     RTG,
@@ -794,9 +671,6 @@ public enum GregtechItemList implements GregtechItemContainer {
     GT_Chisel_MV,
     GT_Chisel_HV,
 
-    // Plasma Tank
-    /* Plasma_Tank, */
-
     // ----------------------------------------------------------------------------
 
     /**
@@ -804,30 +678,253 @@ public enum GregtechItemList implements GregtechItemContainer {
      */
 
     // Fluid Void Covers
-    Cover_Overflow_LV,
-    Cover_Overflow_MV,
-    Cover_Overflow_HV,
-    Cover_Overflow_EV,
-    Cover_Overflow_IV,
-
-    // Item Void Covers
-    Cover_Overflow_Item_ULV,
-    Cover_Overflow_Item_LV,
-    Cover_Overflow_Item_MV,
-    Cover_Overflow_Item_HV,
-    Cover_Overflow_Item_EV,
-    Cover_Overflow_Item_IV,
+    Cover_Overflow_Valve_LV,
+    Cover_Overflow_Valve_MV,
+    Cover_Overflow_Valve_HV,
+    Cover_Overflow_Valve_EV,
+    Cover_Overflow_Valve_IV,
 
     // ----------------------------------------------------------------------------
-    // Additional washers
-    SimpleDustWasher_LV,
-    SimpleDustWasher_HV,
-    SimpleDustWasher_IV,
-    SimpleDustWasher_ZPM,
+
+    // Redstone Utilities
+    RedstoneButtonPanel,
+    RedstoneCircuitBlock,
+    RedstoneLamp,
+    RedstoneStrengthDisplay,
+    RedstoneStrengthScale,
+
+    // ----------------------------------------------------------------------------
+    // Items previously stored elsewhere, moved here for common reference
+
+    // Catalyst Carriers
+    EmptyCatalystCarrier,
+    GreenMetalCatalyst,
+    RedMetalCatalyst,
+    YellowMetalCatalyst,
+    BlueMetalCatalyst,
+    OrangeMetalCatalyst,
+    PurpleMetalCatalyst,
+    BrownMetalCatalyst,
+    PinkMetalCatalyst,
+    FormaldehydeCatalyst,
+    SolidAcidCatalyst,
+    InfiniteMutationCatalyst,
+
+    PlatinumGroupCatalyst,
+    PlasticPolymerCatalyst,
+    RubberPolymerCatalyst,
+    AdhesionPromoterCatalyst,
+    TitaTungstenIndiumCatalyst,
+    RadioactivityCatalyst,
+    RareEarthGroupCatalyst,
+    SimpleNaquadahCatalyst,
+    HellishForceCatalyst,
+    CrystalColorizationCatalyst,
+    AdvancedNaquadahCatalyst,
+    RawIntelligenceCatalyst,
+    UltimatePlasticCatalyst,
+    BiologicalIntelligenceCatalyst,
+    TemporalHarmonyCatalyst,
+    ParticleAccelerationCatalyst,
+    SynchrotronCapableCatalyst,
+    AlgagenicGrowthPromoterCatalyst,
+
+    // Algae Items
+    Algae,
+    AlgaeBiomass,
+    GreenAlgaeBiomass,
+    BrownAlgaeBiomass,
+    GoldenBrownAlgaeBiomass,
+    RedAlgaeBiomass,
+    CelluloseFiber,
+    GoldenBrownCelluloseFiber,
+    RedCelluloseFiber,
+    Compost,
+    WoodPellet,
+    WoodBrick,
+    CellulosePulp,
+    RawBioResin,
+    AlginicAcid,
+    Alumina, // todo
+    AluminiumPellet,
+    SodiumAluminate, // todo
+    SodiumCarbonate, // todo?
+    LithiumChloride, // todo
+    CleanAluminiumMix,
+    Pinecone,
+    CrushedPineMaterials,
+
+    // Generic Chem Items
+    SodiumEthoxide,
+    SodiumEthylXanthate,
+    PotassiumEthylXanthate,
+    PotassiumHydroxide,
+
+    // Milled Items
+    MilledSphalerite,
+    MilledChalcopyrite,
+    MilledNickel,
+    MilledPlatinum,
+    MilledPentlandite,
+    MilledRedstone,
+    MilledSpessartine,
+    MilledGrossular,
+    MilledAlmandine,
+    MilledPyrope,
+    MilledMonazite,
+    MilledNetherite,
+
+    // Compressed Stuff
+    CactusCharcoal,
+    BlockCactusCharcoal,
+    CompressedCactusCharcoal,
+    DoubleCompressedCactusCharcoal,
+    TripleCompressedCactusCharcoal,
+    QuadrupleCompressedCactusCharcoal,
+    QuintupleCompressedCactusCharcoal,
+
+    CactusCoke,
+    BlockCactusCoke,
+    CompressedCactusCoke,
+    DoubleCompressedCactusCoke,
+    TripleCompressedCactusCoke,
+    QuadrupleCompressedCactusCoke,
+    QuintupleCompressedCactusCoke,
+
+    SugarCharcoal,
+    BlockSugarCharcoal,
+    CompressedSugarCharcoal,
+    DoubleCompressedSugarCharcoal,
+    TripleCompressedSugarCharcoal,
+    QuadrupleCompressedSugarCharcoal,
+    QuintupleCompressedSugarCharcoal,
+
+    SugarCoke,
+    BlockSugarCoke,
+    CompressedSugarCoke,
+    DoubleCompressedSugarCoke,
+    TripleCompressedSugarCoke,
+    QuadrupleCompressedSugarCoke,
+    QuintupleCompressedSugarCoke,
+
+    CompressedObsidian,
+    DoubleCompressedObsidian,
+    TripleCompressedObsidian,
+    QuadrupleCompressedObsidian,
+    QuintupleCompressedObsidian,
+    InvertedObsidian,
+
+    CompressedGlowstone,
+    DoubleCompressedGlowstone,
+    TripleCompressedGlowstone,
+    QuadrupleCompressedGlowstone,
+    QuintupleCompressedGlowstone,
+
+    CompressedNetherrack,
+    DoubleCompressedNetherrack,
+    TripleCompressedNetherrack,
+
+    // IC2 Rotors
+    EnergeticAlloyRotor,
+    EnergeticAlloyRotorBlade,
+    EnergeticAlloyShaft,
+
+    TungstenSteelRotor,
+    TungstenSteelRotorBlade,
+    TungstenSteelShaft,
+
+    VibrantAlloyRotor,
+    VibrantAlloyRotorBlade,
+    VibrantAlloyShaft,
+
+    IridiumRotor,
+    IridiumRotorBlade,
+    IridiumShaft,
+
+    // Basic Turbines
+    BasicIronTurbine,
+    BasicBronzeTurbine,
+    BasicSteelTurbine,
+
+    // Bee Frames
+    HiveFrameAccelerated,
+    HiveFrameVoid,
+    HiveFrameMutagenic,
+    HiveFrameBusy,
+    HiveFrameDecay,
+    HiveFrameSlow,
+    HiveFrameStabilize,
+    HiveFrameArborist,
+
+    // Thermal Inspired Items
+    BlizzRod,
+    BlizzPowder,
+    CryotheumDust,
+    PyrotheumDust,
+    PyrotheumBucket,
+    CryotheumBucket,
+    EnderBucket,
+
+    // Misc
+    CustomCoalCoke,
+    BlueprintBase,
+    MiningExplosives,
+    AlkalusDisk,
+    WitherGuard,
+    MagicFeather,
+    PestKiller,
+    FishTrap,
+
+    // ----------------------------------------------------------------------------
+    // Dust Items TODO convert to materials some day
+
+    // Tumbaga Mix
+    TumbagaMixDust,
+    SmallTumbagaMixDust,
+    TinyTumbagaMixDust,
+
+    PhthalicAnhydrideDust,
+    SmallPhthalicAnhydrideDust,
+    TinyPhthalicAnhydrideDust,
+
+    LithiumHydroperoxide,
+    SmallLithiumHydroperoxide,
+    TinyLithiumHydroperoxide,
+
+    ManureByproductsDust,
+    SmallManureByproductsDust,
+    TinyManureByproductsDust,
+
+    OrganicFertilizerDust,
+    SmallOrganicFertilizerDust,
+    TinyOrganicFertilizerDust,
+
+    DriedEarthDust,
+    SmallDriedEarthDust,
+    TinyDriedEarthDust,
+
+    FormaldehydeCatalystDust,
+    SmallFormaldehydeCatalystDust,
+    TinyFormaldehydeCatalystDust,
+
+    AmmoniumNitrateDust,
+    SmallAmmoniumNitrateDust,
+    TinyAmmoniumNitrateDust,
+
+    SimpleHandPump,
+    AdvancedHandPump,
+    SuperHandPump,
+    UltimateHandPump,
+    ExpandableHandPump,
+    DehydratorCoilWireEV,
+    DehydratorCoilWireIV,
+    DehydratorCoilWireLuV,
+    DehydratorCoilWireZPM,
+    PersonalCloakingDevice,
+    PersonalHealingDevice,
 
     ;
 
-    public static final GregtechItemList[] DYE_ONLY_ITEMS = { Energy_Buffer_1by1_EV, Energy_Buffer_1by1_EV };
     private ItemStack mStack;
     private boolean mHasNotBeenSet = true;
 
@@ -838,14 +935,14 @@ public enum GregtechItemList implements GregtechItemContainer {
             return this;
         }
         final ItemStack aStack = new ItemStack(aItem, 1, 0);
-        this.mStack = GT_Utility.copyAmount(1, aStack);
+        this.mStack = GTUtility.copyAmount(1, aStack);
         return this;
     }
 
     @Override
     public GregtechItemList set(final ItemStack aStack) {
         this.mHasNotBeenSet = false;
-        this.mStack = GT_Utility.copyAmount(1, aStack);
+        this.mStack = GTUtility.copyAmount(1, aStack);
         return this;
     }
 
@@ -854,7 +951,7 @@ public enum GregtechItemList implements GregtechItemContainer {
         if (this.mHasNotBeenSet) {
             throw new IllegalAccessError("The Enum '" + this.name() + "' has not been set to an Item at this time!");
         }
-        if (GT_Utility.isStackInvalid(this.mStack)) {
+        if (GTUtility.isStackInvalid(this.mStack)) {
             return null;
         }
         return this.mStack.getItem();
@@ -880,15 +977,15 @@ public enum GregtechItemList implements GregtechItemContainer {
 
     @Override
     public boolean isStackEqual(final Object aStack, final boolean aWildcard, final boolean aIgnoreNBT) {
-        if (GT_Utility.isStackInvalid(aStack)) {
+        if (GTUtility.isStackInvalid(aStack)) {
             return false;
         }
-        return GT_Utility
+        return GTUtility
             .areUnificationsEqual((ItemStack) aStack, aWildcard ? this.getWildcard(1) : this.get(1), aIgnoreNBT);
     }
 
     public static Block getBlockFromStack(Object aStack) {
-        if (GT_Utility.isStackInvalid(aStack)) return Blocks.air;
+        if (GTUtility.isStackInvalid(aStack)) return Blocks.air;
         return Block.getBlockFromItem(((ItemStack) aStack).getItem());
     }
 
@@ -897,10 +994,10 @@ public enum GregtechItemList implements GregtechItemContainer {
         if (this.mHasNotBeenSet) {
             throw new IllegalAccessError("The Enum '" + this.name() + "' has not been set to an Item at this time!");
         }
-        if (GT_Utility.isStackInvalid(this.mStack)) {
-            return GT_Utility.copyAmount(aAmount, aReplacements);
+        if (GTUtility.isStackInvalid(this.mStack)) {
+            return GTUtility.copyAmount(aAmount, aReplacements);
         }
-        return GT_Utility.copyAmount(aAmount, GT_OreDictUnificator.get(this.mStack));
+        return GTUtility.copyAmount(aAmount, GTOreDictUnificator.get(this.mStack));
     }
 
     @Override
@@ -908,10 +1005,10 @@ public enum GregtechItemList implements GregtechItemContainer {
         if (this.mHasNotBeenSet) {
             throw new IllegalAccessError("The Enum '" + this.name() + "' has not been set to an Item at this time!");
         }
-        if (GT_Utility.isStackInvalid(this.mStack)) {
-            return GT_Utility.copyAmount(aAmount, aReplacements);
+        if (GTUtility.isStackInvalid(this.mStack)) {
+            return GTUtility.copyAmount(aAmount, aReplacements);
         }
-        return GT_Utility.copyAmountAndMetaData(aAmount, W, GT_OreDictUnificator.get(this.mStack));
+        return GTUtility.copyAmountAndMetaData(aAmount, WILDCARD, GTOreDictUnificator.get(this.mStack));
     }
 
     @Override
@@ -919,10 +1016,10 @@ public enum GregtechItemList implements GregtechItemContainer {
         if (this.mHasNotBeenSet) {
             throw new IllegalAccessError("The Enum '" + this.name() + "' has not been set to an Item at this time!");
         }
-        if (GT_Utility.isStackInvalid(this.mStack)) {
-            return GT_Utility.copyAmount(aAmount, aReplacements);
+        if (GTUtility.isStackInvalid(this.mStack)) {
+            return GTUtility.copyAmount(aAmount, aReplacements);
         }
-        return GT_Utility.copyAmountAndMetaData(aAmount, 0, GT_OreDictUnificator.get(this.mStack));
+        return GTUtility.copyAmountAndMetaData(aAmount, 0, GTOreDictUnificator.get(this.mStack));
     }
 
     @Override
@@ -930,31 +1027,31 @@ public enum GregtechItemList implements GregtechItemContainer {
         if (this.mHasNotBeenSet) {
             throw new IllegalAccessError("The Enum '" + this.name() + "' has not been set to an Item at this time!");
         }
-        if (GT_Utility.isStackInvalid(this.mStack)) {
-            return GT_Utility.copyAmount(aAmount, aReplacements);
+        if (GTUtility.isStackInvalid(this.mStack)) {
+            return GTUtility.copyAmount(aAmount, aReplacements);
         }
-        return GT_Utility
-            .copyAmountAndMetaData(aAmount, this.mStack.getMaxDamage() - 1, GT_OreDictUnificator.get(this.mStack));
+        return GTUtility
+            .copyAmountAndMetaData(aAmount, this.mStack.getMaxDamage() - 1, GTOreDictUnificator.get(this.mStack));
     }
 
     @Override
     public ItemStack getWithName(final long aAmount, final String aDisplayName, final Object... aReplacements) {
         final ItemStack rStack = this.get(1, aReplacements);
-        if (GT_Utility.isStackInvalid(rStack)) {
+        if (GTUtility.isStackInvalid(rStack)) {
             return null;
         }
         rStack.setStackDisplayName(aDisplayName);
-        return GT_Utility.copyAmount(aAmount, rStack);
+        return GTUtility.copyAmount(aAmount, rStack);
     }
 
     @Override
     public ItemStack getWithCharge(final long aAmount, final int aEnergy, final Object... aReplacements) {
         final ItemStack rStack = this.get(1, aReplacements);
-        if (GT_Utility.isStackInvalid(rStack)) {
+        if (GTUtility.isStackInvalid(rStack)) {
             return null;
         }
-        GT_ModHandler.chargeElectricItem(rStack, aEnergy, Integer.MAX_VALUE, true, false);
-        return GT_Utility.copyAmount(aAmount, rStack);
+        GTModHandler.chargeElectricItem(rStack, aEnergy, Integer.MAX_VALUE, true, false);
+        return GTUtility.copyAmount(aAmount, rStack);
     }
 
     @Override
@@ -962,10 +1059,10 @@ public enum GregtechItemList implements GregtechItemContainer {
         if (this.mHasNotBeenSet) {
             throw new IllegalAccessError("The Enum '" + this.name() + "' has not been set to an Item at this time!");
         }
-        if (GT_Utility.isStackInvalid(this.mStack)) {
-            return GT_Utility.copyAmount(aAmount, aReplacements);
+        if (GTUtility.isStackInvalid(this.mStack)) {
+            return GTUtility.copyAmount(aAmount, aReplacements);
         }
-        return GT_Utility.copyAmountAndMetaData(aAmount, aMetaValue, GT_OreDictUnificator.get(this.mStack));
+        return GTUtility.copyAmountAndMetaData(aAmount, aMetaValue, GTOreDictUnificator.get(this.mStack));
     }
 
     @Override
@@ -974,7 +1071,7 @@ public enum GregtechItemList implements GregtechItemContainer {
             throw new IllegalAccessError("The Enum '" + this.name() + "' has not been set to an Item at this time!");
         }
         for (final Object tOreName : aOreNames) {
-            GT_OreDictUnificator.registerOre(tOreName, this.get(1));
+            GTOreDictUnificator.registerOre(tOreName, this.get(1));
         }
         return this;
     }
@@ -985,7 +1082,7 @@ public enum GregtechItemList implements GregtechItemContainer {
             throw new IllegalAccessError("The Enum '" + this.name() + "' has not been set to an Item at this time!");
         }
         for (final Object tOreName : aOreNames) {
-            GT_OreDictUnificator.registerOre(tOreName, this.getWildcard(1));
+            GTOreDictUnificator.registerOre(tOreName, this.getWildcard(1));
         }
         return this;
     }

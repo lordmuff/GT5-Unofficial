@@ -1,22 +1,26 @@
 package gtPlusPlus.xmod.gregtech.registration.gregtech;
 
-import static gtPlusPlus.xmod.gregtech.registration.gregtech.MetaTileEntityIDs.ControllerSteamForgeHammer;
-import static gtPlusPlus.xmod.gregtech.registration.gregtech.MetaTileEntityIDs.Controller_SteamCentrifugeMulti;
-import static gtPlusPlus.xmod.gregtech.registration.gregtech.MetaTileEntityIDs.Controller_SteamCompressorMulti;
-import static gtPlusPlus.xmod.gregtech.registration.gregtech.MetaTileEntityIDs.Controller_SteamMaceratorMulti;
-import static gtPlusPlus.xmod.gregtech.registration.gregtech.MetaTileEntityIDs.Controller_SteamWasherMulti;
-import static gtPlusPlus.xmod.gregtech.registration.gregtech.MetaTileEntityIDs.Hatch_Input_Bus_Steam;
-import static gtPlusPlus.xmod.gregtech.registration.gregtech.MetaTileEntityIDs.Hatch_Output_Bus_Steam;
+import static gregtech.api.enums.MetaTileEntityIDs.Controller_SteamAlloySmelterMulti;
+import static gregtech.api.enums.MetaTileEntityIDs.Controller_SteamCentrifugeMulti;
+import static gregtech.api.enums.MetaTileEntityIDs.Controller_SteamCompressorMulti;
+import static gregtech.api.enums.MetaTileEntityIDs.Controller_SteamForgeHammer;
+import static gregtech.api.enums.MetaTileEntityIDs.Controller_SteamMaceratorMulti;
+import static gregtech.api.enums.MetaTileEntityIDs.Controller_SteamMixerMulti;
+import static gregtech.api.enums.MetaTileEntityIDs.Controller_SteamWasherMulti;
+import static gregtech.api.enums.MetaTileEntityIDs.Hatch_Input_Bus_Steam;
+import static gregtech.api.enums.MetaTileEntityIDs.Hatch_Output_Bus_Steam;
 
 import gtPlusPlus.api.objects.Logger;
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
-import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.GT_MetaTileEntity_Hatch_Steam_BusInput;
-import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.GT_MetaTileEntity_Hatch_Steam_BusOutput;
-import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.steam.GregtechMetaTileEntity_SteamCentrifuge;
-import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.steam.GregtechMetaTileEntity_SteamCompressor;
-import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.steam.GregtechMetaTileEntity_SteamForgeHammer;
-import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.steam.GregtechMetaTileEntity_SteamMacerator;
-import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.steam.GregtechMetaTileEntity_SteamWasher;
+import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteamBusInput;
+import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteamBusOutput;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.steam.MTESteamAlloySmelter;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.steam.MTESteamCentrifuge;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.steam.MTESteamCompressor;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.steam.MTESteamForgeHammer;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.steam.MTESteamMacerator;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.steam.MTESteamMixer;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.steam.MTESteamWasher;
 
 public class GregtechSteamMultis {
 
@@ -25,39 +29,42 @@ public class GregtechSteamMultis {
         Logger.INFO("Gregtech5u Content | Registering Steam Multiblocks.");
 
         GregtechItemList.Controller_SteamMaceratorMulti.set(
-            new GregtechMetaTileEntity_SteamMacerator(
+            new MTESteamMacerator(
                 Controller_SteamMaceratorMulti.ID,
                 "gtpp.multimachine.steam.macerator",
                 "Steam Grinder").getStackForm(1L));
         GregtechItemList.Controller_SteamCompressorMulti.set(
-            new GregtechMetaTileEntity_SteamCompressor(
+            new MTESteamCompressor(
                 Controller_SteamCompressorMulti.ID,
                 "gtpp.multimachine.steam.compressor",
                 "Steam Squasher").getStackForm(1L));
         GregtechItemList.Controller_SteamCentrifugeMulti.set(
-            new GregtechMetaTileEntity_SteamCentrifuge(
+            new MTESteamCentrifuge(
                 Controller_SteamCentrifugeMulti.ID,
                 "gtpp.multimachine.steam.centrifuge",
-                "Steam Centrifuge").getStackForm(1));
+                "Steam Separator").getStackForm(1));
         GregtechItemList.Controller_SteamWasherMulti.set(
-            new GregtechMetaTileEntity_SteamWasher(
-                Controller_SteamWasherMulti.ID,
-                "gtpp.multimachine.steam.washer",
-                "Steam Washer").getStackForm(1));
+            new MTESteamWasher(Controller_SteamWasherMulti.ID, "gtpp.multimachine.steam.washer", "Steam Purifier")
+                .getStackForm(1));
         GregtechItemList.Controller_SteamForgeHammerMulti.set(
-            new GregtechMetaTileEntity_SteamForgeHammer(
-                ControllerSteamForgeHammer.ID,
+            new MTESteamForgeHammer(
+                Controller_SteamForgeHammer.ID,
                 "gtpp.multimachine.steam.forge.hammer",
-                "Steam Forge Hammer").getStackForm(1));
+                "Steam Presser").getStackForm(1));
+        GregtechItemList.Controller_SteamMixerMulti.set(
+            new MTESteamMixer(Controller_SteamMixerMulti.ID, "gtpp.multimachine.steam.mixer", "Steam Blender")
+                .getStackForm(1));
+        GregtechItemList.Controller_SteamAlloySmelterMulti.set(
+            new MTESteamAlloySmelter(
+                Controller_SteamAlloySmelterMulti.ID,
+                "gtpp.multimachine.steam.alloysmelter",
+                "Steam Fuser").getStackForm(1));
 
         GregtechItemList.Hatch_Input_Bus_Steam.set(
-            new GT_MetaTileEntity_Hatch_Steam_BusInput(
-                Hatch_Input_Bus_Steam.ID,
-                "hatch.input_bus.tier.steam",
-                "Input Bus (Steam)",
-                0).getStackForm(1L));
+            new MTEHatchSteamBusInput(Hatch_Input_Bus_Steam.ID, "hatch.input_bus.tier.steam", "Input Bus (Steam)", 0)
+                .getStackForm(1L));
         GregtechItemList.Hatch_Output_Bus_Steam.set(
-            new GT_MetaTileEntity_Hatch_Steam_BusOutput(
+            new MTEHatchSteamBusOutput(
                 Hatch_Output_Bus_Steam.ID,
                 "hatch.output_bus.tier.steam",
                 "Output Bus (Steam)",

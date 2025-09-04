@@ -1,23 +1,24 @@
 package gtPlusPlus.xmod.gregtech.registration.gregtech;
 
-import static gtPlusPlus.xmod.gregtech.registration.gregtech.MetaTileEntityIDs.Boiler_Advanced_HV;
-import static gtPlusPlus.xmod.gregtech.registration.gregtech.MetaTileEntityIDs.Boiler_Advanced_LV;
-import static gtPlusPlus.xmod.gregtech.registration.gregtech.MetaTileEntityIDs.Boiler_Advanced_MV;
+import static gregtech.api.enums.MetaTileEntityIDs.Boiler_Advanced_HV;
+import static gregtech.api.enums.MetaTileEntityIDs.Boiler_Advanced_LV;
+import static gregtech.api.enums.MetaTileEntityIDs.Boiler_Advanced_MV;
+import static gregtech.api.enums.Mods.IronTanks;
+import static gregtech.api.util.GTModHandler.getModItem;
 
 import net.minecraft.item.ItemStack;
 
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
-import gregtech.api.util.GT_ModHandler;
+import gregtech.api.util.GTModHandler;
+import gregtech.api.util.GTOreDictUnificator;
 import gtPlusPlus.api.objects.Logger;
-import gtPlusPlus.core.material.ALLOY;
-import gtPlusPlus.core.recipe.RECIPES_MachineComponents;
-import gtPlusPlus.core.util.minecraft.ItemUtils;
+import gtPlusPlus.core.item.ModItems;
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
-import gtPlusPlus.xmod.gregtech.common.tileentities.generators.GT_MetaTileEntity_Boiler_HV;
-import gtPlusPlus.xmod.gregtech.common.tileentities.generators.GT_MetaTileEntity_Boiler_LV;
-import gtPlusPlus.xmod.gregtech.common.tileentities.generators.GT_MetaTileEntity_Boiler_MV;
+import gtPlusPlus.xmod.gregtech.common.tileentities.generators.MTEAdvancedBoilerHV;
+import gtPlusPlus.xmod.gregtech.common.tileentities.generators.MTEAdvancedBoilerLV;
+import gtPlusPlus.xmod.gregtech.common.tileentities.generators.MTEAdvancedBoilerMV;
 
 public class GregtechAdvancedBoilers {
 
@@ -29,76 +30,68 @@ public class GregtechAdvancedBoilers {
     private static void run1() {
         // Boilers
         GregtechItemList.Boiler_Advanced_LV
-            .set(new GT_MetaTileEntity_Boiler_LV(Boiler_Advanced_LV.ID, "Advanced Boiler [LV]", 1).getStackForm(1L));
+            .set(new MTEAdvancedBoilerLV(Boiler_Advanced_LV.ID, "Advanced Boiler [LV]", 1).getStackForm(1L));
         GregtechItemList.Boiler_Advanced_MV
-            .set(new GT_MetaTileEntity_Boiler_MV(Boiler_Advanced_MV.ID, "Advanced Boiler [MV]", 2).getStackForm(1L));
+            .set(new MTEAdvancedBoilerMV(Boiler_Advanced_MV.ID, "Advanced Boiler [MV]", 2).getStackForm(1L));
         GregtechItemList.Boiler_Advanced_HV
-            .set(new GT_MetaTileEntity_Boiler_HV(Boiler_Advanced_HV.ID, "Advanced Boiler [HV]", 3).getStackForm(1L));
+            .set(new MTEAdvancedBoilerHV(Boiler_Advanced_HV.ID, "Advanced Boiler [HV]", 3).getStackForm(1L));
+    }
 
-        ItemStack chassisT1 = ItemUtils
-            .getItemStackWithMeta(true, "miscutils:itemBoilerChassis", "Boiler_Chassis_T1", 0, 1);
-        ItemStack chassisT2 = ItemUtils
-            .getItemStackWithMeta(true, "miscutils:itemBoilerChassis", "Boiler_Chassis_T1", 1, 1);
-        ItemStack chassisT3 = ItemUtils
-            .getItemStackWithMeta(true, "miscutils:itemBoilerChassis", "Boiler_Chassis_T1", 2, 1);
-
-        // Make the Coil in each following recipe a hammer and a Screwdriver.
+    public static void addRecipes() {
 
         // Chassis Recipes
-        GT_ModHandler.addCraftingRecipe(
-            chassisT1,
-            GT_ModHandler.RecipeBits.DISMANTLEABLE | GT_ModHandler.RecipeBits.NOT_REMOVABLE
-                | GT_ModHandler.RecipeBits.REVERSIBLE
-                | GT_ModHandler.RecipeBits.BUFFERED,
-            new Object[] { "WCW", "GMG", "WPW", 'M', ItemList.Hull_ULV, 'P',
-                OrePrefixes.pipeLarge.get(Materials.Bronze), 'C', OrePrefixes.circuit.get(Materials.Primitive), 'W',
-                OrePrefixes.plate.get(Materials.Lead), 'G', OrePrefixes.pipeSmall.get(Materials.Copper) });
-
-        GT_ModHandler.addCraftingRecipe(
-            chassisT2,
-            GT_ModHandler.RecipeBits.DISMANTLEABLE | GT_ModHandler.RecipeBits.NOT_REMOVABLE
-                | GT_ModHandler.RecipeBits.REVERSIBLE
-                | GT_ModHandler.RecipeBits.BUFFERED,
-            new Object[] { "WCW", "GMG", "WPW", 'M', ItemList.Hull_LV, 'P', OrePrefixes.pipeLarge.get(Materials.Steel),
-                'C', OrePrefixes.circuit.get(Materials.Basic), 'W', OrePrefixes.plate.get(Materials.Steel), 'G',
-                OrePrefixes.pipeSmall.get(Materials.Bronze) });
-
-        GT_ModHandler.addCraftingRecipe(
-            chassisT3,
-            GT_ModHandler.RecipeBits.DISMANTLEABLE | GT_ModHandler.RecipeBits.NOT_REMOVABLE
-                | GT_ModHandler.RecipeBits.REVERSIBLE
-                | GT_ModHandler.RecipeBits.BUFFERED,
-            new Object[] { "WCW", "GMG", "WPW", 'M', ItemList.Hull_MV, 'P',
-                OrePrefixes.pipeLarge.get(Materials.StainlessSteel), 'C', OrePrefixes.circuit.get(Materials.Good), 'W',
-                OrePrefixes.plate.get(Materials.Aluminium), 'G', OrePrefixes.pipeSmall.get(Materials.Steel) });
-
-        ItemStack pipeTier1 = ItemUtils.getItemStackOfAmountFromOreDict(RECIPES_MachineComponents.pipeTier7, 1);
-        ItemStack pipeTier2 = ItemUtils.getItemStackOfAmountFromOreDict(RECIPES_MachineComponents.pipeTier8, 1);
-        ItemStack pipeTier3 = ItemUtils.getItemStackOfAmountFromOreDict(RECIPES_MachineComponents.pipeTier9, 1);
+        GTModHandler.addCraftingRecipe(
+            new ItemStack(ModItems.itemBoilerChassis, 1, 0),
+            GTModHandler.RecipeBits.NOT_REMOVABLE | GTModHandler.RecipeBits.REVERSIBLE
+                | GTModHandler.RecipeBits.BUFFERED,
+            new Object[] { "DSD", "BTB", "DSD", 'D',
+                GTOreDictUnificator.get(OrePrefixes.plateDouble, Materials.Lead, 1L), 'S',
+                GTOreDictUnificator.get(OrePrefixes.pipeMedium, Materials.Steel, 1L), 'B',
+                GTOreDictUnificator.get(OrePrefixes.pipeMedium, Materials.Bronze, 1L), 'T',
+                getModItem(IronTanks.ID, "silverTank", 1, 0) });
+        GTModHandler.addCraftingRecipe(
+            new ItemStack(ModItems.itemBoilerChassis, 1, 1),
+            GTModHandler.RecipeBits.NOT_REMOVABLE | GTModHandler.RecipeBits.REVERSIBLE
+                | GTModHandler.RecipeBits.BUFFERED,
+            new Object[] { "DSD", "BTB", "DSD", 'D',
+                GTOreDictUnificator.get(OrePrefixes.plateDouble, Materials.StainlessSteel, 1L), 'S',
+                GTOreDictUnificator.get(OrePrefixes.pipeMedium, Materials.StainlessSteel, 1L), 'B',
+                GTOreDictUnificator.get(OrePrefixes.pipeMedium, Materials.Steel, 1L), 'T',
+                getModItem(IronTanks.ID, "stainlesssteelTank", 1, 0) });
+        GTModHandler.addCraftingRecipe(
+            new ItemStack(ModItems.itemBoilerChassis, 1, 2),
+            GTModHandler.RecipeBits.NOT_REMOVABLE | GTModHandler.RecipeBits.REVERSIBLE
+                | GTModHandler.RecipeBits.BUFFERED,
+            new Object[] { "DSD", "BTB", "DSD", 'D',
+                GTOreDictUnificator.get(OrePrefixes.plateDouble, Materials.Titanium, 1L), 'S',
+                GTOreDictUnificator.get(OrePrefixes.pipeMedium, Materials.Titanium, 1L), 'B',
+                GTOreDictUnificator.get(OrePrefixes.pipeMedium, Materials.StainlessSteel, 1L), 'T',
+                getModItem(IronTanks.ID, "titaniumTank", 1, 0) });
 
         // Boiler Recipes
-        GT_ModHandler.addCraftingRecipe(
-            GregtechItemList.Boiler_Advanced_LV.get(1L),
-            GT_ModHandler.RecipeBits.DISMANTLEABLE | GT_ModHandler.RecipeBits.NOT_REMOVABLE
-                | GT_ModHandler.RecipeBits.REVERSIBLE
-                | GT_ModHandler.RecipeBits.BUFFERED,
-            new Object[] { "dCw", "WMW", "GPG", 'M', ItemList.Hull_LV, 'P', pipeTier1, 'C',
-                OrePrefixes.circuit.get(Materials.Basic), 'W', chassisT1, 'G', OrePrefixes.gear.get(Materials.Steel) });
-
-        GT_ModHandler.addCraftingRecipe(
-            GregtechItemList.Boiler_Advanced_MV.get(1L),
-            GT_ModHandler.RecipeBits.DISMANTLEABLE | GT_ModHandler.RecipeBits.NOT_REMOVABLE
-                | GT_ModHandler.RecipeBits.REVERSIBLE
-                | GT_ModHandler.RecipeBits.BUFFERED,
-            new Object[] { "dCw", "WMW", "GPG", 'M', ItemList.Hull_MV, 'P', pipeTier2, 'C',
-                OrePrefixes.circuit.get(Materials.Good), 'W', chassisT2, 'G', ALLOY.SILICON_CARBIDE.getGear(1) });
-
-        GT_ModHandler.addCraftingRecipe(
-            GregtechItemList.Boiler_Advanced_HV.get(1L),
-            GT_ModHandler.RecipeBits.DISMANTLEABLE | GT_ModHandler.RecipeBits.NOT_REMOVABLE
-                | GT_ModHandler.RecipeBits.REVERSIBLE
-                | GT_ModHandler.RecipeBits.BUFFERED,
-            new Object[] { "dCw", "WMW", "GPG", 'M', ItemList.Hull_HV, 'P', pipeTier3, 'C',
-                OrePrefixes.circuit.get(Materials.Advanced), 'W', chassisT3, 'G', ALLOY.SILICON_CARBIDE.getGear(1) });
+        GTModHandler.addCraftingRecipe(
+            GregtechItemList.Boiler_Advanced_LV.get(1),
+            GTModHandler.RecipeBits.NOT_REMOVABLE | GTModHandler.RecipeBits.REVERSIBLE
+                | GTModHandler.RecipeBits.BUFFERED,
+            new Object[] { "EXE", "CMC", "PBP", 'E', ItemList.Electric_Pump_LV.get(1L), 'X', "circuitBasic", 'C',
+                new ItemStack(ModItems.itemBoilerChassis, 1, 0), 'M', ItemList.Casing_LV.get(1L), 'P',
+                GTOreDictUnificator.get(OrePrefixes.pipeHuge, Materials.Steel, 1L), 'B',
+                ItemList.Machine_Steel_Boiler.get(1L) });
+        GTModHandler.addCraftingRecipe(
+            GregtechItemList.Boiler_Advanced_MV.get(1),
+            GTModHandler.RecipeBits.NOT_REMOVABLE | GTModHandler.RecipeBits.REVERSIBLE
+                | GTModHandler.RecipeBits.BUFFERED,
+            new Object[] { "EXE", "CMC", "PBP", 'E', ItemList.Electric_Pump_MV.get(1L), 'X', "circuitGood", 'C',
+                new ItemStack(ModItems.itemBoilerChassis, 1, 1), 'M', ItemList.Casing_MV.get(1L), 'P',
+                GTOreDictUnificator.get(OrePrefixes.pipeHuge, Materials.StainlessSteel, 1L), 'B',
+                ItemList.Machine_Steel_Boiler.get(1L) });
+        GTModHandler.addCraftingRecipe(
+            GregtechItemList.Boiler_Advanced_HV.get(1),
+            GTModHandler.RecipeBits.NOT_REMOVABLE | GTModHandler.RecipeBits.REVERSIBLE
+                | GTModHandler.RecipeBits.BUFFERED,
+            new Object[] { "EXE", "CMC", "PBP", 'E', ItemList.Electric_Pump_HV.get(1L), 'X', "circuitAdvanced", 'C',
+                new ItemStack(ModItems.itemBoilerChassis, 1, 2), 'M', ItemList.Casing_HV.get(1L), 'P',
+                GTOreDictUnificator.get(OrePrefixes.pipeHuge, Materials.Titanium, 1L), 'B',
+                ItemList.Machine_Steel_Boiler.get(1L) });
     }
 }

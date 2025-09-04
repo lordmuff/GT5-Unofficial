@@ -2,7 +2,7 @@ package gtPlusPlus.core.util.minecraft;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
+import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.block.Block;
@@ -16,19 +16,17 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.objects.ItemData;
-import gregtech.api.util.GT_ModHandler;
-import gregtech.api.util.GT_OreDictUnificator;
-import gregtech.api.util.GT_Utility;
+import gregtech.api.util.GTModHandler;
+import gregtech.api.util.GTOreDictUnificator;
+import gregtech.api.util.GTUtility;
 import gtPlusPlus.GTplusplus;
 import gtPlusPlus.api.interfaces.RunnableWithInfo;
 import gtPlusPlus.api.objects.Logger;
 import gtPlusPlus.api.objects.minecraft.ShapedRecipe;
-import gtPlusPlus.core.handler.COMPAT_HANDLER;
+import gtPlusPlus.core.handler.CompatHandler;
 import gtPlusPlus.core.handler.Recipes.LateRegistrationHandler;
 import gtPlusPlus.core.handler.Recipes.RegistrationHandler;
-import gtPlusPlus.core.lib.CORE;
-import gtPlusPlus.core.recipe.common.CI;
-import gtPlusPlus.core.util.data.ArrayUtils;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 public class RecipeUtils {
 
@@ -64,11 +62,11 @@ public class RecipeUtils {
         Object[] o = new Object[] { slot_1, slot_2, slot_3, slot_4, slot_5, slot_6, slot_7, slot_8, slot_9 };
 
         try {
-            int size = COMPAT_HANDLER.mRecipesToGenerate.size();
-            COMPAT_HANDLER.mRecipesToGenerate.put(new InternalRecipeObject(o, resultItem, false));
+            int size = CompatHandler.mRecipesToGenerate.size();
+            CompatHandler.mRecipesToGenerate.add(new InternalRecipeObject(o, resultItem, false));
             // Utils.LOG_WARNING("Success! Added a recipe for "+resultItem.getDisplayName());
-            if (COMPAT_HANDLER.mRecipesToGenerate.size() > size) {
-                if (!COMPAT_HANDLER.areInitItemsLoaded) {
+            if (CompatHandler.mRecipesToGenerate.size() > size) {
+                if (!CompatHandler.areInitItemsLoaded) {
                     RegistrationHandler.recipesSuccess++;
                 } else {
                     LateRegistrationHandler.recipesSuccess++;
@@ -78,81 +76,12 @@ public class RecipeUtils {
             Logger.RECIPE(
                 "[Fix] Invalid Recipe detected for: " + resultItem != null ? resultItem.getUnlocalizedName()
                     : "INVALID OUTPUT ITEM");
-            if (!COMPAT_HANDLER.areInitItemsLoaded) {
+            if (!CompatHandler.areInitItemsLoaded) {
                 RegistrationHandler.recipesFailed++;
             } else {
                 LateRegistrationHandler.recipesFailed++;
             }
         }
-    }
-
-    public static void removeCraftingRecipe(Object x) {
-        if (null == x) {
-            return;
-        }
-        if (x instanceof String) {
-            final Item R = ItemUtils.getItemFromFQRN((String) x);
-            if (R != null) {
-                x = R;
-            } else {
-                return;
-            }
-        }
-        if ((x instanceof Item) || (x instanceof ItemStack)) {
-            if (x instanceof Item) {
-                final ItemStack r = new ItemStack((Item) x);
-                Logger.RECIPE("Removing Recipe for " + r.getUnlocalizedName());
-            } else {
-                Logger.RECIPE("Removing Recipe for " + ((ItemStack) x).getUnlocalizedName());
-            }
-            if (x instanceof ItemStack) {
-                final Item r = ((ItemStack) x).getItem();
-                if (null != r) {
-                    x = r;
-                } else {
-                    Logger.RECIPE("Recipe removal failed - Tell Alkalus.");
-                    return;
-                }
-            }
-            if (RecipeUtils.attemptRecipeRemoval((Item) x)) {
-                Logger.RECIPE("Recipe removal successful");
-                return;
-            }
-            Logger.RECIPE("Recipe removal failed - Tell Alkalus.");
-        }
-    }
-
-    private static boolean attemptRecipeRemoval(final Item I) {
-        Logger.RECIPE("Create list of recipes.");
-        final List<IRecipe> recipes = CraftingManager.getInstance()
-            .getRecipeList();
-        final Iterator<IRecipe> items = recipes.iterator();
-        Logger.RECIPE("Begin list iteration.");
-        while (items.hasNext()) {
-            final ItemStack is = items.next()
-                .getRecipeOutput();
-            if ((is != null) && (is.getItem() == I)) {
-                items.remove();
-                Logger.RECIPE("Remove a recipe with " + I.getUnlocalizedName() + " as output.");
-                continue;
-            }
-        }
-        Logger.RECIPE("All recipes should be gone?");
-        if (!items.hasNext()) {
-            Logger.RECIPE("We iterated once, let's try again to double check.");
-            for (IRecipe recipe : recipes) {
-                final ItemStack is = recipe.getRecipeOutput();
-                if ((is != null) && (is.getItem() == I)) {
-                    items.remove();
-                    Logger.RECIPE("REMOVING MISSED RECIPE - RECHECK CONSTRUCTORS");
-                    return true;
-                }
-            }
-            Logger.RECIPE("Should be all gone now after double checking, so return true.");
-            return true;
-        }
-        Logger.RECIPE("Return false, because something went wrong.");
-        return false;
     }
 
     public static boolean addShapedGregtechRecipe(final Object InputItem1, final Object InputItem2,
@@ -163,18 +92,19 @@ public class RecipeUtils {
             InputItem9 };
 
         if (gtPlusPlus.GTplusplus.CURRENT_LOAD_PHASE != GTplusplus.INIT_PHASE.POST_INIT) {
-            CORE.crash(
+            Logger.ERROR(
                 "Load Phase " + gtPlusPlus.GTplusplus.CURRENT_LOAD_PHASE
                     + " should be "
                     + GTplusplus.INIT_PHASE.POST_INIT
                     + ". Unable to register recipe.");
+            throw new IllegalStateException();
         }
 
-        int size = COMPAT_HANDLER.mGtRecipesToGenerate.size();
-        COMPAT_HANDLER.mGtRecipesToGenerate.put(new InternalRecipeObject(o, OutputItem, true));
+        int size = CompatHandler.mGtRecipesToGenerate.size();
+        CompatHandler.mGtRecipesToGenerate.add(new InternalRecipeObject(o, OutputItem, true));
 
-        if (COMPAT_HANDLER.mGtRecipesToGenerate.size() > size) {
-            if (!COMPAT_HANDLER.areInitItemsLoaded) {
+        if (CompatHandler.mGtRecipesToGenerate.size() > size) {
+            if (!CompatHandler.areInitItemsLoaded) {
                 RegistrationHandler.recipesSuccess++;
             } else {
                 LateRegistrationHandler.recipesSuccess++;
@@ -195,15 +125,7 @@ public class RecipeUtils {
             return false;
         }
         // let gregtech handle shapeless recipes.
-        if (GT_ModHandler.addShapelessCraftingRecipe(OutputItem, inputItems)) {
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean generateMortarRecipe(ItemStack aStack, ItemStack aOutput) {
-        return RecipeUtils
-            .addShapedGregtechRecipe(aStack, null, null, CI.craftingToolMortar, null, null, null, null, null, aOutput);
+        return GTModHandler.addShapelessCraftingRecipe(OutputItem, inputItems);
     }
 
     public static class InternalRecipeObject implements RunnableWithInfo<String> {
@@ -221,9 +143,9 @@ public class RecipeUtils {
                 if (o instanceof ItemStack) {
                     aFiltered[aValid++] = o;
                 } else if (o instanceof Item) {
-                    aFiltered[aValid++] = ItemUtils.getSimpleStack((Item) o);
+                    aFiltered[aValid++] = new ItemStack((Item) o);
                 } else if (o instanceof Block) {
-                    aFiltered[aValid++] = ItemUtils.getSimpleStack((Block) o);
+                    aFiltered[aValid++] = new ItemStack((Block) o);
                 } else if (o instanceof String) {
                     aFiltered[aValid++] = o;
                 } else if (o == null) {
@@ -254,12 +176,8 @@ public class RecipeUtils {
 
             Logger.RECIPE("Using " + validCounter + " valid inputs and " + invalidCounter + " invalid inputs.");
             ShapedRecipe r = new ShapedRecipe(aFiltered, mOutput);
-            if (r != null && r.mRecipe != null) {
-                isValid = true;
-            } else {
-                isValid = false;
-            }
-            mRecipe = r != null ? r.mRecipe : null;
+            isValid = r.mRecipe != null;
+            mRecipe = r.mRecipe;
         }
 
         @Override
@@ -294,27 +212,27 @@ public class RecipeUtils {
             boolean rReturn = false;
             ArrayList<IRecipe> tList = (ArrayList) CraftingManager.getInstance()
                 .getRecipeList();
-            aOutput = GT_OreDictUnificator.get(aOutput);
+            aOutput = GTOreDictUnificator.get(aOutput);
             int tList_sS = tList.size();
 
             for (int i = 0; i < tList_sS; ++i) {
-                IRecipe tRecipe = (IRecipe) tList.get(i);
+                IRecipe tRecipe = tList.get(i);
                 if (!aNotRemoveShapelessRecipes
                     || !(tRecipe instanceof ShapelessRecipes) && !(tRecipe instanceof ShapelessOreRecipe)) {
                     if (aOnlyRemoveNativeHandlers) {
-                        if (!gregtech.api.util.GT_ModHandler.sNativeRecipeClasses.contains(
+                        if (!GTModHandler.sNativeRecipeClasses.contains(
                             tRecipe.getClass()
                                 .getName())) {
                             continue;
                         }
-                    } else if (gregtech.api.util.GT_ModHandler.sSpecialRecipeClasses.contains(
+                    } else if (GTModHandler.sSpecialRecipeClasses.contains(
                         tRecipe.getClass()
                             .getName())) {
                                 continue;
                             }
 
                     ItemStack tStack = tRecipe.getRecipeOutput();
-                    if (GT_Utility.areStacksEqual(GT_OreDictUnificator.get(tStack), aOutput, aIgnoreNBT)) {
+                    if (GTUtility.areStacksEqual(GTOreDictUnificator.get(tStack), aOutput, aIgnoreNBT)) {
                         tList.remove(i--);
                         tList_sS = tList.size();
                         rReturn = true;
@@ -341,38 +259,37 @@ public class RecipeUtils {
     private static boolean addShapedRecipe(Object[] Inputs, ItemStack aOutputStack) {
         Object[] Slots = new Object[9];
 
-        String aFullString = "";
+        StringBuilder aFullString = new StringBuilder();
         String aFullStringExpanded = "abcdefghi";
 
         for (int i = 0; i < 9; i++) {
             Object o = Inputs[i];
 
             if (o instanceof ItemStack) {
-                Slots[i] = ItemUtils.getSimpleStack((ItemStack) o, 1);
-                aFullString += aFullStringExpanded.charAt(i);
+                Slots[i] = GTUtility.copyAmount(1, (ItemStack) o);
+                aFullString.append(aFullStringExpanded.charAt(i));
             } else if (o instanceof Item) {
-                Slots[i] = ItemUtils.getSimpleStack((Item) o, 1);
-                aFullString += aFullStringExpanded.charAt(i);
+                Slots[i] = new ItemStack((Item) o, 1);
+                aFullString.append(aFullStringExpanded.charAt(i));
             } else if (o instanceof Block) {
-                Slots[i] = ItemUtils.getSimpleStack((Block) o, 1);
-                aFullString += aFullStringExpanded.charAt(i);
+                Slots[i] = new ItemStack((Block) o, 1);
+                aFullString.append(aFullStringExpanded.charAt(i));
             } else if (o instanceof String) {
                 Slots[i] = o;
-                aFullString += aFullStringExpanded.charAt(i);
+                aFullString.append(aFullStringExpanded.charAt(i));
             } else if (o instanceof ItemData aData) {
                 ItemStack aStackFromGT = ItemUtils.getOrePrefixStack(aData.mPrefix, aData.mMaterial.mMaterial, 1);
                 Slots[i] = aStackFromGT;
-                aFullString += aFullStringExpanded.charAt(i);
+                aFullString.append(aFullStringExpanded.charAt(i));
             } else if (o == null) {
                 Slots[i] = null;
-                aFullString += " ";
+                aFullString.append(" ");
             } else {
                 Slots[i] = null;
                 Logger.INFO(
                     "Cleaned a " + o.getClass()
                         .getSimpleName() + " from recipe input.");
                 Logger.INFO("ERROR");
-                CORE.crash("Bad Shaped Recipe.");
             }
         }
         Logger.RECIPE("Using String: " + aFullString);
@@ -380,9 +297,9 @@ public class RecipeUtils {
         String aRow1 = aFullString.substring(0, 3);
         String aRow2 = aFullString.substring(3, 6);
         String aRow3 = aFullString.substring(6, 9);
-        Logger.RECIPE("" + aRow1);
-        Logger.RECIPE("" + aRow2);
-        Logger.RECIPE("" + aRow3);
+        Logger.RECIPE(aRow1);
+        Logger.RECIPE(aRow2);
+        Logger.RECIPE(aRow3);
 
         String[] aStringData = new String[] { aRow1, aRow2, aRow3 };
         Object[] aDataObject = new Object[19];
@@ -408,16 +325,18 @@ public class RecipeUtils {
         }
 
         Logger.RECIPE("Data Size: " + aDataObject.length);
-        aDataObject = ArrayUtils.removeNulls(aDataObject);
+        List<Object> list = new ObjectArrayList<>(aDataObject);
+        list.removeAll(Collections.singleton(null));
+        aDataObject = list.toArray(new Object[0]);
         Logger.RECIPE("Clean Size: " + aDataObject.length);
         Logger.RECIPE("ArrayData: " + Arrays.toString(aDataObject));
 
         ShapedOreRecipe aRecipe = new ShapedOreRecipe(aOutputStack, aDataObject);
 
-        int size = COMPAT_HANDLER.mRecipesToGenerate.size();
-        COMPAT_HANDLER.mRecipesToGenerate.put(new InternalRecipeObject2(aRecipe));
-        if (COMPAT_HANDLER.mRecipesToGenerate.size() > size) {
-            if (!COMPAT_HANDLER.areInitItemsLoaded) {
+        int size = CompatHandler.mRecipesToGenerate.size();
+        CompatHandler.mRecipesToGenerate.add(new InternalRecipeObject2(aRecipe));
+        if (CompatHandler.mRecipesToGenerate.size() > size) {
+            if (!CompatHandler.areInitItemsLoaded) {
                 RegistrationHandler.recipesSuccess++;
             } else {
                 LateRegistrationHandler.recipesSuccess++;
@@ -436,11 +355,7 @@ public class RecipeUtils {
         public InternalRecipeObject2(ShapedOreRecipe aRecipe) {
             mRecipe = aRecipe;
             mOutput = aRecipe.getRecipeOutput();
-            if (mOutput != null) {
-                this.isValid = true;
-            } else {
-                this.isValid = false;
-            }
+            this.isValid = mOutput != null;
         }
 
         @Override

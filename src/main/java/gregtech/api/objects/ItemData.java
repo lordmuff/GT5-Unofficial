@@ -13,7 +13,7 @@ public class ItemData {
 
     private static final MaterialStack[] EMPTY_MATERIALSTACK_ARRAY = new MaterialStack[0];
 
-    public final List<Object> mExtraData = new GT_ArrayList<>(false, 1);
+    public final List<Object> mExtraData = new GTArrayList<>(false, 1);
     public final OrePrefixes mPrefix;
     public final MaterialStack mMaterial;
     public final MaterialStack[] mByProducts;
@@ -117,6 +117,6 @@ public class ItemData {
     @Override
     public String toString() {
         if (mPrefix == null || mMaterial == null || mMaterial.mMaterial == null) return "";
-        return String.valueOf(mPrefix.name() + mMaterial.mMaterial.mName);
+        return mPrefix.name() + mMaterial.mMaterial.mName;
     }
 }

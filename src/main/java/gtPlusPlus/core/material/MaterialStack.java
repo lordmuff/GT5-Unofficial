@@ -7,9 +7,7 @@ import net.minecraft.item.ItemStack;
 
 import gregtech.api.enums.OrePrefixes;
 import gtPlusPlus.api.objects.Logger;
-import gtPlusPlus.core.util.minecraft.ItemUtils;
-import gtPlusPlus.core.util.reflect.ReflectionUtils;
-import gtPlusPlus.xmod.bartworks.BW_Utils;
+import gtPlusPlus.xmod.bartworks.BWUtils;
 
 public class MaterialStack {
 
@@ -19,7 +17,6 @@ public class MaterialStack {
 
     public MaterialStack(final Material inputs, final double partOutOf100) {
         this.stackMaterial = inputs;
-        // Logger.INFO("Tried getting MaterialStack for "+inputs.getLocalizedName());
         this.vPercentageToUse = partOutOf100;
         this.vAmount = this.math(partOutOf100);
     }
@@ -40,10 +37,7 @@ public class MaterialStack {
 
     public ItemStack getValidStack() {
         if (this.stackMaterial.getDust(1) == null) {
-            // if (this.stackMaterial.getCell(1) == null){
             return null;
-            // }
-            // return this.stackMaterial.getCell(this.vAmount[0]);
         }
         return this.stackMaterial.getDust(this.vAmount[0]);
     }
@@ -58,7 +52,7 @@ public class MaterialStack {
 
     public ItemStack getUnificatedDustStack(final int amount) {
         if (this.stackMaterial.werkstoffID != 0) {
-            ItemStack stack = BW_Utils
+            ItemStack stack = BWUtils
                 .getCorrespondingItemStack(OrePrefixes.dust, this.stackMaterial.werkstoffID, amount);
             if (stack != null) {
                 return stack;
@@ -69,22 +63,10 @@ public class MaterialStack {
 
     public Material getStackMaterial() {
         if (this.stackMaterial == null) {
-            Logger.MATERIALS("Tried getStackMaterial, got an invalid material.");
-            Logger.MATERIALS(ReflectionUtils.getMethodName(0));
-            Logger.MATERIALS(ReflectionUtils.getMethodName(1));
-            Logger.MATERIALS(ReflectionUtils.getMethodName(2));
-            Logger.MATERIALS(ReflectionUtils.getMethodName(3));
+            Logger.modLogger.error("Tried getStackMaterial, got an invalid material.", new Exception());
             return null;
         }
         return this.stackMaterial;
-    }
-
-    public double getvPercentageToUse() {
-        return this.vPercentageToUse;
-    }
-
-    public long[] getSmallestStackSizes() {
-        return this.stackMaterial.getSmallestRatio(this.stackMaterial.getComposites());
     }
 
     public int getPartsPerOneHundred() {
@@ -94,23 +76,5 @@ public class MaterialStack {
             }
         }
         return 100;
-    }
-
-    public ItemStack getLeftOverStacksFromDecimalValue() {
-        final int temp = this.vAmount[1];
-        int getCount;
-        if ((temp >= 25) && (temp <= 99)) {
-            getCount = temp / 25;
-            return this.stackMaterial.getSmallDust(getCount);
-        } else if ((temp >= 11) && (temp <= 24)) {
-            getCount = temp / 11;
-            return this.stackMaterial.getTinyDust(getCount);
-        } else {
-            return null;
-        }
-    }
-
-    public ItemStack[] getValidItemStacks() {
-        return ItemUtils.validItemsForOreDict(this.stackMaterial.getUnlocalizedName());
     }
 }

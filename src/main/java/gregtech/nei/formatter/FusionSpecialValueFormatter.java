@@ -7,8 +7,9 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 import net.minecraft.util.StatCollector;
 
-import gregtech.api.enums.GT_Values;
-import gregtech.api.util.GT_Utility;
+import gregtech.api.enums.GTValues;
+import gregtech.api.util.GTRecipeConstants;
+import gregtech.api.util.GTUtility;
 import gregtech.api.util.MethodsReturnNonnullByDefault;
 import gregtech.nei.RecipeDisplayInfo;
 
@@ -21,12 +22,12 @@ public class FusionSpecialValueFormatter implements INEISpecialInfoFormatter {
 
     @Override
     public List<String> format(RecipeDisplayInfo recipeInfo) {
-        int euToStart = recipeInfo.recipe.mSpecialValue;
+        long euToStart = recipeInfo.recipe.getMetadataOrDefault(GTRecipeConstants.FUSION_THRESHOLD, 0L);
         int voltage = recipeInfo.recipe.mEUt;
         int tier = getFusionTier(euToStart, voltage);
 
         return Collections.singletonList(
-            StatCollector.translateToLocalFormatted("GT5U.nei.start_eu", GT_Utility.formatNumbers(euToStart), tier));
+            StatCollector.translateToLocalFormatted("GT5U.nei.start_eu", GTUtility.formatNumbers(euToStart), tier));
     }
 
     public static int getFusionTier(long startupPower, long voltage) {
@@ -43,13 +44,13 @@ public class FusionSpecialValueFormatter implements INEISpecialInfoFormatter {
             tier = 5;
         }
 
-        if (voltage <= GT_Values.V[6]) {
+        if (voltage <= GTValues.V[6]) {
             // no-op
-        } else if (voltage <= GT_Values.V[7]) {
+        } else if (voltage <= GTValues.V[7]) {
             tier = Math.max(tier, 2);
-        } else if (voltage <= GT_Values.V[8]) {
+        } else if (voltage <= GTValues.V[8]) {
             tier = Math.max(tier, 3);
-        } else if (voltage <= GT_Values.V[9]) {
+        } else if (voltage <= GTValues.V[9]) {
             tier = Math.max(tier, 4);
         } else {
             tier = 5;

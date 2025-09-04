@@ -3,7 +3,9 @@ package gtPlusPlus.api.objects.minecraft;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fluids.FluidTankInfo;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class BTF_FluidTank extends FluidTank {
 
@@ -15,7 +17,7 @@ public class BTF_FluidTank extends FluidTank {
 
     /**
      * Let's replace the Default handling with GT's own handling code, because it's probably better, right?
-     * 
+     *
      * @author Alkalus/GregoriusT
      */
     @Override
@@ -29,7 +31,7 @@ public class BTF_FluidTank extends FluidTank {
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound aNBT) {
+    public NBTTagCompound writeToNBT(@NotNull NBTTagCompound aNBT) {
         super.writeToNBT(aNBT);
         if (this.mFluid != null) {
             aNBT.setTag("mFluid", this.mFluid.writeToNBT(new NBTTagCompound()));
@@ -38,7 +40,7 @@ public class BTF_FluidTank extends FluidTank {
     }
 
     @Override
-    public FluidTank readFromNBT(NBTTagCompound aNBT) {
+    public @NotNull FluidTank readFromNBT(@NotNull NBTTagCompound aNBT) {
         this.mFluid = FluidStack.loadFluidStackFromNBT(aNBT.getCompoundTag("mFluid"));
         return this;
     }
@@ -83,7 +85,7 @@ public class BTF_FluidTank extends FluidTank {
     }
 
     @Override
-    public int fill(FluidStack aFluid, boolean doFill) {
+    public int fill(@Nullable FluidStack aFluid, boolean doFill) {
         if (aFluid != null && aFluid.getFluid()
             .getID() > 0 && aFluid.amount > 0 && this.canTankBeFilled() && this.isFluidInputAllowed(aFluid)) {
             if (this.getFillableStack() != null && this.getFillableStack()
@@ -129,16 +131,13 @@ public class BTF_FluidTank extends FluidTank {
     }
 
     @Override
-    public FluidStack drain(int maxDrain, boolean doDrain) {
+    public @Nullable FluidStack drain(int maxDrain, boolean doDrain) {
         if (this.getDrainableStack() != null && this.canTankBeEmptied()) {
             if (this.getDrainableStack().amount <= 0 && this.isFluidChangingAllowed()) {
-                this.setDrainableStack((FluidStack) null);
+                this.setDrainableStack(null);
                 return null;
             } else {
-                int used = maxDrain;
-                if (this.getDrainableStack().amount < maxDrain) {
-                    used = this.getDrainableStack().amount;
-                }
+                int used = Math.min(this.getDrainableStack().amount, maxDrain);
 
                 if (doDrain) {
                     FluidStack arg9999 = this.getDrainableStack();
@@ -149,7 +148,7 @@ public class BTF_FluidTank extends FluidTank {
                     .copy();
                 drained.amount = used;
                 if (this.getDrainableStack().amount <= 0 && this.isFluidChangingAllowed()) {
-                    this.setDrainableStack((FluidStack) null);
+                    this.setDrainableStack(null);
                 }
 
                 return drained;
@@ -165,11 +164,6 @@ public class BTF_FluidTank extends FluidTank {
     }
 
     @Override
-    public FluidTankInfo getInfo() {
-        return new FluidTankInfo(this);
-    }
-
-    @Override
     public void setFluid(FluidStack fluid) {
         setFillableStack(fluid);
     }
@@ -179,7 +173,7 @@ public class BTF_FluidTank extends FluidTank {
         super.setCapacity(capacity);
     }
 
-    public FluidStack drain(FluidStack aFluid, boolean doDrain) {
+    public FluidStack drain(@NotNull FluidStack aFluid, boolean doDrain) {
         return drain(aFluid.amount, doDrain);
     }
 }

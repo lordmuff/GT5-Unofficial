@@ -1,12 +1,12 @@
 package gtPlusPlus.core.material;
 
+import java.util.ArrayList;
+
 import net.minecraft.item.ItemStack;
 
-import gtPlusPlus.api.objects.data.AutoMap;
+import gregtech.api.util.StringUtils;
 import gtPlusPlus.core.item.ModItems;
 import gtPlusPlus.core.item.chemistry.IonParticles;
-import gtPlusPlus.core.util.Utils;
-import gtPlusPlus.core.util.minecraft.ItemUtils;
 
 public class Particle {
 
@@ -42,7 +42,7 @@ public class Particle {
 
     public static final Particle UNKNOWN;
 
-    public static final AutoMap<Particle> aMap = new AutoMap<>();
+    public static final ArrayList<Particle> aMap = new ArrayList<>();
 
     static {
 
@@ -94,13 +94,13 @@ public class Particle {
         UNKNOWN = new Particle(ElementaryGroup.UNKNOWN, "Unknown");
     }
 
-    public static enum ElementaryGroup {
+    public enum ElementaryGroup {
         QUARK,
         LEPTON,
         BOSON,
         BARYON,
         MESON,
-        UNKNOWN;
+        UNKNOWN
     }
 
     public final ElementaryGroup mParticleType;
@@ -115,19 +115,19 @@ public class Particle {
         mParticleType = aParticleType;
         mParticleName = aParticleName;
         mComposition = aComposition == null ? new Particle[] { this } : aComposition;
-        aMap.put(this);
+        aMap.add(this);
     }
 
     public static ItemStack getIon(String aElementName, int aCharge) {
         for (String g : gtPlusPlus.core.item.chemistry.IonParticles.NameToMetaMap.keySet()) {
             if (g.toLowerCase()
-                .equals(Utils.sanitizeString(aElementName.toLowerCase()))) {
+                .equals(StringUtils.sanitizeString(aElementName.toLowerCase()))) {
                 Integer meta = gtPlusPlus.core.item.chemistry.IonParticles.NameToMetaMap
-                    .get(Utils.sanitizeString(aElementName.toLowerCase()));
+                    .get(StringUtils.sanitizeString(aElementName.toLowerCase()));
                 if (meta == null) {
                     meta = 0;
                 }
-                ItemStack aIon = ItemUtils.simpleMetaStack(ModItems.itemIonParticleBase, meta, 1);
+                ItemStack aIon = new ItemStack(ModItems.itemIonParticleBase, 1, meta);
                 if (aCharge != 0) {
                     IonParticles.setChargeState(aIon, aCharge);
                 }
@@ -138,7 +138,7 @@ public class Particle {
     }
 
     public static ItemStack getBaseParticle(Particle aParticle) {
-        String aPartName = Utils.sanitizeString(aParticle.mParticleName.toLowerCase());
+        String aPartName = StringUtils.sanitizeString(aParticle.mParticleName.toLowerCase());
         for (String g : gtPlusPlus.core.item.chemistry.StandardBaseParticles.NameToMetaMap.keySet()) {
             if (g.toLowerCase()
                 .equals(aPartName)) {
@@ -146,7 +146,7 @@ public class Particle {
                 if (meta == null) {
                     meta = 0;
                 }
-                return ItemUtils.simpleMetaStack(ModItems.itemStandarParticleBase, meta, 1);
+                return new ItemStack(ModItems.itemStandarParticleBase, 1, meta);
             }
         }
         return null;

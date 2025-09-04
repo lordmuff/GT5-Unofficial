@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import gtPlusPlus.core.creative.AddToCreativeTab;
@@ -85,7 +86,7 @@ public class ItemBasicScrubberTurbine extends Item {
         return true;
     }
 
-    public static final long getFilterDamage(final ItemStack aStack) {
+    public static long getFilterDamage(final ItemStack aStack) {
         NBTTagCompound aNBT = aStack.getTagCompound();
         if (aNBT != null) {
             aNBT = aNBT.getCompoundTag("BasicTurbine");
@@ -98,7 +99,7 @@ public class ItemBasicScrubberTurbine extends Item {
         return 0L;
     }
 
-    public static final boolean setFilterDamage(final ItemStack aStack, final long aDamage) {
+    public static boolean setFilterDamage(final ItemStack aStack, final long aDamage) {
         NBTTagCompound aNBT = aStack.getTagCompound();
         if (aNBT != null) {
             aNBT = aNBT.getCompoundTag("BasicTurbine");
@@ -133,15 +134,18 @@ public class ItemBasicScrubberTurbine extends Item {
         }
         double currentDamage = getFilterDamage(stack);
         double meta = getMaxDurability(stack);
-        double durabilitypercent = currentDamage / meta;
-        return durabilitypercent;
+        return currentDamage / meta;
     }
 
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-        list.add(EnumChatFormatting.GRAY + "An early tier Turbine for Atmospheric Reconditioning.");
+        list.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("gtpp.tooltip.scrubber_turbine.early_tier"));
         int maxDamage = getMaxDurability(stack);
-        list.add(EnumChatFormatting.GRAY + "" + (maxDamage - getFilterDamage(stack)) + "/" + maxDamage + " uses left.");
+        list.add(
+            EnumChatFormatting.GRAY + StatCollector.translateToLocalFormatted(
+                "gtpp.tooltip.scrubber_turbine.uses_left",
+                (maxDamage - getFilterDamage(stack)),
+                maxDamage));
         super.addInformation(stack, player, list, bool);
     }
 

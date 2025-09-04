@@ -1,38 +1,33 @@
 package gtPlusPlus.core.block.base;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import gregtech.GT_Mod;
+import gregtech.GTMod;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.Textures;
-import gregtech.api.interfaces.IIconContainer;
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.util.GT_OreDictUnificator;
+import gregtech.api.render.TextureFactory;
+import gregtech.api.util.GTOreDictUnificator;
+import gregtech.api.util.GTUtility;
+import gregtech.api.util.StringUtils;
 import gtPlusPlus.api.interfaces.ITexturedBlock;
 import gtPlusPlus.core.client.renderer.CustomOreBlockRenderer;
 import gtPlusPlus.core.item.base.itemblock.ItemBlockOre;
 import gtPlusPlus.core.material.Material;
-import gtPlusPlus.core.util.Utils;
 import gtPlusPlus.core.util.minecraft.ItemUtils;
-import gtPlusPlus.core.util.reflect.ReflectionUtils;
-import gtPlusPlus.xmod.gregtech.api.objects.GTPP_CopiedBlockTexture;
-import gtPlusPlus.xmod.gregtech.api.objects.GTPP_RenderedTexture;
 
 public class BlockBaseOre extends BasicBlock implements ITexturedBlock {
 
@@ -43,7 +38,7 @@ public class BlockBaseOre extends BasicBlock implements ITexturedBlock {
     public BlockBaseOre(final Material material, final BlockTypes blockType) {
         super(
             blockType,
-            Utils.sanitizeString(material.getUnlocalizedName()),
+            StringUtils.sanitizeString(material.getUnlocalizedName()),
             net.minecraft.block.material.Material.rock,
             Math.min(Math.max(material.vTier, 1), 6));
         int aMaterialTierForMining = Math.min(Math.max(material.vTier, 1), 6);
@@ -53,25 +48,19 @@ public class BlockBaseOre extends BasicBlock implements ITexturedBlock {
         this.setLightLevel(0.0F);
         this.setHarvestLevel("pickaxe", aMaterialTierForMining);
         this.setStepSound(soundTypeStone);
-        this.setBlockName("Ore" + Utils.sanitizeString(Utils.sanitizeString(material.getUnlocalizedName())));
+        this.setBlockName("Ore" + StringUtils.sanitizeString(material.getUnlocalizedName()));
         this.setBlockTextureName("stone");
         try {
             GameRegistry.registerBlock(
                 this,
                 ItemBlockOre.class,
-                Utils.sanitizeString("ore" + Utils.sanitizeString(this.blockMaterial.getLocalizedName())));
-            GT_OreDictUnificator.registerOre(
-                "ore" + Utils.sanitizeString(this.blockMaterial.getLocalizedName()),
-                ItemUtils.getSimpleStack(this));
+                "ore" + StringUtils.sanitizeString(this.blockMaterial.getLocalizedName()));
+            GTOreDictUnificator.registerOre(
+                "ore" + StringUtils.sanitizeString(this.blockMaterial.getLocalizedName()),
+                new ItemStack(this));
         } catch (Throwable t) {
             t.printStackTrace();
         }
-    }
-
-    @Override
-    public boolean canCreatureSpawn(final EnumCreatureType type, final IBlockAccess world, final int x, final int y,
-        final int z) {
-        return false;
     }
 
     public Material getMaterialEx() {
@@ -80,14 +69,22 @@ public class BlockBaseOre extends BasicBlock implements ITexturedBlock {
 
     @Override
     public int getRenderType() {
-        try {
-            if (CustomOreBlockRenderer.INSTANCE != null) {
-                return CustomOreBlockRenderer.INSTANCE.mRenderID;
-            }
-            return super.getRenderType();
-        } catch (NullPointerException n) {
-            return 0;
-        }
+        return CustomOreBlockRenderer.mRenderID;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @implNote Can render in both opaque (pass 0) and alpha-blended (pass 1) rendering passes.
+     */
+    @Override
+    public boolean canRenderInPass(int pass) {
+        return pass == 0 || pass == 1;
+    }
+
+    @Override
+    public int getRenderBlockPass() {
+        return 1;
     }
 
     @Override
@@ -100,13 +97,6 @@ public class BlockBaseOre extends BasicBlock implements ITexturedBlock {
         return Blocks.stone.getIcon(0, 0);
     }
 
-    /**
-     * GT Texture Handler
-     */
-
-    // .08 compat
-    public static IIconContainer[] hiddenTextureArray;
-
     @Override
     public ITexture[] getTexture(ForgeDirection side) {
         return getTexture(null, side);
@@ -115,26 +105,18 @@ public class BlockBaseOre extends BasicBlock implements ITexturedBlock {
     @Override
     public ITexture[] getTexture(Block block, ForgeDirection side) {
         if (this.blockMaterial != null) {
-            GTPP_RenderedTexture aIconSet = new GTPP_RenderedTexture(
-                blockMaterial.getTextureSet().mTextures[OrePrefixes.ore.mTextureIndex],
-                this.blockMaterial.getRGBA());
-            return new ITexture[] { new GTPP_CopiedBlockTexture(Blocks.stone, 0, 0), aIconSet };
+            ITexture texture = TextureFactory.builder()
+                .addIcon(blockMaterial.getTextureSet().mTextures[OrePrefixes.ore.mTextureIndex])
+                .setRGBA(blockMaterial.getRGBA())
+                .stdOrient()
+                .build();
+            return new ITexture[] { TextureFactory.of(Blocks.stone, 0), texture };
         }
-
-        if (hiddenTextureArray == null) {
-            try {
-                Field o = ReflectionUtils.getField(Textures.BlockIcons.class, "STONES");
-                if (o != null) {
-                    hiddenTextureArray = (IIconContainer[]) o.get(Textures.BlockIcons.class);
-                }
-                if (hiddenTextureArray == null) {
-                    hiddenTextureArray = new IIconContainer[6];
-                }
-            } catch (IllegalArgumentException | IllegalAccessException e) {
-                hiddenTextureArray = new IIconContainer[6];
-            }
-        }
-        return new ITexture[] { new GTPP_RenderedTexture(hiddenTextureArray[0], new short[] { 240, 240, 240, 0 }) };
+        return new ITexture[] { TextureFactory.builder()
+            .addIcon(Textures.BlockIcons.STONES[0])
+            .setRGBA(new short[] { 240, 240, 240, 0 })
+            .stdOrient()
+            .build() };
     }
 
     @Override
@@ -145,14 +127,13 @@ public class BlockBaseOre extends BasicBlock implements ITexturedBlock {
         if (EnchantmentHelper.getSilkTouchModifier(player)) {
             shouldSilkTouch = true;
             super.harvestBlock(worldIn, player, x, y, z, meta);
-
             if (shouldSilkTouch) {
                 shouldSilkTouch = false;
             }
             return;
         }
 
-        if (!(player instanceof FakePlayer)) {
+        if (GTUtility.isRealPlayer(player)) {
             shouldFortune = true;
         }
         super.harvestBlock(worldIn, player, x, y, z, meta);
@@ -165,15 +146,12 @@ public class BlockBaseOre extends BasicBlock implements ITexturedBlock {
     public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
         ArrayList<ItemStack> drops = new ArrayList<>();
         if (shouldSilkTouch) {
-            drops.add(ItemUtils.simpleMetaStack(this, metadata, 1));
+            drops.add(new ItemStack(this, 1, metadata));
         } else {
-            switch (GT_Mod.gregtechproxy.oreDropSystem) {
-                case Item -> {
-                    drops.add(
-                        ItemUtils.getItemStackOfAmountFromOreDictNoBroken(
-                            "oreRaw" + this.blockMaterial.getLocalizedName(),
-                            1));
-                }
+            switch (GTMod.proxy.oreDropSystem) {
+                case Item -> drops.add(
+                    ItemUtils
+                        .getItemStackOfAmountFromOreDictNoBroken("oreRaw" + this.blockMaterial.getLocalizedName(), 1));
                 case FortuneItem -> {
                     // if shouldFortune and isNatural then get fortune drops
                     // if not shouldFortune or not isNatural then get normal drops
@@ -197,18 +175,9 @@ public class BlockBaseOre extends BasicBlock implements ITexturedBlock {
                                 1));
                     }
                 }
-                case UnifiedBlock -> {
-                    // Unified ore
-                    drops.add(ItemUtils.simpleMetaStack(this, metadata, 1));
-                }
-                case PerDimBlock -> {
-                    // Per Dimension ore
-                    drops.add(ItemUtils.simpleMetaStack(this, metadata, 1));
-                }
-                case Block -> {
-                    // Regular ore
-                    drops.add(ItemUtils.simpleMetaStack(this, metadata, 1));
-                }
+                // Unified ore, Dimension ore, Regular ore
+                case UnifiedBlock, PerDimBlock, Block -> drops.add(new ItemStack(this, 1, metadata));
+
             }
         }
         return drops;

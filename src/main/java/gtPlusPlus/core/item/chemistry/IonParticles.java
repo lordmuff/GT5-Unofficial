@@ -12,10 +12,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 
 import gregtech.api.enums.Materials;
+import gregtech.api.util.StringUtils;
 import gtPlusPlus.core.item.base.misc.BaseItemParticle;
-import gtPlusPlus.core.material.ELEMENT;
 import gtPlusPlus.core.util.Utils;
 
 public class IonParticles extends BaseItemParticle {
@@ -24,26 +25,23 @@ public class IonParticles extends BaseItemParticle {
     public static HashMap<Integer, String> MetaToNameMap = new HashMap<>();
 
     public IonParticles() {
-        super("Ion", ELEMENT.NAMES.length, EnumRarity.rare);
+        super("Ion", ions.length, EnumRarity.rare);
     }
 
-    public static IIcon[] overlays = new IIcon[ELEMENT.NAMES.length];
-    public static IIcon baseTexture;
+    public static final String[] ions = new String[] { "Hydrogen", "Helium" };
+
+    public IIcon[] texture = new IIcon[ions.length];
 
     static {
         // Generate Ions
         int key = 0;
-        for (String s : ELEMENT.NAMES) {
+        for (String s : ions) {
             // Map names to Meta
-            NameToMetaMap.put(Utils.sanitizeString(s.toLowerCase()), key);
-            MetaToNameMap.put(key, Utils.sanitizeString(s.toLowerCase()));
+            NameToMetaMap.put(StringUtils.sanitizeString(s.toLowerCase()), key);
+            MetaToNameMap.put(key, StringUtils.sanitizeString(s.toLowerCase()));
             Materials m = Materials.get(s);
             int aColour = 0;
-            if (m == null) {
-                aColour = Utils.rgbtoHexValue(128, 128, 128);
-            } else {
-                aColour = Utils.rgbtoHexValue(m.mRGBa[0], m.mRGBa[1], m.mRGBa[2]);
-            }
+            aColour = Utils.rgbtoHexValue(m.mRGBa[0], m.mRGBa[1], m.mRGBa[2]);
             aColourMap.put(key++, aColour);
         }
     }
@@ -60,7 +58,7 @@ public class IonParticles extends BaseItemParticle {
 
     @Override
     public String getUnlocalizedName(final ItemStack itemStack) {
-        return "item.particle.ion" + "." + ELEMENT.NAMES[itemStack.getItemDamage()];
+        return "item.particle.ion." + ions[itemStack.getItemDamage()];
     }
 
     private static boolean createNBT(ItemStack rStack) {
@@ -72,7 +70,7 @@ public class IonParticles extends BaseItemParticle {
         return true;
     }
 
-    public static final long getChargeState(final ItemStack aStack) {
+    public static long getChargeState(final ItemStack aStack) {
         NBTTagCompound aNBT = aStack.getTagCompound();
         if (aNBT != null) {
             aNBT = aNBT.getCompoundTag("Ion");
@@ -85,7 +83,7 @@ public class IonParticles extends BaseItemParticle {
         return 0L;
     }
 
-    public static final boolean setChargeState(final ItemStack aStack, final long aCharge) {
+    public static boolean setChargeState(final ItemStack aStack, final long aCharge) {
         NBTTagCompound aNBT = aStack.getTagCompound();
         if (aNBT != null) {
             aNBT = aNBT.getCompoundTag("Ion");
@@ -102,52 +100,42 @@ public class IonParticles extends BaseItemParticle {
         if (stack.getTagCompound() == null) {
             createNBT(stack);
         }
-        double chargeState = getChargeState(stack);
-        return chargeState;
+        return (double) getChargeState(stack);
     }
 
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
         long aCharge = getChargeState(stack);
-        String aState = EnumChatFormatting.YELLOW + "Unknown" + EnumChatFormatting.GRAY;
+        String ionName = MetaToNameMap.get(stack.getItemDamage());
         // State not set
         if (aCharge == 0) {
             list.add(
-                EnumChatFormatting.GRAY + "A "
-                    + MetaToNameMap.get(stack.getItemDamage())
-                    + " Ion with an "
-                    + aState
-                    + " charge state");
+                EnumChatFormatting.GRAY
+                    + StatCollector.translateToLocalFormatted("gtpp.tooltip.ion_particles.state_not_set", ionName));
         } else {
             if (aCharge > 0) {
-                aState = EnumChatFormatting.GREEN + "Positive" + EnumChatFormatting.GRAY;
+                list.add(
+                    EnumChatFormatting.GRAY + StatCollector
+                        .translateToLocalFormatted("gtpp.tooltip.ion_particles.charge_positive", ionName, aCharge));
             } else {
-                aState = EnumChatFormatting.RED + "Negative" + EnumChatFormatting.GRAY;
+                list.add(
+                    EnumChatFormatting.GRAY + StatCollector
+                        .translateToLocalFormatted("gtpp.tooltip.ion_particles.charge_negative", ionName, aCharge));
             }
-
-            list.add(
-                EnumChatFormatting.GRAY + "A "
-                    + MetaToNameMap.get(stack.getItemDamage())
-                    + " Ion with a "
-                    + aState
-                    + " charge state of "
-                    + aCharge
-                    + "");
         }
         super.addInformation(stack, player, list, bool);
     }
 
     @Override
     public void registerIcons(IIconRegister reg) {
-        for (int i = 0; i < IonParticles.overlays.length; i++) {
-            IonParticles.overlays[i] = reg.registerIcon(GTPlusPlus.ID + ":" + "ion/" + i);
+        for (int i = 0; i < this.texture.length; i++) {
+            this.texture[i] = reg.registerIcon(GTPlusPlus.ID + ":ion" + i);
         }
-        IonParticles.baseTexture = reg.registerIcon(GTPlusPlus.ID + ":" + "ion/IonBase");
     }
 
     @Override
     public IIcon getIconFromDamage(int meta) {
-        return IonParticles.overlays[meta];
+        return this.texture[meta];
     }
 
     @Override
@@ -157,11 +145,7 @@ public class IonParticles extends BaseItemParticle {
 
     @Override
     public IIcon getIconFromDamageForRenderPass(int aMeta, int aPass) {
-        if (aPass == 0) {
-            return IonParticles.baseTexture;
-        } else {
-            return IonParticles.overlays[aMeta];
-        }
+        return this.texture[aMeta];
     }
 
     @Override

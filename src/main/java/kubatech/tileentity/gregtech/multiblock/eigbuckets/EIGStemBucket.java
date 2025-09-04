@@ -10,11 +10,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.IPlantable;
 
-import kubatech.api.IBlockStemAccesor;
+import gregtech.mixin.interfaces.accessors.IBlockStemAccessor;
 import kubatech.api.eig.EIGBucket;
 import kubatech.api.eig.EIGDropTable;
 import kubatech.api.eig.IEIGBucketFactory;
-import kubatech.tileentity.gregtech.multiblock.GT_MetaTileEntity_ExtremeIndustrialGreenhouse;
+import kubatech.tileentity.gregtech.multiblock.MTEExtremeIndustrialGreenhouse;
 
 public class EIGStemBucket extends EIGBucket {
 
@@ -31,7 +31,7 @@ public class EIGStemBucket extends EIGBucket {
         }
 
         @Override
-        public EIGBucket tryCreateBucket(GT_MetaTileEntity_ExtremeIndustrialGreenhouse greenhouse, ItemStack input) {
+        public EIGBucket tryCreateBucket(MTEExtremeIndustrialGreenhouse greenhouse, ItemStack input) {
             // Check if input is a flower, reed or cacti. They all drop their source item multiplied by their seed count
             Item item = input.getItem();
             if (!(item instanceof IPlantable)) return null;
@@ -54,7 +54,7 @@ public class EIGStemBucket extends EIGBucket {
     private boolean isValid = false;
     private EIGDropTable drops = new EIGDropTable();
 
-    private EIGStemBucket(GT_MetaTileEntity_ExtremeIndustrialGreenhouse greenhouse, ItemStack input) {
+    private EIGStemBucket(MTEExtremeIndustrialGreenhouse greenhouse, ItemStack input) {
         super(input, 1, null);
         recalculateDrops(greenhouse);
     }
@@ -92,7 +92,7 @@ public class EIGStemBucket extends EIGBucket {
     }
 
     @Override
-    public boolean revalidate(GT_MetaTileEntity_ExtremeIndustrialGreenhouse greenhouse) {
+    public boolean revalidate(MTEExtremeIndustrialGreenhouse greenhouse) {
         recalculateDrops(greenhouse);
         return this.isValid();
     }
@@ -102,7 +102,7 @@ public class EIGStemBucket extends EIGBucket {
      *
      * @param greenhouse The greenhouse that houses this bucket.
      */
-    public void recalculateDrops(GT_MetaTileEntity_ExtremeIndustrialGreenhouse greenhouse) {
+    public void recalculateDrops(MTEExtremeIndustrialGreenhouse greenhouse) {
         this.isValid = false;
         Item item = this.seed.getItem();
         if (!(item instanceof IPlantable)) return;
@@ -113,7 +113,7 @@ public class EIGStemBucket extends EIGBucket {
             0,
             0);
         if (!(stemBlock instanceof BlockStem)) return;
-        Block cropBlock = ((IBlockStemAccesor) stemBlock).getCropBlock();
+        Block cropBlock = ((IBlockStemAccessor) stemBlock).gt5u$getCropBlock();
         if (cropBlock == null || cropBlock == Blocks.air) return;
         // if we know some crops needs a specific metadata, remap here
         int metadata = 0;

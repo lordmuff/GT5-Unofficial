@@ -19,10 +19,7 @@ public class FileUtils {
     private static final Charset utf8 = StandardCharsets.UTF_8;
 
     public static boolean doesFileExist(File f) {
-        if (f != null && f.exists() && !f.isDirectory()) {
-            return true;
-        }
-        return false;
+        return f != null && f.exists() && !f.isDirectory();
     }
 
     public static File createFile(String path, String filename, String extension) {
@@ -49,15 +46,15 @@ public class FileUtils {
     }
 
     public static File getFile(String path, String filename, String extension) {
-        if (path == null || path.length() <= 0) {
+        if (path == null || path.length() == 0) {
             path = "";
         } else {
             path = path + "/";
         }
-        if (filename == null || filename.length() <= 0) {
+        if (filename == null || filename.length() == 0) {
             return null;
         }
-        if (extension == null || extension.length() <= 0) {
+        if (extension == null || extension.length() == 0) {
             extension = ".txt";
         } else {
             extension = "." + extension;
@@ -80,7 +77,7 @@ public class FileUtils {
             long newSize;
             if (doesFileExist(file)) {
                 Path p = Paths.get(file.getPath());
-                if (p != null && Files.isWritable(p)) {
+                if (Files.isWritable(p)) {
                     oldSize = Files.size(p);
                     try {
                         Files.write(p, content, utf8, StandardOpenOption.APPEND);

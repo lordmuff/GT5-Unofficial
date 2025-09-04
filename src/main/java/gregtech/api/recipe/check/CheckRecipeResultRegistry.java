@@ -109,7 +109,18 @@ public final class CheckRecipeResultRegistry {
     public static final CheckRecipeResult BACKFILLER_NO_CONCRETE = SimpleCheckRecipeResult
         .ofFailure("backfiller_no_concrete");
 
+    /**
+     * Black Hole Compressor does not have an active black hole
+     */
+    public static final CheckRecipeResult NO_BLACK_HOLE = SimpleCheckRecipeResult.ofFailure("no_black_hole");
+
     public static final CheckRecipeResult NO_SEE_SKY = SimpleCheckRecipeResult.ofFailure("no_see_sky");
+
+    /**
+     * Machine is waiting for the main controller to start the cycle.
+     */
+    @Nonnull
+    public static final CheckRecipeResult CYCLE_IDLE = SimpleCheckRecipeResult.ofSuccess("cycle_idle");
 
     /**
      * Cannot process recipe because the machine cannot handle required EUt.
@@ -117,6 +128,14 @@ public final class CheckRecipeResultRegistry {
     @Nonnull
     public static CheckRecipeResult insufficientPower(long required) {
         return new ResultInsufficientPower(required);
+    }
+
+    /**
+     * Cannot process recipe because the machine cannot handle required EUt.
+     */
+    @Nonnull
+    public static CheckRecipeResult insufficientVoltage(long required) {
+        return new ResultInsufficientVoltage(required);
     }
 
     /**
@@ -151,9 +170,12 @@ public final class CheckRecipeResultRegistry {
     static {
         register(new SimpleCheckRecipeResult(false, "", false));
         register(new ResultInsufficientPower(0));
+        register(new ResultInsufficientVoltage(0));
         register(new ResultInsufficientHeat(0));
         register(new ResultInsufficientMachineTier(0));
         register(new ResultInsufficientStartupPower(0));
         register(new ResultInsufficientStartupPowerBigInt(BigInteger.ZERO));
+        register(new ResultMissingItem());
+        register(new ResultMissingApiaryFlowers());
     }
 }

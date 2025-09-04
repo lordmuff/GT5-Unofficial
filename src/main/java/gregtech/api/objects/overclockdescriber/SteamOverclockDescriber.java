@@ -1,16 +1,14 @@
 package gregtech.api.objects.overclockdescriber;
 
-import static gregtech.api.util.GT_Utility.trans;
-
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import net.minecraft.util.StatCollector;
 
 import gregtech.api.enums.SteamVariant;
-import gregtech.api.util.GT_OverclockCalculator;
-import gregtech.api.util.GT_Recipe;
-import gregtech.api.util.GT_Utility;
+import gregtech.api.util.GTRecipe;
+import gregtech.api.util.GTUtility;
 import gregtech.api.util.MethodsReturnNonnullByDefault;
+import gregtech.api.util.OverclockCalculator;
 import gregtech.nei.RecipeDisplayInfo;
 
 @ParametersAreNonnullByDefault
@@ -30,31 +28,34 @@ public class SteamOverclockDescriber extends OverclockDescriber {
 
     @Override
     public String getTierString() {
-        return StatCollector.translateToLocal("GT5U.steam_variant." + steamVariant.toString());
+        return StatCollector.translateToLocal("GT5U.nei.display.steam_variant." + steamVariant.toString());
     }
 
     @Override
-    public GT_OverclockCalculator createCalculator(GT_OverclockCalculator template, GT_Recipe recipe) {
-        return GT_OverclockCalculator.ofNoOverclock(recipe)
+    public OverclockCalculator createCalculator(OverclockCalculator template, GTRecipe recipe) {
+        return OverclockCalculator.ofNoOverclock(recipe)
             .setEUtDiscount(euPerTickMultiplier)
-            .setSpeedBoost(durationMultiplier);
+            .setDurationModifier(durationMultiplier);
     }
 
     @Override
     public void drawEnergyInfo(RecipeDisplayInfo recipeInfo) {
         if (recipeInfo.calculator.getConsumption() <= 0) return;
 
-        recipeInfo.drawText(trans("152", "Total: ") + getTotalPowerString(recipeInfo.calculator));
-        recipeInfo.drawText(trans("153", "Usage: ") + getSteamUsageString(recipeInfo.calculator));
+        recipeInfo.drawText(getTotalPowerString(recipeInfo.calculator));
+        recipeInfo.drawText(getSteamUsageString(recipeInfo.calculator));
     }
 
-    private String getTotalPowerString(GT_OverclockCalculator calculator) {
-        return GT_Utility.formatNumbers(convertEUToSteam(calculator.getConsumption() * calculator.getDuration()))
-            + " Steam";
+    private String getTotalPowerString(OverclockCalculator calculator) {
+        long steamTotal = convertEUToSteam(calculator.getConsumption() * calculator.getDuration());
+        return StatCollector
+            .translateToLocalFormatted("GT5U.nei.display.total.steam", GTUtility.formatNumbers(steamTotal));
     }
 
-    private String getSteamUsageString(GT_OverclockCalculator calculator) {
-        return GT_Utility.formatNumbers(20 * convertEUToSteam(calculator.getConsumption())) + " L/s Steam";
+    private String getSteamUsageString(OverclockCalculator calculator) {
+        long steamUsage = 20 * convertEUToSteam(calculator.getConsumption());
+        return StatCollector
+            .translateToLocalFormatted("GT5U.nei.display.usage.steam", GTUtility.formatNumbers(steamUsage));
     }
 
     private static long convertEUToSteam(long eu) {

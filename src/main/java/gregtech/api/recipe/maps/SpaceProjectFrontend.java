@@ -1,6 +1,6 @@
 package gregtech.api.recipe.maps;
 
-import static gregtech.api.util.GT_Utility.formatNumbers;
+import static gregtech.api.util.GTUtility.formatNumbers;
 import static net.minecraft.util.EnumChatFormatting.GRAY;
 import static net.minecraft.util.StatCollector.translateToLocal;
 
@@ -13,16 +13,13 @@ import net.minecraft.util.EnumChatFormatting;
 
 import com.gtnewhorizons.modularui.api.drawable.IDrawable;
 import com.gtnewhorizons.modularui.api.forge.IItemHandlerModifiable;
-import com.gtnewhorizons.modularui.api.math.Alignment;
 import com.gtnewhorizons.modularui.api.math.Pos2d;
 import com.gtnewhorizons.modularui.api.screen.ModularWindow;
 import com.gtnewhorizons.modularui.common.widget.DrawableWidget;
 import com.gtnewhorizons.modularui.common.widget.ProgressBar;
 
-import appeng.util.ReadableNumberConverter;
 import codechicken.lib.gui.GuiDraw;
-import codechicken.nei.PositionedStack;
-import gregtech.api.gui.modularui.GT_UITextures;
+import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.recipe.BasicUIPropertiesBuilder;
 import gregtech.api.recipe.NEIRecipePropertiesBuilder;
 import gregtech.api.recipe.RecipeMapFrontend;
@@ -31,7 +28,7 @@ import gregtech.common.gui.modularui.UIHelper;
 import gregtech.common.misc.spaceprojects.SpaceProjectManager;
 import gregtech.common.misc.spaceprojects.SpaceProjectManager.FakeSpaceProjectRecipe;
 import gregtech.common.misc.spaceprojects.interfaces.ISpaceProject;
-import gregtech.nei.GT_NEI_DefaultHandler;
+import gregtech.nei.GTNEIDefaultHandler;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
@@ -76,7 +73,7 @@ public class SpaceProjectFrontend extends RecipeMapFrontend {
 
     @Override
     protected List<String> handleNEIItemInputTooltip(List<String> currentTip,
-        GT_NEI_DefaultHandler.FixedPositionedStack pStack) {
+        GTNEIDefaultHandler.FixedPositionedStack pStack) {
         super.handleNEIItemOutputTooltip(currentTip, pStack);
         if (pStack.isFluid()) return currentTip;
         currentTip.add(GRAY + translateToLocal("Item Count: ") + formatNumbers(pStack.realStackSize));
@@ -84,20 +81,8 @@ public class SpaceProjectFrontend extends RecipeMapFrontend {
     }
 
     @Override
-    public void drawNEIOverlays(GT_NEI_DefaultHandler.CachedDefaultRecipe neiCachedRecipe) {
-        for (PositionedStack stack : neiCachedRecipe.mInputs) {
-            if (stack instanceof GT_NEI_DefaultHandler.FixedPositionedStack pStack && stack.item != null
-                && !pStack.isFluid()) {
-                int stackSize = ((GT_NEI_DefaultHandler.FixedPositionedStack) stack).realStackSize;
-                String displayString;
-                if (stack.item.stackSize > 9999) {
-                    displayString = ReadableNumberConverter.INSTANCE.toWideReadableForm(stackSize);
-                } else {
-                    displayString = String.valueOf(stackSize);
-                }
-                drawNEIOverlayText(displayString, stack, 0xffffff, 0.5f, true, Alignment.BottomRight);
-            }
-        }
+    public void drawNEIOverlays(GTNEIDefaultHandler.CachedDefaultRecipe neiCachedRecipe) {
+        super.drawNEIOverlays(neiCachedRecipe);
         if (neiCachedRecipe.mRecipe instanceof FakeSpaceProjectRecipe) {
             ISpaceProject project = SpaceProjectManager
                 .getProject(((FakeSpaceProjectRecipe) neiCachedRecipe.mRecipe).projectName);
@@ -114,14 +99,14 @@ public class SpaceProjectFrontend extends RecipeMapFrontend {
         int bar2Width = 18;
         List<Supplier<Float>> splitProgress = splitProgress(progressSupplier, bar1Width, bar2Width);
         builder.widget(
-            new ProgressBar().setTexture(GT_UITextures.PROGRESSBAR_ASSEMBLY_LINE_1, 17)
+            new ProgressBar().setTexture(GTUITextures.PROGRESSBAR_ASSEMBLY_LINE_1, 17)
                 .setDirection(ProgressBar.Direction.RIGHT)
                 .setProgress(splitProgress.get(0))
                 .setSynced(false, false)
                 .setPos(new Pos2d(70, 28).add(windowOffset))
                 .setSize(bar1Width, 72));
         builder.widget(
-            new ProgressBar().setTexture(GT_UITextures.PROGRESSBAR_ASSEMBLY_LINE_2, 18)
+            new ProgressBar().setTexture(GTUITextures.PROGRESSBAR_ASSEMBLY_LINE_2, 18)
                 .setDirection(ProgressBar.Direction.RIGHT)
                 .setProgress(splitProgress.get(1))
                 .setSynced(false, false)

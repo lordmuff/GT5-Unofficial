@@ -2,6 +2,7 @@ package gtPlusPlus.core.item.chemistry;
 
 import static gregtech.api.enums.Mods.GTPlusPlus;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,8 +12,9 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 
-import gtPlusPlus.api.objects.data.AutoMap;
+import gregtech.api.util.StringUtils;
 import gtPlusPlus.core.item.base.misc.BaseItemParticle;
 import gtPlusPlus.core.material.Particle;
 import gtPlusPlus.core.material.Particle.ElementaryGroup;
@@ -39,12 +41,11 @@ public class StandardBaseParticles extends BaseItemParticle {
 
         for (String s : aTypes) {
             // Map names to Meta
-            NameToMetaMap.put(Utils.sanitizeString(s.toLowerCase()), key);
-            MetaToNameMap.put(key, Utils.sanitizeString(s.toLowerCase()));
+            NameToMetaMap.put(StringUtils.sanitizeString(s.toLowerCase()), key);
+            MetaToNameMap.put(key, StringUtils.sanitizeString(s.toLowerCase()));
             for (Particle o : Particle.aMap) {
                 int aColour = 0;
-                if (o.mParticleName.toLowerCase()
-                    .equals(s.toLowerCase())) {
+                if (o.mParticleName.equalsIgnoreCase(s)) {
                     if (o.mParticleType == ElementaryGroup.BARYON) {
                         aColour = Utils.rgbtoHexValue(174, 226, 156);
                         aColourMap.put(key++, aColour);
@@ -87,10 +88,10 @@ public class StandardBaseParticles extends BaseItemParticle {
     }
 
     public static Particle getParticle(ItemStack aStack) {
-        AutoMap<Particle> g = Particle.aMap;
+        ArrayList<Particle> g = Particle.aMap;
         for (Particle p : g) {
-            String aPartName = Utils.sanitizeString(p.mParticleName.toLowerCase());
-            String expectedPart = Utils.sanitizeString(aTypes[aStack.getItemDamage()].toLowerCase());
+            String aPartName = StringUtils.sanitizeString(p.mParticleName.toLowerCase());
+            String expectedPart = StringUtils.sanitizeString(aTypes[aStack.getItemDamage()].toLowerCase());
             if (aPartName.equals(expectedPart)) {
                 return p;
             }
@@ -109,7 +110,6 @@ public class StandardBaseParticles extends BaseItemParticle {
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
         Particle aCharge = getParticle(stack);
         EnumChatFormatting aColour = EnumChatFormatting.GRAY;
-        String aState = aColour + "Unknown" + EnumChatFormatting.RESET;
         if (aCharge != null) {
             String aGroup = aCharge.mParticleType.name()
                 .toLowerCase();
@@ -130,14 +130,12 @@ public class StandardBaseParticles extends BaseItemParticle {
                         } else if (aGroup.toLowerCase()
                             .contains("meson")) {
                                 aColour = EnumChatFormatting.WHITE;
-                            } else {
-                                aColour = EnumChatFormatting.GRAY;
                             }
-            String aFirstLet = aGroup.substring(0, 1)
-                .toUpperCase();
-            aGroup = aGroup.replaceFirst(aGroup.substring(0, 1), aFirstLet);
-            aState = aColour + aGroup + EnumChatFormatting.RESET;
-            list.add(EnumChatFormatting.GRAY + "Type: " + aState);
+            String aGroupKey = "gtpp.tooltip.base_particles.type." + aGroup;
+            String aState = aColour + StatCollector.translateToLocal(aGroupKey) + EnumChatFormatting.RESET;
+            list.add(
+                EnumChatFormatting.GRAY
+                    + StatCollector.translateToLocalFormatted("gtpp.tooltip.base_particles.type", aState));
         }
         super.addInformation(stack, player, list, bool);
     }
@@ -145,7 +143,7 @@ public class StandardBaseParticles extends BaseItemParticle {
     @Override
     public void registerIcons(IIconRegister reg) {
         for (int i = 0; i < this.icons.length; i++) {
-            this.icons[i] = reg.registerIcon(GTPlusPlus.ID + ":" + "particle/new/" + i);
+            this.icons[i] = reg.registerIcon(GTPlusPlus.ID + ":particle/" + i);
         }
     }
 

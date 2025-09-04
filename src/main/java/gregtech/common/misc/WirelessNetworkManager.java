@@ -14,8 +14,9 @@ public class WirelessNetworkManager {
 
     public static void strongCheckOrAddUser(UUID user_uuid) {
         SpaceProjectManager.checkOrCreateTeam(user_uuid);
+        user_uuid = SpaceProjectManager.getLeader(user_uuid);
         if (!GlobalEnergy.containsKey(user_uuid)) {
-            GlobalEnergy.put(SpaceProjectManager.getLeader(user_uuid), BigInteger.ZERO);
+            GlobalEnergy.put(user_uuid, BigInteger.ZERO);
         }
     }
 
@@ -56,6 +57,17 @@ public class WirelessNetworkManager {
 
     public static boolean addEUToGlobalEnergyMap(UUID user_uuid, int EU) {
         return addEUToGlobalEnergyMap(user_uuid, BigInteger.valueOf(EU));
+    }
+
+    // Ticks between energy additions to the hatch. For a dynamo this is how many ticks between energy being consumed
+    // and added to the global energy map.
+    public static long ticks_between_energy_addition = 100L * 20L;
+
+    // Total number of energy additions this multi can store before it is full.
+    public static long number_of_energy_additions = 4L;
+
+    public static long totalStorage(long tier_eu_per_tick) {
+        return tier_eu_per_tick * ticks_between_energy_addition * number_of_energy_additions;
     }
 
     // ------------------------------------------------------------------------------------
