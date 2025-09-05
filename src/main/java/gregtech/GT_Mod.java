@@ -727,9 +727,6 @@ public class GT_Mod implements IGT_Mod {
         for (ItemStack tOutput : tStacks) {
             if (!gregtechproxy.mRegisteredOres.contains(tOutput)) {
                 GT_OreDictUnificator.setStack(tOutput);
-            } else {
-                logMultilineError(GT_FML_LOGGER, generateGTErr01Message(tOutput));
-                tOutput.setStackDisplayName("ERROR! PLEASE CHECK YOUR LOG FOR 'GT-ERR-01'!");
             }
         }
         GregTech_API.mServerStarted = true;
@@ -819,14 +816,6 @@ public class GT_Mod implements IGT_Mod {
         final StringWriter sw = new StringWriter();
         t.printStackTrace(new PrintWriter(sw));
         GT_FML_LOGGER.error(sw);
-    }
-
-    private static String[] generateGTErr01Message(ItemStack stack) {
-        // The message is presented on a per-line basis to make possible formatting in the future easier.
-        return new String[] { "GT-ERR-01 at " + stack.getUnlocalizedName() + "   " + stack.getDisplayName(),
-            "A recipe used an OreDict item as output directly, without copying the item before that. This is a typical CallByReference/CallByValue error.",
-            "The said item will be renamed to make the invalid recipe visible.",
-            "Please check all recipes that output this item, and report them to the mod that introduced the recipes.", };
     }
 
     @SuppressWarnings("SameParameterValue") // The method is used with one logger, but that might change in the future.
