@@ -78,7 +78,7 @@ public class BaseOreComponent extends Item {
             case DUSTIMPURE -> aKey = OrePrefixes.dustImpure.name();
             case DUSTPURE -> aKey = OrePrefixes.dustPure.name();
             case MILLED -> aKey = OrePrefixes.milled.name();
-            case RAWORE -> aKey = OrePrefixes.rawOre.name();
+            case RAWORE -> aKey = OrePrefixes.oreRaw.name();
         }
 
         ItemStack x = aMap.get(aKey);

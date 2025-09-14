@@ -164,7 +164,7 @@ public class GT_MetaTileEntity_IntegratedOreFactory
                 for (ItemStack stack : OreDictionary.getOres(name)) {
                     isOre.add(GT_Utility.stackToInt(stack));
                 }
-            } else if (name.startsWith("rawOre")) {
+            } else if (name.startsWith("oreRaw")) {
                 for (ItemStack stack : OreDictionary.getOres(name)) {
                     isOre.add(GT_Utility.stackToInt(stack));
                 }

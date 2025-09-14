@@ -21,7 +21,7 @@ import gregtech.api.util.GT_Utility;
 
 public class ProcessingRawOre implements gregtech.api.interfaces.IOreRecipeRegistrator {
 
-    private final OrePrefixes[] mRawOrePrefixes = { OrePrefixes.rawOre };
+    private final OrePrefixes[] mRawOrePrefixes = { OrePrefixes.oreRaw };
 
     public ProcessingRawOre() {
         for (OrePrefixes tPrefix : this.mRawOrePrefixes) tPrefix.add(this);

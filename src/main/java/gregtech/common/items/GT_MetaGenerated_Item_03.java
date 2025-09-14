@@ -275,7 +275,7 @@ public class GT_MetaGenerated_Item_03 extends GT_MetaGenerated_Item_X32 {
             OrePrefixes.___placeholder___,
             OrePrefixes.___placeholder___,
             OrePrefixes.nanite,
-            OrePrefixes.rawOre);
+            OrePrefixes.oreRaw);
         INSTANCE = this;
         Object[] o = new Object[0];
 
