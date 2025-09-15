@@ -303,7 +303,7 @@ public class MetaGeneratedItem03 extends MetaGeneratedItemX32 implements IItemFi
             OrePrefixes.___placeholder___,
             OrePrefixes.___placeholder___,
             OrePrefixes.nanite,
-            OrePrefixes.rawOre,
+            OrePrefixes.oreRaw,
             OrePrefixes.plateSuperdense);
         INSTANCE = this;
         Object[] o = GTValues.emptyObjectArray;
@@ -1578,7 +1578,7 @@ public class MetaGeneratedItem03 extends MetaGeneratedItemX32 implements IItemFi
         String pref = aPrefix.toString()
             .toLowerCase();
         return aDoShowAllItems || pref.contains("nanite")
-            || pref.contains("rawore")
+            || pref.contains("oreRaw")
             || pref.contains("platesuperdense");
     }
 
@@ -1589,6 +1589,6 @@ public class MetaGeneratedItem03 extends MetaGeneratedItemX32 implements IItemFi
         if (data == null || data.mMaterial == null || data.mPrefix == null) {
             return false;
         }
-        return data.mMaterial.mMaterial == Materials.Firestone && data.mPrefix == OrePrefixes.rawOre;
+        return data.mMaterial.mMaterial == Materials.Firestone && data.mPrefix == OrePrefixes.oreRaw;
     }
 }

@@ -161,7 +161,7 @@ public class RecipeGenFluorite extends RecipeGenBase {
 
         // Macerate raw ore to Crushed
         GTValues.RA.stdBuilder()
-            .itemInputs(material.getRawOre(1))
+            .itemInputs(material.getoreRaw(1))
             .itemOutputs(material.getCrushed(2))
             .duration(20 * SECONDS)
             .eut(tVoltageMultiplier / 2)

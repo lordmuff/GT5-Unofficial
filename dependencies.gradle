@@ -34,6 +34,10 @@
  * For more details, see https://docs.gradle.org/8.0.1/userguide/java_library_plugin.html#sec:java_library_configurations_graph
  */
 dependencies {
+
+    compile "com.gregoriust.gregtech:gregtech_1.7.10:+:dev"
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+
     api("com.github.GTNewHorizons:StructureLib:1.4.18:dev")
     api("net.industrial-craft:industrialcraft-2:2.2.828-experimental:dev")
     api("com.github.GTNewHorizons:NotEnoughItems:2.7.84-GTNH:dev")

@@ -23,7 +23,7 @@ public class BaseItemMilledOre extends BaseOreComponent {
     public BaseItemMilledOre(final Material material, int materialEU) {
         super(material, BaseOreComponent.ComponentTypes.MILLED);
 
-        ItemStack rawStack = material.getRawOre(16);
+        ItemStack rawStack = material.getoreRaw(16);
         ItemStack crushedStack = material.getCrushed(16);
 
         ItemStack millingBall_Alumina = GregtechItemList.Milling_Ball_Alumina.get(0);

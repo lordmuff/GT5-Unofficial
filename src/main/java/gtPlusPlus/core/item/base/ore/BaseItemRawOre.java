@@ -5,6 +5,6 @@ import gtPlusPlus.core.material.Material;
 public class BaseItemRawOre extends BaseOreComponent {
 
     public BaseItemRawOre(final Material material) {
-        super(material, BaseOreComponent.ComponentTypes.RAWORE);
+        super(material, BaseOreComponent.ComponentTypes.oreRaw);
     }
 }

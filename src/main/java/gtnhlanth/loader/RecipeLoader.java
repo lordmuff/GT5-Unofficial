@@ -3593,7 +3593,7 @@ public class RecipeLoader {
             int[] oreDict = OreDictionary.getOreIDs(input);
             for (int oreDictID : oreDict) {
                 final String oreName = OreDictionary.getOreName(oreDictID);
-                if (!(oreName.startsWith("ore") || oreName.startsWith("rawOre") || oreName.startsWith("crushed"))) {
+                if (!(oreName.startsWith("ore") || oreName.startsWith("oreRaw") || oreName.startsWith("crushed"))) {
                     continue;
                 }
 
