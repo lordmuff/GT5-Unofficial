@@ -12,7 +12,7 @@ public class LateMixinPlugin implements ILateMixinLoader {
 
     @Override
     public String getMixinConfig() {
-        return "mixins.gregtech.late.json";
+        return "mixins.gregtech5.late.json";
     }
 
     @Override

@@ -11,7 +11,7 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-package bartworks.system.material.werkstoff_loaders.registration;
+package com.github.bartimaeusnek.bartworks.system.material.werkstoff_loaders.registration;
 
 import static gregtech.api.enums.Mods.Thaumcraft;
 import static gregtech.api.enums.OrePrefixes.cell;
@@ -21,15 +21,17 @@ import static gregtech.api.enums.OrePrefixes.values;
 
 import java.util.ArrayList;
 
-import bartworks.system.material.Werkstoff;
-import bartworks.system.material.werkstoff_loaders.IWerkstoffRunnable;
-import gregtech.api.enchants.EnchantmentRadioactivity;
+import com.github.bartimaeusnek.bartworks.system.material.Werkstoff;
+import com.github.bartimaeusnek.bartworks.system.material.werkstoff_loaders.IWerkstoffRunnable;
+
+import gregtech.api.enchants.Enchantment_Hazmat;
+import gregapi.enchants.Enchantment_Radioactivity;
 import gregtech.api.enums.Element;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SubTag;
-import gregtech.api.util.GTLanguageManager;
-import gregtech.api.util.GTOreDictUnificator;
+import gregtech.api.util.GT_LanguageManager;
+import gregtech.api.util.GT_OreDictUnificator;
 
 public class BridgeMaterialsLoader implements IWerkstoffRunnable {
 
@@ -68,13 +70,12 @@ public class BridgeMaterialsLoader implements IWerkstoffRunnable {
                     1,
                     1,
                     null);
-        final Element[] ELEMENT_VALUES = Element.values();
         for (OrePrefixes prefixes : values()) {
             if (prefixes != cell || !Werkstoff.Types.ELEMENT.equals(werkstoff.getType())) {
                 if (prefixes == dust && Werkstoff.Types.ELEMENT.equals(werkstoff.getType())
                     && Werkstoff.Types.ELEMENT.equals(werkstoff.getType())) {
                     boolean ElementSet = false;
-                    for (Element e : ELEMENT_VALUES) {
+                    for (Element e : Element.values()) {
                         if (e.toString()
                             .equals(werkstoff.getToolTip())) {
                             if (!e.mLinkedMaterials.isEmpty()) break;
@@ -112,9 +113,10 @@ public class BridgeMaterialsLoader implements IWerkstoffRunnable {
                             e.mLinkedMaterials = new ArrayList<>();
                             e.mLinkedMaterials.add(werkstoffBridgeMaterial);
                             if (werkstoff.hasItemType(dust)) {
-                                GTOreDictUnificator
+                                GT_OreDictUnificator
                                     .addAssociation(dust, werkstoffBridgeMaterial, werkstoff.get(dust), false);
-                                GTOreDictUnificator.set(dust, werkstoffBridgeMaterial, werkstoff.get(dust), true, true);
+                                GT_OreDictUnificator
+                                    .set(dust, werkstoffBridgeMaterial, werkstoff.get(dust), true, true);
                             }
                             ElementSet = true;
                             break;
@@ -143,7 +145,7 @@ public class BridgeMaterialsLoader implements IWerkstoffRunnable {
                 werkstoffBridgeMaterial.mChemicalFormula = werkstoff.getToolTip();
                 if ("null".equals(werkstoffBridgeMaterial.mLocalizedName))
                     // only reload from lang file if not localized already
-                    werkstoffBridgeMaterial.mLocalizedName = GTLanguageManager.addStringLocalization(
+                    werkstoffBridgeMaterial.mLocalizedName = GT_LanguageManager.addStringLocalization(
                         "Material." + werkstoffBridgeMaterial.mName.toLowerCase(),
                         werkstoffBridgeMaterial.mDefaultLocalName);
                 if (Thaumcraft.isModLoaded()) {
@@ -157,11 +159,11 @@ public class BridgeMaterialsLoader implements IWerkstoffRunnable {
                 if (werkstoff.getStats()
                     .isRadioactive()) {
                     werkstoffBridgeMaterial.setEnchantmentForArmors(
-                        EnchantmentRadioactivity.INSTANCE,
+                        Enchantment_Hazmat.INSTANCE,
                         werkstoff.getStats()
                             .getEnchantmentlvl());
                     werkstoffBridgeMaterial.setEnchantmentForTools(
-                        EnchantmentRadioactivity.INSTANCE,
+                        Enchantment_Hazmat.INSTANCE,
                         werkstoff.getStats()
                             .getEnchantmentlvl());
                 }

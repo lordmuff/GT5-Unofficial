@@ -64,6 +64,7 @@ public class ProcessingGem implements gregtech.api.interfaces.IOreRecipeRegistra
                         .addTo(GTRecipeConstants.Fuel);
                 }
 
+                /*
                 if (!OrePrefixes.block.isIgnored(aMaterial)
                     && GTOreDictUnificator.get(OrePrefixes.block, aMaterial, 1L) != null) {
                     // Compressor recipes
@@ -77,6 +78,7 @@ public class ProcessingGem implements gregtech.api.interfaces.IOreRecipeRegistra
                             .addTo(compressorRecipes);
                     }
                 }
+                 */
 
                 // Smelting recipe
                 if (!aNoSmelting) {

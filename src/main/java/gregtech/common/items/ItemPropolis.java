@@ -2,10 +2,9 @@ package gregtech.common.items;
 
 import static gregtech.api.enums.Mods.GregTech;
 import static gregtech.api.enums.Mods.HardcoreEnderExpansion;
-import static gregtech.api.enums.Mods.NewHorizonsCoreMod;
 import static gregtech.api.recipe.RecipeMaps.fluidExtractionRecipes;
-import static gregtech.api.util.GTRecipeBuilder.SECONDS;
-import static gregtech.api.util.GTRecipeBuilder.TICKS;
+import static gregtech.api.util.GT_RecipeBuilder.SECONDS;
+import static gregtech.api.util.GT_RecipeBuilder.TICKS;
 
 import java.util.List;
 
@@ -20,12 +19,12 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import forestry.api.core.Tabs;
-import gregtech.api.enums.GTValues;
+import gregtech.api.enums.GT_Values;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TierEU;
-import gregtech.api.util.GTModHandler;
-import gregtech.api.util.GTOreDictUnificator;
+import gregtech.api.util.GT_ModHandler;
+import gregtech.api.util.GT_OreDictUnificator;
 
 public class ItemPropolis extends Item {
 
@@ -85,29 +84,25 @@ public class ItemPropolis extends Item {
         ItemStack tPropolis;
 
         tPropolis = getStackForType(PropolisType.End);
-        addProcessHV(tPropolis, GTModHandler.getModItem(HardcoreEnderExpansion.ID, "end_powder", 1, 0));
+        addProcessHV(tPropolis, GT_ModHandler.getModItem(HardcoreEnderExpansion.ID, "end_powder", 1, 0));
         tPropolis = getStackForType(PropolisType.Stardust);
-        addProcessHV(tPropolis, GTModHandler.getModItem(HardcoreEnderExpansion.ID, "stardust", 1, 0));
-        tPropolis = getStackForType(PropolisType.Ectoplasma);
-        addProcessEV(tPropolis, GTModHandler.getModItem(NewHorizonsCoreMod.ID, "item.EctoplasmaChip", 1, 0));
-        tPropolis = getStackForType(PropolisType.Arcaneshard);
-        addProcessEV(tPropolis, GTModHandler.getModItem(NewHorizonsCoreMod.ID, "item.ArcaneShardChip", 1, 0));
+        addProcessHV(tPropolis, GT_ModHandler.getModItem(HardcoreEnderExpansion.ID, "stardust", 1, 0));
         tPropolis = getStackForType(PropolisType.Dragonessence);
-        addProcessIV(tPropolis, GTModHandler.getModItem(HardcoreEnderExpansion.ID, "essence", 16, 0));
+        addProcessIV(tPropolis, GT_ModHandler.getModItem(HardcoreEnderExpansion.ID, "essence", 16, 0));
         tPropolis = getStackForType(PropolisType.Enderman);
-        addProcessIV(tPropolis, GTModHandler.getModItem(HardcoreEnderExpansion.ID, "enderman_head", 1, 0));
+        addProcessIV(tPropolis, GT_ModHandler.getModItem(HardcoreEnderExpansion.ID, "enderman_head", 1, 0));
         tPropolis = getStackForType(PropolisType.Silverfish);
-        addProcessEV(tPropolis, GTModHandler.getModItem(HardcoreEnderExpansion.ID, "silverfish_blood", 1, 0));
+        addProcessEV(tPropolis, GT_ModHandler.getModItem(HardcoreEnderExpansion.ID, "silverfish_blood", 1, 0));
         tPropolis = getStackForType(PropolisType.Endium);
-        addProcessHV(tPropolis, GTOreDictUnificator.get(OrePrefixes.dustSmall, Materials.HeeEndium, 1));
+        addProcessHV(tPropolis, GT_OreDictUnificator.get(OrePrefixes.dustSmall, Materials.HeeEndium, 1));
         tPropolis = getStackForType(PropolisType.Fireessence);
-        addProcessIV(tPropolis, GTModHandler.getModItem(HardcoreEnderExpansion.ID, "essence", 16, 1));
+        addProcessIV(tPropolis, GT_ModHandler.getModItem(HardcoreEnderExpansion.ID, "essence", 16, 1));
 
         // addRecipe(tDrop, aOutput, aOutput2, aChance, aDuration, aEUt);
     }
 
     public void addProcessHV(ItemStack tPropolis, ItemStack aOutput2) {
-        GTValues.RA.stdBuilder()
+        GT_Values.RA.stdBuilder()
             .itemInputs(tPropolis)
             .itemOutputs(aOutput2)
             .outputChances(5000)
@@ -118,7 +113,7 @@ public class ItemPropolis extends Item {
     }
 
     public void addProcessEV(ItemStack tPropolis, ItemStack aOutput2) {
-        GTValues.RA.stdBuilder()
+        GT_Values.RA.stdBuilder()
             .itemInputs(tPropolis)
             .itemOutputs(aOutput2)
             .outputChances(2500)
@@ -129,7 +124,7 @@ public class ItemPropolis extends Item {
     }
 
     public void addProcessIV(ItemStack tPropolis, ItemStack aOutput2) {
-        GTValues.RA.stdBuilder()
+        GT_Values.RA.stdBuilder()
             .itemInputs(tPropolis)
             .itemOutputs(aOutput2)
             .outputChances(1500)

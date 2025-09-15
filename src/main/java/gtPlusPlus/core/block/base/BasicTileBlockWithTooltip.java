@@ -25,13 +25,15 @@ import appeng.core.CreativeTab;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.util.StringUtils;
 import gtPlusPlus.api.interfaces.ITileTooltip;
 import gtPlusPlus.api.objects.Logger;
+import gtPlusPlus.api.objects.data.AutoMap;
 import gtPlusPlus.api.objects.minecraft.CubicObject;
 import gtPlusPlus.api.objects.minecraft.SafeTexture;
+import gtPlusPlus.core.lib.CORE;
 import gtPlusPlus.core.util.Utils;
 import gtPlusPlus.core.util.minecraft.InventoryUtils;
+import gtPlusPlus.core.util.minecraft.ItemUtils;
 
 public abstract class BasicTileBlockWithTooltip extends BlockContainer implements ITileTooltip {
 
@@ -39,7 +41,13 @@ public abstract class BasicTileBlockWithTooltip extends BlockContainer implement
      * Each mapped object holds the data for the six sides.
      */
     @SideOnly(Side.CLIENT)
-    private ArrayList<CubicObject<SafeTexture>> mSidedTextureArray;
+    private AutoMap<CubicObject<SafeTexture>> mSidedTextureArray;
+
+    /**
+     * Holds the data for the six sides, each side holds an array of data for each respective meta.
+     */
+    @SideOnly(Side.CLIENT)
+    private AutoMap<CubicObject<String>> mSidedTexturePathArray;
 
     /**
      * Does this block have any meta at all?
@@ -63,28 +71,28 @@ public abstract class BasicTileBlockWithTooltip extends BlockContainer implement
     }
 
     /**
-     * A lazy way to declare the unlocal name for the block, makes boilerplate easy.
+     * A lazy way to declare the unlocal name for the block, makes boilerplating easy.
      *
      * @return The internal name for this block.
      */
     public abstract String getUnlocalBlockName();
 
     /**
-     * Lazy Boilerplate.
+     * Lazy Boilerplating.
      *
      * @return Block Hardness.
      */
     protected abstract float initBlockHardness();
 
     /**
-     * Lazy Boilerplate.
+     * Lazy Boilerplating.
      *
      * @return Block Resistance.
      */
     protected abstract float initBlockResistance();
 
     /**
-     * Lazy Boilerplate.
+     * Lazy Boilerplating.
      *
      * @return The {@link CreativeTab} this Block is shown on.
      */
@@ -124,13 +132,13 @@ public abstract class BasicTileBlockWithTooltip extends BlockContainer implement
      * @return Sanitized {@link String}, containing no spaces or illegal characters.
      */
     private String getTileEntityNameForTexturePathing() {
-        return StringUtils.sanitizeString(getTileEntityName().replace(" ", ""));
+        return Utils.sanitizeString(getTileEntityName().replace(" ", ""));
     }
 
     /**
      * An array of CubicObjects, one for each meta, else just a single cell array. Expected to be null regularly, as the
      * default texture handling should suffice. Handy if re-using textures or using a non-standard structure for them.
-     * FULL texture path must be used, inclusive of the MOD ID and a colon.
+     * FULL texture path must be used, inclusive of the MODID and a colon.
      */
     public CubicObject<String>[] getCustomTextureDirectoryObject() {
         return null;
@@ -154,14 +162,21 @@ public abstract class BasicTileBlockWithTooltip extends BlockContainer implement
 
         Logger.INFO("[TeTexture] Building Texture Maps for " + getTileEntityName() + ".");
 
-        // Init on the Client side only, to prevent Field initializers existing in the Server side bytecode.
-        mSidedTextureArray = new ArrayList<>();
-        // Holds the data for the six sides, each side holds an array of data for each respective meta.
-        ArrayList<CubicObject<String>> sidedTexturePathArray = new ArrayList<>();
+        // Init on the Client side only, to prevent Field initialisers existing in the Server side bytecode.
+        mSidedTextureArray = new AutoMap<>();
+        mSidedTexturePathArray = new AutoMap<>();
+
         // Store them in forge order
         // DOWN, UP, NORTH, SOUTH, WEST, EAST
+
         // Default Path Name, this will make us look inside 'miscutils\textures\blocks'
-        String aTexPathBuilt = GTPlusPlus.ID + ":TileEntities/" + getTileEntityNameForTexturePathing() + "/";
+        final String aPrefixTexPath = GTPlusPlus.ID + ":";
+        // Default Path Name, this will make us look in the subdirectory for this Tile Entity.
+        final String aTexPathMid = "TileEntities" + CORE.SEPERATOR
+            + getTileEntityNameForTexturePathing()
+            + CORE.SEPERATOR;
+        // Construct a full path
+        String aTexPathBuilt = aPrefixTexPath + aTexPathMid;
         // File Name Suffixes, without meta tags
         String aStringBot;
         String aStringTop;
@@ -176,7 +191,7 @@ public abstract class BasicTileBlockWithTooltip extends BlockContainer implement
             Logger.INFO("[TeTexture] Found custom texture data, using this instead. Size: " + aDataMap.length);
             // Map each meta string data to the main map.
             for (int i = 0; i < aDataMap.length; i++) {
-                sidedTexturePathArray.add(aDataMap[i]);
+                mSidedTexturePathArray.put(aDataMap[i]);
                 Logger.INFO("Mapped value for meta " + i + ".");
             }
         } else {
@@ -216,17 +231,17 @@ public abstract class BasicTileBlockWithTooltip extends BlockContainer implement
                     aStringFront,
                     aStringLeft,
                     aStringRight);
-                sidedTexturePathArray.add(aMetaBlob);
+                mSidedTexturePathArray.put(aMetaBlob);
                 Logger.INFO("[TeTexture] Added Texture Path data to map for meta " + i);
             }
         }
-        Logger.INFO("[TeTexture] Map size for pathing: " + sidedTexturePathArray.size());
+        Logger.INFO("[TeTexture] Map size for pathing: " + mSidedTexturePathArray.size());
 
         // Iteration Index
         int aIndex = 0;
 
         // Iterate each CubicObject, holding the six texture paths for each meta.
-        for (CubicObject<String> aMetaBlob : sidedTexturePathArray) {
+        for (CubicObject<String> aMetaBlob : mSidedTexturePathArray) {
             // Make a Safe Texture for each side
             SafeTexture aBottom = SafeTexture.register(aMetaBlob.DOWN);
             SafeTexture aTop = SafeTexture.register(aMetaBlob.UP);
@@ -239,7 +254,7 @@ public abstract class BasicTileBlockWithTooltip extends BlockContainer implement
             // Convenience Blob
             CubicObject<SafeTexture> aMetaBlob2 = new CubicObject<>(aInjectBlob);
             // Store this Blob into
-            mSidedTextureArray.add(aMetaBlob2);
+            mSidedTextureArray.put(aMetaBlob2);
             Logger.INFO("[TeTexture] Added SafeTexture data to map for meta " + (aIndex++));
         }
         Logger.INFO("[TeTexture] Map size for registration: " + mSidedTextureArray.size());
@@ -271,10 +286,10 @@ public abstract class BasicTileBlockWithTooltip extends BlockContainer implement
     public final void getSubBlocks(Item aItem, CreativeTabs p_149666_2_, List aList) {
         if (hasMeta()) {
             for (int i = 0; i < getMetaCount(); i++) {
-                aList.add(new ItemStack(aItem, 1, i));
+                aList.add(ItemUtils.simpleMetaStack(aItem, i, 1));
             }
         } else {
-            aList.add(new ItemStack(aItem));
+            aList.add(ItemUtils.getSimpleStack(aItem));
         }
     }
 
@@ -294,13 +309,14 @@ public abstract class BasicTileBlockWithTooltip extends BlockContainer implement
 
     @Override
     public Item getItemDropped(int meta, Random rand, int p_149650_3_) {
-        return Item.getItemFromBlock(this);
+        return ItemUtils.getSimpleStack(this, 1)
+            .getItem();
     }
 
     @Override
     public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
         ArrayList<ItemStack> drops = new ArrayList<>();
-        drops.add(new ItemStack(this, 1, metadata));
+        drops.add(ItemUtils.simpleMetaStack(this, metadata, 1));
         return drops;
     }
 }

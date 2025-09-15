@@ -176,8 +176,7 @@ public class BlockBaseModular extends BasicBlock {
 
     @Override
     public String getUnlocalizedName() {
-        return "block." + blockMaterial.getUnlocalizedName()
-            + "."
+        return "block."
             + this.thisBlock.name()
                 .toLowerCase();
     }

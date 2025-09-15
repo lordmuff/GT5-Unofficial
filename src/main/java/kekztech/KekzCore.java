@@ -20,7 +20,7 @@ import kekztech.common.CommonProxy;
     modid = KekzCore.MODID,
     name = KekzCore.NAME,
     version = KekzCore.VERSION,
-    dependencies = "required-after:IC2;" + "required-after:gregtech;"
+    dependencies = "required-after:IC2;" + "required-after:gregtech5;"
         + "required-after:tectech;"
         + "after:Thaumcraft;"
         + "after:ThaumicTinkerer;"

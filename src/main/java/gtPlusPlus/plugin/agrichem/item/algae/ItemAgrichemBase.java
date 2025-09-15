@@ -2,9 +2,12 @@ package gtPlusPlus.plugin.agrichem.item.algae;
 
 import static gregtech.api.enums.Mods.GTPlusPlus;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,16 +16,18 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import gtPlusPlus.core.item.chemistry.general.ItemGenericChemBase;
-import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.production.chemplant.MTEChemicalPlant;
+import gtPlusPlus.core.util.minecraft.ItemUtils;
+import gtPlusPlus.core.util.minecraft.OreDictUtils;
+import gtPlusPlus.core.util.reflect.ReflectionUtils;
 
 public class ItemAgrichemBase extends Item {
 
-    protected final IIcon[] base;
+    protected final IIcon base[];
 
     /*
      * 0 - Algae Biomass 1 - Green Algae Biomass 2 - Brown Algae Biomass 3 - Golden-Brown Algae Biomass 4 - Red Algae
@@ -74,15 +79,47 @@ public class ItemAgrichemBase extends Item {
         return false;
     }
 
-    @Override
-    public void getSubItems(Item aItem, CreativeTabs p_150895_2_, List<ItemStack> aList) {
-        for (int i = 0; i < base.length; i++) {
-            switch (i) {
-                // skip no longer used items
-                case 16, 18, 19, 20, 21 -> {}
-                default -> aList.add(new ItemStack(aItem, 1, i));
+    private static boolean mHasCheckedForSodiumHydroxide = false;
+    private static boolean mShowSodiumHydroxide = true;
+
+    private static boolean checkSodiumHydroxide() {
+        if (mHasCheckedForSodiumHydroxide) {
+            return mShowSodiumHydroxide;
+        } else {
+            if (OreDictUtils.containsValidEntries("dustSodiumHydroxide")
+                || OreDictUtils.containsValidEntries("dustSodiumHydroxide")) {
+                List<ItemStack> aTest = OreDictionary.getOres("dustSodiumHydroxide", false);
+                if (aTest.isEmpty()) {
+                    aTest = OreDictionary.getOres("dustSodiumHydroxide", false);
+                    if (!aTest.isEmpty()) {
+                        mShowSodiumHydroxide = false;
+                    }
+                } else {
+                    mShowSodiumHydroxide = false;
+                }
             }
         }
+        mHasCheckedForSodiumHydroxide = true;
+        return mShowSodiumHydroxide;
+    }
+
+    @Override
+    public void getSubItems(Item aItem, CreativeTabs p_150895_2_, List aList) {
+        for (int i = 0; i < base.length; i++) {
+            if (i == 19) {
+                // Only show if it doesn't exist.
+                if (checkSodiumHydroxide()) {
+                    aList.add(ItemUtils.simpleMetaStack(aItem, i, 1));
+                }
+            } else {
+                aList.add(ItemUtils.simpleMetaStack(aItem, i, 1));
+            }
+        }
+    }
+
+    @Override
+    public boolean getIsRepairable(ItemStack p_82789_1_, ItemStack p_82789_2_) {
+        return false;
     }
 
     @Override
@@ -96,6 +133,11 @@ public class ItemAgrichemBase extends Item {
     }
 
     @Override
+    public int getItemEnchantability() {
+        return 0;
+    }
+
+    @Override
     public int getItemEnchantability(ItemStack stack) {
         return 0;
     }
@@ -106,6 +148,24 @@ public class ItemAgrichemBase extends Item {
             String aPath = GTPlusPlus.ID + ":" + "bioscience/MetaItem1/" + i;
             this.base[i] = u.registerIcon(aPath);
         }
+    }
+
+    private boolean isTextureValid(String aPath) {
+        if (aPath == null) {
+            return false;
+        } else if (aPath.indexOf(92) == -1) {
+            Constructor aTextureAtlasSprite = ReflectionUtils.getConstructor(TextureAtlasSprite.class, String.class);
+            if (aTextureAtlasSprite != null) {
+                try {
+                    TextureAtlasSprite aTestAtlas = (TextureAtlasSprite) aTextureAtlasSprite.newInstance(aPath);
+                    if (aTestAtlas != null) {
+                        return true;
+                    }
+                } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+                    | InvocationTargetException e) {}
+            }
+        }
+        return false;
     }
 
     @Override
@@ -135,7 +195,7 @@ public class ItemAgrichemBase extends Item {
 
     @Override
     public double getDurabilityForDisplay(ItemStack aStack) {
-        if (MTEChemicalPlant.isCatalyst(aStack)) {
+        if (ItemUtils.isCatalyst(aStack)) {
             if (aStack.getTagCompound() == null || aStack.getTagCompound()
                 .hasNoTags()) {
                 createCatalystNBT(aStack);
@@ -155,10 +215,8 @@ public class ItemAgrichemBase extends Item {
         int aDamageSegment = 0;
         int aDam = 0;
         EnumChatFormatting durability = EnumChatFormatting.GRAY;
-        if (MTEChemicalPlant.isCatalyst(aStack)) {
-            list.add(
-                EnumChatFormatting.GRAY
-                    + StatCollector.translateToLocal("GTPP.tooltip.catalyst.active_reaction_agent"));
+        if (ItemUtils.isCatalyst(aStack)) {
+            list.add(EnumChatFormatting.GRAY + "Active Reaction Agent");
             aMaxDamage = getCatalystMaxDamage(aStack);
             aDamageSegment = aMaxDamage / 5;
             aDam = aMaxDamage - getCatalystDamage(aStack);
@@ -181,7 +239,7 @@ public class ItemAgrichemBase extends Item {
 
     @Override
     public boolean showDurabilityBar(ItemStack aStack) {
-        if (MTEChemicalPlant.isCatalyst(aStack)) {
+        if (ItemUtils.isCatalyst(aStack)) {
             int aDam = getCatalystDamage(aStack);
             return aDam > 0;
         }
