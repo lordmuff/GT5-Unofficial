@@ -20,4 +20,6 @@ plugins {
     id 'com.gtnewhorizons.gtnhsettingsconvention' version '1.0.25'
 }
 
+rootProject.name = "PolyGT5"
+
 

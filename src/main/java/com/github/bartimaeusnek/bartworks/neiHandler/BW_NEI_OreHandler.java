@@ -28,8 +28,6 @@ import com.github.bartimaeusnek.bartworks.system.material.BW_MetaGenerated_Ores;
 import com.github.bartimaeusnek.bartworks.system.material.BW_MetaGenerated_SmallOres;
 import com.github.bartimaeusnek.bartworks.system.material.Werkstoff;
 import com.github.bartimaeusnek.bartworks.system.oregen.BW_OreLayer;
-import com.github.bartimaeusnek.bartworks.system.oregen.BW_WorldGenRoss128b;
-import com.github.bartimaeusnek.bartworks.system.oregen.BW_WorldGenRoss128ba;
 
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
@@ -181,12 +179,6 @@ public class BW_NEI_OreHandler extends TemplateRecipeHandler {
         Block ore = Block.getBlockFromItem(result.getItem());
         if (ore instanceof BW_MetaGenerated_Ores) {
             BW_OreLayer.NEIMAP.get((short) result.getItemDamage())
-                .stream()
-                .filter(
-                    l -> !(ore instanceof BW_MetaGenerated_SmallOres) || !l.getClass()
-                        .equals(BW_WorldGenRoss128b.class)
-                        && !l.getClass()
-                            .equals(BW_WorldGenRoss128ba.class))
                 .forEach(
                     l -> this.arecipes.add(new CachedOreRecipe(l, result, ore instanceof BW_MetaGenerated_SmallOres)));
         }

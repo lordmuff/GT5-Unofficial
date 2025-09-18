@@ -9,20 +9,13 @@ import com.gtnewhorizon.structurelib.alignment.enumerable.Flip;
 import com.gtnewhorizon.structurelib.alignment.enumerable.Rotation;
 
 import cpw.mods.fml.relauncher.Side;
-import micdoodle8.mods.galacticraft.core.tile.TileEntityAdvanced;
-import micdoodle8.mods.galacticraft.core.util.Annotations;
 
 public class TileLaser extends TileEntity {
 
-    @Annotations.NetworkedField(targetSide = Side.CLIENT)
     public boolean shouldRender = false;
-    @Annotations.NetworkedField(targetSide = Side.CLIENT)
     public float red = 0, green = 0, blue = 0;
-    @Annotations.NetworkedField(targetSide = Side.CLIENT)
     public float counter = 0F;
-    @Annotations.NetworkedField(targetSide = Side.CLIENT)
     public boolean realism = false;
-    @Annotations.NetworkedField(targetSide = Side.CLIENT)
     public double rotAxisX = 0, rotAxisY = 0, rotAxisZ = 0, rotationAngle = 0;
 
     @Override

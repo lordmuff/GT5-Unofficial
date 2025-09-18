@@ -35,7 +35,11 @@
  */
 dependencies {
 
-    compileOnly "com.gregoriust.gregtech:gregtech_1.7.10:6-SNAPSHOT"
+    implementation("com.gregoriust.gregtech:gregtech_1.7.10:6-SNAPSHOT") {
+
+        transitive=false
+
+    }
 
     api("com.github.GTNewHorizons:StructureLib:1.3.1:dev")
     api("net.industrial-craft:industrialcraft-2:2.2.828-experimental:dev")
@@ -55,12 +59,14 @@ dependencies {
     devOnlyNonPublishable("com.github.GTNewHorizons:Infernal-Mobs:1.8.1-GTNH:dev")
     runtimeOnly("com.github.GTNewHorizons:Draconic-Evolution:1.3.6-GTNH:dev") // needed?
 
-    implementation('com.github.GTNewHorizons:GTNEIOrePlugin:1.3.2:dev') { transitive = false }
+    api('com.github.GTNewHorizons:PolyNTM:+:dev') { transitive = false }
+    api('com.github.GTNewHorizons:polytekk:+:dev') { transitive = false }
+    implementation('com.github.GTNewHorizons:GT5NEIOrePlugin:+:dev') { transitive = false }
     implementation("com.github.GTNewHorizons:Avaritia:1.51:dev")
     implementation("com.github.GTNewHorizons:ForestryMC:4.9.7:dev") { transitive = false }
 
     compileOnlyApi('com.github.GTNewHorizons:Angelica:1.0.0-beta3:api') { transitive = false }
-    compileOnlyApi("com.github.GTNewHorizons:AppleCore:3.3.0:dev") { transitive = false }
+    implementation("com.github.GTNewHorizons:AppleCore:3.3.0:dev") { transitive = false }
     compileOnlyApi("com.github.GTNewHorizons:BuildCraft:7.1.39:dev") { transitive = false }
     compileOnlyApi("com.github.GTNewHorizons:EnderIO:2.8.17:dev") { transitive = false }
     compileOnlyApi("com.github.GTNewHorizons:ProjectRed:4.10.2-GTNH:dev") { transitive = false }
@@ -69,13 +75,13 @@ dependencies {
     compileOnly("TGregworks:TGregworks:1.7.10-GTNH-1.0.26:deobf") {transitive = false}
     compileOnly("com.github.GTNewHorizons:ThaumicBases:1.7.4:dev") { transitive = false }
     compileOnly("com.github.GTNewHorizons:EnderCore:0.4.6:dev") { transitive = false }
-    implementation("com.github.GTNewHorizons:Galacticraft:3.2.1-GTNH:dev") { transitive = false }
+    //implementation("com.github.GTNewHorizons:Galacticraft:3.2.1-GTNH:dev") { transitive = false }
     implementation("com.github.GTNewHorizons:TinkersConstruct:1.12.6-GTNH:dev")
     compileOnly("com.github.GTNewHorizons:Chisel:2.15.1-GTNH:dev") { transitive = false }
     compileOnly("com.github.GTNewHorizons:Translocators:1.2.1:dev") { transitive = false }
     compileOnly rfg.deobf("curse.maven:cofh-core-69162:2388751")
     compileOnly("com.github.GTNewHorizons:Nuclear-Control:2.6.2:dev") { transitive = false }
-    compileOnly("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev") { transitive = false }
+    implementation("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev") { transitive = false }
     compileOnly("com.github.GTNewHorizons:Hodgepodge:2.5.38:dev") { transitive = false }
     compileOnly('com.github.GTNewHorizons:Botania:1.11.3-GTNH:dev') { transitive = false }
     compileOnly('com.github.GTNewHorizons:HoloInventory:2.4.12-GTNH:dev') { transitive = false }

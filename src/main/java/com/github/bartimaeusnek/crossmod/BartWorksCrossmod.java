@@ -24,7 +24,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.github.bartimaeusnek.crossmod.GTpp.loader.RadioHatchCompat;
-import com.github.bartimaeusnek.crossmod.galacticraft.GalacticraftProxy;
 import com.github.bartimaeusnek.crossmod.tectech.TecTechResearchLoader;
 
 import cpw.mods.fml.common.Mod;
@@ -60,23 +59,14 @@ public class BartWorksCrossmod {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent preinit) {
-        if (GalacticraftCore.isModLoaded()) {
-            GalacticraftProxy.preInit(preinit);
-        }
     }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent init) {
-        if (GalacticraftCore.isModLoaded()) {
-            GalacticraftProxy.init(init);
-        }
     }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent init) {
-        if (GalacticraftCore.isModLoaded()) {
-            GalacticraftProxy.postInit(init);
-        }
         RadioHatchCompat.run();
         TecTechResearchLoader.runResearches();
     }

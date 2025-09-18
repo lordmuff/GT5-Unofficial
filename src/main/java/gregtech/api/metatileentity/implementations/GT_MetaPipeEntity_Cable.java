@@ -51,7 +51,6 @@ import gregtech.api.objects.GT_Cover_None;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GT_CoverBehavior;
 import gregtech.api.util.GT_CoverBehaviorBase;
-import gregtech.api.util.GT_GC_Compat;
 import gregtech.api.util.GT_ModHandler;
 import gregtech.api.util.GT_Utility;
 import gregtech.api.util.ISerializableObject;
@@ -370,10 +369,6 @@ public class GT_MetaPipeEntity_Cable extends MetaPipeEntity implements IMetaTile
 
         // Solar Panel Compat
         if (coverBehavior instanceof GT_Cover_SolarPanel) return true;
-
-        // ((tIsGregTechTileEntity && tIsTileEntityCable) && (tAlwaysLookConnected || tLetEnergyIn || tLetEnergyOut) )
-        // --> Not needed
-        if (GalacticraftCore.isModLoaded() && GT_GC_Compat.canConnect(tileEntity, oppositeSide)) return true;
 
         // AE2-p2p Compat
         if (tileEntity instanceof appeng.tile.powersink.IC2 ic2sink
