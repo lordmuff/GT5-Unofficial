@@ -243,7 +243,7 @@ public final class BWOreAdapter implements IOreAdapter<Werkstoff> {
 
         switch (oreDropMode) {
             case Item -> {
-                drops.add(info.material.get(OrePrefixes.rawOre, info.stoneType.isRich() ? 2 : 1));
+                drops.add(info.material.get(OrePrefixes.oreRaw, info.stoneType.isRich() ? 2 : 1));
             }
             case FortuneItem -> {
                 if (fortune > 0) {
@@ -256,11 +256,11 @@ public final class BWOreAdapter implements IOreAdapter<Werkstoff> {
                     int amount = (info.stoneType.isRich() ? 2 : 1) * (addedDrops + 1);
 
                     for (int i = 0; i < amount; i++) {
-                        drops.add(info.material.get(OrePrefixes.rawOre, 1));
+                        drops.add(info.material.get(OrePrefixes.oreRaw, 1));
                     }
                 } else {
                     for (int i = 0; i < (info.stoneType.isRich() ? 2 : 1); i++) {
-                        drops.add(info.material.get(OrePrefixes.rawOre, 1));
+                        drops.add(info.material.get(OrePrefixes.oreRaw, 1));
                     }
                 }
             }

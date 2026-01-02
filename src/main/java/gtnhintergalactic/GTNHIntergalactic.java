@@ -25,7 +25,7 @@ import gtnhintergalactic.proxy.CommonProxy;
     name = GTNHIntergalactic.MODNAME,
     acceptedMinecraftVersions = "[1.7.10]",
     dependencies = "after:GalacticraftCore@[3.0.36,);" + "after:GalacticraftMars;"
-        + "required-after:gregtech;"
+        + "required-after:gregtech5;"
         + "required-after:gtnhlib@[0.5.21,);"
         + "required-after:tectech;"
         + "required-after:structurelib;"

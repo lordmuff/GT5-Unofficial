@@ -12,7 +12,7 @@ public enum UndergroundFluidNames {
     fluorine("fluorine", new short[] { 0x99, 0xC1, 0xAD }),
     heavyOil("liquid_heavy_oil", new short[] { 10, 10, 10 }),
     helium3("helium-3", new short[] { 0x80, 0x20, 0xe0 }),
-    hydrofluoricAcid("hydrofluoricacid_gt5u", new short[] { 0x00, 0xCE, 0xD1 }),
+    hydrofluoricAcid("hydrofluoricacid", new short[] { 0x00, 0xCE, 0xD1 }),
     hydrogen("hydrogen", new short[] { 0x32, 0x32, 0xD6 }),
     hydrogenSulfide("liquid_hydricsulfur", null),
     lava("lava", new short[] { 0xFF, 0x00, 0x00 }),

@@ -28,7 +28,7 @@ public class LargeBoilerFuelBackend extends RecipeMapBackend {
     private static boolean addedGeneralDesc = false;
 
     private static final List<String> ALLOWED_SOLID_FUELS = Arrays
-        .asList("gregtech:gt.blockreinforced:6", "gregtech:gt.blockreinforced:7");
+        .asList("gregtech5:gt.blockreinforced:6", "gregtech5:gt.blockreinforced:7");
 
     public LargeBoilerFuelBackend(RecipeMapBackendPropertiesBuilder propertiesBuilder) {
         super(propertiesBuilder);

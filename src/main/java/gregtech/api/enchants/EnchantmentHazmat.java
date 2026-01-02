@@ -1,4 +1,4 @@
-package gregtech.api.enchants;
+package gregapi.enchants;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;

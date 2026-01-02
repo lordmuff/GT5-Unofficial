@@ -10,7 +10,7 @@ public final class GTGuiThemes {
 
     public static void init() {}
 
-    public static final GTGuiTheme STANDARD = GTGuiTheme.builder("gregtech:standard")
+    public static final GTGuiTheme STANDARD = GTGuiTheme.builder("gregtech5:standard")
         .panel(GTTextureIds.BACKGROUND_STANDARD)
         .itemSlot(GTTextureIds.SLOT_ITEM_STANDARD)
         .fluidSlot(GTTextureIds.SLOT_FLUID_STANDARD)
@@ -63,78 +63,78 @@ public final class GTGuiThemes {
         .themedTexture(GTWidgetThemes.PICTURE_CANISTER.getFullName(), GTPPTextureIds.PICTURE_CANISTER_DARK)
         .themedTexture(GTWidgetThemes.PICTURE_LOGO.getFullName(), GTTextureIds.PICTURE_GT_LOGO_STANDARD)
         .build();
-    public static final GTGuiTheme STANDARD_BLACK = GTGuiTheme.builder("gregtech:standard_black")
+    public static final GTGuiTheme STANDARD_BLACK = GTGuiTheme.builder("gregtech5:standard_black")
         .parent(STANDARD)
         .fullColor(Dyes.dyeBlack)
         .build();
-    public static final GTGuiTheme STANDARD_RED = GTGuiTheme.builder("gregtech:standard_red")
+    public static final GTGuiTheme STANDARD_RED = GTGuiTheme.builder("gregtech5:standard_red")
         .parent(STANDARD)
         .fullColor(Dyes.dyeRed)
         .build();
-    public static final GTGuiTheme STANDARD_GREEN = GTGuiTheme.builder("gregtech:standard_green")
+    public static final GTGuiTheme STANDARD_GREEN = GTGuiTheme.builder("gregtech5:standard_green")
         .parent(STANDARD)
         .fullColor(Dyes.dyeGreen)
         .build();
-    public static final GTGuiTheme STANDARD_BROWN = GTGuiTheme.builder("gregtech:standard_brown")
+    public static final GTGuiTheme STANDARD_BROWN = GTGuiTheme.builder("gregtech5:standard_brown")
         .parent(STANDARD)
         .fullColor(Dyes.dyeBrown)
         .build();
-    public static final GTGuiTheme STANDARD_BLUE = GTGuiTheme.builder("gregtech:standard_blue")
+    public static final GTGuiTheme STANDARD_BLUE = GTGuiTheme.builder("gregtech5:standard_blue")
         .parent(STANDARD)
         .fullColor(Dyes.dyeBlue)
         .build();
-    public static final GTGuiTheme STANDARD_PURPLE = GTGuiTheme.builder("gregtech:standard_purple")
+    public static final GTGuiTheme STANDARD_PURPLE = GTGuiTheme.builder("gregtech5:standard_purple")
         .parent(STANDARD)
         .fullColor(Dyes.dyePurple)
         .build();
-    public static final GTGuiTheme STANDARD_CYAN = GTGuiTheme.builder("gregtech:standard_cyan")
+    public static final GTGuiTheme STANDARD_CYAN = GTGuiTheme.builder("gregtech5:standard_cyan")
         .parent(STANDARD)
         .fullColor(Dyes.dyeCyan)
         .build();
-    public static final GTGuiTheme STANDARD_LIGHT_GRAY = GTGuiTheme.builder("gregtech:standard_light_gray")
+    public static final GTGuiTheme STANDARD_LIGHT_GRAY = GTGuiTheme.builder("gregtech5:standard_light_gray")
         .parent(STANDARD)
         .fullColor(Dyes.dyeLightGray)
         .build();
-    public static final GTGuiTheme STANDARD_GRAY = GTGuiTheme.builder("gregtech:standard_standard_gray")
+    public static final GTGuiTheme STANDARD_GRAY = GTGuiTheme.builder("gregtech5:standard_standard_gray")
         .parent(STANDARD)
         .fullColor(Dyes.dyeGray)
         .build();
-    public static final GTGuiTheme STANDARD_PINK = GTGuiTheme.builder("gregtech:standard_pink")
+    public static final GTGuiTheme STANDARD_PINK = GTGuiTheme.builder("gregtech5:standard_pink")
         .parent(STANDARD)
         .fullColor(Dyes.dyePink)
         .build();
-    public static final GTGuiTheme STANDARD_LIME = GTGuiTheme.builder("gregtech:standard_lime")
+    public static final GTGuiTheme STANDARD_LIME = GTGuiTheme.builder("gregtech5:standard_lime")
         .parent(STANDARD)
         .fullColor(Dyes.dyeLime)
         .build();
-    public static final GTGuiTheme STANDARD_YELLOW = GTGuiTheme.builder("gregtech:standard_yellow")
+    public static final GTGuiTheme STANDARD_YELLOW = GTGuiTheme.builder("gregtech5:standard_yellow")
         .parent(STANDARD)
         .fullColor(Dyes.dyeYellow)
         .build();
-    public static final GTGuiTheme STANDARD_LIGHT_BLUE = GTGuiTheme.builder("gregtech:standard_light_blue")
+    public static final GTGuiTheme STANDARD_LIGHT_BLUE = GTGuiTheme.builder("gregtech5:standard_light_blue")
         .parent(STANDARD)
         .fullColor(Dyes.dyeLightBlue)
         .build();
-    public static final GTGuiTheme STANDARD_MAGENTA = GTGuiTheme.builder("gregtech:standard_magenta")
+    public static final GTGuiTheme STANDARD_MAGENTA = GTGuiTheme.builder("gregtech5:standard_magenta")
         .parent(STANDARD)
         .fullColor(Dyes.dyeMagenta)
         .build();
-    public static final GTGuiTheme STANDARD_ORANGE = GTGuiTheme.builder("gregtech:standard_orange")
+    public static final GTGuiTheme STANDARD_ORANGE = GTGuiTheme.builder("gregtech5:standard_orange")
         .parent(STANDARD)
         .fullColor(Dyes.dyeOrange)
         .build();
-    public static final GTGuiTheme STANDARD_WHITE = GTGuiTheme.builder("gregtech:standard_white")
+    public static final GTGuiTheme STANDARD_WHITE = GTGuiTheme.builder("gregtech5:standard_white")
         .parent(STANDARD)
         .fullColor(Dyes.dyeWhite)
         .build();
 
-    public static final GTGuiTheme COVER = GTGuiTheme.builder("gregtech:cover")
+    public static final GTGuiTheme COVER = GTGuiTheme.builder("gregtech5:cover")
         .parent(STANDARD)
         .textColor(0x555555)
         .customTextColor(GTWidgetThemes.TEXT_TITLE.getFullName(), 0x222222)
         .textField(Dyes.dyeWhite.toInt())
         .build();
-    public static final GTGuiTheme BRONZE = GTGuiTheme.builder("gregtech:bronze")
+    public static final GTGuiTheme BRONZE = GTGuiTheme.builder("gregtech5:bronze")
         .parent(STANDARD)
         .panel(GTTextureIds.BACKGROUND_BRONZE)
         .itemSlot(GTTextureIds.SLOT_ITEM_BRONZE)
@@ -178,7 +178,7 @@ public final class GTGuiThemes {
         .themedTexture(GTWidgetThemes.PICTURE_CANISTER.getFullName(), GTTextureIds.OVERLAY_SLOT_CANISTER_BRONZE)
         .themedTexture(GTWidgetThemes.PICTURE_LOGO.getFullName(), GTTextureIds.PICTURE_GT_LOGO_BRONZE)
         .build();
-    public static final GTGuiTheme STEEL = GTGuiTheme.builder("gregtech:steel")
+    public static final GTGuiTheme STEEL = GTGuiTheme.builder("gregtech5:steel")
         .parent(STANDARD)
         .panel(GTTextureIds.BACKGROUND_STEEL)
         .itemSlot(GTTextureIds.SLOT_ITEM_STEEL)
@@ -225,7 +225,7 @@ public final class GTGuiThemes {
         .themedTexture(GTWidgetThemes.PICTURE_LOGO.getFullName(), GTTextureIds.PICTURE_GT_LOGO_STEEL)
         .themedColor(GTWidgetThemes.STEAM_GAUGE_NEEDLE.getFullName(), 0x3d3847)
         .build();
-    public static final GTGuiTheme PRIMITIVE = GTGuiTheme.builder("gregtech:primitive")
+    public static final GTGuiTheme PRIMITIVE = GTGuiTheme.builder("gregtech5:primitive")
         .parent(STANDARD)
         .panel(GTTextureIds.BACKGROUND_PRIMITIVE)
         .itemSlot(GTTextureIds.SLOT_ITEM_PRIMITIVE)
@@ -268,7 +268,7 @@ public final class GTGuiThemes {
         .themedTexture(GTWidgetThemes.PICTURE_LOGO.getFullName(), GTTextureIds.PICTURE_TECTECH_LOGO_DARK)
         .themedTexture(GTWidgetThemes.BACKGROUND_TERMINAL.getFullName(), GTTextureIds.BACKGROUND_TERMINAL_TECTECH)
         .build();
-    public static final GTGuiTheme COKE_OVEN = GTGuiTheme.builder("gregtech:primitive")
+    public static final GTGuiTheme COKE_OVEN = GTGuiTheme.builder("gregtech5:primitive")
         .parent(STANDARD)
         .panel(GTTextureIds.BACKGROUND_COKE_OVEN)
         .itemSlot(GTTextureIds.SLOT_ITEM_PRIMITIVE)

@@ -11,7 +11,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
 import gregtech.api.GregTechAPI;
-import gregtech.api.enchants.EnchantmentHazmat;
+import gregapi.enchants.EnchantmentHazmat;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;

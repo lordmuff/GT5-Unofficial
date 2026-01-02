@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import gregtech.api.enchants.EnchantmentHazmat;
+import gregapi.enchants.EnchantmentHazmat;
 
 public class HazardProtection {
 

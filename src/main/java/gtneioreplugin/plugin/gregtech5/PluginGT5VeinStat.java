@@ -42,7 +42,7 @@ public class PluginGT5VeinStat extends PluginGT5Base {
         OrePrefixes.crushedCentrifuged,
         OrePrefixes.crushedPurified,
         OrePrefixes.crushed,
-        OrePrefixes.rawOre,
+        OrePrefixes.oreRaw,
         OrePrefixes.gemChipped,
         OrePrefixes.gemFlawed,
         OrePrefixes.gemFlawless,

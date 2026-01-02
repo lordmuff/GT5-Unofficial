@@ -33,7 +33,7 @@ import tectech.recipe.TecTechRecipeMaps;
         + "after:ComputerCraft;"
         + "after:OpenComputers;"
         + "required-after:gtneioreplugin;"
-        + "required-after:gregtech;"
+        + "required-after:gregtech5;"
         + "after:dreamcraft;"
         + "after:appliedenergistics2;"
         + "after:CoFHCore;"

@@ -815,7 +815,7 @@ public class Werkstoff implements IColorModulationContainer, ISubTagContainer, I
             prefixLogic.put(OrePrefixes.crushed, ORES);
             prefixLogic.put(OrePrefixes.crushedPurified, ORES);
             prefixLogic.put(OrePrefixes.crushedCentrifuged, ORES);
-            prefixLogic.put(OrePrefixes.rawOre, ORES);
+            prefixLogic.put(OrePrefixes.oreRaw, ORES);
 
             prefixLogic.put(OrePrefixes.cell, LIQUID_CELLS);
             if (Mods.Forestry.isModLoaded()) {

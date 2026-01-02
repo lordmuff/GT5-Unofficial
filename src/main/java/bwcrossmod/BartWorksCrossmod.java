@@ -42,7 +42,7 @@ import gregtech.GT_Version;
     version = BartWorksCrossmod.VERSION,
     dependencies = """
         required-after:IC2;\
-        required-after:gregtech;\
+        required-after:gregtech5;\
         required-after:bartworks;\
         after:GalacticraftMars;\
         after:GalacticraftCore;\

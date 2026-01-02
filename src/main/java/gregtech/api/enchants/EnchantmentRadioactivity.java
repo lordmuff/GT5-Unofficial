@@ -1,4 +1,4 @@
-package gregtech.api.enchants;
+package gregapi.enchants;
 
 import net.minecraft.enchantment.EnchantmentDamage;
 import net.minecraft.entity.Entity;

@@ -26,7 +26,7 @@ public class CoverUIFactory extends AbstractUIFactory<CoverGuiData> {
     public static final CoverUIFactory INSTANCE = new CoverUIFactory();
 
     private CoverUIFactory() {
-        super("gregtech:cover");
+        super("gregtech5:cover");
     }
 
     /**

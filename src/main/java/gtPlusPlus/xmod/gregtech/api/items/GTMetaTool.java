@@ -26,7 +26,7 @@ import net.minecraftforge.event.world.BlockEvent;
 
 import buildcraft.api.tools.IToolWrench;
 import cpw.mods.fml.common.Optional;
-import gregtech.api.enchants.EnchantmentRadioactivity;
+import gregapi.enchants.EnchantmentRadioactivity;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.Mods;
 import gregtech.api.interfaces.IDamagableItem;

@@ -236,6 +236,7 @@ public class ItemComb extends Item implements IGT_ItemWithMaterialRenderer, IIte
             new int[] { 20 * 100, 20 * 100, 50 * 100 },
             Voltage.HV,
             196);
+        /*
         addCentrifugeToItemStack(
             CombType.LAPOTRON,
             new ItemStack[] { GTBees.drop.getStackForType(DropType.LAPIS),
@@ -244,6 +245,7 @@ public class ItemComb extends Item implements IGT_ItemWithMaterialRenderer, IIte
             new int[] { 20 * 100, 100 * 100, 40 * 100 },
             Voltage.HV,
             240);
+         */
         addCentrifugeToMaterial(
             CombType.PYROTHEUM,
             new Materials[] { Materials.Blaze, Materials.Pyrotheum },
@@ -601,8 +603,8 @@ public class ItemComb extends Item implements IGT_ItemWithMaterialRenderer, IIte
         addProcessGT(CombType.NEODYMIUM, new Materials[] { Materials.Neodymium }, Voltage.MV);
         addProcessGT(CombType.LITHIUM, new Materials[] { Materials.Lithium }, Voltage.MV);
         addProcessGT(CombType.ELECTROTINE, new Materials[] { Materials.Electrotine }, Voltage.MV);
-        addProcessGT(CombType.DRACONIC, new Materials[] { Materials.Draconium }, Voltage.IV);
-        addProcessGT(CombType.AWAKENEDDRACONIUM, new Materials[] { Materials.DraconiumAwakened }, Voltage.ZPM);
+        //addProcessGT(CombType.DRACONIC, new Materials[] { Materials.Draconium }, Voltage.IV);
+        //addProcessGT(CombType.AWAKENEDDRACONIUM, new Materials[] { Materials.DraconiumAwakened }, Voltage.ZPM);
 
         addCentrifugeToItemStack(
             CombType.SALT,
@@ -623,7 +625,7 @@ public class ItemComb extends Item implements IGT_ItemWithMaterialRenderer, IIte
         addProcessGT(CombType.LUTETIUM, new Materials[] { Materials.Lutetium }, Voltage.IV);
         addProcessGT(CombType.NEUTRONIUM, new Materials[] { Materials.Neutronium }, Voltage.UHV);
 
-        // Twilight
+        /* Twilight
         addCentrifugeToItemStack(
             CombType.NAGA,
             new ItemStack[] { GTModHandler.getModItem(MagicBees.ID, "propolis", 1L, 4),
@@ -662,7 +664,7 @@ public class ItemComb extends Item implements IGT_ItemWithMaterialRenderer, IIte
                 GTBees.drop.getStackForType(DropType.SNOW_QUEEN), ItemList.FR_Wax.get(1) },
             new int[] { 5 * 100, 33 * 100, 8 * 100, 30 * 100 },
             Voltage.EV);
-
+*/
         // HEE
         addCentrifugeToItemStack(
             CombType.ENDDUST,
@@ -714,7 +716,7 @@ public class ItemComb extends Item implements IGT_ItemWithMaterialRenderer, IIte
             new int[] { 25 * 100, 10 * 100, 20 * 100, 15 * 100 },
             Voltage.EV);
         addProcessGT(CombType.ENDIUM, new Materials[] { Materials.Endium }, Voltage.HV);
-
+/*
         addCentrifugeToItemStack(
             CombType.RUNEI,
             new ItemStack[] { GTModHandler.getModItem(MagicBees.ID, "wax", 1L, 0),
@@ -731,6 +733,7 @@ public class ItemComb extends Item implements IGT_ItemWithMaterialRenderer, IIte
                 GTModHandler.getModItem(NewHorizonsCoreMod.ID, "item.RuneOfVoidFragment", 1L, 0) },
             new int[] { 50 * 100, (int) (2.5 * 100) },
             Voltage.IV);
+            */
         addCentrifugeToItemStack(
             CombType.FIREESSENSE,
             new ItemStack[] { GTModHandler.getModItem(MagicBees.ID, "wax", 1L, 0),
@@ -755,7 +758,7 @@ public class ItemComb extends Item implements IGT_ItemWithMaterialRenderer, IIte
                 GTModHandler.getModItem(Forestry.ID, "beeswax", 1L, 0), ItemList.ElectronicsLump.get(1) },
             new int[] { 10 * 100, 10 * 100, 20 * 100, 10 * 100, 20 * 100, 5 * 100 },
             Voltage.ULV);
-        // Space Line
+        /* Space Line
         addCentrifugeToItemStack(
             CombType.SPACE,
             new ItemStack[] { ItemList.FR_Wax.get(1L), ItemList.FR_RefractoryWax.get(1L),
@@ -919,6 +922,7 @@ public class ItemComb extends Item implements IGT_ItemWithMaterialRenderer, IIte
                 Voltage.UV,
                 100);
         }
+         */
         // Infinity Line
         addCentrifugeToMaterial(
             CombType.INFINITYCATALYST,

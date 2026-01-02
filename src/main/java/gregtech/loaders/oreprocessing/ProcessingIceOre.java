@@ -17,7 +17,7 @@ public class ProcessingIceOre implements IOreRecipeRegistrator {
 
     public ProcessingIceOre() {
         OrePrefixes.ore.add(this);
-        OrePrefixes.rawOre.add(this);
+        OrePrefixes.oreRaw.add(this);
     }
 
     @Override

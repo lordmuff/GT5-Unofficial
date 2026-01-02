@@ -31,7 +31,7 @@ public class BlockWormholeRender extends Block {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
-        blockIcon = iconRegister.registerIcon("gregtech:iconsets/TRANSPARENT");
+        blockIcon = iconRegister.registerIcon("gregtech5:iconsets/TRANSPARENT");
     }
 
     @Override

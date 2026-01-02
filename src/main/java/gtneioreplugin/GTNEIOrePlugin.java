@@ -28,7 +28,7 @@ import gtneioreplugin.util.GT5UndergroundFluidHelper;
     modid = GTNEIOrePlugin.MODID,
     name = GTNEIOrePlugin.NAME,
     version = GTNEIOrePlugin.VERSION,
-    dependencies = "required-after:gregtech;required-after:NotEnoughItems")
+    dependencies = "required-after:gregtech5;required-after:NotEnoughItems")
 public class GTNEIOrePlugin {
 
     static {

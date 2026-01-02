@@ -334,7 +334,7 @@ public class MaterialBuilder {
      * <li>{@link OrePrefixes#crushedCentrifuged}</li>
      * <li>{@link OrePrefixes#crushedPurified}</li>
      * <li>{@link OrePrefixes#crushed}</li>
-     * <li>{@link OrePrefixes#rawOre}</li>
+     * <li>{@link OrePrefixes#oreRaw}</li>
      * <li>{@link OrePrefixes#shard}</li>
      * <li>{@link OrePrefixes#clump}</li>
      * <li>{@link OrePrefixes#reduced}</li>

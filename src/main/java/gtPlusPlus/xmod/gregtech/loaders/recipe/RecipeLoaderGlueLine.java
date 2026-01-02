@@ -87,7 +87,7 @@ public class RecipeLoaderGlueLine {
             .itemOutputs(MaterialMisc.CYANOACETIC_ACID.getDust(9), Materials.Salt.getDust(6))
             .fluidInputs(
                 MaterialMisc.CHLOROACETIC_ACID.getFluidStack(1_000),
-                FluidUtils.getFluidStack("hydrochloricacid_gt5u", 2_000))
+                FluidUtils.getFluidStack("hydrochloricacid", 2_000))
             .fluidOutputs(Materials.CarbonDioxide.getGas(1_000), Materials.Water.getFluid(1_000))
             .duration(20 * SECONDS)
             .eut(1000)

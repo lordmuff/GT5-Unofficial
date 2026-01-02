@@ -18,7 +18,7 @@ import static gregtech.api.enums.OrePrefixes.crushed;
 import static gregtech.api.enums.OrePrefixes.dust;
 import static gregtech.api.enums.OrePrefixes.gem;
 import static gregtech.api.enums.OrePrefixes.ingot;
-import static gregtech.api.enums.OrePrefixes.rawOre;
+import static gregtech.api.enums.OrePrefixes.oreRaw;
 import static gregtech.api.recipe.RecipeMaps.hammerRecipes;
 import static gregtech.api.recipe.RecipeMaps.maceratorRecipes;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
@@ -35,23 +35,23 @@ public class RawOreLoader implements IWerkstoffRunnable {
 
     @Override
     public void run(Werkstoff werkstoff) {
-        if (werkstoff.hasItemType(rawOre) && werkstoff.hasItemType(ingot)
+        if (werkstoff.hasItemType(oreRaw) && werkstoff.hasItemType(ingot)
             && !werkstoff.getStats()
                 .isBlastFurnace())
             GTModHandler
-                .addSmeltingRecipe(WerkstoffLoader.getCorrespondingItemStack(rawOre, werkstoff), werkstoff.get(ingot));
+                .addSmeltingRecipe(WerkstoffLoader.getCorrespondingItemStack(oreRaw, werkstoff), werkstoff.get(ingot));
 
-        if (werkstoff.hasItemType(rawOre)) {
+        if (werkstoff.hasItemType(oreRaw)) {
 
             RA.stdBuilder()
-                .itemInputs(werkstoff.get(rawOre))
+                .itemInputs(werkstoff.get(oreRaw))
                 .itemOutputs(werkstoff.hasItemType(gem) ? werkstoff.get(gem) : werkstoff.get(crushed))
                 .duration(16 * TICKS)
                 .eut(10)
                 .addTo(hammerRecipes);
 
             RA.stdBuilder()
-                .itemInputs(werkstoff.get(rawOre))
+                .itemInputs(werkstoff.get(oreRaw))
                 .itemOutputs(
                     werkstoff.get(crushed, 2),
                     werkstoff.contains(SubTag.CRYSTAL) ? werkstoff.get(gem) : werkstoff.getOreByProduct(0, dust),

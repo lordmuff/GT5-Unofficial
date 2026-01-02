@@ -32,16 +32,16 @@ public class GTCapesClientHandler {
 
     // spotless:off
     // GT + addons
-    private static final ResourceLocation CAPE_BRAINTECHCAPE = new ResourceLocation("gregtech:textures/BrainTechCape.png");
-    private static final ResourceLocation CAPE_GREGTECHCAPE  = new ResourceLocation("gregtech:textures/GregTechCape.png");
-    private static final ResourceLocation CAPE_MRBRAINCAPE   = new ResourceLocation("gregtech:textures/MrBrainCape.png");
-    private static final ResourceLocation CAPE_GREGORIUSCAPE = new ResourceLocation("gregtech:textures/GregoriusCape.png");
-    private static final ResourceLocation CAPE_DONORCAPE     = new ResourceLocation("gregtech:textures/DonorCape.png");
-    private static final ResourceLocation CAPE_DEVCAPE       = new ResourceLocation("gregtech:textures/DevCape.png");
-    private static final ResourceLocation CAPE_STEAM         = new ResourceLocation("gregtech:textures/Steam.png");
-    private static final ResourceLocation CAPE_TITANIUM      = new ResourceLocation("gregtech:textures/Titanium.png");
-    private static final ResourceLocation CAPE_NEUTRONIUM    = new ResourceLocation("gregtech:textures/Neutronium.png");
-    private static final ResourceLocation CAPE_STARGATE      = new ResourceLocation("gregtech:textures/Stargate.png");
+    private static final ResourceLocation CAPE_BRAINTECHCAPE = new ResourceLocation("gregtech5:textures/BrainTechCape.png");
+    private static final ResourceLocation CAPE_GREGTECHCAPE  = new ResourceLocation("gregtech5:textures/GregTechCape.png");
+    private static final ResourceLocation CAPE_MRBRAINCAPE   = new ResourceLocation("gregtech5:textures/MrBrainCape.png");
+    private static final ResourceLocation CAPE_GREGORIUSCAPE = new ResourceLocation("gregtech5:textures/GregoriusCape.png");
+    private static final ResourceLocation CAPE_DONORCAPE     = new ResourceLocation("gregtech5:textures/DonorCape.png");
+    private static final ResourceLocation CAPE_DEVCAPE       = new ResourceLocation("gregtech5:textures/DevCape.png");
+    private static final ResourceLocation CAPE_STEAM         = new ResourceLocation("gregtech5:textures/Steam.png");
+    private static final ResourceLocation CAPE_TITANIUM      = new ResourceLocation("gregtech5:textures/Titanium.png");
+    private static final ResourceLocation CAPE_NEUTRONIUM    = new ResourceLocation("gregtech5:textures/Neutronium.png");
+    private static final ResourceLocation CAPE_STARGATE      = new ResourceLocation("gregtech5:textures/Stargate.png");
 
     // Galacticraft
     private static final ResourceLocation CAPE_BLUE_GC       = new ResourceLocation("galacticraftcore:textures/capes/capeBlue.png");

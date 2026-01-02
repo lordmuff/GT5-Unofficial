@@ -249,7 +249,7 @@ public class RecipeGenFluorite extends RecipeGenBase {
         Logger.MATERIALS("[Centrifuge] Added Recipe: Inpure Dust to Clean Dust");
 
         // CaF2 + H2SO4 â†’ CaSO4(solid) + 2 HF
-        FluidStack aGregtechHydro = FluidUtils.getFluidStack("hydrofluoricacid_gt5u", 16000);
+        FluidStack aGregtechHydro = FluidUtils.getFluidStack("hydrofluoricacid", 16000);
         if (aGregtechHydro == null) {
             aGregtechHydro = FluidUtils.getFluidStack("hydrofluoricacid", 16000);
         }

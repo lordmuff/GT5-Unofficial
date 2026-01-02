@@ -422,7 +422,7 @@ public class RecipeLoaderChemicalSkips {
             .metadata(QFT_CATALYST, GregtechItemList.SynchrotronCapableCatalyst.get(0))
             .metadata(QFT_FOCUS_TIER, 4)
             .addTo(quantumForceTransformerRecipes);
-
+/*
         if (GalaxySpace.isModLoaded()) {
             // Seaweed
             ItemStack seaweed = GTUtility
@@ -441,6 +441,7 @@ public class RecipeLoaderChemicalSkips {
                 .addTo(quantumForceTransformerRecipes);
 
         }
+ */
     }
 
     private static void fusionReactorRecipes() {

@@ -169,7 +169,7 @@ public class MTEIntegratedOreFactory extends MTEExtendedPowerMultiBlockBase<MTEI
                 for (int i = 0, size = ores.size(); i < size; i++) {
                     isOre.add(GTUtility.stackToInt(ores.get(i)));
                 }
-            } else if (name.startsWith("rawOre")) {
+            } else if (name.startsWith("oreRaw")) {
                 ArrayList<ItemStack> ores = OreDictionary.getOres(name);
                 for (int i = 0, size = ores.size(); i < size; i++) {
                     isOre.add(GTUtility.stackToInt(ores.get(i)));

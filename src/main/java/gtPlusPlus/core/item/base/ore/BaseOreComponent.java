@@ -77,7 +77,7 @@ public class BaseOreComponent extends Item {
             case DUSTIMPURE -> aKey = OrePrefixes.dustImpure.getName();
             case DUSTPURE -> aKey = OrePrefixes.dustPure.getName();
             case MILLED -> aKey = OrePrefixes.milled.getName();
-            case RAWORE -> aKey = OrePrefixes.rawOre.getName();
+            case RAWORE -> aKey = OrePrefixes.oreRaw.getName();
         }
 
         ItemStack x = aMap.get(aKey);
@@ -204,7 +204,7 @@ public class BaseOreComponent extends Item {
         CRUSHED("crushed", OrePrefixes.crushed, "Crushed ", " Ore", true),
         CRUSHEDCENTRIFUGED("crushedCentrifuged", OrePrefixes.crushedCentrifuged, "Centrifuged Crushed ", " Ore", true),
         CRUSHEDPURIFIED("crushedPurified", OrePrefixes.crushedPurified, "Purified Crushed ", " Ore", true),
-        RAWORE("oreRaw", OrePrefixes.rawOre, "Raw ", " Ore", true),
+        RAWORE("oreRaw", OrePrefixes.oreRaw, "Raw ", " Ore", true),
         MILLED("milled", OrePrefixes.milled, "Milled ", " Ore", true);
 
         private final String COMPONENT_NAME;

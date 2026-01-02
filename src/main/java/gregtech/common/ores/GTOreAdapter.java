@@ -123,7 +123,7 @@ public final class GTOreAdapter implements IOreAdapter<Materials> {
             return new BlockInfo(bm.getBlock(), bm.getBlockMeta());
         });
 
-        ItemStackReplacementManager.addItemReplacement("gregtech:gt.blockores", (tag) -> {
+        ItemStackReplacementManager.addItemReplacement("gregtech5:gt.blockores", (tag) -> {
             int itemId = Item.getIdFromItem(Item.getItemFromBlock(ores1));
             tag.setInteger("id", itemId);
             return tag;
@@ -320,7 +320,7 @@ public final class GTOreAdapter implements IOreAdapter<Materials> {
 
         switch (oreDropMode) {
             case Item -> {
-                drops.add(GTOreDictUnificator.get(OrePrefixes.rawOre, info.material, info.stoneType.isRich() ? 2 : 1));
+                drops.add(GTOreDictUnificator.get(OrePrefixes.oreRaw, info.material, info.stoneType.isRich() ? 2 : 1));
             }
             case FortuneItem -> {
                 if (fortune > 0) {
@@ -333,11 +333,11 @@ public final class GTOreAdapter implements IOreAdapter<Materials> {
                     int amount = (info.stoneType.isRich() ? 2 : 1) * (addedDrops + 1);
 
                     for (int i = 0; i < amount; i++) {
-                        drops.add(GTOreDictUnificator.get(OrePrefixes.rawOre, info.material, 1));
+                        drops.add(GTOreDictUnificator.get(OrePrefixes.oreRaw, info.material, 1));
                     }
                 } else {
                     for (int i = 0; i < (info.stoneType.isRich() ? 2 : 1); i++) {
-                        drops.add(GTOreDictUnificator.get(OrePrefixes.rawOre, info.material, 1));
+                        drops.add(GTOreDictUnificator.get(OrePrefixes.oreRaw, info.material, 1));
                     }
                 }
             }

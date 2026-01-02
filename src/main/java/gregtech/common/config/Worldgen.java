@@ -5,7 +5,7 @@ import com.gtnewhorizon.gtnhlib.config.Config;
 import gregtech.api.enums.Mods;
 
 @Config(
-    modid = Mods.ModIDs.GREG_TECH,
+    modid = Mods.ModIDs.GREG_TECH5,
     category = "worldgen",
     configSubDirectory = "GregTech",
     filename = "WorldGeneration")

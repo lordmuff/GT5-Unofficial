@@ -99,7 +99,7 @@ public class Material implements IOreMaterial {
     public static ArrayList<Materials> invalidMaterials = new ArrayList<>();
 
     /** A cache field for raw ores to prevent constant map lookups. */
-    private ItemStack rawOre;
+    private ItemStack oreRaw;
 
     private boolean hasOre;
 
@@ -1204,11 +1204,11 @@ public class Material implements IOreMaterial {
     }
 
     public final ItemStack getRawOre(final int stacksize) {
-        if (rawOre == null) {
-            rawOre = getComponentByPrefix(OrePrefixes.rawOre, 1);
+        if (oreRaw == null) {
+            oreRaw = getComponentByPrefix(OrePrefixes.oreRaw, 1);
         }
 
-        return GTUtility.copyAmount(stacksize, rawOre);
+        return GTUtility.copyAmount(stacksize, oreRaw);
     }
 
     public final boolean hasSolidForm() {

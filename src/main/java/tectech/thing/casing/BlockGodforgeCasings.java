@@ -67,15 +67,15 @@ public class BlockGodforgeCasings extends BlockCasingsAbstract {
 
     @Override
     public void registerBlockIcons(IIconRegister aIconRegister) {
-        GodforgeTrim = aIconRegister.registerIcon("gregtech:iconsets/GODFORGE_TRIM");
-        GodforgeInner = aIconRegister.registerIcon("gregtech:iconsets/GODFORGE_INNER");
-        GodforgeSupport = aIconRegister.registerIcon("gregtech:iconsets/GODFORGE_SUPPORT");
-        GodforgeOuter = aIconRegister.registerIcon("gregtech:iconsets/GRAVITON_TOP_BOTTOM");
-        GodforgeEnergy = aIconRegister.registerIcon("gregtech:iconsets/GODFORGE_ENERGY");
-        GravitonModulatorT1 = aIconRegister.registerIcon("gregtech:iconsets/GRAVITON_CASING_2");
-        GravitonModulatorT2 = aIconRegister.registerIcon("gregtech:iconsets/GRAVITON_CASING_1");
-        GravitonModulatorT3 = aIconRegister.registerIcon("gregtech:iconsets/GRAVITON_CASING_0");
-        PhononConduit = aIconRegister.registerIcon("gregtech:iconsets/PHONON_CONDUIT");
+        GodforgeTrim = aIconRegister.registerIcon("gregtech5:iconsets/GODFORGE_TRIM");
+        GodforgeInner = aIconRegister.registerIcon("gregtech5:iconsets/GODFORGE_INNER");
+        GodforgeSupport = aIconRegister.registerIcon("gregtech5:iconsets/GODFORGE_SUPPORT");
+        GodforgeOuter = aIconRegister.registerIcon("gregtech5:iconsets/GRAVITON_TOP_BOTTOM");
+        GodforgeEnergy = aIconRegister.registerIcon("gregtech5:iconsets/GODFORGE_ENERGY");
+        GravitonModulatorT1 = aIconRegister.registerIcon("gregtech5:iconsets/GRAVITON_CASING_2");
+        GravitonModulatorT2 = aIconRegister.registerIcon("gregtech5:iconsets/GRAVITON_CASING_1");
+        GravitonModulatorT3 = aIconRegister.registerIcon("gregtech5:iconsets/GRAVITON_CASING_0");
+        PhononConduit = aIconRegister.registerIcon("gregtech5:iconsets/PHONON_CONDUIT");
     }
 
     @Override

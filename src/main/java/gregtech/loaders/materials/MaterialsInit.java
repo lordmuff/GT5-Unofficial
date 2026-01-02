@@ -3,8 +3,8 @@ package gregtech.loaders.materials;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.util.EnumChatFormatting;
 
-import gregtech.api.enchants.EnchantmentEnderDamage;
-import gregtech.api.enchants.EnchantmentRadioactivity;
+import gregapi.enchants.EnchantmentEnderDamage;
+import gregapi.enchants.EnchantmentRadioactivity;
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.Element;
 import gregtech.api.enums.MaterialBuilder;
@@ -749,7 +749,7 @@ public class MaterialsInit {
             .addSubTag(SubTag.ICE_ORE)
             .addSubTag(SubTag.NO_ORE_PROCESSING)
             .addOrePrefix(OrePrefixes.ore)
-            .addOrePrefix(OrePrefixes.rawOre)
+            .addOrePrefix(OrePrefixes.oreRaw)
             .constructMaterial();
     }
 
@@ -1216,7 +1216,7 @@ public class MaterialsInit {
             .addSubTag(SubTag.ICE_ORE)
             .addSubTag(SubTag.NO_ORE_PROCESSING)
             .addOrePrefix(OrePrefixes.ore)
-            .addOrePrefix(OrePrefixes.rawOre)
+            .addOrePrefix(OrePrefixes.oreRaw)
             .constructMaterial();
     }
 
@@ -1298,7 +1298,7 @@ public class MaterialsInit {
             .addSubTag(SubTag.ICE_ORE)
             .addSubTag(SubTag.NO_ORE_PROCESSING)
             .addOrePrefix(OrePrefixes.ore)
-            .addOrePrefix(OrePrefixes.rawOre)
+            .addOrePrefix(OrePrefixes.oreRaw)
             .constructMaterial();
     }
 
@@ -5482,7 +5482,7 @@ public class MaterialsInit {
             .addSubTag(SubTag.ICE_ORE)
             .addSubTag(SubTag.NO_ORE_PROCESSING)
             .addOrePrefix(OrePrefixes.ore)
-            .addOrePrefix(OrePrefixes.rawOre)
+            .addOrePrefix(OrePrefixes.oreRaw)
             .constructMaterial();
     }
 
@@ -5806,7 +5806,7 @@ public class MaterialsInit {
             .addSubTag(SubTag.ICE_ORE)
             .addSubTag(SubTag.NO_ORE_PROCESSING)
             .addOrePrefix(OrePrefixes.ore)
-            .addOrePrefix(OrePrefixes.rawOre)
+            .addOrePrefix(OrePrefixes.oreRaw)
             .constructMaterial();
     }
 
@@ -6617,7 +6617,7 @@ public class MaterialsInit {
             .addSubTag(SubTag.ICE_ORE)
             .addSubTag(SubTag.NO_ORE_PROCESSING)
             .addOrePrefix(OrePrefixes.ore)
-            .addOrePrefix(OrePrefixes.rawOre)
+            .addOrePrefix(OrePrefixes.oreRaw)
             .constructMaterial();
     }
 
@@ -8542,7 +8542,7 @@ public class MaterialsInit {
             .addSubTag(SubTag.ICE_ORE)
             .addSubTag(SubTag.NO_ORE_PROCESSING)
             .addOrePrefix(OrePrefixes.ore)
-            .addOrePrefix(OrePrefixes.rawOre)
+            .addOrePrefix(OrePrefixes.oreRaw)
             .constructMaterial();
     }
 

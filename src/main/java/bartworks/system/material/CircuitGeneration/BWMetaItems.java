@@ -137,7 +137,7 @@ public class BWMetaItems {
                         i,
                         0,
                         2,
-                        aIconRegister.registerIcon("gregtech:" + this.getUnlocalizedName() + "/" + i),
+                        aIconRegister.registerIcon("gregtech5:" + this.getUnlocalizedName() + "/" + i),
                         this.mIconList);
                 }
             }

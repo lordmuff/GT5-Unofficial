@@ -136,7 +136,7 @@ public class RecipeLoaderNuclear {
     private static void chemicalReactorRecipes() {
 
         ItemStack aGtHydrofluoricAcid = ItemUtils
-            .getItemStackOfAmountFromOreDictNoBroken("cellHydrofluoricAcid_GT5U", 2);
+            .getItemStackOfAmountFromOreDictNoBroken("cellHydrofluoricAcid", 2);
 
         GTValues.RA.stdBuilder()
             .itemInputs(
@@ -241,7 +241,7 @@ public class RecipeLoaderNuclear {
             .itemInputs(Materials.SodiumHydroxide.getDust(3))
             .circuit(15)
             .itemOutputs(MaterialsFluorides.SODIUM_FLUORIDE.getDust(2))
-            .fluidInputs(FluidUtils.getFluidStack("hydrofluoricacid_gt5u", 1_000))
+            .fluidInputs(FluidUtils.getFluidStack("hydrofluoricacid", 1_000))
             .fluidOutputs(Materials.Water.getFluid(1_000))
             .duration(1 * MINUTES)
             .eut(TierEU.RECIPE_LV)
@@ -261,7 +261,7 @@ public class RecipeLoaderNuclear {
             .itemInputs(Materials.SodiumHydroxide.getDust(3))
             .circuit(15)
             .itemOutputs(MaterialsFluorides.SODIUM_FLUORIDE.getDust(2))
-            .fluidInputs(FluidUtils.getFluidStack("hydrofluoricacid_gt5u", 1_000))
+            .fluidInputs(FluidUtils.getFluidStack("hydrofluoricacid", 1_000))
             .fluidOutputs(Materials.Water.getFluid(1_000))
             .duration(1 * MINUTES)
             .eut(TierEU.RECIPE_LV)
@@ -351,7 +351,7 @@ public class RecipeLoaderNuclear {
             .itemInputs(ItemUtils.getItemStackOfAmountFromOreDict("dustCookedZrCl4", 1))
             .circuit(10)
             .itemOutputs(MaterialsFluorides.ZIRCONIUM_TETRAFLUORIDE.getDust(1))
-            .fluidInputs(FluidUtils.getFluidStack("hydrofluoricacid_gt5u", 800))
+            .fluidInputs(FluidUtils.getFluidStack("hydrofluoricacid", 800))
             .fluidOutputs(aHydrogenChloride)
             .eut(TierEU.RECIPE_HV)
             .duration(30 * SECONDS)

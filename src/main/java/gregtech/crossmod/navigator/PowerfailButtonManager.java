@@ -12,7 +12,7 @@ public class PowerfailButtonManager extends ButtonManager {
 
     @Override
     public ResourceLocation getIcon(SupportedMods mod, String theme) {
-        return new ResourceLocation(Mods.ModIDs.GREG_TECH, "textures/gui/navigator/powerfail.png");
+        return new ResourceLocation(Mods.ModIDs.GREG_TECH5, "textures/gui/navigator/powerfail.png");
     }
 
     @Override

@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 import bartworks.system.material.Werkstoff;
 import bartworks.system.material.werkstoff_loaders.IWerkstoffRunnable;
-import gregtech.api.enchants.EnchantmentRadioactivity;
+import gregapi.enchants.EnchantmentRadioactivity;
 import gregtech.api.enums.Element;
 import gregtech.api.enums.MaterialBuilder;
 import gregtech.api.enums.Materials;

@@ -77,7 +77,7 @@ import tectech.loader.recipe.Godforge;
     guiFactory = "bartworks.client.gui.BWGuiFactory",
     dependencies = """
         required-after:IC2;\
-        required-after:gregtech;\
+        required-after:gregtech5;\
         after:berriespp;\
         after:tectech;\
         after:GalacticraftMars;\

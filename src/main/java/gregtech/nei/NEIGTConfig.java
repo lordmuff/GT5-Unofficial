@@ -164,7 +164,7 @@ public class NEIGTConfig implements IConfigureNEI {
             });
 
         event.registerHandlerInfo(
-            new HandlerInfo.Builder(CAL_IMPRINT_HANDLER.getOverlayIdentifier(), "GregTech", Mods.ModIDs.GREG_TECH)
+            new HandlerInfo.Builder(CAL_IMPRINT_HANDLER.getOverlayIdentifier(), "GregTech", Mods.ModIDs.GREG_TECH5)
                 .setMaxRecipesPerPage(100)
                 .setDisplayStack(
                     BWMetaItems.getCircuitParts()

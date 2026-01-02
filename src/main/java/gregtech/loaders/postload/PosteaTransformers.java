@@ -53,7 +53,7 @@ public class PosteaTransformers implements Runnable {
             return new BlockInfo(GregTechAPI.sBlockFrames, indexInMaterialList);
         });
 
-        ItemStackReplacementManager.addItemReplacement("gregtech:gt.blockmachines", (tag) -> {
+        ItemStackReplacementManager.addItemReplacement("gregtech5:gt.blockmachines", (tag) -> {
             // Get item meta id and see if this is a frame box, this works pretty much identically to the TE transformer
             int id = tag.getInteger("Damage");
             int indexInMaterialList = id - 4096;

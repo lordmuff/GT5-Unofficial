@@ -123,17 +123,17 @@ public class GTPreLoad {
     }
 
     public static void getConfiguration(File configDir) {
-        File tFile = new File(new File(configDir, "GregTech"), "IDs.cfg");
+        File tFile = new File(new File(configDir, "GregTech5u"), "IDs.cfg");
         GTConfig.sConfigFileIDs = new Configuration(tFile);
         GTConfig.sConfigFileIDs.load();
         GTConfig.sConfigFileIDs.save();
 
-        tFile = new File(new File(configDir, "GregTech"), "Cleanroom.cfg");
+        tFile = new File(new File(configDir, "GregTech5u"), "Cleanroom.cfg");
         GTConfig.cleanroomFile = new Configuration(tFile);
         GTConfig.cleanroomFile.load();
         GTConfig.cleanroomFile.save();
 
-        tFile = new File(new File(configDir, "GregTech"), "UndergroundFluids.cfg");
+        tFile = new File(new File(configDir, "GregTech5u"), "UndergroundFluids.cfg");
         GTConfig.undergroundFluidsFile = new Configuration(tFile);
         GTConfig.undergroundFluidsFile.load();
         GTConfig.undergroundFluidsFile.save();
@@ -208,7 +208,7 @@ public class GTPreLoad {
             final String[] prefixes1 = { "dustTiny", "dustSmall", "dust", "dustImpure", "dustPure", "crushed",
                 "crushedPurified", "crushedCentrifuged", "gem", "nugget", null, "ingot", "ingotHot", null, null, null,
                 null, "plate", "plateDouble", "plateTriple", "plateQuadruple", "plateQuintuple", "plateDense", "stick",
-                "lens", "round", "bolt", "screw", "ring", "foil", "cell", "cellPlasma", "cellMolten", "rawOre",
+                "lens", "round", "bolt", "screw", "ring", "foil", "cell", "cellPlasma", "cellMolten", "oreRaw",
                 "plateSuperdense" };
             final String[] prefixes2 = { "toolHeadSword", "toolHeadPickaxe", "toolHeadShovel", "toolHeadAxe",
                 "toolHeadHoe", "toolHeadHammer", "toolHeadFile", "toolHeadSaw", "toolHeadDrill", "toolHeadChainsaw",
@@ -216,7 +216,7 @@ public class GTPreLoad {
                 "toolHeadBuzzSaw", "turbineBlade", null, "itemCasing", "wireFine", "gearGtSmall", "rotor", "stickLong",
                 "springSmall", "spring", "arrowGtWood", "arrowGtPlastic", "gemChipped", "gemFlawed", "gemFlawless",
                 "gemExquisite", "gearGt" };
-            final String[] prefixes3 = { "rawOre", "nanite", "plateSuperdense" };
+            final String[] prefixes3 = { "oreRaw", "nanite", "plateSuperdense" };
             for (String text : scripts) {
                 Matcher m = p.matcher(text);
                 while (m.find()) {
@@ -224,7 +224,7 @@ public class GTPreLoad {
                     if (hit.startsWith("ore:")) {
                         hit = hit.substring(4);
                         if (!oreTags.contains(hit)) oreTags.add(hit);
-                    } else if (hit.startsWith("gregtech:gt.metaitem.0")) {
+                    } else if (hit.startsWith("gregtech5:gt.metaitem.0")) {
                         hit = hit.substring(22);
                         int mIt = Integer.parseInt(hit.substring(0, 1));
                         if (mIt > 0) {
@@ -271,7 +271,7 @@ public class GTPreLoad {
             "toolHeadUniversalSpade", "toolHeadSense", "toolHeadPlow", "toolHeadArrow", "toolHeadBuzzSaw",
             "turbineBlade", "wireFine", "gearGtSmall", "rotor", "stickLong", "springSmall", "spring", "arrowGtWood",
             "arrowGtPlastic", "gemChipped", "gemFlawed", "gemFlawless", "gemExquisite", "gearGt", "nanite",
-            "cellMolten", "rawOre", "plateSuperdense" };
+            "cellMolten", "oreRaw", "plateSuperdense" };
 
         final ArrayList<String> mMTTags = new ArrayList<>();
         // noinspection ForLoopReplaceableByForEach

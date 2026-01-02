@@ -47,11 +47,10 @@ import cpw.mods.fml.common.event.FMLServerStartedEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
-import galacticgreg.SpaceDimRegisterer;
 import gregtech.api.GregTechAPI;
-import gregtech.api.enchants.EnchantmentEnderDamage;
-import gregtech.api.enchants.EnchantmentHazmat;
-import gregtech.api.enchants.EnchantmentRadioactivity;
+import gregapi.enchants.EnchantmentEnderDamage;
+import gregapi.enchants.EnchantmentHazmat;
+import gregapi.enchants.EnchantmentRadioactivity;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
@@ -138,7 +137,7 @@ import ic2.api.recipe.RecipeOutput;
     name = "GregTech",
     version = "MC1710",
     guiFactory = "gregtech.client.GTGuiFactory",
-    dependencies = "required-after:IC2;" + "required-after:structurelib;"
+    dependencies = "required-after:IC2;" + "required-after:structurelib;" + " after:gregapi;"
         + "required-after:gtnhlib@[0.6.35,);"
         + "required-after:modularui@[1.1.12,);"
         + "required-after:appliedenergistics2@[rv3-beta-258,);"
@@ -387,7 +386,6 @@ public class GTMod {
         LHECoolantRegistry.registerBaseCoolants();
 
         GT_FML_LOGGER.debug("Registering SpaceDimensions");
-        SpaceDimRegisterer.register();
 
         GregTechAPI.sLoadFinished = true;
         GTLog.out.println("GTMod: Load-Phase finished!");

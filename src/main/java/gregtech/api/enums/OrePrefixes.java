@@ -241,7 +241,7 @@ public class OrePrefixes {
         .textureIndex(OrePrefixTextureID.CRUSHED)
         .build();
 
-    public static final OrePrefixes rawOre = new OrePrefixBuilder("rawOre").withDefaultLocalName("Raw Ore")
+    public static final OrePrefixes oreRaw = new OrePrefixBuilder("oreRaw").withDefaultLocalName("Raw Ore")
         .withPrefix("Raw ")
         .withSuffix(" Ore")
         .unifiable()
@@ -2398,7 +2398,7 @@ public class OrePrefixes {
         orePoor.mSecondaryMaterial = new MaterialStack(Materials.Stone, dust.materialAmount * 2);
         oreSmall.mSecondaryMaterial = new MaterialStack(Materials.Stone, dust.materialAmount * 2);
         oreNormal.mSecondaryMaterial = new MaterialStack(Materials.Stone, dust.materialAmount * 2);
-        rawOre.mSecondaryMaterial = new MaterialStack(Materials.Stone, dust.materialAmount);
+        oreRaw.mSecondaryMaterial = new MaterialStack(Materials.Stone, dust.materialAmount);
         oreRich.mSecondaryMaterial = new MaterialStack(Materials.Stone, dust.materialAmount * 2);
         ore.mSecondaryMaterial = new MaterialStack(Materials.Stone, dust.materialAmount);
         crushed.mSecondaryMaterial = new MaterialStack(Materials.Stone, dust.materialAmount);
@@ -2828,7 +2828,7 @@ public class OrePrefixes {
             }
         }
 
-        if (aMaterial.contains(SubTag.ICE_ORE) && (this == rawOre || this == ore)) {
+        if (aMaterial.contains(SubTag.ICE_ORE) && (this == oreRaw || this == ore)) {
             return materialPrefix + "%material" + " Ice";
         }
 
