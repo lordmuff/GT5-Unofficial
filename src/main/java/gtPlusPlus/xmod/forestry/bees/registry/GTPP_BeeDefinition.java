@@ -155,7 +155,7 @@ public enum GTPP_BeeDefinition implements IBeeDefinition {
             case GTPP_Bees.EXTRABEES -> "extrabees.effect." + name;
             case GTPP_Bees.GENDUSTRY -> "gendustry.effect." + name;
             case GTPP_Bees.MAGICBEES -> "magicbees.effect" + name;
-            case GTPP_Bees.GREGTECH -> "gregtech.effect" + name;
+            case GTPP_Bees.GREGTECH -> "gregtech5.effect" + name;
             default -> "forestry.effect" + name;
         };
         return (IAlleleBeeEffect) AlleleManager.alleleRegistry.getAllele(s);
@@ -166,7 +166,7 @@ public enum GTPP_BeeDefinition implements IBeeDefinition {
             case GTPP_Bees.EXTRABEES -> "extrabees.flower." + name;
             case GTPP_Bees.GENDUSTRY -> "gendustry.flower." + name;
             case GTPP_Bees.MAGICBEES -> "magicbees.flower" + name;
-            case GTPP_Bees.GREGTECH -> "gregtech.flower" + name;
+            case GTPP_Bees.GREGTECH -> "gregtech5.flower" + name;
             default -> "forestry.flowers" + name;
         };
         return (IAlleleFlowers) AlleleManager.alleleRegistry.getAllele(s);
@@ -177,7 +177,7 @@ public enum GTPP_BeeDefinition implements IBeeDefinition {
             case GTPP_Bees.EXTRABEES -> "extrabees.species." + name;
             case GTPP_Bees.GENDUSTRY -> "gendustry.bee." + name;
             case GTPP_Bees.MAGICBEES -> "magicbees.species" + name;
-            case GTPP_Bees.GREGTECH -> "gregtech.species" + name;
+            case GTPP_Bees.GREGTECH -> "gregtech5.species" + name;
             default -> "forestry.species" + name;
         };
         IAlleleBeeSpecies ret = (IAlleleBeeSpecies) AlleleManager.alleleRegistry.getAllele(s);
@@ -285,7 +285,7 @@ public enum GTPP_BeeDefinition implements IBeeDefinition {
         return new BeeVariation.RainResist(this);
     }
 
-    private static final Class sGtBees = ReflectionUtils.getClass("gregtech.loaders.misc.GT_BeeDefinition");
+    private static final Class sGtBees = ReflectionUtils.getClass("gregtech5.loaders.misc.GT_BeeDefinition");
 
     public static IAlleleBeeSpecies getGregtechBeeType(String name) {
         try {

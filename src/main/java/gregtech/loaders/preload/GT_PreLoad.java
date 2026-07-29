@@ -106,7 +106,7 @@ public class GT_PreLoad {
             if (userLang.equals("en_US")) {
                 GT_FML_LOGGER.info("Loading GregTech.lang");
                 GT_LanguageManager.isEN_US = true;
-                GT_LanguageManager.sEnglishFile = new Configuration(new File(languageDir, "GregTech.lang"));
+                GT_LanguageManager.sEnglishFile = new Configuration(new File(languageDir, "GregTech5.lang"));
             } else {
                 String l10nFileName = "GregTech_" + userLang + ".lang";
                 File l10nFile = new File(languageDir, l10nFileName);
@@ -116,12 +116,12 @@ public class GT_PreLoad {
                 } else {
                     GT_FML_LOGGER.info("Cannot find l10n file " + l10nFileName + ", fallback to GregTech.lang");
                     GT_LanguageManager.isEN_US = true;
-                    GT_LanguageManager.sEnglishFile = new Configuration(new File(languageDir, "GregTech.lang"));
+                    GT_LanguageManager.sEnglishFile = new Configuration(new File(languageDir, "GregTech5.lang"));
                 }
             }
         } else {
             GT_LanguageManager.isEN_US = true;
-            GT_LanguageManager.sEnglishFile = new Configuration(new File(languageDir, "GregTech.lang"));
+            GT_LanguageManager.sEnglishFile = new Configuration(new File(languageDir, "GregTech5.lang"));
         }
         GT_LanguageManager.sEnglishFile.load();
 
@@ -135,7 +135,7 @@ public class GT_PreLoad {
     }
 
     public static Configuration getConfiguration(File configDir) {
-        File tFile = new File(new File(configDir, "GregTech5u"), "GregTech.cfg");
+        File tFile = new File(new File(configDir, "GregTech5u"), "GregTech5.cfg");
         Configuration tMainConfig = new Configuration(tFile);
         tMainConfig.load();
         tFile = new File(new File(configDir, "GregTech5u"), "IDs.cfg");
@@ -281,7 +281,7 @@ public class GT_PreLoad {
                                     null, "ingot", "ingotHot", "ingotDouble", "ingotTriple", "ingotQuadruple",
                                     "ingotQuintuple", "plate", "plateDouble", "plateTriple", "plateQuadruple",
                                     "plateQuintuple", "plateDense", "stick", "lens", "round", "bolt", "screw", "ring",
-                                    "foil", "cell", "cellPlasma", "cellMolten", "rawOre" };
+                                    "foil", "cell", "cellPlasma", "cellMolten", "oreRaw" };
                                 if (mIt == 2) tags = new String[] { "toolHeadSword", "toolHeadPickaxe",
                                     "toolHeadShovel", "toolHeadAxe", "toolHeadHoe", "toolHeadHammer", "toolHeadFile",
                                     "toolHeadSaw", "toolHeadDrill", "toolHeadChainsaw", "toolHeadWrench",
@@ -313,7 +313,7 @@ public class GT_PreLoad {
             "toolHeadUniversalSpade", "toolHeadSense", "toolHeadPlow", "toolHeadArrow", "toolHeadBuzzSaw",
             "turbineBlade", "wireFine", "gearGtSmall", "rotor", "stickLong", "springSmall", "spring", "arrowGtWood",
             "arrowGtPlastic", "gemChipped", "gemFlawed", "gemFlawless", "gemExquisite", "gearGt", "nanite",
-            "cellMolten", "rawOre" };
+            "cellMolten", "oreRaw" };
 
         List<String> mMTTags = new ArrayList<>();
         oreTags.stream()

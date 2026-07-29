@@ -666,7 +666,7 @@ public class NaquadahReworkRecipeLoader {
                     if ((OreDictionary.getOreName(oreDictID)
                         .startsWith("ore")
                         || OreDictionary.getOreName(oreDictID)
-                            .startsWith("rawOre")
+                            .startsWith("oreRaw")
                         || OreDictionary.getOreName(oreDictID)
                             .startsWith("crushed"))
                         && OreDictionary.getOreName(oreDictID)

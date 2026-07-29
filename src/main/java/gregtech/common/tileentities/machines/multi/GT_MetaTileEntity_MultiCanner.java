@@ -161,7 +161,7 @@ public class GT_MetaTileEntity_MultiCanner extends
             .addOutputHatch("Any Solid Steel Casing", 1)
             .addEnergyHatch("Any Solid Steel Casing", 1)
             .addMaintenanceHatch("Any Solid Steel Casing", 1)
-            .toolTipFinisher("GregTech");
+            .toolTipFinisher("GregTech5");
         return tt;
     }
 

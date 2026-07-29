@@ -236,7 +236,7 @@ public class GT_MetaTileEntity_IndustrialElectromagneticSeparator
             .addOutputBus("Any Casing", 1)
             .addEnergyHatch("Any Casing", 1)
             .addMaintenanceHatch("Any Casing", 1)
-            .toolTipFinisher("GregTech");
+            .toolTipFinisher("GregTech5");
         return tt;
     }
 

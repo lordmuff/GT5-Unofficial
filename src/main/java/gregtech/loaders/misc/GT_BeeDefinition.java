@@ -2625,7 +2625,7 @@ public enum GT_BeeDefinition implements IBeeDefinition {
             .toLowerCase(Locale.ENGLISH);
         String species = WordUtils.capitalize(lowercaseName);
 
-        String uid = "gregtech.bee.species" + species;
+        String uid = "gregtech5.bee.species" + species;
         String description = "for.description." + species;
         String name = "for.bees.species." + lowercaseName;
         GT_LanguageManager.addStringLocalization("for.bees.species." + lowercaseName, species);
@@ -2657,7 +2657,7 @@ public enum GT_BeeDefinition implements IBeeDefinition {
             case EXTRABEES -> "extrabees.effect." + name;
             case GENDUSTRY -> "gendustry.effect." + name;
             case MAGICBEES -> "magicbees.effect" + name;
-            case GREGTECH -> "gregtech.effect" + name;
+            case GREGTECH -> "gregtech5.effect" + name;
             default -> "forestry.effect" + name;
         };
         return (IAlleleBeeEffect) AlleleManager.alleleRegistry.getAllele(s);
@@ -2668,7 +2668,7 @@ public enum GT_BeeDefinition implements IBeeDefinition {
             case EXTRABEES -> "extrabees.flower." + name;
             case GENDUSTRY -> "gendustry.flower." + name;
             case MAGICBEES -> "magicbees.flower" + name;
-            case GREGTECH -> "gregtech.flower" + name;
+            case GREGTECH -> "gregtech5.flower" + name;
             default -> "forestry.flowers" + name;
         };
         return (IAlleleFlowers) AlleleManager.alleleRegistry.getAllele(s);
@@ -2679,7 +2679,7 @@ public enum GT_BeeDefinition implements IBeeDefinition {
             case EXTRABEES -> "extrabees.species." + name;
             case GENDUSTRY -> "gendustry.bee." + name;
             case MAGICBEES -> "magicbees.species" + name;
-            case GREGTECH -> "gregtech.species" + name;
+            case GREGTECH -> "gregtech5.species" + name;
             default -> "forestry.species" + name;
         };
         IAlleleBeeSpecies ret = (IAlleleBeeSpecies) AlleleManager.alleleRegistry.getAllele(s);

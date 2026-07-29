@@ -445,7 +445,7 @@ public class GT_MetaTileEntity_PurificationUnitPhAdjustment
             .addOtherStructurePart("Input Bus (Sodium Hydroxide)", EnumChatFormatting.GOLD + "1", 3)
             .addOtherStructurePart("Input Hatch (Hydrochloric Acid)", EnumChatFormatting.GOLD + "1", 4)
             .addStructureInfo("Use the StructureLib Hologram Projector to build the structure.")
-            .toolTipFinisher("GregTech");
+            .toolTipFinisher("GregTech5");
         return tt;
     }
 

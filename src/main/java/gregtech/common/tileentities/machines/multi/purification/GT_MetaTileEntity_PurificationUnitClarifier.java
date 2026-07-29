@@ -244,7 +244,7 @@ public class GT_MetaTileEntity_PurificationUnitClarifier
             .addOutputHatch(EnumChatFormatting.GOLD + "1" + EnumChatFormatting.GRAY + "+", 1)
             .addStructureInfo("Requires water to be placed in the structure.")
             .addStructureInfo("Use the StructureLib Hologram Projector to build the structure.")
-            .toolTipFinisher("GregTech");
+            .toolTipFinisher("GregTech5");
         return tt;
     }
 

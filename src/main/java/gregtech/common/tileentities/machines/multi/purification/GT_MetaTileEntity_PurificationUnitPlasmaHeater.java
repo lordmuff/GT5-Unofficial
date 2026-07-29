@@ -406,7 +406,7 @@ public class GT_MetaTileEntity_PurificationUnitPlasmaHeater
             .addOtherStructurePart("Input Hatch (Coolant)", EnumChatFormatting.GOLD + "1", 2)
             .addOtherStructurePart("Input Hatch (Plasma)", EnumChatFormatting.GOLD + "1", 3)
             .addStructureInfo("Use the StructureLib Hologram Projector to build the structure.")
-            .toolTipFinisher("GregTech");
+            .toolTipFinisher("GregTech5");
         return tt;
     }
 

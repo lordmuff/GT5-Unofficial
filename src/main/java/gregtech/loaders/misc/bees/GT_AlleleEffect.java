@@ -16,7 +16,7 @@ public abstract class GT_AlleleEffect extends Allele implements IAlleleBeeEffect
     protected boolean combinable;
 
     public GT_AlleleEffect(String id, boolean isDominant) {
-        super("gregtech." + id, "gregtech." + id, isDominant);
+        super("gregtech5." + id, "gregtech5." + id, isDominant);
         AlleleManager.alleleRegistry.registerAllele(this, EnumBeeChromosome.EFFECT);
         combinable = false;
     }

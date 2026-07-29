@@ -264,7 +264,7 @@ public class GT_MetaTileEntity_PurificationPlant
             .addMaintenanceHatch(EnumChatFormatting.GOLD + "1", 1)
             .addStructureInfo("Requires water to be placed in the tank.")
             .addStructureInfo("Use the StructureLib Hologram Projector to build the structure.")
-            .toolTipFinisher("GregTech");
+            .toolTipFinisher("GregTech5");
         return tt;
     }
 

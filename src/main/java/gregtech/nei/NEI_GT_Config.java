@@ -64,7 +64,7 @@ public class NEI_GT_Config implements IConfigureNEI {
             GT_Values.GT,
             "NEIPlugins",
             "register-crafting-handler",
-            "gregtech@" + handler.getRecipeName() + "@" + handler.getOverlayIdentifier());
+            "gregtech5@" + handler.getRecipeName() + "@" + handler.getOverlayIdentifier());
         GuiCraftingRecipe.craftinghandlers.add(handler);
         GuiUsageRecipe.usagehandlers.add(handler);
     }
@@ -105,7 +105,7 @@ public class NEI_GT_Config implements IConfigureNEI {
             RecipeMaps.ic2NuclearFakeRecipes.unlocalizedName);
         // Bronze Blast Furnace
         API.removeRecipeCatalyst(
-            GT_ModHandler.getModItem("gregtech", "gt.blockmachines", 1, 108),
+            GT_ModHandler.getModItem("gregtech5", "gt.blockmachines", 1, 108),
             RecipeMaps.primitiveBlastRecipes.unlocalizedName);
     }
 
@@ -177,7 +177,7 @@ public class NEI_GT_Config implements IConfigureNEI {
 
     @Override
     public String getName() {
-        return "GregTech NEI Plugin";
+        return "GregTech5 NEI Plugin";
     }
 
     @Override

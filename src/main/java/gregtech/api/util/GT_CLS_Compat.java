@@ -126,7 +126,7 @@ public class GT_CLS_Compat {
             GT_Mod.GT_FML_LOGGER.catching(e);
         }
         registerAndReportProgression(
-            "GregTech materials",
+            "GregTech5 materials",
             mEvents,
             progressBar,
             m -> m.mMaterial,

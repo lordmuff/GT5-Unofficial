@@ -56,7 +56,7 @@ public class GT_Network extends MessageToMessageCodec<FMLProxyPacket, GT_Packet>
 
     public GT_Network() {
         this(
-            "GregTech",
+            "GregTech5",
             new GT_Packet_TileEntity(), // 0
             new GT_Packet_Sound(), // 1
             new GT_Packet_Block_Event(), // 2

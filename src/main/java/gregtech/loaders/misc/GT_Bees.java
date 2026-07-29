@@ -107,7 +107,7 @@ public class GT_Bees {
         private final float value;
 
         public AlleleFloat(String id, float val, boolean isDominant) {
-            super("gregtech." + id, "gregtech." + id, isDominant);
+            super("gregtech5." + id, "gregtech5." + id, isDominant);
             this.value = val;
             AlleleManager.alleleRegistry.registerAllele(this, EnumBeeChromosome.SPEED);
         }
@@ -123,7 +123,7 @@ public class GT_Bees {
         private final int value;
 
         public AlleleInteger(String id, int val, boolean isDominant, EnumBeeChromosome c) {
-            super("gregtech." + id, "gregtech." + id, isDominant);
+            super("gregtech5." + id, "gregtech5." + id, isDominant);
             this.value = val;
             AlleleManager.alleleRegistry.registerAllele(this, c);
         }
@@ -139,7 +139,7 @@ public class GT_Bees {
         private final int[] value;
 
         public AlleleArea(String id, int rangeXZ, int rangeY, boolean isDominant) {
-            super("gregtech." + id, "gregtech." + id, isDominant);
+            super("gregtech5." + id, "gregtech5." + id, isDominant);
             this.value = new int[] { rangeXZ, rangeY, rangeXZ };
             AlleleManager.alleleRegistry.registerAllele(this, EnumBeeChromosome.TERRITORY);
         }

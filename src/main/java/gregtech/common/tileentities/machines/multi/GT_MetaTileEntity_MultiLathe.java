@@ -241,7 +241,7 @@ public class GT_MetaTileEntity_MultiLathe extends GT_MetaTileEntity_EnhancedMult
             .addMaintenanceHatch("Any Solid Steel Casing", 1)
             .addMufflerHatch("Any Solid Steel Casing", 1)
             .addOtherStructurePart("4 Item Pipe Casings", "Center of the glass", 4)
-            .toolTipFinisher("GregTech");
+            .toolTipFinisher("GregTech5");
         return tt;
     }
 

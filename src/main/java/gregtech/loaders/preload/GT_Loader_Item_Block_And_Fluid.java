@@ -170,22 +170,22 @@ public class GT_Loader_Item_Block_And_Fluid implements Runnable {
         ItemList.VOLUMETRIC_FLASK.set(new GT_VolumetricFlask("Volumetric_Flask", "Volumetric flask", 1000));
 
         Item tItem = (Item) GT_Utility.callConstructor(
-            "gregtech.common.items.GT_SensorCard_Item",
+            "gregtech5.common.items.GT_SensorCard_Item",
             0,
             null,
             false,
-            new Object[] { "sensorcard", "GregTech Sensor Card" });
+            new Object[] { "sensorcard", "GregTech5 Sensor Card" });
         ItemList.NC_SensorCard.set(
-            tItem == null ? new GT_Generic_Item("sensorcard", "GregTech Sensor Card", "Nuclear Control not installed")
+            tItem == null ? new GT_Generic_Item("sensorcard", "GregTech5 Sensor Card", "Nuclear Control not installed")
                 : tItem);
 
         Item advSensorCard = (Item) GT_Utility
-            .callConstructor("gregtech.common.items.GT_AdvancedSensorCard_Item", 0, null, false);
+            .callConstructor("gregtech5.common.items.GT_AdvancedSensorCard_Item", 0, null, false);
         ItemList.NC_AdvancedSensorCard.set(
             advSensorCard == null
                 ? new GT_Generic_Item(
                     "advancedsensorcard",
-                    "GregTech Advanced Sensor Card",
+                    "GregTech5 Advanced Sensor Card",
                     "Nuclear Control not installed")
                 : advSensorCard);
 

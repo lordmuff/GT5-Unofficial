@@ -2986,7 +2986,7 @@ public class GT_MetaGenerated_Item_01 extends GT_MetaGenerated_Item_X32 {
                 new TC_Aspects.TC_AspectStack(TC_Aspects.ELECTRUM, 6L),
                 new TC_Aspects.TC_AspectStack(TC_Aspects.SENSUS, 6L)));
 
-        ItemList.NC_SensorKit.set(addItem(NC_SensorKit.ID, "GregTech Sensor Kit", "", new Behaviour_SensorKit()));
+        ItemList.NC_SensorKit.set(addItem(NC_SensorKit.ID, "GregTech5 Sensor Kit", "", new Behaviour_SensorKit()));
         ItemList.Duct_Tape.set(
             addItem(
                 Duct_Tape.ID,

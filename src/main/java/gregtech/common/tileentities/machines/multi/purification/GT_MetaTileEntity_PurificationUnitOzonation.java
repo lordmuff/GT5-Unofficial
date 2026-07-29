@@ -243,7 +243,7 @@ public class GT_MetaTileEntity_PurificationUnitOzonation
             .addInputHatch(EnumChatFormatting.GOLD + "1" + EnumChatFormatting.GRAY + "+", 1)
             .addOutputHatch(EnumChatFormatting.GOLD + "1" + EnumChatFormatting.GRAY + "+", 1)
             .addOtherStructurePart("Input Hatch (Ozone)", EnumChatFormatting.GOLD + "1", 2)
-            .toolTipFinisher("GregTech");
+            .toolTipFinisher("GregTech5");
         return tt;
     }
 

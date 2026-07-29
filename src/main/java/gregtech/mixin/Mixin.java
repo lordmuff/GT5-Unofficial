@@ -62,7 +62,7 @@ public enum Mixin {;
 
     */
 
-    //public static final Logger LOGGER = LogManager.getLogger("GregTech-Mixin");
+    //public static final Logger LOGGER = LogManager.getLogger("GregTech5-Mixin");
 
     private final List<String> mixinClasses;
     private final List<TargetedMod> targetedMods;

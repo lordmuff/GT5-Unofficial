@@ -304,7 +304,7 @@ public class GT_MetaTileEntity_PurificationUnitUVTreatment
             .addOtherStructurePart("Lens Housing", EnumChatFormatting.GOLD + "1", 2)
             .addOtherStructurePart("Lens Indicator", EnumChatFormatting.GOLD + "1", 3)
             .addStructureInfo("Use the StructureLib Hologram Projector to build the structure.")
-            .toolTipFinisher("GregTech");
+            .toolTipFinisher("GregTech5");
         return tt;
     }
 

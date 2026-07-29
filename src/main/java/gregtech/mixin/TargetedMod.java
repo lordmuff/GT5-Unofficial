@@ -21,8 +21,8 @@ public enum TargetedMod {
     EXTRA_UTILITIES("ExtraUtilities", null, "ExtraUtilities"),
     FASTCRAFT("FastCraft", "fastcraft.Tweaker"),
     GALACTICRAFT_CORE("GalacticraftCore", "micdoodle8.mods.galacticraft.core.asm.GCLoadingPlugin", "GalacticraftCore"),
-    GT5U("GregTech5u", "gregtech.GT_Mod", "gregtech"), // Also matches GT6.
-    GT6("GregTech6", "gregtech.asm.GT_ASM", "gregapi"), // Can be used to exclude GT6 from the GT5U target.
+    GT5U("GregTech5u", "gregtech5.GT_Mod", "gregtech5"), // Also matches GT6.
+    GT6("GregTech6", "gregtech5.asm.GT_ASM", "gregapi"), // Can be used to exclude GT6 from the GT5U target.
     GTNHLIB("GTNHLib", "com.gtnewhorizon.gtnhlib.core.GTNHLibCore", "gtnhlib"),
     HARVESTCRAFT("harvestcraft", null, "harvestcraft"),
     HARVESTTHENETHER("harvestthenether", null, "harvestthenether"),

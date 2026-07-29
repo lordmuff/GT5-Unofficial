@@ -383,7 +383,7 @@ public class GT_Achievements {
         if (GT_Mod.gregtechproxy.mAchievements) {
             AchievementPage.registerAchievementPage(
                 new AchievementPage(
-                    "GregTech 5",
+                    "GregTech5 5",
                     this.achievementList.values()
                         .toArray(new Achievement[0])));
             MinecraftForge.EVENT_BUS.register(this);

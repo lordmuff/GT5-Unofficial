@@ -33,9 +33,9 @@ public class Preloader_GT_OreDict {
                             return true;
                         }
                     } else {
-                        if (ReflectionUtils.doesClassExist("gregtech.common.items.GT_MetaGenerated_Item_03")) { // 6/11/12/14/16/20/30-57/69-73/79-96
+                        if (ReflectionUtils.doesClassExist("gregtech5.common.items.GT_MetaGenerated_Item_03")) { // 6/11/12/14/16/20/30-57/69-73/79-96
                             final Class<?> MetaItem03 = ReflectionUtils
-                                .getClass("gregtech.common.items.GT_MetaGenerated_Item_03");
+                                .getClass("gregtech5.common.items.GT_MetaGenerated_Item_03");
                             if (isInstanceOf(MetaItem03, bannedItem.getItem())) {
                                 if ((damageValue == 6) || (damageValue == 7)
                                     || (damageValue == 11)

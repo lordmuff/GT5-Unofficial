@@ -21,8 +21,8 @@ import gtPlusPlus.preloader.asm.transformers.Preloader_Transformer_Handler;
 @IFMLLoadingPlugin.SortingIndex(Integer.MAX_VALUE) // Load as late as possible (after fastcraft/OptiFine).
 @IFMLLoadingPlugin.MCVersion("1.7.10")
 @IFMLLoadingPlugin.TransformerExclusions({ "com.github.bartimaeusnek.bartworks.ASM", "gtPlusPlus.preloader",
-    "gregtech.asm" })
-@IFMLLoadingPlugin.Name("GregTech 5 Unofficial core plugin")
+    "gregtech5.asm" })
+@IFMLLoadingPlugin.Name("GregTech5 5 Unofficial core plugin")
 @SuppressWarnings("unused") // loaded by FML
 public class GTCorePlugin implements IFMLLoadingPlugin, IEarlyMixinLoader {
 

@@ -101,7 +101,7 @@ public class GTPP_Bees {
 
     private static boolean tryGetBeesBoolean() {
         try {
-            Class<?> mProxy = Class.forName("gregtech.GT_Mod.gregtechproxy");
+            Class<?> mProxy = Class.forName("gregtech5.GT_Mod.gregtechproxy");
             Field mNerf = FieldUtils.getDeclaredField(mProxy, "mGTBees", true);
             boolean returnValue = (boolean) mNerf.get(GT_Mod.gregtechproxy);
             return returnValue;
@@ -113,9 +113,9 @@ public class GTPP_Bees {
     private void setMaterials() {
         try {
 
-            Class<?> gtBees = Class.forName("gregtech.loaders.misc.GT_Bees");
-            Class<?> gtCombItemClass = Class.forName("gregtech.common.items.ItemComb");
-            Class gtCombEnumClass = Class.forName("gregtech.common.items.CombType");
+            Class<?> gtBees = Class.forName("gregtech5.loaders.misc.GT_Bees");
+            Class<?> gtCombItemClass = Class.forName("gregtech5.common.items.ItemComb");
+            Class gtCombEnumClass = Class.forName("gregtech5.common.items.CombType");
             Field gtCombs = FieldUtils.getDeclaredField(gtBees, "combs", true);
             gtCombs.setAccessible(true);
             ReflectionUtils.makeFieldAccessible(gtCombs);

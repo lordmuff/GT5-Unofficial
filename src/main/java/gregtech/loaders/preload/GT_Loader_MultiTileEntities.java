@@ -48,7 +48,7 @@ public class GT_Loader_MultiTileEntities implements Runnable {
     // MuTE Registries
     public static final MultiTileEntityRegistry MACHINE_REGISTRY = new MultiTileEntityRegistry(
         MACHINE_REGISTRY_NAME,
-        new MultiTileEntityBlock(Material.iron).modID("gregtech")
+        new MultiTileEntityBlock(Material.iron).modID("gregtech5")
             .materialName("machine")
             .tool("wrench")
             .sound(Block.soundTypeMetal)
@@ -57,7 +57,7 @@ public class GT_Loader_MultiTileEntities implements Runnable {
             .register());
     public static final MultiTileEntityRegistry CASING_REGISTRY = new MultiTileEntityRegistry(
         CASING_REGISTRY_NAME,
-        new MultiTileEntityBlock(Material.iron).modID("gregtech")
+        new MultiTileEntityBlock(Material.iron).modID("gregtech5")
             .materialName("casing")
             .tool("wrench")
             .sound(Block.soundTypeMetal)
@@ -66,7 +66,7 @@ public class GT_Loader_MultiTileEntities implements Runnable {
             .register());
     public static final MultiTileEntityRegistry COMPONENT_CASING_REGISTRY = new MultiTileEntityRegistry(
         COMPONENT_CASING_REGISTRY_NAME,
-        new MultiTileEntityBlock(Material.iron).modID("gregtech")
+        new MultiTileEntityBlock(Material.iron).modID("gregtech5")
             .materialName("componentCasing")
             .tool("wrench")
             .sound(Block.soundTypeMetal)
@@ -75,7 +75,7 @@ public class GT_Loader_MultiTileEntities implements Runnable {
             .register());
     public static final MultiTileEntityRegistry UPGRADE_CASING_REGISTRY = new MultiTileEntityRegistry(
         UPGRADE_CASING_REGISTRY_NAME,
-        new MultiTileEntityBlock(Material.iron).modID("gregtech")
+        new MultiTileEntityBlock(Material.iron).modID("gregtech5")
             .materialName("upgradeCasing")
             .tool("wrench")
             .sound(Block.soundTypeMetal)

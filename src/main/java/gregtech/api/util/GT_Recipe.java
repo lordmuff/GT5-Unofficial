@@ -722,16 +722,16 @@ public class GT_Recipe implements Comparable<GT_Recipe> {
 
     private static final List<String> excludedStacktraces = Arrays.asList(
         "java.lang.Thread",
-        "gregtech.api.interfaces.IRecipeMap",
-        "gregtech.api.interfaces.IRecipeMap$1",
-        "gregtech.api.recipe.RecipeMap",
-        "gregtech.api.recipe.RecipeMapBackend",
-        "gregtech.api.recipe.RecipeMapBackendPropertiesBuilder",
-        "gregtech.api.util.GT_Recipe",
-        "gregtech.api.util.GT_RecipeBuilder",
-        "gregtech.api.util.GT_RecipeConstants",
-        "gregtech.api.util.GT_RecipeMapUtil",
-        "gregtech.common.GT_RecipeAdder");
+        "gregtech5.api.interfaces.IRecipeMap",
+        "gregtech5.api.interfaces.IRecipeMap$1",
+        "gregtech5.api.recipe.RecipeMap",
+        "gregtech5.api.recipe.RecipeMapBackend",
+        "gregtech5.api.recipe.RecipeMapBackendPropertiesBuilder",
+        "gregtech5.api.util.GT_Recipe",
+        "gregtech5.api.util.GT_RecipeBuilder",
+        "gregtech5.api.util.GT_RecipeConstants",
+        "gregtech5.api.util.GT_RecipeMapUtil",
+        "gregtech5.common.GT_RecipeAdder");
 
     public void reloadOwner() {
         setOwner(

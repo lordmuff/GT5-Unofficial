@@ -1477,6 +1477,6 @@ public class GT_MetaGenerated_Item_03 extends GT_MetaGenerated_Item_X32 {
             .contains("nanite"))
             || (aPrefix.toString()
                 .toLowerCase()
-                .contains("rawore"));
+                .contains("oreRaw"));
     }
 }

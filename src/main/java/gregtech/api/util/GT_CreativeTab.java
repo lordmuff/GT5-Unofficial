@@ -10,7 +10,7 @@ import gregtech.api.enums.ItemList;
 public class GT_CreativeTab extends CreativeTabs {
 
     public GT_CreativeTab(String aName, String aLocalName) {
-        super("GregTech." + aName);
+        super("GregTech5." + aName);
         GT_LanguageManager.addStringLocalization("itemGroup.GregTech." + aName, aLocalName);
     }
 

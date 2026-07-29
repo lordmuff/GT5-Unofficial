@@ -438,7 +438,7 @@ public class GT_MetaTileEntity_NanoForge extends
                     + EnumChatFormatting.GRAY
                     + " output busses.")
             .addStructureInfo("--------------------------------------------")
-            .toolTipFinisher("GregTech");
+            .toolTipFinisher("GregTech5");
         return tt;
     }
 

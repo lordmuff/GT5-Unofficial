@@ -119,9 +119,9 @@ import ic2.api.recipe.RecipeOutput;
 
 @Mod(
     modid = Mods.Names.GREG_TECH5,
-    name = "GregTech 5 Unofficial: New Horizons",
+    name = "GregTech5 5 Unofficial: New Horizons",
     version = "MC1710",
-    guiFactory = "gregtech.client.GT_GuiFactory",
+    guiFactory = "gregtech5.client.GT_GuiFactory",
     dependencies = " required-after:IC2;" + " required-after:structurelib;"
         + " required-after:gtnhlib@[0.2.1,);"
         + " required-after:modularui@[1.1.12,);"
@@ -178,15 +178,15 @@ public class GT_Mod implements IGT_Mod {
 
     @SidedProxy(
         modId = Mods.Names.GREG_TECH5,
-        clientSide = "gregtech.common.GT_Client",
-        serverSide = "gregtech.common.GT_Server")
+        clientSide = "gregtech5.common.GT_Client",
+        serverSide = "gregtech5.common.GT_Server")
     public static GT_Proxy gregtechproxy;
 
     public static int MAX_IC2 = 2147483647;
     public static GT_Achievements achievements;
     public static final String aTextGeneral = "general";
     public static final String aTextIC2 = "ic2_";
-    public static final Logger GT_FML_LOGGER = LogManager.getLogger("GregTech GTNH");
+    public static final Logger GT_FML_LOGGER = LogManager.getLogger("GregTech5 GTNH");
 
     @SuppressWarnings("deprecation")
     public GT_Mod() {

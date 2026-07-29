@@ -829,7 +829,7 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
             .bus()
             .register(this);
         GregTech_API.sThaumcraftCompat = (IThaumcraftCompat) GT_Utility
-            .callConstructor("gregtech.common.GT_ThaumcraftCompat", 0, null, GT_Values.D1, new Object[0]);
+            .callConstructor("gregtech5.common.GT_ThaumcraftCompat", 0, null, GT_Values.D1, new Object[0]);
         for (FluidContainerRegistry.FluidContainerData tData : FluidContainerRegistry
             .getRegisteredFluidContainerData()) {
             onFluidContainerRegistration(new FluidContainerRegistry.FluidContainerRegisterEvent(tData));

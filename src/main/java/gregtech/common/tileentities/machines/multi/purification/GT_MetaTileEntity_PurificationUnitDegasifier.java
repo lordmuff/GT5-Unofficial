@@ -505,7 +505,7 @@ public class GT_MetaTileEntity_PurificationUnitDegasifier
                 "Degasser Control Hatch",
                 EnumChatFormatting.GOLD + "1" + EnumChatFormatting.GRAY + ", Any Trinium Casing",
                 1)
-            .toolTipFinisher("GregTech");
+            .toolTipFinisher("GregTech5");
         return tt;
     }
 

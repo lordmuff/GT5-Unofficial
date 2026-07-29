@@ -128,7 +128,7 @@ public class RocketFuels extends ItemPackage {
         GT_Values.RA.stdBuilder()
             .itemInputs(GT_Utility.getIntegratedCircuit(21))
             .fluidInputs(
-                FluidUtils.getFluidStack("fluid.hydrogenperoxide", 1000),
+                FluidUtils.getFluidStack("hydrogenperoxide", 1000),
                 FluidUtils.getFluidStack("ammonia", 2000))
             .fluidOutputs(FluidUtils.getFluidStack(Hydrazine, 1000))
             .duration(30 * SECONDS)

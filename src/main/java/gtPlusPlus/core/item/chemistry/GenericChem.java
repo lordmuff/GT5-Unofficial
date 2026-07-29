@@ -804,7 +804,7 @@ public class GenericChem extends ItemPackage {
                 GT_Utility.getIntegratedCircuit(4),
                 ItemUtils.getItemStackOfAmountFromOreDict("dustLithiumHydroxide", 3))
             .itemOutputs(ItemUtils.getItemStackOfAmountFromOreDict("dustLithiumHydroperoxide", 4))
-            .fluidInputs(FluidUtils.getFluidStack("fluid.hydrogenperoxide", 1000))
+            .fluidInputs(FluidUtils.getFluidStack("hydrogenperoxide", 1000))
             .duration(30 * SECONDS)
             .eut(240)
             .metadata(CHEMPLANT_CASING_TIER, 1)
@@ -823,7 +823,7 @@ public class GenericChem extends ItemPackage {
                 FluidUtils.getFluidStack("fluid.anthracene", 50))
             .fluidOutputs(
                 FluidUtils.getFluidStack(Ethylanthraquinone2, 5000),
-                FluidUtils.getFluidStack("fluid.hydrogenperoxide", 5000))
+                FluidUtils.getFluidStack("hydrogenperoxide", 5000))
             .duration(30 * SECONDS)
             .eut(240)
             .metadata(CHEMPLANT_CASING_TIER, 1)
@@ -836,7 +836,7 @@ public class GenericChem extends ItemPackage {
                 FluidUtils.getFluidStack("fluid.anthracene", 50))
             .fluidOutputs(
                 FluidUtils.getFluidStack(Ethylanthraquinone2, 5000),
-                FluidUtils.getFluidStack("fluid.hydrogenperoxide", 5000))
+                FluidUtils.getFluidStack("hydrogenperoxide", 5000))
             .duration(5 * SECONDS)
             .eut(240)
             .metadata(CHEMPLANT_CASING_TIER, 1)

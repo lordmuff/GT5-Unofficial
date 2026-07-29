@@ -297,7 +297,7 @@ public class GT_MetaTileEntity_PurificationUnitParticleExtractor
                     + "This ultimately creates both Stabilised Baryonic Matter and, most importantly, absolutely perfectly purified water.")
             .addInfo(AuthorNotAPenguin)
             .beginStructureBlock(17, 17, 17, false)
-            .toolTipFinisher("GregTech");
+            .toolTipFinisher("GregTech5");
         return tt;
     }
 

@@ -205,7 +205,7 @@ public class GT_Values {
      * MOD ID Strings, since they are very common Parameters.
      */
     @Deprecated
-    public static final String MOD_ID = "gregtech";
+    public static final String MOD_ID = "gregtech5";
     @Deprecated
     public static final String MOD_ID_IC2 = "IC2";
     @Deprecated
