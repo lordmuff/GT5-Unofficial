@@ -78,8 +78,7 @@ dependencies {
     compileOnly("com.github.GTNewHorizons:EnderCore:0.5.0:dev") { transitive = false }
     compileOnly('com.github.GTNewHorizons:VisualProspecting:1.5.11:dev') { transitive = false }
     compileOnly("com.github.GTNewHorizons:Galaxy-Space-GTNH:1.1.123-GTNH:dev") { transitive = false }
-    compileOnly("com.github.GTNewHorizons:Hardcore-Ender-Expansion:1.13.0-GTNH:dev") { transitive = false }
-
+    compileOnly("com.github.GTNewHorizons:Hardcore-Ender-Expansion:1.12.19-GTNH:dev") { transitive = false }
     implementation("com.github.GTNewHorizons:TinkersConstruct:1.14.17-GTNH:dev")
 
     compileOnly("com.github.GTNewHorizons:Chisel:2.17.9-GTNH:dev") { transitive = false }
@@ -142,7 +141,7 @@ dependencies {
     runtimeOnlyNonPublishable('com.github.GTNewHorizons:Angelica:1.0.0-beta68a:dev') { transitive = false }
 
     // Speeds up mod identification and loading in dev
-    runtimeOnlyNonPublishable(rfg.deobf("CoreTweaks:CoreTweaks:0.3.3.2"))
+    runtimeOnlyNonPublishable(rfg.deobf("com.github.GTNewHorizons:CoreTweaks:0.3.3.8-GTNH"))
 }
 
 afterEvaluate {
